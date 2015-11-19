@@ -39,14 +39,16 @@ var paths = {
 
 // Clean
 gulp.task('clean', function() {
-    return plugins.del([
+    var toClean = [
         paths.styl.dest + '*',
         paths.css.dest + '**/*.{css,map}',
         paths.js.dest + '**/*.{js,map}',
         '!' + paths.js.dest + 'modules/*.{js,map}',
         paths.img.dest +'**/*',
         '!' + paths.img.dest + "src/**"
-    ]);
+    ];
+    
+    return plugins.del(toClean);
 });
 
 // Bower plugins
@@ -56,7 +58,8 @@ gulp.task('bower', function() {
 
     return gulp.src(plugins.mainBowerFiles({
             includeDev: true,
-            includeSelf: true
+            includeSelf: true,
+            debugging: true
         }))
         .pipe(cssFiles)
         .pipe(plugins.concat('bower.css'))
@@ -78,7 +81,6 @@ gulp.task('stylus', function() {
     return gulp.src(paths.styl.main)
         .pipe(plugins.stylus({
             paths:  ['assets/styl/base/', 'assets/styl/modules/'],
-            use: [plugins.jeet(), plugins.rupture(), plugins.normalize()],
             'include css': true
         }))
         // .pipe(plugins.stylint({config: '.stylintrc'}))
@@ -108,7 +110,7 @@ gulp.task('styles', function (cb) {
 gulp.task('modernizr', function() {
   gulp.src(paths.js.src)
     .pipe(plugins.modernizr())
-    .pipe(gulp.dest(paths.js.dest + 'plugins/'))
+    .pipe(gulp.dest(paths.js.dest + 'plugins/'));
 });
 
 gulp.task('js', function() {
@@ -125,7 +127,7 @@ gulp.task('js', function() {
         .pipe(plugins.uglify())
         .pipe(plugins.rename({ suffix: '.min' }))
         .pipe(plugins.sourcemaps.write('.'))
-        .pipe(gulp.dest(paths.js.dest))
+        .pipe(gulp.dest(paths.js.dest));
 });
 
 gulp.task('scripts', function (cb) {
@@ -152,8 +154,7 @@ gulp.task('sprite', function() {
         mode: {
             shape: {
                 spacing: {
-                    padding: 10,
-                    box: 'content'
+                    padding: 0
                 }
             },
             css: {
@@ -220,7 +221,7 @@ gulp.task('bump:patch', function() {
 
 // Watch
 gulp.task('watch', function() {
-    gulp.watch(paths.plugins.src, ['bower']);
+    gulp.watch(paths.plugins.src, ['bower, styles, scripts']);
     gulp.watch(paths.styl.src, ['styles']);
     gulp.watch(paths.js.src, ['scripts']);
     gulp.watch(paths.img.src, ['img']);
@@ -230,5 +231,12 @@ gulp.task('watch', function() {
     gulp.watch('./bower.json', ['update:bower']);
 });
 
+gulp.task('build', function (cb) {
+    plugins.sequence(['bower', 'images', 'html'],['styles', 'scripts'], 'watch', cb);
+});
+
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['watch', 'bower', 'styles', 'scripts', 'images', 'html', 'copy']);
+gulp.task('default', ['build'], function() {
+    return gulp.src('./')
+        .pipe(plugins.notify('Successfully built your project!'));
+});

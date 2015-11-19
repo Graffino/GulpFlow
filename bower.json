@@ -35,5 +35,31 @@
   },
   "resolutions": {
     "jquery": "~2.1.4"
+  },
+  "overrides": {
+    "pointer-events-poly": {
+      "main": "pointer_events_polyfill.js"
+    },
+    "srcset-poly": {
+      "main": "build/srcset.js"
+    },
+    "h5Validate": {
+      "main": "jquery.h5validate.js"
+    },
+    "slick.js": {
+      "main": ["slick/slick.js", "slick/slick.css"]
+    },
+    "fontfaceobserver": {
+      "main": "fontfaceobserver.js"
+    },
+    "jeet": {
+      "main": []
+    },
+    "rupture-by-jenius": {
+      "main": []
+    },
+    "normalize.styl": {
+      "main": []
+    }
   }
 }
