@@ -1,0 +1,58 @@
+//
+// Name: Section
+// Author: Graffino (http://www.graffino.com)
+//
+
+/**
+ * Section
+ */
+.section {
+    position: relative;
+    padding: rem(10);
+
+    &__header {
+
+    }
+    
+    &__wrapper {
+    
+    }
+    
+    &__content {
+    
+    }
+    
+    &__footer {
+
+    }
+
+// Headings
+    h1 {
+        @extends $h1;
+    }
+    h2 {
+        @extends $h2;
+    }
+    h3 {
+        @extends $h3;
+    }
+    h4 {
+        @extends $h4;
+    }
+
+// Links
+    a:not(.button) {
+        @extends .link;
+    }
+
+// Text
+    span, p, .text {
+        @extends .text;
+    }
+
+// Padding
+    &.-no-padding {
+        padding: 0;
+    }
+
+}

@@ -1,0 +1,37 @@
+//
+// Name: Fonts
+// Author: Graffino (http://www.graffino.com)
+//
+
+/**
+ *  Extra Light, Ultra Light = 100
+ *  Light, Thin = 200
+ *  Book, Demi = 300
+ *  Normal, Regular = 400
+ *  Medium = 500
+ *  SemiBold, Demibold = 600
+ *  Bold = 700
+ *  Black, ExtraBold, Heavy = 800
+ *  Extra Black, Fat, Poster, UltraBlack = 900
+ */
+
+/*
+ * Font mixin
+ */
+webfont($family, $file, $weight = normal, $style = normal) {
+    @font-face {
+        font-family: $family;
+        src: url("../fonts/" + $file + ".woff2") format("woff2"),
+             url("../fonts/" + $file + ".woff") format("woff"),
+             url("../fonts/" + $file + ".ttf") format("truetype"); // @stylint ignore
+        font-weight: $weight;
+        font-style: $style;
+    }
+}
+
+/**
+ * Embedded fonts
+ */
+// Font Name
+// Font Style
+webfont("Font Name", "File Name", FontWeight, FontStyle);

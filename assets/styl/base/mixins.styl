@@ -1,0 +1,23 @@
+//
+// Name: Mixins
+// Author: Graffino (http://www.graffino.com)
+//
+
+/**
+ * Custom mixins
+ */
+
+// Convert to REM
+rem($value) {
+    return unit($value/$base-font-size-px, "rem");
+}
+
+// Convert to EM
+em($value) {
+    return unit($value/$base-font-size-px, "em");
+}
+
+// Text stroke
+text-stroke($color = transparent) { // @stylint off
+    text-shadow: -2px -2px 2px $color, 2px -2px 2px $color, -2px  2px 2px $color, 2px  2px 2px $color;
+} // @stylint on

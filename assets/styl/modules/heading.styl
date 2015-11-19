@@ -1,0 +1,53 @@
+//
+// Name: Heading
+// Author: Graffino (http://www.graffino.com)
+//
+
+/**
+ * Heading
+ */
+.heading {
+    
+    &.-color-white {
+        color: $color-white;
+    }
+    
+    &.-no-margin {
+        margin: 0;
+    }
+    &.-no-margin-bottom {
+        margin-bottom: 0;
+    }
+        
+    &.-align-center {
+        text-align: center;
+    }
+    
+    &.-size-large {
+        @extends $h1;
+    }
+    &.-size-normal {
+        @extends $h2;
+    }
+    &.-size-medium {
+        @extends $h3;
+    }
+    &.-size-small {
+        @extends $h4;
+    }
+    
+    &.-has-subtitle {
+        margin-top: rem(10);
+        margin-bottom: rem(10);
+    }
+
+    &.-case-upper {
+        text-transform: uppercase;
+    }
+    
+    &.-no-break {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}

@@ -1,0 +1,17 @@
+bower_components
+node_modules
+assets/images/svg
+assets/images/apple-touch-icon.png
+assets/images/favicon.ico
+assets/images/logo.svg
+assets/images/placeholders
+assets/images/sprite.svg
+assets/css
+assets/js/main.js
+assets/js/main.min.js
+assets/js/main.min.js.map
+assets/js/plugins
+assets/libs
+assets/js/main.js.map
+assets/images/touch-icon-transparent.png
+assets/images/touch-icon.png

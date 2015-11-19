@@ -1,0 +1,58 @@
+//
+// Name: Plugins
+// Author: Graffino (http://www.graffino.com)
+//
+
+/**
+ * Magnific Popup
+ */
+
+// Overlay at start
+.mfp-fade.mfp-bg {
+    background: $color-overlay;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+}
+// Overlay animate in
+.mfp-fade.mfp-bg.mfp-ready { opacity: 0.8; }
+// Overlay animate out
+.mfp-fade.mfp-bg.mfp-removing { opacity: 0; }
+// Content at start
+.mfp-fade.mfp-wrap .mfp-content {
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+}
+// Content animate in
+.mfp-fade.mfp-wrap.mfp-ready .mfp-content { opacity: 1; }
+// Content animate out
+.mfp-fade.mfp-wrap.mfp-removing .mfp-content { opacity: 0; }
+
+// Style popup
+.mfp-content {
+    padding: rem(20);
+}
+
+.mfp-inline-holder .mfp-content,
+.mfp-ajax-holder .mfp-content {
+    max-width: rem(1100);
+}
+
+.mfp-close-btn-in .mfp-close {
+//    text-indent: -9999px;
+    top: rem(10);
+    right: rem(10);
+    opacity: 1;
+}
+
+/**
+ * h5Validate
+ */
+.form .ui-state-error {
+    border: 2px solid red;
+
+    &::placeholder {
+        color: red;
+    }
+}
+
+.form .ui-state-valid { }
