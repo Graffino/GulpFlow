@@ -34,6 +34,7 @@ var paths = {
         dest : 'assets/images/'
     },
     sprite: 'assets/images/svg/*.svg',
+    spriteSrc: 'assets/images/src/svg/*.svg',
     html: './*.html'
 };
 
@@ -59,7 +60,7 @@ gulp.task('bower', function() {
     return gulp.src(plugins.mainBowerFiles({
             includeDev: true,
             includeSelf: true,
-            debugging: true
+            debugging: false
         }))
         .pipe(cssFiles)
         .pipe(plugins.concat('bower.css'))
@@ -102,15 +103,67 @@ gulp.task('css', function() {
         .pipe(gulp.dest(paths.css.dest));
 });
 
-gulp.task('styles', function (cb) {
-    plugins.sequence('stylus', 'css', cb);
-});
-
 // Scripts
 gulp.task('modernizr', function() {
-  gulp.src(paths.js.src)
-    .pipe(plugins.modernizr())
-    .pipe(gulp.dest(paths.js.dest + 'plugins/'));
+    var config = {
+        cache: true,
+        crawl: false,
+        uglify: false,
+        options: [
+            'setClasses'
+        ],
+        tests: [
+            'canvas',
+            'fullscreen-api',
+            'hiddenscroll',
+            'history',
+            'htmlimports',
+            'input',
+            'inputsearchevent',
+            'inputtypes',
+            'lists-reversed',
+            'requestanimationframe',
+            'svg',
+            'touchevents',
+            'geolocation',
+            'touchevents',
+            'vibration',
+            'a/download',
+            'battery/lowbattery',
+            'css/appearance',
+            'css/backgroundblendmode',
+            'css/backgroundcliptext',
+            'css/backgroundposition-shorthand',
+            'css/calc',
+            'css/columns',
+            'css/filters',
+            'css/flexbox',
+            'css/flexboxlegacy',
+            'css/flexwrap',
+            'css/invalid',
+            'css/mask',
+            'css/pointerevents',
+            'css/positionsticky',
+            'css/reflections',
+            'css/transitions',
+            'css/vhunit',
+            'css/vmaxunit',
+            'css/vminunit',
+            'css/vwunit',
+            'css/will-change',
+            'forms/placeholder',
+            'img/sizes',
+            'img/srcset',
+            'svg/asimg',
+            'svg/filters',
+            'svg/inline',
+            'svg/svgclippaths',
+            'video/autoplay'
+        ]
+    };
+    gulp.src(paths.js.src)
+        .pipe(plugins.modernizr(config))
+        .pipe(gulp.dest(paths.js.dest + 'plugins/'));
 });
 
 gulp.task('js', function() {
@@ -130,18 +183,26 @@ gulp.task('js', function() {
         .pipe(gulp.dest(paths.js.dest));
 });
 
-gulp.task('scripts', function (cb) {
-    plugins.sequence('modernizr', 'js', cb);
+// Images
+gulp.task('img:development', function() {
+    var config = {
+        optimizationLevel: 0,
+        progressive: false,
+        interlaced: false
+    };
+
+    return gulp.src(paths.img.src)
+        .pipe(plugins.imagemin(config))
+        .pipe(gulp.dest(paths.img.dest));
 });
 
-// Images
-gulp.task('img', function() {
+gulp.task('img:production', function() {
     var config = {
         optimizationLevel: 7,
         progressive: true,
         interlaced: true,
         svgoPlugins: [{removeViewBox: false}],
-        use: [plugins.imageminPngquant({ quality: '85', speed: 1 }), plugins.imageminMozjpeg({quality: 80})]
+        use: [plugins.imageminPngquant({ quality: '85', speed: 1 }), plugins.imageminMozjpeg({quality: '80'})]
     };
 
     return gulp.src(paths.img.src)
@@ -177,10 +238,6 @@ gulp.task('sprite', function() {
     return gulp.src(paths.sprite)
         .pipe(plugins.svgSprite(config))
         .pipe(gulp.dest(paths.img.dest));
-});
-
-gulp.task('images', function (cb) {
-    plugins.sequence('img', 'sprite', cb);
 });
 
 // Html
@@ -219,24 +276,58 @@ gulp.task('bump:patch', function() {
         .pipe(gulp.dest('./'));
 });
 
+// Sequences
+gulp.task('scripts', function (cb) {
+    plugins.sequence('modernizr', 'js', cb);
+});
+
+gulp.task('images:development', function (cb) {
+    plugins.sequence('img:development', 'sprite', cb);
+});
+
+gulp.task('images:production', function (cb) {
+    plugins.sequence('img:production', 'sprite', cb);
+});
+
+gulp.task('styles', function (cb) {
+    plugins.sequence('stylus', 'css', cb);
+});
+
+gulp.task('spriteSequence', function (cb) {
+    plugins.sequence('images', 'styles', cb);
+});
+
+gulp.task('bowerSequence', function (cb) {
+    plugins.sequence('bower', 'styles', 'scripts', cb);
+});
+
 // Watch
 gulp.task('watch', function() {
     gulp.watch(paths.plugins.src, ['bower, styles, scripts']);
     gulp.watch(paths.styl.src, ['styles']);
     gulp.watch(paths.js.src, ['scripts']);
     gulp.watch(paths.img.src, ['img']);
-    gulp.watch(paths.sprite, ['sprite']);
+    gulp.watch(paths.spriteSrc, ['spriteSequence']);
     gulp.watch(paths.html, ['html']);
     gulp.watch('./package.json', ['update:npm']);
     gulp.watch('./bower.json', ['update:bower']);
 });
 
-gulp.task('build', function (cb) {
-    plugins.sequence(['bower', 'images', 'html'],['styles', 'scripts'], 'watch', cb);
+gulp.task('build:development', function (cb) {
+    plugins.sequence(['bower', 'images:development', 'html'], ['styles', 'scripts'], 'watch', cb);
+});
+
+gulp.task('build:production', function (cb) {
+    plugins.sequence('clean', ['bower', 'images:production', 'html'], ['styles', 'scripts'], 'watch', cb);
 });
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['build'], function() {
+gulp.task('default', ['build:development'], function() {
     return gulp.src('./')
         .pipe(plugins.notify('Successfully built your project!'));
+});
+
+gulp.task('production', ['build:production'], function() {
+    return gulp.src('./')
+        .pipe(plugins.notify('Project ready for production!'));
 });
