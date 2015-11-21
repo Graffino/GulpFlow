@@ -80,66 +80,37 @@ docs
 ### Compilation flow when running: ###
 
 ```
+Initialization
+```
+Run 'npm install ; gulp'
+
+```
 Gulp
 ```
 
-1. Node components are fetched and installed in node_components
-2. Gulp, Bower are installed
-3. Javascript, CSS, Stylus libraries are fetched into bower_components via bower install
-4. SVGs are optimized, compressed and copied into /images/svg.
-5. SVG sprite is generated (sprite.styl, sprite.svg), sprite.styl file copied into /styl/base/, sprite.svg is copied into images/svg
-6. Stylus is compiled from /assets/styl/ & CSS to /css/modules/app.css
-7. /css/modules/app.css and /css/plugins/bower.css are concatenated into /css/main.css
-8. String replace is run on /css/main.css to eliminate CSS that may cause issues
-9. Autoprefixer is run on /css/main.css for automatically adding needed CSS browser prefixes and minifying the css to /css/main.min.css
-10. HTML and Javascript files (/js/main.js) are linted for errors via JSHint and HTMLLint
-11. /js/modules/app.js and /js/plugins/bower.js are concatenated into /js/main.js
-12. /js/main.js is being minified into /js/main.min.js
-13. PNG/JPG Images in /assets/images/src are compressed (lightest compression) and copied into /images/ under the same structure
-14. Base logo, favicon, iOS icons are copied to /images
-15. A watch for changes function is launched
-
-```
-Gulp staging
-```
-
-1. - Same as above
-2. - Same as above
-3. - Same as above
-4. - Same as above
-5. - Same as above
-6. - Same as above
-7. - Same as above
-8. - Same as above
-9. - Same as above
-10. - Linting doesn't run on staging
-11. - Same as above
-12. - Same as above
-13. - Same as above
-14. - Same as above
-15. - Watch doesn't run on staging
+1. Bower components are fetched and installed in /bower_components.
+2. Bower libraries's main js and css files are compiled to bower.js, bower.css respectively.
+3. Images are copied from source into images/.
+4. SVG sprite is generated (sprite.styl, sprite.svg), sprite.styl file copied into /styl/base/, sprite.svg is copied into images/svg.
+5. HTML files are linted for errors via HTMLHint according to .htmlhintrc configuration file.
+6. Stylus is compiled from /assets/styl/ & CSS to /css/modules/app.css.
+7. /css/modules/app.css and /css/plugins/bower.css are concatenated into /css/main.css.
+8. PostCSS along with Autoprefixer, combineMq and Quantity Queries is run on /css/main.css for automatically adding needed CSS browser prefixes and minifying the css to /css/main.min.css.
+9. Javascript files (/js/main.js) is linted for errors via JSHint.
+10. /js/modules/app.js and /js/plugins/bower.js are concatenated into /js/main.js and then minified into /js/main.min.js.
+14. Base logo, favicon, iOS icons are copied to /images.
+15. A watch for changes function is launched.
 
 ```
 Gulp production
 ```
-Additional step: Gulp clean is being run, deleting all dynamically generated files & paths including /bower_components
 
-1. - Same as above
-2. - Same as above
-3. - Same as above
-4. - Same as above
-5. - Same as above
-6. - Same as above
-7. - Same as above
-8. - Same as above
-9. - Same as above
-10. Linting doesn't run on production
-11. - Same as above
-12. - Same as above
-13. Images are being compressed using the highest setting (this takes some time)
-14. - Same as above
-15. Watch doesn't run on production
-16. Generates the critical CSS to be included in the head in /css/critical.css using devpage path specified in package.json
+Apart from development steps:
+
+1. Gulp clean is being run, deleting all dynamically generated files & paths including /bower_components.
+2. Any eventual modification in package.json are resolved.
+3. Images are heavily optimized, compressed and copied into images/ (this might take a while).
+4. Watch doesn't run on production.
 
 
 ```
@@ -147,17 +118,8 @@ Gulp clean
 ```
 * Deletes all dynamically generated files & paths including /bower_components
 
-```
-Gulp criticalcss
-```
-* Generates the critical CSS to be included in the head in /css/critical.css using devpage path specified in package.json
 
 ```
 Gulp test
 ```
-* HTML and Javascript files (/js/main.js) are linted for errors via JSHint and HTMLLint
-
-```
-Gulp bower
-```
-* Javascript, CSS, Stylus libraries are fetched into bower_components via bower install
+* HTML, Stylus and Javascript files (/js/main.js) are linted for errors via JSHint and HTMLHint and Stylint

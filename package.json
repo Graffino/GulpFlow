@@ -41,18 +41,21 @@
     "gulp-postcss": "~6.0.1",
     "gulp-rename": "~1.2.2",
     "gulp-sequence": "~0.4.1",
+    "gulp-shell": "^0.5.1",
     "gulp-sourcemaps": "~1.6.0",
+    "gulp-stats": "0.0.3",
     "gulp-stylint": "~3.0.0",
     "gulp-stylus": "~2.1.0",
     "gulp-svg-sprite": "~1.2.14",
     "gulp-uglify": "~1.5.1",
     "imagemin-mozjpeg": "~5.1.0",
     "imagemin-pngquant": "~4.2.0",
-    "jeet": "~6.1.2",
     "main-bower-files": "~2.9.0",
     "merge-stream": "~1.0.0",
-    "normalize": "~0.3.1",
-    "postcss-quantity-queries": "~0.4.0",
-    "rupture": "~0.6.1"
+    "postcss-quantity-queries": "~0.4.0"
+  },
+  "scripts": {
+    "update:bower": "bower install && bower prune",
+    "update:npm": "npm install && npm prune"
   }
 }
