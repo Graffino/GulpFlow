@@ -31,7 +31,8 @@
     "matchHeight": "~0.6.0",
     "velocity": "~1.2.2",
     "magnific-popup": "~1.0.0",
-    "pointer-events-poly": "*"
+    "pointer-events-poly": "*",
+    "BackstopJS": "backstopjs#~0.8.0"
   },
   "resolutions": {
     "jquery": "~2.1.4"
@@ -47,7 +48,10 @@
       "main": "jquery.h5validate.js"
     },
     "slick.js": {
-      "main": ["slick/slick.js", "slick/slick.css"]
+      "main": [
+        "slick/slick.js",
+        "slick/slick.css"
+      ]
     },
     "fontfaceobserver": {
       "main": "fontfaceobserver.js"
