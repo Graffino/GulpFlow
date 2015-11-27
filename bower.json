@@ -1,10 +1,10 @@
 {
-  "name": "GruntFlow",
+  "name": "GulpFlow",
   "version": "1.0.0",
   "authors": [
     "Graffino"
   ],
-  "description": "Our grunt flow at Graffino.",
+  "description": "Our gulp flow at Graffino.",
   "main": "assets/css/main.styl",
   "keywords": [],
   "license": "MIT",
