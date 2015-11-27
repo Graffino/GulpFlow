@@ -12,7 +12,7 @@
 // Global
 var $html                      = $('html');
 var $window                    = $(window);
-var fontFacesObserverName       = 'Arial';
+var fontFaceObserverName       = 'Arial';
 
 // Scroll
 var scrollPoolingDelay         = 250;

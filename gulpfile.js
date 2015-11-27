@@ -103,6 +103,20 @@ gulp.task('css', function() {
         .pipe(gulp.dest(paths.css.dest));
 });
 
+// CSS Regression Testing
+gulp.task('regression:init', function() {
+    return gulp.src('/')
+        .pipe(plugins.shell('cd bower_components/BackstopJS/ ; npm install ; gulp genConfig'));
+});
+gulp.task('regression:reference', function() {
+    return gulp.src('/')
+        .pipe(plugins.shell('cd bower_components/BackstopJS/ ; gulp reference'));
+});
+gulp.task('regression:test', function() {
+    return gulp.src('/')
+        .pipe(plugins.shell('cd bower_components/BackstopJS/ ; gulp test'));
+});
+
 // Scripts
 gulp.task('modernizr', ['stylus'], function() {
     var config = {
