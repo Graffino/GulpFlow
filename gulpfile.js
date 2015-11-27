@@ -331,7 +331,7 @@ gulp.task('watch', function() {
     gulp.watch(paths.plugins.src, ['bowerSequence']);
     gulp.watch(paths.styl.src, ['styles']);
     gulp.watch(paths.js.src, ['scriptsSequence']);
-    gulp.watch(paths.img.src, ['img']);
+    gulp.watch(paths.img.src, ['img:development']);
     gulp.watch(paths.spriteSrc, ['spriteSequence']);
     gulp.watch(paths.html, ['html']);
     gulp.watch('./package.json', ['update:npm']);
