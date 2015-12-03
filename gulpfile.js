@@ -8,7 +8,8 @@ var gulp = require('gulp'),
         camelize: true
     },
     plugins = gulpLoadPlugins(config);
-    
+require('gulp-stats')(gulp);
+
 // Paths
 var paths = {
     styl: {
@@ -46,7 +47,7 @@ gulp.task('clean', function() {
         paths.js.dest + '**/*.{js,map}',
         '!' + paths.js.dest + 'modules/*.{js,map}',
         paths.img.dest +'**/*',
-        '!' + paths.img.dest + "src/**"
+        '!' + paths.img.dest + 'src/**'
     ];
     
     return plugins.del(toClean);
@@ -68,7 +69,7 @@ gulp.task('bower', function() {
         .pipe(cssFiles.restore)
         .pipe(jsFiles)
         .pipe(plugins.concat('bower.js'))
-        .pipe(gulp.dest(paths.plugins.js))
+        .pipe(gulp.dest(paths.plugins.js));
 });
 
 // Styles
@@ -80,12 +81,12 @@ gulp.task('stylus', function() {
     ];
     
     return gulp.src(paths.styl.main)
+        .pipe(plugins.stylint({config: '.stylintrc'}))
+        .pipe(plugins.stylint.reporter())
         .pipe(plugins.stylus({
             paths:  ['assets/styl/base/', 'assets/styl/modules/'],
             'include css': true
         }))
-        // .pipe(plugins.stylint({config: '.stylintrc'}))
-        // .pipe(plugins.stylint.reporter())
         .pipe(plugins.postcss(processors))
         .pipe(plugins.rename('app.css'))
         .pipe(gulp.dest(paths.styl.dest));
@@ -104,7 +105,7 @@ gulp.task('css', function() {
 });
 
 // Scripts
-gulp.task('modernizr', function() {
+gulp.task('modernizr', ['stylus'], function() {
     var config = {
         cache: true,
         crawl: false,
@@ -161,18 +162,18 @@ gulp.task('modernizr', function() {
             'video/autoplay'
         ]
     };
-    gulp.src(paths.js.src)
+    gulp.src(['./assets/js/modules/app.js', './assets/css/modules/app.css'])
         .pipe(plugins.modernizr(config))
         .pipe(gulp.dest(paths.js.dest + 'plugins/'));
 });
 
-gulp.task('js', function() {
+gulp.task('scripts', function() {
     var appJs = plugins.filter('app.js', {restore: true});
 
     return gulp.src(paths.js.src)
         .pipe(appJs)
-        // .pipe(plugins.jshint('.jshintrc'))
-        // .pipe(plugins.jshint.reporter())
+        .pipe(plugins.jshint('.jshintrc'))
+        .pipe(plugins.jshint.reporter())
         .pipe(appJs.restore)
         .pipe(plugins.concat('main.js'))
         .pipe(gulp.dest(paths.js.dest))
@@ -240,7 +241,7 @@ gulp.task('sprite', function() {
         .pipe(gulp.dest(paths.img.dest));
 });
 
-// Html
+// HTML
 gulp.task('html', function() {
     return gulp.src(paths.html)
         .pipe(plugins.htmlhint('.htmlhintrc'))
@@ -276,11 +277,18 @@ gulp.task('bump:patch', function() {
         .pipe(gulp.dest('./'));
 });
 
-// Sequences
-gulp.task('scripts', function (cb) {
-    plugins.sequence('modernizr', 'js', cb);
+// Updates
+gulp.task('update:npm', function() {
+    return gulp.src('./package.json')
+        .pipe(plugins.shell('npm run update:npm'));
 });
 
+gulp.task('update:bower', function() {
+    return gulp.src('./bower.json')
+        .pipe(plugins.shell('npm run update:bower'));
+});
+
+// Sequences
 gulp.task('images:development', function (cb) {
     plugins.sequence('img:development', 'sprite', cb);
 });
@@ -301,11 +309,15 @@ gulp.task('bowerSequence', function (cb) {
     plugins.sequence('bower', 'styles', 'scripts', cb);
 });
 
+gulp.task('scriptsSequence', function (cb) {
+    plugins.sequence('modernizr', 'scripts', cb);
+});
+
 // Watch
 gulp.task('watch', function() {
-    gulp.watch(paths.plugins.src, ['bower, styles, scripts']);
+    gulp.watch(paths.plugins.src, ['bowerSequence']);
     gulp.watch(paths.styl.src, ['styles']);
-    gulp.watch(paths.js.src, ['scripts']);
+    gulp.watch(paths.js.src, ['scriptsSequence']);
     gulp.watch(paths.img.src, ['img']);
     gulp.watch(paths.spriteSrc, ['spriteSequence']);
     gulp.watch(paths.html, ['html']);
@@ -314,11 +326,11 @@ gulp.task('watch', function() {
 });
 
 gulp.task('build:development', function (cb) {
-    plugins.sequence(['bower', 'images:development', 'html'], ['styles', 'scripts'], 'watch', cb);
+    plugins.sequence('update:bower', ['bower', 'images:development', 'html'], 'modernizr', ['styles', 'scripts'], 'watch', cb);
 });
 
 gulp.task('build:production', function (cb) {
-    plugins.sequence('clean', ['bower', 'images:production', 'html'], ['styles', 'scripts'], 'watch', cb);
+    plugins.sequence('clean',['update:bower', 'update:npm'], ['bower', 'images:production', 'html'], 'modernizr', ['styles', 'scripts'], cb);
 });
 
 // The default task (called when you run `gulp` from cli)
