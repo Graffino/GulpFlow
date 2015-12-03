@@ -9,6 +9,7 @@ var gulp = require('gulp'),
     },
     plugins = gulpLoadPlugins(config);
 require('gulp-stats')(gulp);
+
 // Paths
 var paths = {
     styl: {
@@ -46,7 +47,7 @@ gulp.task('clean', function() {
         paths.js.dest + '**/*.{js,map}',
         '!' + paths.js.dest + 'modules/*.{js,map}',
         paths.img.dest +'**/*',
-        '!' + paths.img.dest + "src/**"
+        '!' + paths.img.dest + 'src/**'
     ];
     
     return plugins.del(toClean);
@@ -68,7 +69,7 @@ gulp.task('bower', function() {
         .pipe(cssFiles.restore)
         .pipe(jsFiles)
         .pipe(plugins.concat('bower.js'))
-        .pipe(gulp.dest(paths.plugins.js))
+        .pipe(gulp.dest(paths.plugins.js));
 });
 
 // Styles
@@ -240,7 +241,7 @@ gulp.task('sprite', function() {
         .pipe(gulp.dest(paths.img.dest));
 });
 
-// Html
+// HTML
 gulp.task('html', function() {
     return gulp.src(paths.html)
         .pipe(plugins.htmlhint('.htmlhintrc'))
@@ -276,7 +277,7 @@ gulp.task('bump:patch', function() {
         .pipe(gulp.dest('./'));
 });
 
-// Upadates
+// Updates
 gulp.task('update:npm', function() {
     return gulp.src('./package.json')
         .pipe(plugins.shell('npm run update:npm'));
