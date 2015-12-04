@@ -334,7 +334,7 @@ gulp.task('watch', function() {
     gulp.watch(paths.plugins.src, ['bowerSequence']);
     gulp.watch(paths.styl.src, ['styles']);
     gulp.watch(paths.js.src, ['scriptsSequence']);
-    gulp.watch(paths.img.src, ['img:development']);
+    gulp.watch(paths.img.src, ['img:development', 'copy']);
     gulp.watch(paths.spriteSrc, ['spriteSequence']);
     gulp.watch(paths.html, ['html']);
     gulp.watch('./package.json', ['update:npm']);
@@ -342,11 +342,11 @@ gulp.task('watch', function() {
 });
 
 gulp.task('build:development', function (cb) {
-    plugins.sequence(['bower', 'images:development', 'html'], 'modernizr', ['styles', 'scripts'], 'watch', cb);
+    plugins.sequence(['bower', 'images:development', 'html', 'copy'], 'modernizr', ['styles', 'scripts'], 'watch', cb);
 });
 
 gulp.task('build:production', function (cb) {
-    plugins.sequence('clean',['update:bower', 'update:npm'], ['bower', 'images:production', 'html'], 'modernizr', ['styles', 'scripts'], cb);
+    plugins.sequence('clean',['update:bower', 'update:npm'], ['bower', 'images:production', 'html', 'copy'], 'modernizr', ['styles', 'scripts'], cb);
 });
 
 // The default task (called when you run `gulp` from cli)
