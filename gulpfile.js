@@ -264,12 +264,14 @@ gulp.task('html', function() {
 
 // Copy files
 gulp.task('copy', function() {
-    var favicon = gulp.src(paths.img.dest + 'src/favicon.ico')
+    var favicon = gulp.src(paths.img.dest + '/src/favicon.ico')
         .pipe(gulp.dest(paths.img.dest));
     var logo = gulp.src(paths.img.dest + 'svg/no-sprite/logo.svg')
         .pipe(gulp.dest(paths.img.dest));
+    var pin = gulp.src(paths.img.dest + 'svg/no-sprite/pin-icon.svg')
+        .pipe(gulp.dest(paths.img.dest));
 
-    return plugins.mergeStream(favicon, logo);
+    return plugins.mergeStream(favicon, logo, pin);
 });
 
 // Versioning
@@ -316,7 +318,7 @@ gulp.task('styles', function (cb) {
 });
 
 gulp.task('spriteSequence', function (cb) {
-    plugins.sequence('images', 'styles', cb);
+    plugins.sequence('images:development', 'styles', cb);
 });
 
 gulp.task('bowerSequence', function (cb) {
@@ -332,7 +334,7 @@ gulp.task('watch', function() {
     gulp.watch(paths.plugins.src, ['bowerSequence']);
     gulp.watch(paths.styl.src, ['styles']);
     gulp.watch(paths.js.src, ['scriptsSequence']);
-    gulp.watch(paths.img.src, ['img']);
+    gulp.watch(paths.img.src, ['img:development']);
     gulp.watch(paths.spriteSrc, ['spriteSequence']);
     gulp.watch(paths.html, ['html']);
     gulp.watch('./package.json', ['update:npm']);
@@ -340,7 +342,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('build:development', function (cb) {
-    plugins.sequence('update:bower', ['bower', 'images:development', 'html'], 'modernizr', ['styles', 'scripts'], 'watch', cb);
+    plugins.sequence(['bower', 'images:development', 'html'], 'modernizr', ['styles', 'scripts'], 'watch', cb);
 });
 
 gulp.task('build:production', function (cb) {
