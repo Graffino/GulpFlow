@@ -6,22 +6,43 @@
 /**
  * Vars
  */
+ // Debug
+ var debug = false;
 // Initialize Gulp
 var gulp = require('gulp');
+// Initialize Gutil
+var gutil = require('gulp-util');
 // Exec object for running shell scripts
 var exec = require('child_process').exec;
 // Automatically parse and load plugins
 var gulpLoadPlugins = require('gulp-load-plugins');
 // Plugins object holder
 var plugins = gulpLoadPlugins({
-    DEBUG: false,
+    DEBUG: debug,
     pattern: '*',
     replaceString: /^gulp(-|\.)/,
     camelize: true
 });
 
-// Load gulp stats
+
+/**
+ * Gulp stats
+ */
 require('gulp-stats')(gulp);
+
+
+/**
+ *  Error handler
+ */
+var onError = function (err) {
+    plugins.notify.onError({
+        title: 'Gulp error in ' + err.plugin,
+        message: err.toString()
+    })(err);
+    gutil.beep();
+    console.log(err.toString());
+    this.emit('end');
+};
 
 
 /**
@@ -153,7 +174,7 @@ gulp.task('bower:compile', function() {
             includeSelf: true,
             debugging: false
         }))
-        .pipe(plugins.plumber())
+        .pipe(plugins.plumber({errorHandler: onError}))
         .pipe(plugins.sourcemaps.init())
         .pipe(cssFiles)
         .pipe(plugins.groupConcat({'bower.css': '**/*.css'}))
@@ -198,7 +219,7 @@ gulp.task('modernizr:build', function() {
         ]
     };
     gulp.src('./assets/js/modules/app.js')
-        .pipe(plugins.plumber())
+        .pipe(plugins.plumber({errorHandler: onError}))
         .pipe(plugins.modernizr(config))
         .pipe(gulp.dest(paths.js.dest + 'plugins/'));
 });
@@ -216,7 +237,7 @@ gulp.task('stylus:compile', function() {
     ];
     
     return gulp.src(paths.styl.main)
-        .pipe(plugins.plumber())
+        .pipe(plugins.plumber({errorHandler: onError}))
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.stylus({
             paths:  ['assets/styl/base/', 'assets/styl/modules/', '!assets/styl/base/sprite.styl'],
@@ -231,7 +252,7 @@ gulp.task('stylus:compile', function() {
 // Postprocess, concatenate, to main.css
 gulp.task('css:process', function() {
     return gulp.src(paths.css.src)
-        .pipe(plugins.plumber())
+        .pipe(plugins.plumber({errorHandler: onError}))
         .pipe(plugins.sourcemaps.init({loadMaps: true}))
         .pipe(plugins.groupConcat({'main.css': '**/*.css'}))
         .pipe(plugins.sourcemaps.write('.'))
@@ -241,7 +262,7 @@ gulp.task('css:process', function() {
 // Minify CSS
 gulp.task('css:minify', function() {
     return gulp.src(paths.css.main)
-        .pipe(plugins.plumber())
+        .pipe(plugins.plumber({errorHandler: onError}))
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.postcss([plugins.csswring]))
         .pipe(plugins.rename({ suffix: '.min'}))
@@ -257,7 +278,7 @@ gulp.task('css:minify', function() {
 // Lint, concatenate and compile js to main.min.js
 gulp.task('js:process', function() {
     return gulp.src(paths.js.src)
-        .pipe(plugins.plumber())
+        .pipe(plugins.plumber({errorHandler: onError}))
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.groupConcat({'main.js': '**/*.js'}))
         .pipe(gulp.dest(paths.js.dest))
@@ -281,7 +302,7 @@ gulp.task('img:compress:development', function() {
     };
 
     return gulp.src(paths.img.src)
-        .pipe(plugins.plumber())
+        .pipe(plugins.plumber({errorHandler: onError}))
         .pipe(plugins.imagemin(config))
         .pipe(gulp.dest(paths.img.dest))
         .pipe(plugins.livereload());
@@ -298,7 +319,7 @@ gulp.task('img:compress:production', function() {
     };
 
     return gulp.src(paths.img.src)
-        .pipe(plugins.plumber())
+        .pipe(plugins.plumber({errorHandler: onError}))
         .pipe(plugins.imagemin(config))
         .pipe(gulp.dest(paths.img.dest));
 });
@@ -330,7 +351,7 @@ gulp.task('sprite:build', function() {
     };
     
     return gulp.src(paths.sprite)
-        .pipe(plugins.plumber())
+        .pipe(plugins.plumber({errorHandler: onError}))
         .pipe(plugins.svgSprite(config))
         .pipe(gulp.dest(paths.img.dest))
         .pipe(plugins.livereload());
@@ -355,7 +376,7 @@ gulp.task('img:copy', function() {
 // Major
 gulp.task('bump:major', function() {
     return gulp.src(['./package.json', './bower.json'])
-        .pipe(plugins.plumber())
+        .pipe(plugins.plumber({errorHandler: onError}))
         .pipe(plugins.bump({type: 'major'}))
         .pipe(gulp.dest('./'))
         .pipe(plugins.git.commit('Bump major version.'));
@@ -363,7 +384,7 @@ gulp.task('bump:major', function() {
 // Minor
 gulp.task('bump:minor', function() {
     return gulp.src(['./package.json', './bower.json'])
-        .pipe(plugins.plumber())
+        .pipe(plugins.plumber({errorHandler: onError}))
         .pipe(plugins.bump({type: 'minor'}))
         .pipe(gulp.dest('./'))
         .pipe(plugins.git.commit('Bump minor version.'));
@@ -371,7 +392,7 @@ gulp.task('bump:minor', function() {
 // Patch
 gulp.task('bump:patch', function() {
     return gulp.src(['./package.json', './bower.json'])
-        .pipe(plugins.plumber())
+        .pipe(plugins.plumber({errorHandler: onError}))
         .pipe(plugins.bump({type: 'patch'}))
         .pipe(gulp.dest('./'))
         .pipe(plugins.git.commit('Bump patch version.'));
@@ -415,7 +436,7 @@ gulp.task('regression:test', function(cb) {
 // Lint JS
 gulp.task('test:js', function() {
     return gulp.src(paths.js.modules)
-        .pipe(plugins.plumber())
+        .pipe(plugins.plumber({errorHandler: onError}))
         .pipe(plugins.jshint('.jshintrc'))
         .pipe(plugins.jshint.reporter());
 });
@@ -423,7 +444,7 @@ gulp.task('test:js', function() {
 // Lint Stylus
 gulp.task('test:styl', function() {
     return gulp.src(paths.styl.src)
-        .pipe(plugins.plumber())
+        .pipe(plugins.plumber({errorHandler: onError}))
         .pipe(plugins.stylint({config: '.stylintrc'}))
         .pipe(plugins.stylint.reporter());
 });
@@ -431,7 +452,7 @@ gulp.task('test:styl', function() {
 // Lint HTML
 gulp.task('test:html', function() {
     return gulp.src(paths.html)
-        .pipe(plugins.plumber())
+        .pipe(plugins.plumber({errorHandler: onError}))
         .pipe(plugins.htmlhint('.htmlhintrc'))
         .pipe(plugins.htmlhint.reporter('htmlhint-stylish'))
         .pipe(plugins.livereload());
