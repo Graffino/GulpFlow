@@ -18,17 +18,14 @@
   ],
   "scenarios": [
     {
-      "label": "http://getbootstrap.com",
-      "url": "http://getbootstrap.com",
+      "label": "http://graffino.com",
+      "url": "http://graffino.com",
       "hideSelectors": [],
       "removeSelectors": [
         "#carbonads-container"
       ],
       "selectors": [
         "header",
-        "main",
-        "body .bs-docs-featurette:nth-of-type(1)",
-        "body .bs-docs-featurette:nth-of-type(2)",
         "footer",
         "body"
       ],

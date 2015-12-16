@@ -22,8 +22,7 @@ var scrollEvent                = false;
 var $validate                  = $('.js-validate');
 
 /**
- * [graffino Object]
- * @type {Object}
+ * Init
  */
 var graffino = {
 
