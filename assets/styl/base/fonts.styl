@@ -15,23 +15,8 @@
  *  Extra Black, Fat, Poster, UltraBlack = 900
  */
 
-/*
- * Font mixin
- */
-webfont($family, $file, $weight = normal, $style = normal) {
-    @font-face {
-        font-family: $family;
-        src: url("../fonts/" + $file + ".woff2") format("woff2"),
-             url("../fonts/" + $file + ".woff") format("woff"),
-             url("../fonts/" + $file + ".ttf") format("truetype"); // @stylint ignore
-        font-weight: $weight;
-        font-style: $style;
-    }
-}
-
 /**
- * Embedded fonts
+ * Font name
  */
-// Font Name
 // Font Style
 webfont("Font Name", "File Name", FontWeight, FontStyle);

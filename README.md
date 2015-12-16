@@ -45,8 +45,6 @@ package.json -> Node configuration
 gulpfile.js -> Gulp configuration
 readme.md -> This file
 
-docs -> Documentation on technologies used
-
 ```
 
 ### These files & folders are not needed for live deployment:
@@ -123,3 +121,11 @@ Gulp clean
 Gulp test
 ```
 * HTML, Stylus and Javascript files (/js/main.js) are linted for errors via JSHint and HTMLHint and Stylint
+
+```
+Gulp test
+```
+* HTML, Stylus and Javascript files (/js/main.js) are linted for errors via JSHint and HTMLHint and Stylint
+
+
+### See full list of commands in gulpfile.js ###
