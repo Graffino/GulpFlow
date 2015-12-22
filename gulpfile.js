@@ -7,7 +7,7 @@
  * Vars
  */
  // Debug
- var debug = false;
+var debug = false;
 // Initialize Gulp
 var gulp = require('gulp');
 // Initialize Gutil
@@ -196,26 +196,22 @@ gulp.task('bower:compile', function() {
 gulp.task('modernizr:build', function() {
     var config = {
         cache: false,
-        crawl: false,
+        crawl: true,
         uglify: false,
         devFile: false,
         options: [
             'setClasses'
         ],
         tests: [
-            'canvas', 'fullscreen-api', 'hiddenscroll', 'history',
-            'htmlimports', 'input', 'inputsearchevent', 'inputtypes',
-            'lists-reversed', 'requestanimationframe', 'svg', 'touchevents',
-            'geolocation', 'touchevents', 'vibration', 'a/download',
-            'battery/lowbattery', 'css/appearance', 'css/backgroundblendmode',
-            'css/backgroundcliptext', 'css/backgroundposition-shorthand',
-            'css/calc', 'css/columns', 'css/filters', 'css/flexbox',
-            'css/flexboxlegacy', 'css/flexwrap', 'css/invalid', 'css/mask',
-            'css/pointerevents', 'css/positionsticky', 'css/reflections',
-            'css/transitions', 'css/vhunit', 'css/vmaxunit', 'css/vminunit',
-            'css/vwunit', 'css/will-change', 'forms/placeholder', 'img/sizes',
-            'img/srcset', 'svg/asimg', 'svg/filters', 'svg/inline',
-            'svg/svgclippaths', 'video/autoplay'
+            'canvas', 'fullscreen', 'hiddenscroll', 'history','htmlimports',
+            'input', 'inputtypes','requestanimationframe', 'svg', 'touchevents',
+            'geolocation', 'appearance', 'backgroundblendmode',
+            'backgroundcliptext', 'csscalc', 'csscolumns', 'cssfilters', 'flexbox',
+            'flexboxlegacy', 'flexwrap', 'cssinvalid', 'cssmask',
+            'csspointerevents', 'csspositionsticky', 'cssreflections',
+            'csstransitions', 'cssvhunit', 'cssvmaxunit', 'cssvminunit',
+            'cssvwunit', 'willchange', 'placeholder', 'sizes',
+            'srcset', 'svgasimg', 'svgfilters','svgclippaths', 'videoautoplay'
         ]
     };
     gulp.src('./assets/js/modules/app.js')
