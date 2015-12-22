@@ -21,6 +21,9 @@ var scrollEvent                = false;
 // Validate
 var $validate                  = $('.js-validate');
 
+// Placeholder
+var $placeHolder               = $('input, textarea');
+
 /**
  * Init
  */
@@ -52,6 +55,10 @@ var graffino = {
         // Validate
         // Plugin: https://github.com/ericelliott/h5Validate/
         graffino.validate();
+        
+        // Placeholder
+        // Plugin: https://github.com/mathiasbynens/jquery-placeholder
+        graffino.placeholder();
     },
 
     // Console handler
@@ -282,13 +289,28 @@ var graffino = {
     },
 
     // Validate
-    // https://github.com/ericelliott/h5Validate/
+    // Plugin: https://github.com/ericelliott/h5Validate/
     validate: function() {
         // Initialize function
         function __init() {
 
             if ($validate.length > 0) {
                 $validate.h5Validate();
+            }
+        }
+
+        // Initialize module
+        return __init();
+    },
+    
+    // Placeholder
+    // Plugin: https://github.com/mathiasbynens/jquery-placeholder
+    placeholder: function() {
+        // Initialize function
+        function __init() {
+            // Placeholder
+            if ($placeHolder.length > 0) {
+                $placeHolder.placeholder();
             }
         }
 
