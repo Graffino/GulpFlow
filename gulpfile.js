@@ -267,6 +267,19 @@ gulp.task('css:minify', function() {
         .pipe(plugins.livereload());
 });
 
+// UnCSS
+gulp.task('css:clean', function() {
+    return gulp.src(paths.css.main)
+        .pipe(plugins.plumber({errorHandler: onError}))
+        .pipe(plugins.uncss({
+            html: ['*.html']
+        }))
+        .pipe(plugins.rename({ suffix: '.clean'}))
+        .pipe(gulp.dest(paths.css.dest))
+        .pipe(plugins.postcss([plugins.csswring]))
+        .pipe(plugins.rename({ suffix: '.min'}))
+        .pipe(gulp.dest(paths.css.dest));
+});
 
 /**
  * Javascript
@@ -470,12 +483,12 @@ gulp.task('imagesSequence:production', function(cb) {
 
 // Sprite
 gulp.task('spriteSequence', function(cb) {
-    plugins.sequence('img:compress:development', ['sprite:build', 'img:copy'], 'stylus:compile', 'css:process', 'css:minify', cb);
+    plugins.sequence('img:compress:development', ['sprite:build', 'img:copy'], 'stylus:compile', 'css:process', 'css:clean', 'css:minify', cb);
 });
 
 // Process styles
 gulp.task('stylesSequence', function(cb) {
-    plugins.sequence(['stylus:compile', 'test:styl'], 'css:process', 'css:minify', cb);
+    plugins.sequence(['stylus:compile', 'test:styl'], 'css:process', 'css:clean', 'css:minify', cb);
 });
 
 // Scripts
@@ -495,7 +508,7 @@ gulp.task('htmlSequence', function(cb) {
 
 // Components
 gulp.task('componentsSequence', function(cb) {
-    plugins.sequence(['modernizr:build', 'bower:install'], ['bower:compile', 'stylus:compile'],'css:process', 'css:minify', cb);
+    plugins.sequence(['modernizr:build', 'bower:install'], ['bower:compile', 'stylus:compile'],'css:process', 'css:clean', 'css:minify', cb);
 });
 
 // Bower sequence
@@ -505,12 +518,12 @@ gulp.task('bowerSequence', function(cb) {
 
 // Dev sequence
 gulp.task('devSequence', function(cb) {
-    plugins.sequence(['modernizr:build', 'bower:install', 'testSequence'], ['bower:compile', 'img:compress:development'], ['sprite:build', 'img:copy'], 'stylus:compile', ['css:process', 'js:process'], 'css:minify', cb);
+    plugins.sequence(['modernizr:build', 'bower:install', 'testSequence'], ['bower:compile', 'img:compress:development'], ['sprite:build', 'img:copy'], 'stylus:compile', ['css:process', 'js:process'], 'css:clean', 'css:minify', cb);
 });
 
 // Production sequence
 gulp.task('prodSequence', function(cb) {
-    plugins.sequence(['modernizr:build', 'bower:install'], ['bower:compile', 'img:compress:production'], ['sprite:build', 'img:copy'], 'stylus:compile', ['css:process', 'js:process'], 'css:minify', cb);
+    plugins.sequence(['modernizr:build', 'bower:install'], ['bower:compile', 'img:compress:production'], ['sprite:build', 'img:copy'], 'stylus:compile', ['css:process', 'js:process'], 'css:clean', 'css:minify', cb);
 });
 
 
