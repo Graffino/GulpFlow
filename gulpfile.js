@@ -57,12 +57,15 @@ var paths = {
     css: {
         src: ['assets/css/plugins/*.css', 'assets/css/modules/*.css'],
         dest: 'assets/css/',
-        main: 'assets/css/main.css'
+        main: 'assets/css/main.css',
+        min: 'assets/css/main.min.css'
+
     },
     js: {
         src: ['assets/js/plugins/*.js', 'assets/js/modules/*.js'],
         dest: 'assets/js/',
-        modules: 'assets/js/modules/*.js'
+        modules: 'assets/js/modules/*.js',
+        min: 'assets/js/main.min.js'
     },
     plugins: {
         src: 'bower_components/**',
@@ -73,9 +76,17 @@ var paths = {
         src : 'assets/images/src/**/*.{png,jpg,svg}',
         dest : 'assets/images/'
     },
+    fonts: 'assets/fonts/*.{ttf,woff,woff2}',
     sprite: 'assets/images/svg/*.svg',
     spriteSrc: 'assets/images/src/svg/*.svg',
-    html: './*.html'
+    html: './*.html',
+    build: {
+        main: 'build/',
+        img: 'build/assets/images/',
+        css: 'build/assets/css/',
+        js: 'build/assets/js/',
+        fonts: 'build/assets/fonts/'
+    }
 };
 
 
@@ -89,11 +100,12 @@ gulp.task('clean', function() {
         '!' + paths.js.dest + 'node_modules/**',
         '!' + paths.js.dest + 'bower_components/**',
         paths.css.dest,
-        paths.js.dest + '**/*.{css,map}',
+        paths.js.dest + '**/*.{js,map}',
         paths.js.dest + 'plugins',
         '!' + paths.js.dest + 'modules/*.js',
         paths.img.dest + '**/*',
-        '!' + paths.img.dest + 'src/**'
+        '!' + paths.img.dest + 'src/**',
+        paths.build.main,
     ];
     
     return plugins.del(toClean);
@@ -245,12 +257,16 @@ gulp.task('stylus:compile', function() {
         .pipe(gulp.dest(paths.styl.dest));
 });
 
-// Postprocess, concatenate, to main.css
+// Postprocess, concatenate, uncss, to main.css
 gulp.task('css:process', function() {
     return gulp.src(paths.css.src)
         .pipe(plugins.plumber({errorHandler: onError}))
         .pipe(plugins.sourcemaps.init({loadMaps: true}))
         .pipe(plugins.groupConcat({'main.css': '**/*.css'}))
+        .pipe(plugins.uncss({
+            html: ['*.html'],
+            ignore: [/fonts-loaded/, /ie/, /ie8/, /ios/, /h-no-pointer-events/, /is-.*/, /has-.*/, /ui-.*/, /mfp-.*/, /select2-.*/, /slick-.*/, /-x-.*/, /-minus-.*/, /-plus-.*/, /-arrow-.*/ ]
+        }))
         .pipe(plugins.sourcemaps.write('.'))
         .pipe(gulp.dest(paths.css.dest));
 });
@@ -267,19 +283,6 @@ gulp.task('css:minify', function() {
         .pipe(plugins.livereload());
 });
 
-// UnCSS
-gulp.task('css:clean', function() {
-    return gulp.src(paths.css.main)
-        .pipe(plugins.plumber({errorHandler: onError}))
-        .pipe(plugins.uncss({
-            html: ['*.html']
-        }))
-        .pipe(plugins.rename({ suffix: '.clean'}))
-        .pipe(gulp.dest(paths.css.dest))
-        .pipe(plugins.postcss([plugins.csswring]))
-        .pipe(plugins.rename({ suffix: '.min'}))
-        .pipe(gulp.dest(paths.css.dest));
-});
 
 /**
  * Javascript
@@ -378,6 +381,44 @@ gulp.task('img:copy', function() {
 
     return plugins.mergeStream(favicon, logo, pin);
 });
+
+
+/**
+ * Inject
+ */
+// Inject critical CSS
+gulp.task('inject:criticalcss', function() {
+    return gulp.src(paths.html)
+        .pipe(plugins.plumber({errorHandler: onError}))
+        .pipe(plugins.inject(gulp.src(paths.css.dest + 'main.min.css'), {
+            starttag: '<!-- inject:head:{{ext}} //-->',
+            endtag: '<!-- endinject //-->',
+            removeTags: true,
+            transform: function (filePath, file) {
+                return file.contents.toString('utf8');
+            }
+        }))
+        .pipe(gulp.dest(paths.build.main));
+});
+
+
+/**
+ * Build Copy
+ */
+// Copy files to build
+gulp.task('build:copy', function() {
+    var images = gulp.src([paths.img.dest + '/**/*.{png,jpg,svg}', '!' + paths.img.src])
+                .pipe(gulp.dest(paths.build.img));
+    var css = gulp.src(paths.css.min)
+                .pipe(gulp.dest(paths.build.css));
+    var js = gulp.src(paths.js.min)
+                .pipe(gulp.dest(paths.build.js));
+    var fonts = gulp.src(paths.fonts)
+                .pipe(gulp.dest(paths.build.fonts));
+
+    return plugins.mergeStream(css, js, fonts, images);
+});
+
 
 /**
  * Bump version
@@ -483,12 +524,12 @@ gulp.task('imagesSequence:production', function(cb) {
 
 // Sprite
 gulp.task('spriteSequence', function(cb) {
-    plugins.sequence('img:compress:development', ['sprite:build', 'img:copy'], 'stylus:compile', 'css:process', 'css:clean', 'css:minify', cb);
+    plugins.sequence('img:compress:development', ['sprite:build', 'img:copy'], 'stylus:compile', 'css:process', 'css:minify', cb);
 });
 
 // Process styles
 gulp.task('stylesSequence', function(cb) {
-    plugins.sequence(['stylus:compile', 'test:styl'], 'css:process', 'css:clean', 'css:minify', cb);
+    plugins.sequence(['stylus:compile', 'test:styl'], 'css:process', 'css:minify', cb);
 });
 
 // Scripts
@@ -508,7 +549,7 @@ gulp.task('htmlSequence', function(cb) {
 
 // Components
 gulp.task('componentsSequence', function(cb) {
-    plugins.sequence(['modernizr:build', 'bower:install'], ['bower:compile', 'stylus:compile'],'css:process', 'css:clean', 'css:minify', cb);
+    plugins.sequence(['modernizr:build', 'bower:install'], ['bower:compile', 'stylus:compile'],'css:process', 'css:minify', cb);
 });
 
 // Bower sequence
@@ -518,12 +559,12 @@ gulp.task('bowerSequence', function(cb) {
 
 // Dev sequence
 gulp.task('devSequence', function(cb) {
-    plugins.sequence(['modernizr:build', 'bower:install', 'testSequence'], ['bower:compile', 'img:compress:development'], ['sprite:build', 'img:copy'], 'stylus:compile', ['css:process', 'js:process'], 'css:clean', 'css:minify', cb);
+    plugins.sequence(['modernizr:build', 'bower:install', 'testSequence'], ['bower:compile', 'img:compress:development'], ['sprite:build', 'img:copy'], 'stylus:compile', ['css:process', 'js:process'], 'css:minify', cb);
 });
 
 // Production sequence
 gulp.task('prodSequence', function(cb) {
-    plugins.sequence(['modernizr:build', 'bower:install'], ['bower:compile', 'img:compress:production'], ['sprite:build', 'img:copy'], 'stylus:compile', ['css:process', 'js:process'], 'css:clean', 'css:minify', cb);
+    plugins.sequence(['modernizr:build', 'bower:install'], ['bower:compile', 'img:compress:production'], ['sprite:build', 'img:copy'], 'stylus:compile', ['css:process', 'js:process'], 'css:minify', ['inject:criticalcss', 'build:copy'], cb);
 });
 
 
