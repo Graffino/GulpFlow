@@ -6,31 +6,27 @@
 /**
  * Standard button
  */
+
 .button {
-    border: 0;
     
-    .icon {
-        // Enable click trough icons
-        pointer-events: none;
-    }
-
-    &.-color-white {
-        background-color: white;
-    }
+    &:hover { }
     
-    &.-type-hollow {
+    .icon { }
+    
+    &.-background-darker {
         
-    }
-
-    &.-type-solid {
-        
+        &:hover { }
     }
     
-    &.-type-text {
-        background-color: transparent;
-    }
+    &.-size-large { }
+    
+    &.-width-auto { }
+    
+    &.-color-white { }
+
+    &.-type-text { }
 }
+
 .button--default {
     @extends .button;
-    
 }

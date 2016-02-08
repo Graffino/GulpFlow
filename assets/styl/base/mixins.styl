@@ -17,6 +17,11 @@ em($value) {
     return unit($value/$base-font-size-px, "em"); // @stylint ignore
 }
 
+// Px to Procent
+px-to-procent($value, $max-value) {
+    return $value*100/$max-value; // @stylint ignore
+}
+
 /*
  * Font mixin
  */
@@ -24,9 +29,16 @@ webfont($family, $file, $weight = normal, $style = normal) {
     @font-face {
         font-family: $family;
         src: url("../fonts/" + $file + ".woff2") format("woff2"),
-             url("../fonts/" + $file + ".woff") format("woff"),
-             url("../fonts/" + $file + ".ttf") format("truetype"); // @stylint ignore
-        font-style: $style;
+            url("../fonts/" + $file + ".woff") format("woff"),
+            url("../fonts/" + $file + ".ttf") format("truetype"); // @stylint ignore
+            font-style: $style;
         font-weight: $weight;
     }
+}
+
+/**
+ * Animation mixin
+ */
+transition-custom($property = all, $duration = 250ms, $ease = cubic-bezier(0.250, 0.460, 0.450, 0.940)) { // @stylint ignore
+    transition: $property $duration $ease; // @stylint ignore
 }

@@ -6,17 +6,18 @@
 /**
  * Link
  */
-.link {
-    color: $color-link;
 
-    &.-color-white {
-        color: white;
-    }
+.link {
+    display: inline-block;
+    transition-custom($property = color);
     
-    &.-size-small {
-        font-size: $text-size-small;
-    }
-    &.-size-xsmall {
-        font-size: $text-size-xsmall;
-    }
+    &:hover { }
+        
+    &.-no-underline { }
+    
+    &.-color-white { }
+    
+    &.-size-small { }
+    
+    &.-size-xsmall { }
 }

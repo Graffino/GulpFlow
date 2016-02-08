@@ -6,25 +6,28 @@
 /**
  * Section
  */
+
 .section {
     position: relative;
-    padding: rem(10);
+    
+/**
+ * Frontpage
+ */
+    .content {
+        cf();
+        center(rem($width-container));
+        
+        .row {
+            cf();
+            
+            &.-no-padding { }
+        }
+    }
 
-    &__header {
 
-    }
-    
-    &__wrapper {
-    
-    }
-    
-    &__content {
-    
-    }
-    
-    &__footer {
-
-    }
+/**
+ * Typography
+ */
 
 // Headings
     h1 {
@@ -46,13 +49,9 @@
     }
 
 // Text
-    span, p, .text {
+    span:not(.button), p, .text {
         @extends .text;
     }
-
-// Padding
-    &.-no-padding {
-        padding: 0;
-    }
-
+    
+    &.-no-padding { }
 }
