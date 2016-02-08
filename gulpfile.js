@@ -59,7 +59,6 @@ var paths = {
         dest: 'assets/css/',
         main: 'assets/css/main.css',
         min: 'assets/css/main.min.css'
-
     },
     js: {
         src: ['assets/js/plugins/*.js', 'assets/js/modules/*.js'],
@@ -398,6 +397,10 @@ gulp.task('inject:criticalcss', function() {
                 return file.contents.toString('utf8');
             }
         }))
+        // Correct assets path
+        .pipe(plugins.replace('../', 'assets/'))
+        .pipe(plugins.replace('/*# sourceMappingURL=main.min.css.map */', ''))
+        .pipe(plugins.replace('/*# sourceMappingURL=main.css.map */', ''))
         .pipe(gulp.dest(paths.build.main));
 });
 
@@ -410,13 +413,18 @@ gulp.task('build:copy', function() {
     var images = gulp.src([paths.img.dest + '/**/*.{png,jpg,svg}', '!' + paths.img.src])
                 .pipe(gulp.dest(paths.build.img));
     var css = gulp.src(paths.css.min)
+                // Remove source mapping
+                .pipe(plugins.replace('/*# sourceMappingURL=main.min.css.map */', ''))
                 .pipe(gulp.dest(paths.build.css));
     var js = gulp.src(paths.js.min)
+                // Remove source mapping
+                .pipe(plugins.replace('//# sourceMappingURL=main.min.js.map', ''))
                 .pipe(gulp.dest(paths.build.js));
     var fonts = gulp.src(paths.fonts)
                 .pipe(gulp.dest(paths.build.fonts));
-
-    return plugins.mergeStream(css, js, fonts, images);
+    var others = gulp.src(['humans.txt','LICENSE','robots.txt','.htaccess'])
+                .pipe(gulp.dest(paths.build.main));
+    return plugins.mergeStream(css, js, fonts, images, others);
 });
 
 
