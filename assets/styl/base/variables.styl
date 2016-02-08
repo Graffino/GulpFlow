@@ -7,106 +7,167 @@
  * Typography
  */
 
-$sans-font-family                   = "FontName", Helvetica, Arial, sans-serif;
-$serif-font-family                  = "FontName", Georgia, "Times New Roman", Times, serif;
-$cursive-font-family                = "FontName", cursive, sans-serif;
-$default-font-family                = $sans-font-family;
+// System fontface stacks used when webfonts are not loaded
+$system-sans-fontface-stack    = "Helvetica", "Helvetica Neue", "Arial", sans-serif;
+$system-serif-fontface-stack   = "Georgia", "Times New Roman", Times, serif;
+
+// Webfont stacks
+$sans-font-family              = "FontName", Helvetica, Arial, sans-serif;
+$serif-font-family             = "FontName", Georgia, "Times New Roman", Times, serif;
+$cursive-font-family           = "FontName", cursive, sans-serif;
+
+/**
+ * Widths
+ */
+
+$width-container               = 1120px;
+$width-hero                    = 1440px;
+$width-columns-gutter          = 32; // Value in pixels, do not append any units (e.g. "px")
+$width-footer-content          = 736px;
 
 /**
  * Headings
  */
 
 // H1
-$h-large-font-family                = $sans-font-family;
-$h-large-font-size                  = $text-size-huge;
-$h-large-font-weight                = 700;
-$h-large-line-height                = 1;
+$h-large-font-family           = $sans-font-family;
+$h-large-font-size             = $text-size-huge;
+$h-large-font-weight           = 700;
+$h-large-line-height           = 1.1;
 
 // H2
-$h-normal-font-family               = $sans-font-family;
-$h-normal-font-size                 = $text-size-xxlarge;
-$h-normal-font-weight               = 700;
-$h-normal-line-height               = 1;
+$h-normal-font-family          = $sans-font-family;
+$h-normal-font-size            = $text-size-xxlarge;
+$h-normal-font-weight          = 700;
+$h-normal-line-height          = 1.1;
 
 // H3
-$h-medium-font-family               = $sans-font-family;
-$h-medium-font-size                 = $text-size-xlarge;
-$h-medium-font-weight               = 700;
-$h-medium-line-height               = 1;
+$h-medium-font-family          = $sans-font-family;
+$h-medium-font-size            = $text-size-xlarge;
+$h-medium-font-weight          = 700;
+$h-medium-line-height          = 1.2;
 
 // H4
-$h-small-font-family                = $sans-font-family;
-$h-small-font-size                  = $text-size-normal;
-$h-small-font-weight                = 700;
-$h-small-line-height                = 1;
+$h-small-font-family           = $sans-font-family;
+$h-small-font-size             = $text-size-large;
+$h-small-font-weight           = 700;
+$h-small-line-height           = 1.257;
+
+// H5
+$h-small-font-family           = $sans-font-family;
+$h-small-font-size             = $text-size-normal;
+$h-small-font-weight           = 700;
+$h-small-line-height           = 1.736;
+
+// H6
+$h-small-font-family           = $sans-font-family;
+$h-small-font-size             = $text-size-normal;
+$h-small-font-weight           = 700;
+$h-small-line-height           = 1.736;
+
+
+// Headings Font-sizes
+$heading-one-large-font-size   = rem(90); // h1.large
+$heading-one-font-size         = rem(90); // h1
+$heading-two-font-size         = rem(80); // h2
+$heading-three-font-size       = rem(60); // h3
+$heading-four-font-size        = rem(35); // h4
+$heading-five-font-size        = rem(25); // h5
+$heading-six-font-size         = rem(19); // h6
 
 // Default text size
-$default-text-size                  = $text-size-normal;
-$default-line-height                = 1.5;
-$default-color                      = $color-black;
+$default-text-size             = $text-size-normal;
+$default-line-height           = 1.5;
+$default-color                 = $color-black;
 
-$text-size-huge                     = rem(30);
-$text-size-xxlarge                  = rem(25);
-$text-size-xlarge                   = rem(20);
-$text-size-large                    = rem(18);
-$text-size-normal                   = rem(16);
-$text-size-medium                   = rem(14);
-$text-size-small                    = rem(12);
-$text-size-xsmall                   = rem(10);
+$text-size-huge                = rem(90);
+$text-size-xxlarge             = rem(80);
+$text-size-xlarge              = rem(60);
+$text-size-large               = rem(35);
+$text-size-normal              = rem(19); // body copy
+$text-size-medium              = rem(13);
+$text-size-small               = rem(12);
+$text-size-xsmall              = rem(10);
 
-$text-size-button                   = $text-size-huge;
-$text-size-input                    = $text-size-xlarge;
+$text-size-button              = $text-size-huge;
+$text-size-input               = $text-size-xlarge;
 
 /**
- * Colors
+ * Responsive font-sizes and dimensions (e.g. m-variable: "m" for mobile)
+ */
+
+ // Headings Font-sizes
+$m-heading-one-large-font-size = rem(55); // h1.large
+$m-heading-one-font-size       = rem(55); // h1
+$m-heading-two-font-size       = rem(35); // h2
+$m-heading-three-font-size     = rem(30); // h3
+$m-heading-four-font-size      = rem(25); // h4
+$m-heading-five-font-size      = rem(18); // h5
+$m-heading-six-font-size       = rem(14); // h6
+
+$m-default-text-size           = $m-text-size-normal;
+$m-default-line-height         = 1.43;
+
+$m-text-size-huge              = rem(55);
+$m-text-size-xxlarge           = rem(35);
+$m-text-size-xlarge            = rem(30);
+$m-text-size-large             = rem(25);
+$m-text-size-normal            = rem(14); // body copy
+$m-text-size-medium            = rem(11);
+$m-text-size-small             = rem(8);
+$m-text-size-xsmall            = rem(7);
+
+
+/**
+ * General Colors
  */
 
 // Backgrounds
-$color-background                   = $color-white;
+$color-background              = $color-white;
 
 // Text
-$color-text                         = $color-black;
+$color-text                    = $color-black;
 
 // Links
-$color-link                         = $color-white;
+$color-link                    = $color-white;
 
 // Buttons
-$color-button-text                  = #fc8e17;
-$color-button-stroke                = $color-text-stroke;
+$color-button-text             = #fc8e17;
+$color-button-stroke           = $color-text-stroke;
 
 // Blacks / Whites
-$color-white                        = #ffffff;
-$color-black                        = #000000;
+$color-white                   = #ffffff;
+$color-black                   = #000000;
 
 // Other colors
-$color-nameofcolor-subname          = #ffffff;
+$color-nameofcolor-subname     = #ffffff;
 
 /**
  * Base font sizes for EM / REM
  */
 
-$base-font-size                     = 100%;
-$base-font-size-px                  = 16px;
+$base-font-size                = 100%;
+$base-font-size-px             = 16px;
 
 /**
  * Folders
  */
 
-$url-images                         = "../images";
-$url-fonts                          = "../fonts";
+$url-images                    = "../images";
+$url-fonts                     = "../fonts";
 
 /**
  * Breakpoints
  */
-$xlarge                             = 1249px;
-$desktop                            = 1119px;
-$large                              = 1049px;
-$medium                             = 939px;
-$tablet                             = 767px;
-$small                              = 639px;
-$xsmall                             = 479px;
-$iphone6p                           = 413px;
-$iphone6                            = 374px;
-$mobile                             = 319px;
+$xlarge                        = 1249px;
+$desktop                       = 1119px;
+$large                         = 1049px;
+$medium                        = 939px;
+$tablet                        = 767px;
+$small                         = 639px;
+$xsmall                        = 479px;
+$iphone6p                      = 413px;
+$iphone6                       = 374px;
+$mobile                        = 319px;
 
-$scale                              = 0 319px 360px 374px 413px 479px 639px 767px 939px 1049px 1149px 1249px;
+$scale                         = 0 319px 360px 374px 413px 479px 639px 767px 939px 1049px 1149px 1249px;

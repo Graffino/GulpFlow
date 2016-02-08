@@ -6,22 +6,24 @@
 /**
  * Heading
  */
+
 .heading {
     
-    &.-color-white {
-        color: $color-white;
+    &.-color-white { }
+    
+    &.-font-family-sans {
+        font-family: $heading-font-sans-serif;
     }
     
-    &.-no-margin {
-        margin: 0;
+    &.-font-family-serif {
+        font-family: $heading-font-serif;
     }
-    &.-no-margin-bottom {
-        margin-bottom: 0;
-    }
+    
+    &.-no-margin { }
+    
+    &.-no-margin-bottom { }
         
-    &.-align-center {
-        text-align: center;
-    }
+    &.-align-center { }
     
     &.-size-large {
         @extends $h1;
@@ -35,19 +37,6 @@
     &.-size-small {
         @extends $h4;
     }
-    
-    &.-has-subtitle {
-        margin-top: rem(10);
-        margin-bottom: rem(10);
-    }
 
-    &.-case-upper {
-        text-transform: uppercase;
-    }
-    
-    &.-no-break {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+    &.-case-uppercase { }
 }
