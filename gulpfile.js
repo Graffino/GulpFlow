@@ -325,8 +325,19 @@ gulp.task('img:compress:production', function() {
         optimizationLevel: 7,
         progressive: true,
         interlaced: true,
-        svgoPlugins: [{removeViewBox: false}],
-        use: [plugins.imageminPngquant({ quality: '85', speed: 1 }), plugins.imageminMozjpeg({quality: '80'})]
+        svgoPlugins: [{
+            removeViewBox: false
+        }],
+        use: [
+            plugins.imageminPngquant({
+                quality: '65-80',
+                speed: 4
+            }),
+            plugins.imageminMozjpeg({
+                quality: '80',
+                progressive: true,
+            }
+        )]
     };
 
     return gulp.src(paths.img.src)
@@ -385,22 +396,25 @@ gulp.task('img:copy', function() {
 /**
  * Inject
  */
-// Inject critical CSS
+// Inject critical CSS, minify HTML
 gulp.task('inject:criticalcss', function() {
+    var critical = require('critical').stream;
     return gulp.src(paths.html)
         .pipe(plugins.plumber({errorHandler: onError}))
-        .pipe(plugins.inject(gulp.src(paths.css.dest + 'main.min.css'), {
-            starttag: '<!-- inject:head:{{ext}} //-->',
-            endtag: '<!-- endinject //-->',
-            removeTags: true,
-            transform: function (filePath, file) {
-                return file.contents.toString('utf8');
-            }
+        .pipe(critical({
+            base: './',
+            inline: true,
+            minify: true,
+            width: 1300,
+            height: 900
         }))
         // Correct assets path
         .pipe(plugins.replace('../', 'assets/'))
-        .pipe(plugins.replace('/*# sourceMappingURL=main.min.css.map */', ''))
-        .pipe(plugins.replace('/*# sourceMappingURL=main.css.map */', ''))
+        // Minify HTML
+        .pipe(plugins.htmlmin({
+            removeComments: true,
+            collapseWhitespace: true
+        }))
         .pipe(gulp.dest(paths.build.main));
 });
 
