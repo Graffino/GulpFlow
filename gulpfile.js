@@ -84,8 +84,10 @@ var paths = {
         img: 'build/assets/images/',
         css: 'build/assets/css/',
         js: 'build/assets/js/',
-        fonts: 'build/assets/fonts/'
-    }
+        fonts: 'build/assets/fonts/',
+        documents: 'build/assets/documents/'
+    },
+    documents: 'assets/documents/*.{doc,pdf}'
 };
 
 
@@ -438,7 +440,9 @@ gulp.task('build:copy', function() {
                 .pipe(gulp.dest(paths.build.fonts));
     var others = gulp.src(['humans.txt','LICENSE','robots.txt','.htaccess'])
                 .pipe(gulp.dest(paths.build.main));
-    return plugins.mergeStream(css, js, fonts, images, others);
+    var documents = gulp.src([paths.documents])
+                .pipe(gulp.dest(paths.build.documents));
+    return plugins.mergeStream(css, js, fonts, images, others, documents);
 });
 
 
