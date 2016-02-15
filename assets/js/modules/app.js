@@ -12,6 +12,8 @@
 // Global
 var $html                      = $('html');
 var $window                    = $(window);
+
+// Check if webfonts are loaded. Set to false to prevent detection.
 var fontFaceObserverName       = 'Arial';
 
 // Scroll
@@ -23,6 +25,10 @@ var $validate                  = $('.js-validate');
 
 // Placeholder
 var $placeHolder               = $('input, textarea');
+
+// All functions added in this array will be alled when the
+// window.resize event will fire
+var resizeFunctionsArray       = [];
 
 /**
  * Init
@@ -39,7 +45,8 @@ var graffino = {
         // Fonts hander
         graffino.fontsHandler();
 
-        // Detect browsers
+        // Browser Detect
+        // Plugin: https://github.com/gabceb/jquery-browser-plugin
         graffino.detectBrowser();
         
         // Pointer events
@@ -59,6 +66,9 @@ var graffino = {
         // Placeholder
         // Plugin: https://github.com/mathiasbynens/jquery-placeholder
         graffino.placeholder();
+        
+        // Call all functions in the resize function array
+        graffino.callArrayFunctions(resizeFunctionsArray);
     },
 
     // Console handler
@@ -109,74 +119,56 @@ var graffino = {
     fontsHandler: function() {
         // Initialize function
         function __init() {
-            var observer = new FontFaceObserver(fontFaceObserverName);
-            // Add fonts-class when fonts are loaded
-            observer.check().then( function() {
-                $html.addClass(' fonts-loaded');
-            });
+            if (fontFaceObserverName) {
+                var observer = new FontFaceObserver(fontFaceObserverName);
+                // Add fonts-class when fonts are loaded
+                observer.check().then( function() {
+                    $html.removeClass('no-fonts')
+                        .addClass('fonts');
+                });
+            }
         }
 
         // Initialize module
         return __init();
     },
 
-    // Detect browsers
-    detectBrowser: function(action) {
-        // Set variable to false if not defined
-        action = action || false;
-        
+    // Browser Detect
+    // Plugin: https://github.com/gabceb/jquery-browser-plugin
+    detectBrowser: function() {
         // Initialize function
         function __init() {
-            var isIE = detectIE();
-            var isIOS = detectIOS();
-            var isIOS8 = detectIOS8();
-
-            switch(action) {
-                case 'ie':
-                   return isIE;
-                case 'ios':
-                    return isIOS;
-                case 'ios8':
-                    return isIOS8;
-                default:
-                    if (isIE) { $html.addClass('ie '+isIE); }
-                    if (isIOS) { $html.addClass('ios'); }
-                    if (isIOS8) { $html.addClass('ios8'); }
-                break;
+            if ($.browser.msie) {
+                $html.addClass('browser-ie');
+            }
+            if ($.browser.msedge) {
+                $html.addClass('browser-edge');
+            }
+            if ($.browser.mozilla) {
+                $html.addClass('browser-moz');
+            }
+            if ($.browser.chrome) {
+                $html.addClass('browser-chrome');
+            }
+            if ($.browser.safari) {
+                $html.addClass('browser-safari');
+            }
+            if ($.browser.ipad || $.browser.ipod || $.browser.iphone) {
+                $html.addClass('browser-ios');
+            }
+            if ($.browser.desktop) {
+                $html.addClass('browser-desktop');
+            }
+            if ($.browser.mobile) {
+                $html.addClass('browser-mobile');
+            }
+            if ($.browser.win) {
+                $html.addClass('browser-windows');
+            }
+            if ($.browser.mac) {
+                $html.addClass('browser-mac');
             }
         }
-
-        // Detect IE
-        function detectIE() {
-            var ua      = window.navigator.userAgent;
-            var msie    = ua.indexOf('MSIE ');
-            var trident = ua.indexOf('Trident/');
-
-            if (msie > 0) {
-                // IE 10 or older => return version number
-                return 'ie'+parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
-            }
-
-            if (trident > 0) {
-                // IE 11 (or newer) => return version number
-                var rv = ua.indexOf('rv:');
-                return 'ie'+parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
-            }
-            // Other browser
-            return false;
-        }
-        // Detect iOS
-        function detectIOS () {
-            var deviceAgent = window.navigator.userAgent.toLowerCase();
-            return /(iphone|ipod|ipad).*/.test(deviceAgent)  && !window.MSStream;
-        }
-        
-        // Detect iOS8
-        function detectIOS8 () {
-            var deviceAgent = window.navigator.userAgent.toLowerCase();
-            return /(iphone|ipod|ipad).* os 8_/.test(deviceAgent)  && !window.MSStream;
-        }
-        
         // Initialize module
         return __init();
     },
@@ -192,7 +184,7 @@ var graffino = {
         
             // Disable pointer events on iOS drag to prevent scroll stopping when
             // dragging on form elements (iOS workaround)
-            if (graffino.detectBrowser('ios')) {
+            if ($.browser.mobile) {
                 setPointerEvents('none');
 
                 $(document).on('touchstart', function() {
@@ -280,7 +272,8 @@ var graffino = {
         // Initialize function
         function __init() {
             $window.on('resize', function() {
-                // Do stuff
+                // Fire all functions in the resize functions array
+                graffino.callArrayFunctions(resizeFunctionsArray);
             });
         }
 
@@ -316,6 +309,20 @@ var graffino = {
 
         // Initialize module
         return __init();
+    },
+    
+    // This method calls all the functions found in an array
+    callArrayFunctions: function(functionsArray) {
+        // Initialize Function
+        function __init() {
+            // firing each function found in the resizeFunctionsArray
+            $(functionsArray).each(function(key, func){
+                func();
+            });
+        }
+        
+        // Initialize module
+        __init();
     }
 };
 
