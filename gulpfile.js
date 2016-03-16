@@ -521,7 +521,13 @@ gulp.task('test:js', function() {
 gulp.task('test:styl', function() {
     return gulp.src(paths.styl.src)
         .pipe(plugins.plumber({errorHandler: onError}))
-        .pipe(plugins.stylint({config: '.stylintrc'}))
+        .pipe(plugins.stylint({
+            config: '.stylintrc',
+            reporter: plugins.stylintStylish,
+            reporterOptions: {
+                verbose: true
+            }
+        }))
         .pipe(plugins.stylint.reporter());
 });
 
