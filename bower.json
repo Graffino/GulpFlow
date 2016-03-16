@@ -1,6 +1,6 @@
 {
   "name": "GulpFlow",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "authors": [
     "Graffino"
   ],
@@ -18,26 +18,26 @@
     "tests"
   ],
   "devDependencies": {
-    "jquery": "~2.2.0",
+    "jquery": "~2.2.1",
     "h5Validate": "~0.9.0",
     "normalize.styl": "~3.0.3",
     "jeet": "~6.1.2",
     "rupture-by-jenius": "~0.6.1",
     "browser-update": "~1.3.0",
-    "fontfaceobserver": "~1.6.3",
+    "fontfaceobserver": "~1.6.5",
     "srcset-poly": "*",
     "slick.js": "~1.5.9",
     "matchHeight": "~0.7.0",
     "velocity": "~1.2.3",
-    "magnific-popup": "~1.0.1",
+    "magnific-popup": "~1.1.0",
     "pointer-events-poly": "*",
     "BackstopJS": "backstopjs#~0.8.0",
-    "select2": "~4.0.1",
+    "select2": "~4.0.2",
     "jquery-placeholder": "~2.3.1",
     "jquery.browser": "^0.1.0"
   },
   "resolutions": {
-    "jquery": "~2.2.0"
+    "jquery": "~2.2.1"
   },
   "overrides": {
     "pointer-events-poly": {
