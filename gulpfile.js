@@ -270,7 +270,7 @@ gulp.task('css:process', function() {
         .pipe(plugins.groupConcat({'main.css': '**/*.css'}))
         .pipe(plugins.uncss({
             html: ['*.html'],
-            ignore: [/fonts-loaded/, /ie/, /ie8/, /ios/, /h-no-pointer-events/, /is-.*/, /has-.*/, /ui-.*/, /mfp-.*/, /select2-.*/, /slick-.*/, /-x-.*/, /-minus-.*/, /-plus-.*/, /-arrow-.*/ ]
+            ignore: [/no-.*/, /browser-.*/, /h-no-pointer-events/, /is-.*/, /has-.*/, /placeholder/, /ui-.*/, /mfp-.*/, /select2-.*/, /slick-.*/, /-x-.*/, /-minus-.*/, /-plus-.*/, /-arrow-.*/ ]
         }))
         .pipe(plugins.sourcemaps.write('.'))
         .pipe(gulp.dest(paths.css.dest));
