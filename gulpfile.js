@@ -30,6 +30,10 @@ var plugins = gulpLoadPlugins({
  */
 require('gulp-stats')(gulp);
 
+/**
+ * Fix for failed build on Graffino staging
+ */
+require('es6-promise').polyfill();
 
 /**
  *  Error handler
@@ -108,7 +112,7 @@ gulp.task('clean', function() {
         '!' + paths.img.dest + 'src/**',
         paths.build.main,
     ];
-    
+
     return plugins.del(toClean);
 });
 
@@ -244,7 +248,7 @@ gulp.task('stylus:compile', function() {
         plugins.combineMq,
         plugins.postcssQuantityQueries
     ];
-    
+
     return gulp.src(paths.styl.main)
         .pipe(plugins.plumber({errorHandler: onError}))
         .pipe(plugins.sourcemaps.init())
@@ -373,7 +377,7 @@ gulp.task('sprite:build', function() {
             }
         }
     };
-    
+
     return gulp.src(paths.sprite)
         .pipe(plugins.plumber({errorHandler: onError}))
         .pipe(plugins.svgSprite(config))
@@ -528,7 +532,8 @@ gulp.task('test:styl', function() {
                 verbose: true
             }
         }))
-        .pipe(plugins.stylint.reporter());
+        .pipe(plugins.stylint.reporter())
+        .pipe(plugins.stylint.reporter('fail', { failOnWarning: true }));
 });
 
 // Lint HTML
@@ -616,7 +621,7 @@ gulp.task('notice:built', function() {
 gulp.task('watch', function() {
     // Live reload listen
     plugins.livereload.listen();
-    
+
     // Bower
     gulp.watch(paths.plugins.src, { interval: 500 }, ['componentsSequence']);
     // Stylus
