@@ -35,6 +35,7 @@ require('gulp-stats')(gulp);
  */
 require('es6-promise').polyfill();
 
+
 /**
  *  Error handler
  */
@@ -647,17 +648,17 @@ gulp.task('development', function (cb) {
 });
 // Production build
 gulp.task('staging', function (cb) {
-    plugins.sequence(['clean', 'devSequence'], cb);
+    plugins.sequence('clean', 'devSequence', cb);
 });
 
 // Development build
 gulp.task('production', function (cb) {
-    plugins.sequence(['clean', 'prodSequence'], 'notice:built', cb);
+    plugins.sequence('clean', 'prodSequence', 'notice:built', cb);
 });
 
 // Run tests
 gulp.task('test', function (cb) {
-    plugins.sequence(['testSequence'], 'notice:built', cb);
+    plugins.sequence('testSequence', 'notice:built', cb);
 });
 
 // The default task (called when you run `gulp` from cli)
