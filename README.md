@@ -1,11 +1,7 @@
 # GulpFlow
-## Gulp basic flow we use at Graffino ##
-*This site uses stylus and it's precompiled with node / Gulp.*
+Gulp basic flow we use at Graffino. This site uses *Stylus* and it's deployed with *Gulp.*
 
-### DISCLAIMER ###
-We know it's not complete, not well documented. We're working on it :). You'll need knowledge of node, gulp, bower and stylus to master this.
-
-### Development Deployment ###
+## How to start ##
 
 Run in this order:
 ```
@@ -13,119 +9,84 @@ npm install
 gulp
 ```
 
-to generate all assets for a development deployment.
+to generate all assets for a development deployment and enter watch mode.
 
 
-### These files & folders are dynamically generated: ###
+#### These files & folders are dynamically generated: ####
 
 ```
-bower_components
-node_modules
-
-assets/js/plugins/
-assets/js/main.js
-assets/js/main.js.map
-assets/js/main.min.js
-assets/js/main.min.js.map
-
-assets/css/
-assets/images/ -> Except src folder
+bower_components    -> Needed for development
+node_modules        -> Needed for development
+www                 -> This is where your project gets deployed
+tests/regression    -> Regression testing files
 
 ```
 
-### Source files (Javascript, Stylus, Images), config files needed by node, gulp and bower: ###
+## What can it do? ##
 
-```
-assets/js/modules/ -> All source Javascript Files are stored here
-assets/images/src -> All source images are stored here
-assets/styl/ -> All source CSS (Stylus files are stored here)
+#### 1. Run Production Flow ####
+By default the flow runs in development mode and starts to watch for changes.
+Run `gulp build --env production` to enable production flow. This runs minfier and image optimisation plugins.
 
-bower.json -> Bower configuration
-package.json -> Node configuration
-gulpfile.js -> Gulp configuration
-readme.md -> This file
+#### 2. Run Development Flow Without Watch ####
+Run `gulp build --env development` to run the development flow without once, and not enter watch mode.
 
-```
+#### 3. Gulp Clean Flow ####
+Run `gulp clean` to clean out any dynamically generated files.
 
-### These files & folders are not needed for live deployment:
+#### 4. Run In Debug Mode ####
+Run `gulp build --debug true` to enable certain debug flags. Note that just some plugins have debug flags.
 
-```
-bower_components
-node_modules
+## Inject Critical CSS ##
+*This is still WIP*
 
-assets/images/src
+Run:
 
-assets/js/plugins/
-assets/js/modules/
-assets/js/main.js
-assets/js/main.js.map
-assets/js/main.min.js.map
+1. `gulp build --env production`
+2. `gulp critical`
 
-assets/css/main.css
-assets/css/main.css.map
-assets/css/main.min.css.map
-assets/styl/
+## Regression testing ##
 
-bower.json
-package.json
-gulpfile.js
-readme.md
+#### To get regression testing up and running: ####
 
-docs
+1. Install smimerjs: `npm install -g slimerjs`
+2. Install casper: `npm install -g casperjs`
+3. Initialize backstopjs:
+    - `cd ./node_modules/backstopjs/ `
+    - `npm install`
+4. Regression initial config:
+    - `npm run regression-config`
+    - Edit/Insert required scenarios in `backstop.json`.
 
-```
-
-### Compilation flow when running: ###
-
-```
-Initialization
-```
-Run 'npm install ; gulp'
-
-```
-Gulp
-```
-
-1. Bower components are fetched and installed in /bower_components.
-2. Bower libraries's main js and css files are compiled to bower.js, bower.css respectively.
-3. Images are copied from source into images/.
-4. SVG sprite is generated (sprite.styl, sprite.svg), sprite.styl file copied into /styl/base/, sprite.svg is copied into images/svg.
-5. HTML files are linted for errors via HTMLHint according to .htmlhintrc configuration file.
-6. Stylus is compiled from /assets/styl/ & CSS to /css/modules/app.css.
-7. /css/modules/app.css and /css/plugins/bower.css are concatenated into /css/main.css.
-8. PostCSS along with Autoprefixer, combineMq and Quantity Queries is run on /css/main.css for automatically adding needed CSS browser prefixes and minifying the css to /css/main.min.css.
-9. Javascript files (/js/main.js) is linted for errors via JSHint.
-10. /js/modules/app.js and /js/plugins/bower.js are concatenated into /js/main.js and then minified into /js/main.min.js.
-14. Base logo, favicon, iOS icons are copied to /images.
-15. A watch for changes function is launched.
-
-```
-Gulp production
-```
-
-Apart from development steps:
-
-1. Gulp clean is being run, deleting all dynamically generated files & paths including /bower_components.
-2. Any eventual modification in package.json are resolved.
-3. Images are heavily optimized, compressed and copied into images/ (this might take a while).
-4. Watch doesn't run on production.
+#### To test for regressions ####
+1. Create Regression reference:
+    - `npm run regression-reference`
+2. Run a regression test:
+    - `npm run regression-test`
+3. Bless files (if we have older reference files):
+    - `npm run regression-bless`
+4. Open regression report:
+    - `npm run regression-report`
 
 
-```
-Gulp clean
-```
-* Deletes all dynamically generated files & paths including /bower_components
+## Bump Project Version ##
+
+Run:
+
+1. `gulp bump` to bump package.json & bower.json version to a patch version (0.0.x)
+2. `gulp bump:minor` to bump package.json & bower.json version to a minor version (0.x.0)
+3. `gulp bump:major` to bump package.json & bower.json version to a major version (x.0.0)
 
 
-```
-Gulp test
-```
-* HTML, Stylus and Javascript files (/js/main.js) are linted for errors via JSHint and HTMLHint and Stylint
+## Update Project Dependencies ##
 
-```
-Gulp test
-```
-* HTML, Stylus and Javascript files (/js/main.js) are linted for errors via JSHint and HTMLHint and Stylint
+Run:
+
+1. `npm run check-npm-updates` to check for node modules updates
+2. `npm run check-npm-updates` to check for node modules updates
+3. `npm run update-npm-modules ` to update package.json with the new node module versions and install all non-breaking module updates.
+4. `npm run update-bower-modules ` to update bower.json with the new bower module versions and install all non-breaking module updates.
 
 
-### See full list of commands in gulpfile.js ###
+#### DISCLAIMER ####
+We know it's not complete, not well documented. We're working on it :). You'll need knowledge of node, gulp, bower and stylus to master this.

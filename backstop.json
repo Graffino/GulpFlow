@@ -36,13 +36,17 @@
     }
   ],
   "paths": {
-    "bitmaps_reference": "../../backstop_data/bitmaps_reference",
-    "bitmaps_test": "../../backstop_data/bitmaps_test",
-    "compare_data": "../../backstop_data/bitmaps_test/compare.json",
-    "casper_scripts": "../../backstop_data/casper_scripts"
+    "bitmaps_reference": "../../tests/regression/bitmaps_reference",
+    "bitmaps_test": "../../tests/regression/bitmaps_test",
+    "compare_data": "../../tests/regression/bitmaps_test/compare.json",
+    "casper_scripts": "../../tests/regression/casper_scripts"
   },
-  "engine": "phantomjs",
   "report": ["CLI", "browser"],
   "cliExitOnFail": false,
-  "debug": false
+  "engine": "slimerjs",
+  "debug": false,
+  "port": 3001,
+  "casperFlags": [
+    "--engine=slimerjs"
+  ]
 }

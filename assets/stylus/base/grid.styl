@@ -1,0 +1,164 @@
+//
+// Name: Grid
+// Author: Graffino (http://www.graffino.com)
+//
+
+
+/**
+ * Baseline grid overlay
+ */
+
+html {
+    &::after {
+        content: string($unit);
+        display: none;
+    }
+}
+
+body {
+    position: relative;
+}
+
+.grid {
+    pointer-events: none;
+    opacity: 0;
+    z-index: 80;
+    height: 100%;
+    transition: transition-custom($property = opacity);
+
+    &.is-visible {
+        opacity: 1;
+    }
+
+    // Baseline grid overlay
+    &__baseline {
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 90;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(rgba($color-grid-baseline, 0.15) 1px, transparent 1px);
+        background-position: 0 -1px;
+        background-size: rem($unit) rem($unit);
+        background-repeat: repeat;
+    }
+
+    // Columns overlay
+    &__columns {
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        z-index: 90;
+        width: rem($width-container);
+        height: 100%;
+        margin-left: rem(-($width-container / 2));
+
+        .column__twelve {
+            pointer-events: none;
+            height: 100%;
+            box-shadow: 1px 0 0 rgba($color-grid-baseline, 0.15), -1px 0 0 rgba($color-grid-baseline, 0.15);
+        }
+    }
+}
+
+
+/**
+ * Styleguide — Headings meta data
+ */
+
+.-demo-font-sans,
+.-demo-font-serif,
+.-demo-font-cursive {
+    &::after {
+        position: relative;
+        display: inline-block;
+    }
+}
+
+.-demo-font-sans {
+    &::after {
+        content: string($sans-fontface);
+    }
+}
+
+.-demo-font-serif {
+    &::after {
+        content: string($serif-fontface);
+    }
+}
+
+.-demo-font-cursive {
+    &::after {
+        content: string($cursive-fontface);
+    }
+}
+
+.headings-demo {
+    .heading-demo {
+        display: block;
+        width: 80%;
+        padding: inherit;
+        font-size: $font-size-small;
+        font-weight: 400;
+        text-transform: none;
+        letter-spacing: normal;
+
+        &::after {
+            float: right;
+            display: inline-block;
+            padding-left: rem($unit / 4);
+            color: $color-text;
+            text-align: right;
+        }
+    }
+
+    .heading-example {
+        margin-top: rem($unit * 2);
+    }
+
+    .heading-type {
+        display: block;
+        margin-bottom: rem($unit);
+        color: $color-text;
+        font-family: $serif-stack;
+        text-transform: none;
+        font-style: italic;
+    }
+
+    // Exporting headings meta info (e.g. sizes, leading, weight, etc.)
+    .heading-demo-1-xxl {
+        margin: rem($unit) 0 rem($unit * 2);
+        export-headings-info(7);
+    }
+    .heading-demo-1-xl {
+        margin: rem($unit) 0 rem($unit * 2);
+        export-headings-info(6);
+    }
+    .heading-demo-1 {
+        margin: 0 0 rem($unit * 2);
+        export-headings-info(5);
+    }
+    .heading-demo-2 {
+        margin: 0 0 rem($unit * 2);
+        export-headings-info(4);
+    }
+    .heading-demo-3 {
+        margin: 0 0 rem($unit * 2);
+        export-headings-info(3);
+    }
+    .heading-demo-4 {
+        margin: 0 0 rem($unit * 2);
+        export-headings-info(2);
+    }
+    .heading-demo-5 {
+        margin: 0 0 rem($unit * 2);
+        export-headings-info(1);
+    }
+    .heading-demo-6 {
+        margin: 0 0 rem($unit * 2);
+        export-headings-info(0);
+    }
+}
