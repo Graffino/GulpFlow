@@ -1,5 +1,5 @@
 {
-  "name": "GulpFlow",
+  "name": "gulp-flow",
   "version": "1.3.8",
   "authors": [
     "Graffino"
@@ -20,13 +20,10 @@
   "devDependencies": {
     "jquery": "~2.2.3",
     "h5Validate": "~0.9.0",
-    "normalize.styl": "~3.0.3",
-    "jeet": "~6.1.2",
-    "rupture-by-jenius": "~0.6.1",
     "browser-update": "~1.3.0",
     "fontfaceobserver": "~1.7.1",
     "srcset-poly": "*",
-    "slick.js": "~1.5.9",
+    "slick.js": "~1.6.0",
     "matchHeight": "~0.7.0",
     "velocity": "~1.2.3",
     "magnific-popup": "~1.1.0",

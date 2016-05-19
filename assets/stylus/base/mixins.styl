@@ -1,0 +1,709 @@
+//
+// Name: Mixins
+// Author: Graffino (http://www.graffino.com)
+//
+
+
+/**
+ * Custom mixins
+ */
+
+// Convert to REM
+rem($value) {
+    return unit($value/$base-font-size-px, "rem"); // @stylint ignore
+}
+
+// Convert to EM
+em($value) {
+    return unit($value/$base-font-size-px, "em"); // @stylint ignore
+}
+
+// Px to percent
+px-to-procent($value, $max-value) {
+    return $value*100/$max-value; // @stylint ignore
+}
+
+// Px to percent
+procent-to-px($procent, $max-value) {
+    return $procent*$max-value/100; // @stylint ignore
+}
+
+// Convert value to string
+string($value) {
+    return "" + $value; // @stylint ignore
+}
+
+// CSS calc() subtract value from 100% width
+width-from-100($value) {
+    return "calc(100% - %s)" % rem($value);
+}
+
+// CSS calc() subtract value from 100% height
+height-from-100($value) {
+    return "calc(100% - %s)" % rem($value);
+}
+
+// CSS calc() add value to 100%
+calc-100-plus($value) {
+    return "calc(100% + %s)" % rem($value);
+}
+
+// CSS calc() substract value from 50%
+calc-50-minus($value) {
+    return "calc(50% - %s)" % rem($value);
+}
+
+// Convert nr. of columns to px
+cols-to-px($value) {
+    return (($value - 1) * $width-columns-gutter) + ($value * $width-column);
+}
+
+// Mobile pixels — Below $tablet breakpoint HTML font-size is lowered
+// This mixin takes the input and makes the sure the output of rem represents
+// the pixel value that has been passed.
+mobile-rem($value) {
+    return rem($value * ($base-font-size-px / $tablet-font-size-px));
+}
+
+// Mixin for creating a custom number of columns from a passed width
+create-columns($width, $cols = 12, $gutter = 10, $class_name = ".column", $debug = false, $debug_labels = false, $debug_unit = "px") {
+    // Percent gutter relative to the parent
+    $p_gutter = $gutter * 100 / $width; // @stylint ignore
+    // Column width in percent
+    $p_column = (100 - ($cols - 1) * $p_gutter) / $cols; // @stylint ignore
+
+    // General column styling
+    .column,
+    {$class_name} {
+        position: relative;
+        float: left;
+        min-height: rem($unit);
+
+        // Column widths
+        for $n in (1..$cols) {
+            // Constructing class name
+            &.-col-{$n} {
+                // Setting the column width + gutters
+                // Calculating the column's width relative to the parent
+                $new_width = (($n - 1) * $p_gutter) + ($n * $p_column); // @stylint ignore
+                width: $new_width + "%";
+                // Adding gutter
+                // Percent gutter value relative to the child
+                margin-right: $p_gutter + "%";
+
+                // Debugging class which shows the percent values on the front-end
+                // Show width of the column
+                if ($debug == "true" && $debug_labels == "true") {
+                    &::before {
+                        if ($debug_unit == "%") {
+                            content: string("W: " + round(@width, 2));
+                        }
+                        if ($debug_unit == "px") {
+                            // Covert this to pixels;
+                            content: string("W: " + round($new_width * $width / 100, 1) + "px");
+                        }
+                        position: absolute;
+                        top: rem(-16);
+                        left: 0;
+                        display: block;
+                        color: $color-grid-baseline;
+                        font-family: $sans-stack !important;
+                        font-size: rem(12);
+                        font-style: normal;
+                    }
+
+                    // Show gutter of the column
+                    &::after {
+                        if ($debug_unit == "%") {
+                            content: string("G: " + round($p_gutter, 2) + "%");
+                        }
+                        if ($debug_unit == "px") {
+                            content: string("G: " + round($p_gutter * $width / 100, 1) + "px");
+                        }
+                        position: absolute;
+                        top: rem(-16);
+                        right: 0;
+                        display: block;
+                        color: $color-grid-baseline;
+                        font-family: $sans-stack !important;
+                        font-size: rem(12);
+                        font-style: normal;
+                    }
+                }
+
+                // Hide gutter if column has -no-gutter class
+                &.-no-gutter {
+                    &::after {
+                        display: none;
+                    }
+                }
+
+                // Margin bottom
+                &.-margin-bottom {
+                    margin-bottom: rem($unit);
+                }
+            }
+        }
+
+        // Offset classes
+        for $n in (1..($cols - 1)) {
+            // Constructing class name
+            &.-offset-{$n}-col {
+                // Setting the offset margin
+                margin-left: ($n * $p_gutter) + ($n * $p_column) + "%";
+            }
+        }
+
+        // Adding the -no-gutter Class
+        &.-no-gutter {
+            margin-right: 0;
+        }
+    }
+
+    // Debug columns for display
+    if ($debug == true) {
+        // columns overlay
+        .column-guides {
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 900;
+            width: rem($width);
+            height: 100%;
+
+            .column {
+                &.-col-1 {
+                    pointer-events: none;
+                    height: 100%;
+                    box-shadow: -1px 0 0 rgba($color-grid-baseline, 0.15), 1px 0 0 rgba($color-grid-baseline, 0.15);
+                }
+            }
+        }
+    }
+}
+
+// Mixin for creating custom responsive columns
+responsive-columns($cols = 12, $gutter = 20, $mobile_gutter = 6, $responsive_auto = false, $debug = false, $debug_labels = true) {
+    // Styling for column row
+    .col__row {
+        cf();
+        margin-right: rem(-($gutter / 2));
+        margin-bottom: rem($unit);
+        margin-left: rem(-($gutter / 2));
+
+        +below($mobile) {
+            margin-right: rem(-($mobile_gutter / 2));
+            margin-left: rem(-($mobile_gutter / 2));
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &.-margin {
+            &-none {
+                margin-bottom: 0;
+            }
+            &-single {
+                margin-bottom: rem($unit);
+            }
+
+            &-double {
+                margin-bottom: rem($unit * 2);
+            }
+
+            &-triple {
+                margin-bottom: rem($unit * 3);
+            }
+        }
+    }
+
+    // General column CSS rules
+    [class*="col-"] {
+        float: left;
+        // Minimum height to preserve float order
+        min-height: rem($unit);
+        // Gutter
+        padding: 0 rem($gutter / 2);
+
+        +below($mobile) {
+            padding: 0 rem($mobile_gutter / 2);
+        }
+
+        // Margin classes for breakpoints
+        &.-tablet-margin {
+            +below($tablet) {
+                margin-bottom: rem($unit);
+            }
+        }
+
+        &.-mobile-margin {
+            +below($mobile) {
+                margin-bottom: rem($unit);
+            }
+        }
+    }
+
+    // Generating column classes
+    for $n in (1..$cols) {
+        // Setting the column width
+        .col-{$n} {
+            // Calculating the width for each column
+            $width = (100 / $cols) * $n + "%";
+            // Assigning the new width to the columns
+            width: $width;
+
+            // Show width on labels if enabled
+            if ($debug == true && $debug_labels == true) {
+                &::after {
+                    content: string("[") + string($n) + string("/12]: ") + string(round($width, 2));
+                }
+            }
+
+            // Responsive column widths
+            if ($responsive_auto == true) {
+                +below($desktop) {
+                    if $n in 1..2 {
+                        width: calc(100% / 6);
+                    }
+                }
+
+                +below($tablet) {
+                    if $n in 1..2 {
+                        width: calc(100% / 4);
+                    }
+                    if $n in 3..4 {
+                        width: calc(100% / 3);
+                    }
+                    if $n in 5..6 {
+                        width: calc(100 / 2);
+                    }
+                    if $n in 7..12 {
+                        width: 100%;
+                    }
+                }
+
+                +below($mobile) {
+                    if $n in 1..2 {
+                        width: calc(100% / 2);
+                    }
+                    if $n in 3..12 {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+
+    /**
+     * Offset classes
+     */
+
+    // Generating column offset classes in order of priority
+    for $n in 1..($cols - 1) {
+        [class*="col-"] {
+            &.-offset-{$n}-col {
+                margin-left: unit(100 / $cols * $n, "%");
+            }
+        }
+    }
+    for $n in 1..($cols - 1) {
+        [class*="col-"] {
+            &.-desktop-offset-{$n} {
+                +below($desktop) {
+                    margin-left: unit(100 / $cols * $n, "%");
+                }
+            }
+        }
+    }
+    // Default (non-programmatical) classes
+    [class*="col-"] {
+        &.-desktop-offset-0 {
+            +below($desktop) {
+                margin-left: 0;
+            }
+        }
+    }
+    for $n in 1..($cols - 1) {
+        [class*="col-"] {
+            &.-tablet-offset-{$n} {
+                +below($tablet) {
+                    margin-left: unit(100 / $cols * $n, "%");
+                }
+            }
+        }
+    }
+    // Default (non-programmatical) classes
+    [class*="col-"] {
+        &.-tablet-offset-0 {
+            +below($tablet) {
+                margin-left: 0;
+            }
+        }
+    }
+    for $n in 1..($cols - 1) {
+        [class*="col-"] {
+            &.-mobile-offset-{$n} {
+                +below($mobile) {
+                    margin-left: unit(100 / $cols * $n, "%");
+                }
+            }
+        }
+    }
+    // Default (non-programmatical) classes
+    [class*="col-"] {
+        &.-mobile-offset-0 {
+            +below($mobile) {
+                margin-left: 0;
+            }
+        }
+    }
+
+    /**
+     * Responsive override classes
+     */
+
+    // Custom responsive classes
+    for $n in 1..$cols {
+        [class*="col-"] {
+            &.-desktop-{$n} {
+                +below($desktop) {
+                    // Calculating the width for each column
+                    $width = (100 / $cols) * $n + "%";
+                    // Assigning the new width to the columns
+                    width: $width;
+
+                    // Show width on labels if enabled
+                    if ($debug == true && $debug_labels == true) {
+                        &::after {
+                            content: string("[") + string($n) + string("/12]: ") + string(round($width, 2));
+                        }
+                    }
+                }
+            }
+        }
+    }
+    for $n in 1..$cols {
+        [class*="col-"] {
+            &.-tablet-{$n} {
+                +below($tablet) {
+                    // Calculating the width for each column
+                    $width = (100 / $cols) * $n + "%";
+                    // Assigning the new width to the columns
+                    width: $width;
+
+                    // Show width on labels if enabled
+                    if ($debug == true && $debug_labels == true) {
+                        &::after {
+                            content: string("[") + string($n) + string("/12]: ") + string(round($width, 2));
+                        }
+                    }
+                }
+            }
+        }
+    }
+    for $n in 1..$cols {
+        [class*="col-"] {
+            &.-mobile-{$n} {
+                +below($mobile) {
+                    // Calculating the width for each column
+                    $width = (100 / $cols) * $n + "%";
+                    // Assigning the new width to the columns
+                    width: $width;
+
+                    // Show width on labels if enabled
+                    if ($debug == true && $debug_labels == true) {
+                        &::after {
+                            content: string("[") + string($n) + string("/12]: ") + string(round($width, 2));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Debugging visualisation logic
+    if ($debug == true) {
+        // columns overlay
+        .col__row {
+            position: relative;
+            top: 0;
+            left: 0;
+            z-index: 90;
+            height: 100%;
+            transition: transition-custom($property = opacity);
+
+            &::before {
+                content: "";
+                pointer-events: none;
+                opacity: 0;
+                position: absolute;
+                top: -1px;
+                left: 0;
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+                border-top: dotted 1px rgba($color-grid-baseline, 0.3);
+                border-bottom: dotted 1px rgba($color-grid-baseline, 0.3);
+            }
+
+            &:hover {
+                &::before {
+                    opacity: 1;
+                }
+            }
+
+            [class*="col-"] {
+                position: relative;
+
+                // Visually represent the column's dimensions
+                &::before {
+                    content: "";
+                    pointer-events: none;
+                    opacity: 0;
+                    position: absolute;
+                    top: 0;
+                    display: block;
+                    width: width-from-100($gutter);
+                    height: 100%;
+                    background-color: rgba($color-grid-baseline, 0.02);
+                    box-shadow: -1px 0 0 rgba($color-grid-baseline, 0.8), 1px 0 0 rgba($color-grid-baseline, 0.8);
+                    transition: transition-custom($property = opacity);
+
+                    +below($mobile) {
+                        width: width-from-100($mobile_gutter);
+                    }
+                }
+
+                &:hover {
+                    &::before {
+                        opacity: 1;
+                    }
+                }
+
+                if ($debug_labels == true) {
+                    // Column ratio and width label
+                    &::after {
+                        pointer-events: none;
+                        opacity: 0;
+                        position: absolute;
+                        top: rem(-($unit));
+                        left: rem($gutter / 2);
+                        display: block;
+                        height: rem($unit - 2);
+                        margin-left: -1px;
+                        border: dotted 1px rgba($color-grid-baseline, 0.3);
+                        padding: 0 rem(6);
+                        color: $color-grid-baseline;
+                        font-family: $sans-stack !important;
+                        font-size: rem(10);
+                        font-style: normal;
+                        line-height: rem($unit - 2);
+                        transition: transition-custom($property = opacity);
+
+                        +below($mobile) {
+                            left: rem($mobile_gutter / 2);
+                        }
+                    }
+
+                    &:hover {
+                        &::after {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Full-height column guides
+        .column-guides {
+            pointer-events: none;
+            position: absolute;
+            width: width-from-100(160*2);
+            height: height-from-100($unit);
+            margin-top: rem(-($gutter / 2));
+
+            +below($desktop) {
+                width: width-from-100(60*2);
+            }
+
+            +below($tablet) {
+                width: width-from-100(34*2);
+            }
+
+            +below($mobile) {
+                width: width-from-100(18*2);
+                margin-top: rem(-($mobile_gutter / 2));
+            }
+
+            .col__row {
+                pointer-events: none;
+                background-color: transparent;
+                box-shadow: none;
+            }
+
+            [class*="col-"] {
+                pointer-events: none;
+                height: 100%;
+                &::before {
+                    pointer-events: none;
+                    opacity: 1;
+                    background-color: transparent;
+                    box-shadow: -1px 0 0 rgba($color-grid-hanglines, 0.4), 1px 0 0 rgba($color-grid-hanglines, 0.4);
+                }
+
+                &::after {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+// Function for sorting a list of items
+sort(list, fn = null) {
+    // default sort function
+    if (fn == null) {
+        fn = @(a, b) {
+          a > b;
+        }
+    }
+
+    // Bubble sort
+    for $i in 1..length(list) - 1 {
+        for $j in (0..$i - 1) {
+            if fn(list[$j], list[$i]) {
+                $temp = list[$i];
+                list[$i] = list[$j];
+                list[$j] = $temp;
+            }
+        }
+    }
+
+    return list;
+}
+
+// Mixin for converting data-progress to width for the progress bar using classes
+data-attr-to-color-code($increment) {
+    // Loop from 0 to 100 with increments of 5
+    for $i in range(0, 100, $increment) {
+        // Progress bar color
+        if (0 <= $i && $i <= 25) {
+            $progress-bar-color = $color-progress-bar-background-orange;
+            $title-color = $color-vacancies-code-orange;
+        }
+        if (25 < $i && $i < 75) {
+            $progress-bar-color = $color-progress-bar-background-blue;
+            $title-color = $color-vacancies-code-blue;
+        }
+        if (75 < $i && $i <= 99) {
+            $progress-bar-color = $color-progress-bar-background-purple;
+            $title-color = $color-vacancies-code-purple;
+        }
+        if ($i == 100) {
+            $progress-bar-color = $color-progress-bar-background-green;
+            $title-color = $color-vacancies-code-green;
+        }
+
+        // Building selectors exporting CSS
+        // Adding the title color and progress bar colors
+        &[data-progress=\"{$i}\"] {
+            .progress-bar,
+            .progress-bar[data-progress=\"{$i}\"] {
+                .progress {
+                    // Setting the progress bar's width
+                    width: $i + "%";
+                    // Adding custom color classes
+                    background-color: $progress-bar-color;
+                }
+            }
+
+            .title {
+                color: $title-color;
+            }
+        }
+    }
+}
+
+// Nearest multiple of x
+// Thanks to: https://stackoverflow.com/questions/14196987/java-round-to-nearest-multiple-of-5-either-up-or-down#answer-14197029
+near($value = 24, $multiplier = $unit, $direction = "up") {
+    $result = 0;
+    // This formula rounds to the nearest multiple (either up or down)
+    if ($direction == "none") {
+        $result = $multiplier * (round($value / $multiplier));
+    }
+
+    if ($direction == "up") {
+        $result = $multiplier * (ceil(abs($value / $multiplier)));
+    }
+
+    if ($direction == "down") {
+        $result = $multiplier * (floor(abs($value / $multiplier)));
+    }
+
+    return $result;
+}
+
+// Mixing that exports the heading's information (e.g. size, line-height, etc.)
+export-headings-info($size) {
+    .-fontface {
+        &::after {
+            content: string($heading-fontface);
+        }
+    }
+    .-font-size {
+        &::after {
+            content: string($font-size-headings[$size]);
+        }
+    }
+    .-leading {
+        &::after {
+            content: string($line-height-headings[$size]);
+        }
+    }
+    .-font-weight {
+        &::after {
+            content: string($font-weight-headings[$size]);
+        }
+    }
+    .-transform {
+        &::after {
+            content: string($transform-headings[$size]);
+        }
+    }
+}
+
+// Output to pseudo-console
+console($value) {
+    body:before {
+        content: "Stylus> " + string($value);
+    }
+}
+
+
+/*
+ * Font mixin
+ */
+
+webfont($family, $file, $weight = normal, $style = normal) {
+    @font-face {
+        font-family: $family;
+        src: url("../fonts/" + $file + ".woff2") format("woff2"),
+            url("../fonts/" + $file + ".woff") format("woff"),
+            url("../fonts/" + $file + ".ttf") format("truetype"); // @stylint ignore
+            font-style: $style;
+        font-weight: $weight;
+    }
+}
+
+
+/**
+ * Animation mixin
+ */
+
+transition-custom($property = all, $duration = 250ms, $ease = cubic-bezier(0.250, 0.460, 0.450, 0.940)) { // @stylint ignore
+    return $property $duration $ease; // @stylint ignore
+}
