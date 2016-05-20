@@ -40,8 +40,8 @@ function updateBower() {
 // Update bower
 function compileBower() {
 
-    var jsFiles = plugins.filter('**/*.js', { restore: true });
-    var cssFiles = plugins.filter('**/*.css', { restore: true });
+    var jsFiles = plugins.filter(['**/*.js', '!**/*main*.js'], { restore: true });
+    var cssFiles = plugins.filter(['**/*.css', '!**/*main*.css'], { restore: true });
 
     return gulp.src(plugins.mainBowerFiles({
             includeDev: true,

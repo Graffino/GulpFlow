@@ -28,7 +28,6 @@
     "velocity": "~1.2.3",
     "magnific-popup": "~1.1.0",
     "pointer-events-poly": "*",
-    "BackstopJS": "backstopjs#~0.8.0",
     "select2": "~4.0.2",
     "jquery-placeholder": "~2.3.1",
     "jquery.browser": "^0.1.0"
@@ -55,23 +54,11 @@
     "fontfaceobserver": {
       "main": "fontfaceobserver.js"
     },
-    "jeet": {
-      "main": []
-    },
-    "rupture-by-jenius": {
-      "main": []
-    },
-    "normalize.styl": {
-      "main": []
-    },
     "select2": {
       "main": [
         "dist/css/select2.css",
         "dist/js/select2.js"
       ]
-    },
-    "BackstopJS": {
-      "main": []
     }
   }
 }
