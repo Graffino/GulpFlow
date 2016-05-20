@@ -61,7 +61,7 @@ function watchApp() {
 
     // Stylus
     gulp.watch(
-        paths.patterns.stylusSource,
+        [paths.patterns.stylusSource, paths.source.stylusMain],
         plugins.debounce(
             gulp.series([
                 lint.stylus,
