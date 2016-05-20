@@ -17,6 +17,7 @@ var minimist = require('minimist');
 
 var DEVELOPMENT_ENV = 'development';
 var PRODUCTION_ENV = 'production';
+var STAGING_ENV = 'staging';
 
 // Default environment
 var env = {
@@ -50,6 +51,11 @@ env.isDevelopment = function () {
 // Production
 env.isProduction = function () {
     return env.NODE_ENV === PRODUCTION_ENV;
+};
+
+// Staging
+env.isStaging = function () {
+    return env.NODE_ENV === STAGING_ENV;
 };
 
 // Debug

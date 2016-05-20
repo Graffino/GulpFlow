@@ -40,6 +40,21 @@ var buildDevelopment = gulp.series(
 
 
 /**
+ * Build for staging
+ */
+
+var buildStaging = gulp.series(
+    clean.app,
+    gulp.parallel (
+        bundle.deps
+    ),
+    copy.app,
+    compile.app,
+    bundle.app
+);
+
+
+/**
  * Build for production
  */
 
@@ -61,7 +76,9 @@ var buildProduction = gulp.series(
  */
 
 var build = function(cb) {
-    return env.isProduction() ? buildProduction(cb) : buildDevelopment(cb);
+    if ( env.isProduction() ) { return buildProduction(cb); }
+    else if (env.isDevelopment()) { return buildDevelopment(cb); }
+    else { return buildStaging(cb); }
 };
 
 
