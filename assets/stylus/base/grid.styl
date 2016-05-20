@@ -3,13 +3,12 @@
 // Author: Graffino (http://www.graffino.com)
 //
 
-
 /**
  * Baseline grid overlay
  */
 
 html {
-    &::after {
+    &:after {
         content: string($unit);
         display: none;
     }
@@ -22,7 +21,7 @@ body {
 .grid {
     pointer-events: none;
     opacity: 0;
-    z-index: 80;
+    z-index: 800;
     height: 100%;
     transition: transition-custom($property = opacity);
 
@@ -30,13 +29,13 @@ body {
         opacity: 1;
     }
 
-    // Baseline grid overlay
+    // baseline grid overlay
     &__baseline {
         pointer-events: none;
         position: absolute;
         top: 0;
         left: 0;
-        z-index: 90;
+        z-index: 1000;
         width: 100%;
         height: 100%;
         background-image: linear-gradient(rgba($color-grid-baseline, 0.15) 1px, transparent 1px);
@@ -45,18 +44,18 @@ body {
         background-repeat: repeat;
     }
 
-    // Columns overlay
+    // columns overlay
     &__columns {
         pointer-events: none;
         position: absolute;
         top: 0;
         left: 50%;
-        z-index: 90;
+        z-index: 900;
         width: rem($width-container);
         height: 100%;
         margin-left: rem(-($width-container / 2));
 
-        .column__twelve {
+        .column__twelfth {
             pointer-events: none;
             height: 100%;
             box-shadow: 1px 0 0 rgba($color-grid-baseline, 0.15), -1px 0 0 rgba($color-grid-baseline, 0.15);
@@ -72,26 +71,26 @@ body {
 .-demo-font-sans,
 .-demo-font-serif,
 .-demo-font-cursive {
-    &::after {
+    &:after {
         position: relative;
         display: inline-block;
     }
 }
 
 .-demo-font-sans {
-    &::after {
+    &:after {
         content: string($sans-fontface);
     }
 }
 
 .-demo-font-serif {
-    &::after {
+    &:after {
         content: string($serif-fontface);
     }
 }
 
 .-demo-font-cursive {
-    &::after {
+    &:after {
         content: string($cursive-fontface);
     }
 }
@@ -106,7 +105,7 @@ body {
         text-transform: none;
         letter-spacing: normal;
 
-        &::after {
+        &:after {
             float: right;
             display: inline-block;
             padding-left: rem($unit / 4);

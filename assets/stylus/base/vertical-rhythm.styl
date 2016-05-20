@@ -1,16 +1,16 @@
 //
-// Name  : Vertical Rhythm
-// Author: Graffino (http://www.graffino.com)
+// Name  : Vertical rhythm
+// Author: Graffino (http=//www.graffino.com)
 //
 
 // Default text font-size
-$body-copy-size        = 14px;
+$body-copy-size        = 16px;
 // Body copy line-height (multiplier)
-$base-leading          = 1.58;
+$base-leading          = 1.25;
 // Baseline grid unit: "font-size" * "line-height"
 $unit                  = unit(round($body-copy-size * $base-leading), "px");
 // Typographic scale ratio (e.g. "4/3" or "6/5")
-$scale-ratio           = (1.2);
+$scale-ratio           = (1.25);
 // Line-height increment for headings (h1 to h6)
 $scale-leading-ratio   = 0.20;
 // Array for storing the headings' line-height
@@ -22,41 +22,40 @@ $font-size-headings    = ();
 $rhythm-diff-headings  = ();
 // Vertical rhythm tolerance value for adjusting line-height (value in px)
 $rhythm-diff-tolerance = 4;
-// Temporary console container
+// temporary console container
 $log                   = "Hint: Press F2 to toggle the Grid On/Off or F3 to toggle this Console.";
-// Temporary storing values for iteration
-// - also I'm lowering the body-copy-size with one step, hence the divide
+
+// temporary storing values for iteration
+// -- also I'm lowering the body-copy-size with one step, hence the divide
 $temp-font-size        = $body-copy-size / $scale-ratio;
 $temp-line-height      = 1;
 
-// Going through each heading size (1 to 6, plus two extra large size) and calculating:
+// going through each heading size (1 to 6, plus two extra large size) and calculating:
 // - font-size and line-height
 // - rhythm difference (if any it's added as a padding)
 for $n in (0..7) { // @stylint ignore
-    // Calculating the font-size in the $n iteration (h1 to h6)
+    // calculating the font-size in the $n iteration (h1 to h6)
     $temp-font-size = round($temp-font-size * $scale-ratio);
 
-    // Storing the value in the array
+    // storing the value in the array
     $font-size-headings[$n] = $temp-font-size;
 
-    // Calculating the line-height for the current $n heading
+    // calculating the line-height for the current $n heading
     $line-height-headings[$n] = round($font-size-headings[$n] * ($temp-line-height + $scale-leading-ratio));
 
-    // Checking if line-height is (near or) multiple of $unit
-    // If it's within the tolerance zone assign the line-height to the new value
+    // checking if line-height is (near or) multiple of $unit
+    // if it's within the tolerance zone assign the line-height to the new value
     if (abs(near($line-height-headings[$n]) - $line-height-headings[$n]) < $rhythm-diff-tolerance) {
         $line-height-headings[$n] = near($line-height-headings[$n]);
 
-        // Setting the rhythm difference value to 0
-        // We already have a multiple of the $unit as the line-height
+        // setting the rhythm difference value to 0
+        // we already have a multiple of the $unit as the line-height
         $rhythm-diff-headings[$n] = 0;
     } else {
-        // Else adjust padding-bottom to fit grid
+        // else adjust padding-bottom to fit grid
         $rhythm-diff-headings[$n] = abs(near($line-height-headings[$n]) - $line-height-headings[$n]);
     }
 }
 
-// Calculating the smaller text sizes
+// calculating the smaller text sizes
 $font-size-small = $body-copy-size / $scale-ratio;
-
-$font-size-medium = rem(24);

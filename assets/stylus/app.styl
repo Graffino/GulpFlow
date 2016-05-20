@@ -30,24 +30,45 @@
 @import "base/mixins";
 // Font faces loading
 @import "base/fonts";
+// Generated SVG Sprite
+@import "base/sprite";
 // Icons
 @import "base/icons";
 // Vertical rhythm
 @import "base/vertical-rhythm";
 // Grid
 @import "base/grid";
+
+
+/**
+ * Modules
+ */
+
+// Typography — body copy, headings, lists, blockquotes, etc.;
+@import "modules/typography";
+// Header — styling and modules;
+@import "modules/header"
+// Navigation — desktop & mobile;
+@import "modules/nav";
+// Hero — main website slideshow;
+@import "modules/hero";
+// Page sections — project specific areas;
+@import "modules/section";
+// Columns — custom grid;
+@import "modules/columns";
+// Form elements;
+@import "modules/form";
+// Button — styles and sizes;
+@import "modules/button";
+// Custom modules — plugins, project oriented object;
+@import "modules/custom-modules";
+// Footer — styling and modules;
+@import "modules/footer";
 // Helper classes (e.g. ".h-float-left");
-@import "base/helpers";
+@import "modules/helpers";
+// Common styling and extends
+@import "modules/common";
 
-
-/**
- * Common CSS styling files
- */
-
-
-/**
- * Console
- */
 
 // Sort of a (pseudo-)console for exporting values to the front-end
 @import "base/console";
