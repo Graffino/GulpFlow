@@ -37,6 +37,7 @@ var env = require('./env');
 
 function minifyJS() {
     return gulp.src(paths.build.js + 'main.js')
+        // Create sourcemaps only if environment is development
         .pipe(
             plugins.if (
                 env.isDevelopment(),
@@ -45,6 +46,7 @@ function minifyJS() {
         )
         .pipe(plugins.uglify())
         .pipe(plugins.rename({ suffix: '.min' }))
+        // Create sourcemaps only if environment is development
         .pipe(
             plugins.if (
                 env.isDevelopment(),
@@ -62,6 +64,7 @@ function minifyJS() {
 
 function minifyCSS() {
     return gulp.src(paths.build.css + 'main.css')
+        // Create sourcemaps only if environment is development
         .pipe(
             plugins.if (
                 env.isDevelopment(),
@@ -70,6 +73,7 @@ function minifyCSS() {
         )
         .pipe(plugins.postcss([plugins.csswring]))
         .pipe(plugins.rename({ suffix: '.min'}))
+        // Create sourcemaps only if environment is development
         .pipe(
             plugins.if (
                 env.isDevelopment(),
@@ -90,7 +94,11 @@ function minifyHTML() {
             removeComments: true,
             collapseWhitespace: true
         }))
-        .pipe(gulp.dest(paths.build.html));
+        // Replace with minifed CSS/JS versions
+        .pipe(plugins.replace('main.js', 'main.min.js'))
+        .pipe(plugins.replace('main.css', 'main.min.css'))
+        .pipe(gulp.dest(paths.build.html))
+        .pipe(plugins.livereload());
 }
 
 
@@ -133,6 +141,10 @@ function minifyImages() {
     return gulp.src(paths.patterns.imagesBuild)
         .pipe(plugins.imagemin(config))
         .pipe(gulp.dest(paths.build.images));
+
+        // TODO: Figure out if reloading all images is really needed each time
+        // something changes
+        // .pipe(plugins.livereload());
 }
 
 

@@ -21,7 +21,7 @@
     }
   ],
   "keywords": [],
-  "private": true,
+  "private": false,
   "devDependencies": {
     "autoprefixer": "^6.3.6",
     "backstopjs": "^1.2.1",
@@ -78,9 +78,13 @@
     "stylint-stylish": "^1.2.2"
   },
   "scripts": {
-    "test": "gulp test",
-    "postinstall": "gulp",
+    "postinstall": "./node_modules/.bin/gulp",
     "gulp": "./node_modules/.bin/gulp",
+    "production": "./node_modules/.bin/gulp build --env production",
+    "development": "./node_modules/.bin/gulp build --env development",
+    "debug": "./node_modules/.bin/gulp build --env development --debug true",
+    "critical": "./node_modules/.bin/gulp critical",
+    "bump": "./node_modules/.bin/gulp bump",
     "regression-config": "gulp genConfig --cwd ./node_modules/backstopjs",
     "regression-reference": "gulp reference --cwd ./node_modules/backstopjs",
     "regression-bless": "gulp bless --cwd ./node_modules/backstopjs",

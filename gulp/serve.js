@@ -44,6 +44,9 @@ function watchApp() {
     // Gulp watch issue, must use debounce with gulp.series to work around it:
     // https://github.com/gulpjs/gulp/issues/1304
 
+    // Live reload listen
+    plugins.livereload.listen();
+
     // JS
     gulp.watch(
         paths.patterns.jsSource,
