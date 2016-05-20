@@ -88,5 +88,10 @@ Run:
 4. `npm run update-bower-modules ` to update bower.json with the new bower module versions and install all non-breaking module updates.
 
 
+## Bonus :) - Stylographic ##
+
+We've included a beta version (comming soon to GitHub) of our pet project <a href="https://github.com/Graffino/Stylographic">Stylographic</a> here. Compile and run `index.html` to see the magic.
+
+
 #### DISCLAIMER ####
 We know it's not complete, not well documented. We're working on it :). You'll need knowledge of node, gulp, bower and stylus to master this.
