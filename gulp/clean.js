@@ -32,7 +32,7 @@ var paths = require('./paths');
  */
 
 function clean(toClean) {
-    return plugins.del(toClean).then(paths => {
+    return plugins.del(toClean).then(function(paths) {
         if (env.isDebug()) {
             console.log('Deleted files and folders:\n', paths.join('\n'));
         }
