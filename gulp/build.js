@@ -44,6 +44,7 @@ var buildDevelopment = gulp.series(
  */
 
 var buildStaging = gulp.series(
+    clean.app,
     gulp.parallel (
         bundle.deps
     ),
