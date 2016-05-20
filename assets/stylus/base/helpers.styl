@@ -3,118 +3,81 @@
 // Author: Graffino (http://www.graffino.com)
 //
 
+
+/**
+ * Global helpers
+ */
+
 .h {
     // Show only on specific viewport size
     &-show-for {
-        &-large-up {
-            +below($large) {
-                display: none !important;
-            }
-        }
-        
-        &-large-down {
-            +above($large + 1) {
-                display: none !important;
-            }
-        }
-        
-        &-medium-up {
-            +below($medium) {
-                display: none !important;
-            }
-        }
-        
-        &-medium-down {
-            +above($medium + 1) {
-                display: none !important;
-            }
-        }
-        
         &-tablet-up {
             +below($tablet) {
                 display: none !important;
             }
         }
-        
+
         &-tablet-down {
             +above($tablet + 1) {
                 display: none !important;
             }
         }
-        
-        &-small-up {
-            +below($small) {
+
+        &-mobile-up {
+            +below($mobile) {
                 display: none !important;
             }
         }
-        
-        &-small-down {
-            +above($small + 1) {
+
+        &-mobile-down {
+            +above($mobile + 1) {
                 display: none !important;
             }
         }
     }
-    
+
     // Hide for specific viewport size
     &-hide-for {
-        &-medium-up {
-            +above($medium + 1) {
-                display: none !important;
-            }
-        }
-        
-        &-medium-down {
-            +below($medium) {
-                display: none !important;
-            }
-        }
-        
         &-tablet-up {
             +above($tablet + 1) {
                 display: none !important;
             }
         }
-        
+
         &-tablet-down {
             +below($tablet) {
                 display: none !important;
             }
         }
-        
-        &-small-up {
-            +above($small +1) {
+
+        &-mobile-up {
+            +above($mobile + 1) {
                 display: none !important;
             }
         }
-        
-        &-small-down {
-            +below($small) {
+
+        &-mobile-down {
+            +below($mobile) {
                 display: none !important;
             }
         }
     }
-    
+
     // Center for specific viewport size
     &-center-for {
-        &-medium-down {
-            +below($medium) {
-                text-align: center;
-            }
-        }
-        
         &-tablet-down {
             +below($tablet) {
                 text-align: center;
             }
         }
-        
-        &-small-down {
-            +below($small) {
+
+        &-mobile-down {
+            +below($mobile) {
                 text-align: center;
             }
         }
     }
-    
+
     // Make image responsive
     &-responsive-image {
         width: 100%;
@@ -123,120 +86,130 @@
 
     // Hide element visually without removing it
     &-visually-hidden {
-        overflow: hidden;
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        margin: -1px;
-        border: 0;
-        padding: 0;
-        clip: rect(0 0 0 0);
+        overflow: hidden !important;
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        margin: -1px !important;
+        border: 0 !important;
+        padding: 0 !important;
+        clip: rect(0 0 0 0) !important;
     }
-    
+
     // Overflow hidden
     &-overflow {
         &-hidden {
             overflow: hidden;
         }
     }
-    
+
     // Alignment
     &-align-left {
         text-align: left !important;
     }
-    
+
     &-align-right {
         text-align: right !important;
     }
-    
+
     &-align-center {
         text-align: center !important;
     }
 
     // Floats
     &-float-left {
-        float: left;
+        float: left !important;
     }
-    
+
     &-float-right {
-        float: right;
+        float: right !important;
     }
-    
+
     &-clear {
         cf();
+
+        &-both {
+            clear: both;
+        }
     }
 
     // Text case
     &-case-normal {
-        text-transform: none;
+        text-transform: none !important;
     }
-    
+
     &-case-uppercase {
-        text-transform: uppercase;
+        text-transform: uppercase !important;
     }
-    
+
     // Text color
     &-color-inherit {
         color: inherit !important;
     }
-    
+
     // Center
     &-center {
-        margin-right: auto;
-        margin-left: auto;
+        // Make sure the element doesn't have a float,
+        // otherwise the helper doesn't work
+        float: none !important;
+        margin-right: auto !important;
+        margin-left: auto !important;
     }
-    
+
     // Paddings
     &-no-padding {
         padding: 0 !important;
     }
-    
+
     &-no-padding-top {
         padding-top: 0 !important;
     }
-    
+
     &-no-padding-bottom {
         padding-bottom: 0 !important;
     }
-    
+
     &-no-padding-right {
         padding-right: 0 !important;
     }
-    
+
     &-no-padding-left {
         padding-left: 0 !important;
     }
-    
+
     // Margins
-    &-margin-bottom {
-        &-1 {
-            margin-bottom: rem($unit);
-        }
-    }
-    
     &-no-margin {
         margin: 0 !important;
     }
-    
+
     &-no-margin-top {
         margin-top: 0 !important;
     }
-    
+
     &-no-margin-bottom {
         margin-bottom: 0 !important;
     }
-    
+
     &-no-margin-right {
         margin-right: 0 !important;
     }
-    
+
     &-no-margin-left {
         margin-left: 0 !important;
     }
-    
+
+    // Display table
+    &-display-table {
+        display: table;
+    }
+
+    &-display-block {
+        display: block;
+    }
+
     // Align vertically via table method
     &-vertical-align {
-        display: table-cell;
+        display: table-cell !important;
         vertical-align: middle;
     }
 
@@ -244,11 +217,11 @@
     &-viewport-height {
         min-height: 100vh;
     }
-    
+
     &-viewport-width {
         min-width: 100vh;
     }
-    
+
     // Height 100%
     &-full-height {
         min-height: 100%;
@@ -258,27 +231,34 @@
     &-no-pointer-events {
         pointer-events: none;
     }
-    
+
     // Word-break
     &-word-break {
         &-all {
             word-break: break-all;
         }
     }
-    
-    // Opacity
-    &-opacity {
-        &-20 {
-            opacity: 0.2;
+
+    &-nowrap {
+        white-space: nowrap;
+    }
+
+    // Position
+    &-position {
+        &-relative {
+            position: relative !important;
         }
-        
-        &-40 {
-            opacity: 0.4;
+
+        &-absolute {
+            position: absolute !important;
         }
     }
-    
+
     // Z Indexes
     &-z-index {
+        &-0 {
+            z-index: 0 !important;
+        }
         &-10 {
             z-index: 10 !important;
         }
@@ -308,6 +288,9 @@
         }
         &-100 {
             z-index: 100 !important;
+        }
+        &-max {
+            z-index: 9999 !important;
         }
     }
 }
