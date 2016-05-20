@@ -1,4 +1,4 @@
-# GulpFlow
+# GulpFlow 2
 Gulp basic flow we use at Graffino. This site uses *Stylus* and it's deployed with *Gulp.*
 
 ## How to start ##
