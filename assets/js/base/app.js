@@ -3,18 +3,21 @@
 // Author: Graffino (http://www.graffino.com)
 //
 
+
 /**
  *  Global Vars
  */
-// Linting exceptions
+
+ // Linting exceptions
 /* global FontFaceObserver, PointerEventsPolyfill */
 
 // Global
 var $html                      = $('html');
-var $window                    = $(window); 
+var $body                      = $('body');
+var $window                    = $(window);
 
 // Check if webfonts are loaded. Set to false to prevent detection.
-var fontFaceObserverName       = 'Arial';
+var fontFaceObserverName       = false;
 
 // Scroll
 var scrollPoolingDelay         = 250;
@@ -30,9 +33,13 @@ var $placeHolder               = $('input, textarea');
 // window.resize event will fire
 var resizeFunctionsArray       = [];
 
+// Grid toggle element
+var $grid                      = $('.js-grid');
+
 /**
  * Init
  */
+
 var graffino = {
 
     init: function() {
@@ -69,6 +76,9 @@ var graffino = {
 
         // Call all functions in the resize function array
         graffino.callArrayFunctions(resizeFunctionsArray);
+
+        // Toggle grid
+        graffino.toggleGrid();
     },
 
     // Console handler
@@ -323,20 +333,121 @@ var graffino = {
 
         // Initialize module
         __init();
+    },
+
+    // Fit image to grid
+    imageToGrid: function () {
+        // Initialize function
+        function __init() {
+            var unit          = 24,
+                $testElement  = $('<p style="position:absolute; opacity: 0;">One line.</p>'),
+                images        = $('img'),
+                imageHeight   = 0,
+                optimalHeight = 0;
+
+            // hack to get base document line-height
+            // append the test element to the body
+            $('body').append($testElement);
+            // store the element's height
+            unit = parseInt($testElement.css('height'));
+            // remove the test element
+            $testElement.remove();
+
+            // loop which goes through all the images on the page
+            for (var i = 0; i < images.length; i++) {
+                // getting the image height
+                imageHeight   = parseInt($(images[i]).css('height'), 10);
+                // calculating the image's optimal height
+                optimalHeight = parseInt(Math.ceil(imageHeight / unit), 10) * unit;
+                // apply a margin only if there's a difference between the height and optimal height
+                if (imageHeight !== optimalHeight) {
+                    // adding the height difference to the image element as a margin
+                    $(images[i]).css('margin-bottom', optimalHeight - imageHeight);
+                } // end if
+            } // end for
+        }
+
+        // Initialize module
+        return __init();
+    },
+
+    // Toggle On/Off for grid guides
+    toggleGrid: function () {
+        // Initialize function
+        function __init() {
+            // check localStorage if element was left active last time
+            if ( typeof(Storage) !== 'undefined' ) {
+                // if yes turn the grid on
+                if (localStorage.isGridActive === 'true') {
+                    $grid.addClass('is-visible');
+                // if not then make sure it's off
+                } else {
+                    $grid.removeClass('is-visible');
+                }
+
+                // if yes turn the console on
+                if (localStorage.isConsoleActive === 'true') {
+                    $body.addClass('-console');
+                // if not then make sure it's off
+                } else {
+                    $body.removeClass('-console');
+                }
+            } // end if
+
+            // Adding key press event for On/Off function
+            $(document).keydown(function (e) {
+                // If F2 key is pressed
+                if (e.which === 113) {
+                    // Hide/show the grid
+                    $grid.toggleClass('is-visible');
+                    // Store current state in LocalStorage
+                    if ( typeof(Storage) !== 'undefined' ) {
+                        if ($grid.hasClass('is-visible')) {
+                            localStorage.isGridActive = true;
+                        } else {
+                            localStorage.isGridActive = false;
+                        }
+                    }
+                    return false;
+                } // end if
+
+                // If F3 key is pressed
+                if (e.which === 114) {
+                    // Hide/show the grid
+                    $body.toggleClass('-console');
+                    // Store current state in LocalStorage
+                    if ( typeof(Storage) !== 'undefined' ) {
+                        if ($body.hasClass('-console')) {
+                            localStorage.isConsoleActive = true;
+                        } else {
+                            localStorage.isConsoleActive = false;
+                        }
+                    }
+                    return false;
+                } // end if
+            }); // end of keydown();
+        }
+
+        // Initialize module
+        return __init();
     }
 };
+
 
 /**
  * Document ready (loaded)
  */
+
 jQuery(document).ready(function() {
     // Init scripts
     graffino.init();
 });
 
+
 /**
  *  Document load (in process of loading)
  */
+
 jQuery(window).load(function() {
     // Do stuff
 });

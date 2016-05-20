@@ -51,6 +51,7 @@
     "gulp-load-plugins": "~1.2.2",
     "gulp-modernizr": "~1.0.0-alpha",
     "gulp-notify": "~2.2.0",
+    "gulp-order": "^1.1.1",
     "gulp-postcss": "~6.1.0",
     "gulp-preprocess": "2.0.0",
     "gulp-rename": "~1.2.2",

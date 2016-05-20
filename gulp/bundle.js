@@ -125,7 +125,11 @@ function bundleJS() {
                 plugins.sourcemaps.init({ loadMaps: true })
             )
         )
-        .pipe(plugins.groupConcat({ 'main.js': ['**/*.js', '!**/*main*.css'] }))
+        .pipe(plugins.order([
+            '**/bower.js',
+            '**/*.js'
+        ]))
+        .pipe(plugins.groupConcat({ 'main.js': ['**/*.js', '!**/*main*.js'] }))
         .pipe(
             plugins.if (
                 env.isDevelopment(),
@@ -149,6 +153,10 @@ function bundleCSS() {
                 plugins.sourcemaps.init({ loadMaps: true })
             )
         )
+        .pipe(plugins.order([
+            '**/bower.css',
+            '**/*.css'
+        ]))
         .pipe(plugins.groupConcat({ 'main.css': ['**/*.css', '!**/*main*.css'] }))
         .pipe(
             plugins.if (
