@@ -78,7 +78,7 @@ var buildProduction = gulp.series(
 var build = function(cb) {
     if ( env.isProduction() ) { return buildProduction(cb); }
     else if (env.isDevelopment()) { return buildDevelopment(cb); }
-    else { return buildStaging(); }
+    else { return buildStaging(cb); }
 };
 
 
