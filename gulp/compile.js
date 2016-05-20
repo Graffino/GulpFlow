@@ -39,6 +39,7 @@ function compileStylus() {
     ];
 
     return gulp.src(paths.source.stylusMain)
+        // Create sourcemaps only if environment is development
         .pipe(
             plugins.if (
                 env.isDevelopment(),
@@ -53,9 +54,7 @@ function compileStylus() {
                 plugins.sourcemaps.write('.')
             )
         )
-        // TODO: Unknow error here
-        //.pipe(gulp.dest(paths.build.cssMain));
-        .pipe(gulp.dest(paths.build.cssLib));
+        .pipe(gulp.dest(paths.build.cssBase));
 }
 
 

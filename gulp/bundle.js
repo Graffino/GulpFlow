@@ -125,7 +125,7 @@ function bundleJS() {
                 plugins.sourcemaps.init({ loadMaps: true })
             )
         )
-        .pipe(plugins.groupConcat({ 'main.js': '**/*.js' }))
+        .pipe(plugins.groupConcat({ 'main.js': ['**/*.js', '!**/*main*.css'] }))
         .pipe(
             plugins.if (
                 env.isDevelopment(),
@@ -142,14 +142,14 @@ function bundleJS() {
  */
 
 function bundleCSS() {
-    return gulp.src(paths.patterns.cssBuild)
+    return gulp.src('./www/assets/css/**/*.css')
         .pipe(
             plugins.if (
                 env.isDevelopment(),
                 plugins.sourcemaps.init({ loadMaps: true })
             )
         )
-        .pipe(plugins.groupConcat({ 'main.css': '**/*.css' }))
+        .pipe(plugins.groupConcat({ 'main.css': ['**/*.css', '!**/*main*.css'] }))
         .pipe(
             plugins.if (
                 env.isDevelopment(),

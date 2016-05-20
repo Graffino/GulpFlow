@@ -1,0 +1,157 @@
+//
+// Name: Columns
+// Author: Graffino (http://www.graffino.com)
+//
+
+/**
+ * Columns
+ */
+
+.columns {
+    cf();
+}
+
+.column {
+    
+    // Halfs
+    &__half {
+        col(1/2, gutter: px-to-procent($width-columns-gutter, $width-container), cycle: 2);
+        
+        &.-gutter-50 {
+            col(1/2, gutter: px-to-procent(50, $width-container), cycle: 2);
+        }
+        
+        &.-no-gutter {
+            span(1/2, cycle: 2);
+        }
+        
+        &.-full-on {
+            &-medium-down {
+                +below($medium) {
+                    col(1/1, gutter: px-to-procent($width-columns-gutter, $width-container), cycle: 1);
+                }
+            }
+        }
+        
+        +below($tablet) {
+            col(1/1, gutter: px-to-procent($width-columns-gutter, $width-container), cycle: 1);
+        }
+    }
+    
+    // Thirds
+    &__third {
+        col(1/3, gutter: px-to-procent($width-columns-gutter, $width-container), cycle: 3);
+        
+        &.-gutter-80 {
+            col(1/3, gutter: px-to-procent(80, $width-container), cycle: 3);
+        }
+        
+        &.-no-gutter {
+            span(1/3, cycle: 3);
+        }
+        
+        +below($medium) {
+            col(1/1, gutter: px-to-procent($width-columns-gutter, $width-container), cycle: 1);
+        }
+    }
+    
+    &__two-thirds {
+        col(2/3, gutter: px-to-procent($width-columns-gutter, $width-container));
+        
+        &.-no-gutter {
+            span(2/3);
+        }
+    }
+    
+    // Fourths
+    &__fourth {
+        col(1/4, gutter: px-to-procent($width-columns-gutter, $width-container), cycle: 4);
+        
+        &.-no-gutter {
+            span(1/4, cycle: 4);
+        }
+    }
+    
+    &__three-fourths {
+        col(3/4, gutter: px-to-procent($width-columns-gutter, $width-container));
+        
+        &.-no-gutter {
+            span(3/4);
+        }
+    }
+    
+    // Fifths
+    &__fifth {
+        col(1/5, gutter: px-to-procent($width-columns-gutter, $width-container), cycle: 5);
+        
+        &.-no-gutter {
+            span(1/5, cycle: 5);
+        }
+    }
+    
+    // Sixths
+    &__sixth {
+        col(1/6, gutter: px-to-procent($width-columns-gutter, $width-container), cycle: 6);
+        
+        &.-no-gutter {
+            span(1/6, cycle: 6);
+        }
+    }
+    
+    // Twelfths
+    &__twelfth {
+        col(1/12, gutter: px-to-procent($width-columns-gutter, $width-container), cycle: 12);
+        
+        &.-no-gutter {
+            span(1/12, cycle: 12);
+        }
+    }
+    
+    
+    &__half,
+    &__third,
+    &__two-thirds,
+    &__fourth,
+    &__three-fourths,
+    &__fifth,
+    &__sixth {
+        +below($tablet) {
+            margin-bottom: rem(20); // body copy line-height
+        }
+        
+        &.-padding-left {
+            &-one-col {
+                padding: 0 0 0 rem(74);
+                
+                +below($tablet) {
+                    padding: 0;
+                }
+            }
+        }
+        
+        &.-padding-right {
+            &-one-col {
+                padding: 0 rem(74) 0 0;
+                
+                +below($tablet) {
+                    padding: 0;
+                }
+            }
+        }
+        
+        &.-border-left {
+            position: relative;
+            
+            &:after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: rem(-($unit));
+                display: block;
+                width: 1px;
+                height: 100%;
+                background-color: $color-border;
+            }
+        }
+    }
+}

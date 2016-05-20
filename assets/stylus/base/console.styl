@@ -1,15 +1,8 @@
-//
-// Name  : Console
-// Author: Graffino (http://www.graffino.com)
-//
-
-
 /**
  * A kind of CSS console :-)
  */
-
 body {
-    &::before {
+    &:before {
         content: "";
         pointer-events: none;
         opacity: 0;
@@ -27,11 +20,11 @@ body {
     }
 
     &.-console {
-        &::before {
+        &:before {
             opacity: 1;
         }
     }
 }
 
-// Output string to pseudo-console
+// output string to pseudo-console
 console($log);

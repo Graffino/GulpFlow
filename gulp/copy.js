@@ -12,6 +12,17 @@
 // Gulp
 var gulp = require('gulp');
 
+// Environment
+var env     = require('./env');
+
+// Node plugins
+var plugins = require('gulp-load-plugins')({
+    DEBUG         : env.NODE_DEBUG,
+    pattern       : ['gulp-*', 'gulp.*', 'debounce'],
+    replaceString : /^gulp(-|\.)/,
+    camelize      : true
+});
+
 // Paths
 var paths = require('./paths');
 
@@ -47,7 +58,9 @@ function copyImages() {
  */
 
 function copyHTML() {
-    return gulp.src(paths.patterns.htmlSource).pipe(gulp.dest(paths.build.html));
+    return gulp.src(paths.patterns.htmlSource)
+        .pipe(gulp.dest(paths.build.html))
+        .pipe(plugins.livereload());
 }
 
 /**

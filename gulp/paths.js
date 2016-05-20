@@ -38,6 +38,7 @@ var paths = {
     // CSS
     css            : 'assets/css/',
     cssLib         : 'assets/css/lib/',
+    cssBase        : 'assets/css/base/',
     cssMain        : 'assets/css/base/app.css',
 
     // Others
@@ -57,11 +58,13 @@ var paths = {
     // Javascript
     js        : paths.www + paths.js,
     jsLib     : paths.www + paths.jsLib,
+    jsBase    : paths.www + paths.jsBase,
     jsModules : paths.www + paths.jsModules,
 
     // CSS
     css       : paths.www + paths.css,      // Only in build
     cssLib    : paths.www + paths.cssLib,   // Only in build
+    cssBase   : paths.www + paths.cssBase,  // Only in build
     cssMain   : paths.www + paths.cssMain,  // Only in build
 
     // Others
@@ -106,11 +109,11 @@ paths.source = {
 paths.patterns = {
     // Javascript
     jsSource     : [paths.source.js + '**/*.js', '!' + paths.source.jsLib],
-    jsBuild      : paths.build.js + '**/*.js',
+    jsBuild      : [paths.build.js + '**/*.js', '!' + paths.build.css + 'main*.js'],
     jsBuldMin    : paths.build.js + '**/*.min.js',
 
     // CSS
-    cssBuild     : paths.build.css + '**/*.css',
+    cssBuild     : [paths.build.css + '**/*.css', '!' + paths.build.css + 'main*.css'],
     cssBuildMin  : paths.build.css + '**/*.min.css',
 
     // Stylus
