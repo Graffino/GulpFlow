@@ -91,9 +91,6 @@ var graffino = {
         // Plugin: https://github.com/liabru/jquery-match-height
         graffino.matchHeight();
 
-        // Mobile Menu
-        graffino.mobileMenu();
-
         // Call all functions in the resize function array
         graffino.callArrayFunctions(resizeFunctionsArray);
 
@@ -437,7 +434,7 @@ var graffino = {
     // Plugin: http://handlebarsjs.com
     handlebarsTemplates: {
         // Progress template
-        progress: function(callback) {
+        module: function(callback) {
             // Item data object
             var data;
             // Module data
@@ -450,14 +447,17 @@ var graffino = {
                 moduleData = {
                     module: {
                         'title': data.title,
-                        'items': data.items,
+                        'list': data.items,
                     }
                 };
             } else {
                 moduleData = {
                     module: {
-                        'title': data.title,
-                        'items': data.items,
+                        'title': 'Handlebars works!',
+                        'list': [
+                            'Row one',
+                            'Row two'
+                        ]
                     }
                 };
             }

@@ -9,8 +9,10 @@
 <div class="module">
     <h1 class="module__title">{{module.title}}</h1>
     <div class="module__content">
-        {{#times module.list}}
-            <span class="module__item"></span>
-        {{/times}}
+        <ul class="module__list">
+        {{#each module.list}}
+            <li class="module__item">{{this}}</li>
+        {{/each}}
+        </ul>
     </div>
 </div>
