@@ -3,28 +3,18 @@
 // Author: Graffino (http://www.graffino.com)
 //
 
-'use strict';
 
 /**
  * Module imports
  */
 
-// Gulp
-var gulp = require('gulp');
-
-// Environment
-var env = require('./env');
-
-// Node modules
-var plugins = require('gulp-load-plugins')({
-    DEBUG         : env.NODE_DEBUG,
-    pattern       : ['gulp-*', 'gulp.*'],
-    replaceString : /^gulp(-|\.)/,
-    camelize      : true
-});
-
-// Paths
+// Gulp requires
+var gulp  = require('gulp');
+var env   = require('./env');
 var paths = require('./paths');
+
+// Gulp plugins
+var plugins = require('gulp-load-plugins')({ DEBUG: env.NODE_DEBUG });
 
 
 /**

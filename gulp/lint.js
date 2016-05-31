@@ -3,28 +3,19 @@
 // Author: Graffino (http://www.graffino.com)
 //
 
-'use strict';
 
 /**
  * Module imports
  */
 
-// Gulp
-var gulp = require('gulp');
-
-// Environment
-var env = require('./env');
-
-// Node modules
-var plugins = require('gulp-load-plugins')({
-    DEBUG         : env.NODE_DEBUG,
-    pattern       : ['gulp-*', 'gulp.*', 'stylint*', 'jshint*'],
-    replaceString : /^gulp(-|\.)/,
-    camelize      : true
-});
-
-// Paths
+// Gulp requires
+var gulp  = require('gulp');
+var env   = require('./env');
+var error = require('./error');
 var paths = require('./paths');
+
+// Gulp plugins
+var plugins = require('gulp-load-plugins')({ DEBUG: env.NODE_DEBUG });
 
 
 /**
@@ -33,6 +24,8 @@ var paths = require('./paths');
 
 function lintJS() {
     return gulp.src(paths.patterns.jsSource)
+        // Fix pipe on error
+        .pipe(plugins.plumber({ errorHandler: error.handle }))
         .pipe(plugins.jshint('.jshintrc'))
         .pipe(plugins.jshint.reporter());
 }
@@ -51,9 +44,10 @@ function lintStylus() {
         }
     };
     return gulp.src(paths.patterns.stylusSource)
+        // Fix pipe on error
+        .pipe(plugins.plumber({ errorHandler: error.handle }))
         .pipe(plugins.stylint(config))
-        .pipe(plugins.stylint.reporter())
-        .pipe(plugins.stylint.reporter('fail', { failOnWarning: true }));
+        .pipe(plugins.stylint.reporter());
 }
 
 
@@ -63,6 +57,8 @@ function lintStylus() {
 
 function lintHTML() {
     return gulp.src(paths.patterns.htmlSource)
+        // Fix pipe on error
+        .pipe(plugins.plumber({ errorHandler: error.handle }))
         .pipe(plugins.htmlhint('.htmlhintrc'))
         .pipe(plugins.htmlhint.reporter('htmlhint-stylish'));
 }

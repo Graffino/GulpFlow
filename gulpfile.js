@@ -3,8 +3,6 @@
 // Author: Graffino (http://www.graffino.com)
 //
 
-'use strict';
-
 
 /**
  * Module imports

@@ -1,5 +1,5 @@
 {
-    "maxerr"        : 50,
+    "maxerr"        : 3,
     "bitwise"       : true,
     "camelcase"     : false,
     "curly"         : true,

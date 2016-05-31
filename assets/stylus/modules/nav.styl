@@ -1,10 +1,35 @@
 //
-// Name: Navigation
+// Main navigation block
 // Author: Graffino (http://www.graffino.com)
 //
 
+
+/**
+ * Main nav
+ */
+
 .nav {
     cf();
-    
-    
+
+    &__item {
+        display: inline-block;
+        margin-left: rem(30);
+
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+
+    &__link {
+
+        &:hover {
+
+        }
+
+        .is-active & {
+            &:hover {
+
+            }
+        }
+    }
 }

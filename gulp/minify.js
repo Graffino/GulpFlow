@@ -3,33 +3,24 @@
 // Author: Graffino (http://www.graffino.com)
 //
 
-'use strict';
-
 
 /**
  * Module imports
  */
 
-// Gulp
-var gulp = require('gulp');
-
-// Environment
-var env = require('./env');
-
-// Node plugins
-var plugins = require('gulp-load-plugins')({
-    DEBUG         : env.NODE_DEBUG,
-    pattern       : ['gulp-*', 'gulp.*', 'autoprefixer', 'postcss*', 'event-stream', 'imagemin*', 'csswring*'],
-    replaceString : /^gulp(-|\.)/,
-    camelize      : true
-});
-
-// Paths
+// Gulp requires
+var gulp  = require('gulp');
+var env   = require('./env');
+var error = require('./error');
 var paths = require('./paths');
 
-// Environment
-var env = require('./env');
+// Gulp plugins
+var plugins = require('gulp-load-plugins')({ DEBUG   : env.NODE_DEBUG });
 
+// Node requires
+var imageminMozjpeg  = require('imagemin-mozjpeg');
+var imageminPngquant = require('imagemin-pngquant');
+var csswring         = require('csswring');
 
 /**
  * Minify JS
@@ -37,6 +28,8 @@ var env = require('./env');
 
 function minifyJS() {
     return gulp.src(paths.build.js + 'main.js')
+        // Fix pipe on error
+        .pipe(plugins.plumber({ errorHandler: error.handle }))
         // Create sourcemaps only if environment is development
         .pipe(
             plugins.if (
@@ -64,6 +57,8 @@ function minifyJS() {
 
 function minifyCSS() {
     return gulp.src(paths.build.css + 'main.css')
+        // Fix pipe on error
+        .pipe(plugins.plumber({ errorHandler: error.handle }))
         // Create sourcemaps only if environment is development
         .pipe(
             plugins.if (
@@ -71,7 +66,7 @@ function minifyCSS() {
                 plugins.sourcemaps.init({ loadMaps: true })
             )
         )
-        .pipe(plugins.postcss([plugins.csswring]))
+        .pipe(plugins.postcss([csswring]))
         .pipe(plugins.rename({ suffix: '.min'}))
         // Create sourcemaps only if environment is development
         .pipe(
@@ -90,6 +85,8 @@ function minifyCSS() {
 
 function minifyHTML() {
     return gulp.src(paths.patterns.htmlBuild)
+        // Fix pipe on error
+        .pipe(plugins.plumber({ errorHandler: error.handle }))
         .pipe(plugins.htmlmin({
             removeComments: true,
             collapseWhitespace: true
@@ -126,11 +123,11 @@ function minifyImages() {
                 removeViewBox: false
             }],
             use: [
-                plugins.imageminPngquant({
+                imageminPngquant({
                     quality: '65-80',
                     speed: 4
                 }),
-                plugins.imageminMozjpeg({
+                imageminMozjpeg({
                     quality: '80',
                     progressive: true,
                 }
@@ -139,6 +136,8 @@ function minifyImages() {
     }
 
     return gulp.src(paths.patterns.imagesBuild)
+        // Fix pipe on error
+        .pipe(plugins.plumber({ errorHandler: error.handle }))
         .pipe(plugins.imagemin(config))
         .pipe(gulp.dest(paths.build.images));
 

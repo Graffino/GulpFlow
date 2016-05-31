@@ -3,28 +3,23 @@
 // Author: Graffino (http://www.graffino.com)
 //
 
-'use strict';
 
 /**
  * Module imports
  */
 
-// Gulp
-var gulp = require('gulp');
-
-// Environment
-var env = require('./env');
-
-// Node modules
-var plugins = require('gulp-load-plugins')({
-    DEBUG         : env.NODE_DEBUG,
-    pattern       : ['gulp-*', 'gulp.*', 'autoprefixer', 'postcss*', 'event-stream', 'stylint*', 'main-bower-files*'],
-    replaceString : /^gulp(-|\.)/,
-    camelize      : true
-});
-
-// Paths
+// Gulp requires
+var gulp  = require('gulp');
+var env   = require('./env');
+var error = require('./error');
 var paths = require('./paths');
+
+// Gulp plugins
+var plugins = require('gulp-load-plugins')({ DEBUG: env.NODE_DEBUG });
+
+// Node requires
+var mainBowerFiles = require('main-bower-files');
+
 
 /**
  * Bower functions
@@ -39,15 +34,16 @@ function updateBower() {
 
 // Update bower
 function compileBower() {
-
     var jsFiles = plugins.filter(['**/*.js', '!**/*main*.js'], { restore: true });
     var cssFiles = plugins.filter(['**/*.css', '!**/*main*.css'], { restore: true });
 
-    return gulp.src(plugins.mainBowerFiles({
+    return gulp.src(mainBowerFiles({
             includeDev: true,
             includeSelf: true,
             debugging: env.NODE_DEBUG
         }))
+        // Fix pipe on error
+        .pipe(plugins.plumber({ errorHandler: error.handle }))
         .pipe(
             plugins.if (
                 env.isDevelopment(),
@@ -108,8 +104,45 @@ function compileModernizr() {
         ]
     };
     return gulp.src(paths.source.jsMain)
+        // Fix pipe on error
+        .pipe(plugins.plumber({ errorHandler: error.handle }))
         .pipe(plugins.modernizr(config))
         .pipe(gulp.dest(paths.build.jsLib));
+}
+
+
+/**
+ * Bundle Handlebars Templates
+ */
+//v 4.0.5
+function bundleHandlebars() {
+    return gulp.src(paths.patterns.handlebarsSource)
+        // Fix pipe on error
+        .pipe(plugins.plumber({ errorHandler: error.handle }))
+        .pipe(
+            plugins.if (
+                env.isDevelopment(),
+                plugins.sourcemaps.init({ loadMaps: true })
+            )
+        )
+        .pipe(plugins.handlebars({
+            // This is required in order to compile handlebars with the right
+            // version from package.json
+            handlebars: require('handlebars')
+        }))
+        .pipe(plugins.wrap('Handlebars.template(<%= contents %>)'))
+        .pipe(plugins.declare({
+            namespace: 'graffino.template',
+            noRedeclare: true, // Avoid duplicate declarations
+        }))
+        .pipe(plugins.concat('templates.js'))
+        .pipe(
+            plugins.if (
+                env.isDevelopment(),
+                plugins.sourcemaps.write('.')
+            )
+        )
+        .pipe(gulp.dest(paths.build.handlebars));
 }
 
 
@@ -119,6 +152,8 @@ function compileModernizr() {
 
 function bundleJS() {
     return gulp.src(paths.patterns.jsBuild)
+        // Fix pipe on error
+        .pipe(plugins.plumber({ errorHandler: error.handle }))
         .pipe(
             plugins.if (
                 env.isDevelopment(),
@@ -137,7 +172,7 @@ function bundleJS() {
             )
         )
         .pipe(gulp.dest(paths.build.js))
-        .pipe(plugins.livereload());
+        .pipe(plugins.livereload(true));
 }
 
 
@@ -146,7 +181,9 @@ function bundleJS() {
  */
 
 function bundleCSS() {
-    return gulp.src('./www/assets/css/**/*.css')
+    return gulp.src(paths.patterns.cssBuild)
+        // Fix pipe on error
+        .pipe(plugins.plumber({ errorHandler: error.handle }))
         .pipe(
             plugins.if (
                 env.isDevelopment(),
@@ -170,6 +207,41 @@ function bundleCSS() {
 
 
 /**
+ * ConvertFonts
+ */
+
+ // WOFF
+function convertFontsWOFF() {
+    return gulp.src(paths.patterns.fontsBuildTTF)
+        // Fix pipe on error
+        .pipe(plugins.plumber({ errorHandler: error.handle }))
+        .pipe(plugins.ttf2woff())
+        .pipe(gulp.dest(paths.build.fonts))
+        .pipe(plugins.livereload());
+}
+
+// WOFF2
+function convertFontsWOFF2() {
+    return gulp.src(paths.patterns.fontsBuildTTF)
+        // Fix pipe on error
+        .pipe(plugins.plumber({ errorHandler: error.handle }))
+        .pipe(plugins.ttf2woff2())
+        .pipe(gulp.dest(paths.build.fonts))
+        .pipe(plugins.livereload());
+}
+
+
+/**
+ * Bundle fonts function
+ */
+
+var bundleFonts = gulp.parallel(
+    convertFontsWOFF,
+    convertFontsWOFF2
+);
+
+
+/**
  * Bundle dependencies function
  */
 
@@ -187,7 +259,10 @@ var bundleDeps = gulp.parallel(
  */
 
 var bundleApp = gulp.parallel(
-    bundleJS,
+    gulp.series(
+        bundleHandlebars,
+        bundleJS
+    ),
     bundleCSS
 );
 
@@ -200,7 +275,9 @@ module.exports = {
     update: updateBower,
     compile: compileBower,
     modernizr: compileModernizr,
+    fonts: bundleFonts,
     deps: bundleDeps,
+    handlebars: bundleHandlebars,
     js: bundleJS,
     css: bundleCSS,
     app: bundleApp

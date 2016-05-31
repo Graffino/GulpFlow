@@ -1,67 +1,17 @@
 //
-// Name: Section
+// Sections
 // Author: Graffino (http://www.graffino.com)
 //
+
 
 /**
  * Section
  */
+
 .section {
     position: relative;
-    center(rem($width-container));
-    
-    &.-padding {
-        &-2 {
-            padding: rem($unit * 2) 0;
-        }
-        
-        &-4 {
-            padding: rem($unit * 4) 0;
-        }
-        
-        &-6 {
-            padding: rem($unit * 6) 0;
-        }
-        
-    }
-    
-    &.-full-width {
-        center(100%);
-    
-        .content {
-            center(rem($width-container));
-        }
-    }
-    
-    &.-full-height {
-        
-    }
-    
-    &.-dark-background {
-        background-color: $color-background-dark;
-    }
-    
-    .content {
-        position: relative;
-        
-        +below($medium) {
-            width: 100%;
-        }
-    }
 
-// Links
-    a:not(.button) {
-        //@extends .link;
-    }
+    &.-background {
 
-// Text
-    span, p, .text {
-        //@extends .text;
     }
-
-// Padding
-    &.-no-padding {
-        padding: 0;
-    }
-
 }
