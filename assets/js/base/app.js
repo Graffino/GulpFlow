@@ -1,5 +1,5 @@
 //
-// Main Javascript file
+// Main javascript file
 // Author: Graffino (http://www.graffino.com)
 //
 
@@ -8,33 +8,43 @@
  *  Global Vars
  */
 
- // Linting exceptions
+// Linting exceptions
 /* global FontFaceObserver, PointerEventsPolyfill */
 
 // Global
-var $html                      = $('html');
-var $body                      = $('body');
-var $window                    = $(window);
+var $window                = $(window);
+var $html                  = $('html');
 
 // Check if webfonts are loaded. Set to false to prevent detection.
-var fontFaceObserverName       = false;
+var fontFaceObserverName   = false;
 
 // Scroll
-var scrollPoolingDelay         = 250;
-var scrollEvent                = false;
+var scrollPoolingDelay     = 250;
+var scrollEvent            = false;
 
 // Validate
-var $validate                  = $('.js-validate');
+var $validate              = $('.js-validate');
+
+// Form
+var formClass              = '.js-form';
+var formContentClass       = '.js-form-content';
+var formNoticeClass        = '.js-form-notice';
 
 // Placeholder
-var $placeHolder               = $('input, textarea');
+var $placeHolder           = $('input, textarea');
+
+// Equal height
+var $matchHeight           = $('.js-match-height');
+
+// Handlebars templates
+var $handlebarsTemplate    = {
+    module : $('.js-handle-module')
+};
 
 // All functions added in this array will be alled when the
 // window.resize event will fire
-var resizeFunctionsArray       = [];
+var resizeFunctionsArray   = [];
 
-// Grid toggle element
-var $grid                      = $('.js-grid');
 
 /**
  * Init
@@ -70,15 +80,28 @@ var graffino = {
         // Plugin: https://github.com/ericelliott/h5Validate/
         graffino.validate();
 
+        // Form events
+        graffino.formsHandler();
+
         // Placeholder
         // Plugin: https://github.com/mathiasbynens/jquery-placeholder
         graffino.placeholder();
 
+        // Match height
+        // Plugin: https://github.com/liabru/jquery-match-height
+        graffino.matchHeight();
+
+        // Mobile Menu
+        graffino.mobileMenu();
+
         // Call all functions in the resize function array
         graffino.callArrayFunctions(resizeFunctionsArray);
 
-        // Toggle grid
-        graffino.toggleGrid();
+        // Handlebar templates
+        // Plugin: http://handlebarsjs.com
+        graffino.handlebarsTemplates.module(function () {
+            // JS handling
+        });
     },
 
     // Console handler
@@ -306,6 +329,66 @@ var graffino = {
         return __init();
     },
 
+    // Forms hander
+    formsHandler: function() {
+        // Initialize function
+        function __init() {
+            // Vars
+            var $form = $(formClass);
+            var $formContent = $(formContentClass);
+            var $formNotice = $(formNoticeClass);
+
+            if ($form.length > 0) {
+                // Validate contact form
+                $form.h5Validate();
+
+                // Process contact form
+                $form.submit(function(e) {
+                    // Vars
+                    var result = $form.h5Validate('allValid');
+                    var data;
+                    var url;
+                    var method;
+
+                    if ( result === true ) {
+                        // Serialize contact data
+                        data = $(this).serialize();
+                        // Get URL from action
+                        url = $(this).attr('action');
+                        // Get form method
+                        method = $(this).attr('method');
+
+                        // Send request
+                        $.ajax({
+                            url         : url,
+                            data        : data,
+                            type        : method,
+                            // dataType    : 'json',
+                            // contentType : 'application/json; charset=utf-8',
+                            cache       : false,
+                            error       : function() { },
+                            success     : function() {
+                                // Hide form content for 10s
+                                $formContent.velocity('fadeOut', { duration: 800 })
+                                            .velocity('fadeIn', { delay: 10000, duration: 1000 });
+                                // Show form notice for 9s
+                                $formNotice.velocity('fadeIn', { delay: 850, duration: 1500 })
+                                            .velocity('fadeOut', { delay: 9000, duration: 800 });
+                                // Clear fields
+                                $form.trigger('reset');
+                            }
+                        });
+                    }
+                    // Prevent actual form submit
+                    e.preventDefault();
+                });
+            }
+        }
+
+        // Initialize module
+        return __init();
+    },
+
     // Placeholder
     // Plugin: https://github.com/mathiasbynens/jquery-placeholder
     placeholder: function() {
@@ -321,12 +404,27 @@ var graffino = {
         return __init();
     },
 
+    // Match height
+    // Plugin: https://github.com/liabru/jquery-match-height
+    matchHeight: function() {
+        // Initialize function
+        function __init() {
+            // MatchHeight
+            if ($matchHeight.length > 0) {
+                $matchHeight.matchHeight();
+            }
+        }
+
+        // Initialize module
+        return __init();
+    },
+
     // This method calls all the functions found in an array
     callArrayFunctions: function(functionsArray) {
         // Initialize Function
         function __init() {
             // firing each function found in the resizeFunctionsArray
-            $(functionsArray).each(function(key, func){
+            $(functionsArray).each(function(key, func) {
                 func();
             });
         }
@@ -335,101 +433,44 @@ var graffino = {
         __init();
     },
 
-    // Fit image to grid
-    imageToGrid: function () {
-        // Initialize function
-        function __init() {
-            var unit          = 24,
-                $testElement  = $('<p style="position:absolute; opacity: 0;">One line.</p>'),
-                images        = $('img'),
-                imageHeight   = 0,
-                optimalHeight = 0;
+    // Handlebar templates
+    // Plugin: http://handlebarsjs.com
+    handlebarsTemplates: {
+        // Progress template
+        progress: function(callback) {
+            // Item data object
+            var data;
+            // Module data
+            var moduleData;
 
-            // hack to get base document line-height
-            // append the test element to the body
-            $('body').append($testElement);
-            // store the element's height
-            unit = parseInt($testElement.css('height'));
-            // remove the test element
-            $testElement.remove();
+            // Get data values from an api
+            //
 
-            // loop which goes through all the images on the page
-            for (var i = 0; i < images.length; i++) {
-                // getting the image height
-                imageHeight   = parseInt($(images[i]).css('height'), 10);
-                // calculating the image's optimal height
-                optimalHeight = parseInt(Math.ceil(imageHeight / unit), 10) * unit;
-                // apply a margin only if there's a difference between the height and optimal height
-                if (imageHeight !== optimalHeight) {
-                    // adding the height difference to the image element as a margin
-                    $(images[i]).css('margin-bottom', optimalHeight - imageHeight);
-                } // end if
-            } // end for
-        }
-
-        // Initialize module
-        return __init();
-    },
-
-    // Toggle On/Off for grid guides
-    toggleGrid: function () {
-        // Initialize function
-        function __init() {
-            // check localStorage if element was left active last time
-            if ( typeof(Storage) !== 'undefined' ) {
-                // if yes turn the grid on
-                if (localStorage.isGridActive === 'true') {
-                    $grid.addClass('is-visible');
-                // if not then make sure it's off
-                } else {
-                    $grid.removeClass('is-visible');
-                }
-
-                // if yes turn the console on
-                if (localStorage.isConsoleActive === 'true') {
-                    $body.addClass('-console');
-                // if not then make sure it's off
-                } else {
-                    $body.removeClass('-console');
-                }
-            } // end if
-
-            // Adding key press event for On/Off function
-            $(document).keydown(function (e) {
-                // If F2 key is pressed
-                if (e.which === 113) {
-                    // Hide/show the grid
-                    $grid.toggleClass('is-visible');
-                    // Store current state in LocalStorage
-                    if ( typeof(Storage) !== 'undefined' ) {
-                        if ($grid.hasClass('is-visible')) {
-                            localStorage.isGridActive = true;
-                        } else {
-                            localStorage.isGridActive = false;
-                        }
+            if (data !== undefined && data !== null) {
+                moduleData = {
+                    module: {
+                        'title': data.title,
+                        'items': data.items,
                     }
-                    return false;
-                } // end if
-
-                // If F3 key is pressed
-                if (e.which === 114) {
-                    // Hide/show the grid
-                    $body.toggleClass('-console');
-                    // Store current state in LocalStorage
-                    if ( typeof(Storage) !== 'undefined' ) {
-                        if ($body.hasClass('-console')) {
-                            localStorage.isConsoleActive = true;
-                        } else {
-                            localStorage.isConsoleActive = false;
-                        }
+                };
+            } else {
+                moduleData = {
+                    module: {
+                        'title': data.title,
+                        'items': data.items,
                     }
-                    return false;
-                } // end if
-            }); // end of keydown();
-        }
+                };
+            }
 
-        // Initialize module
-        return __init();
+            // Apend template to DOM
+            // graffino.template.progressLifecycle - > namespace.template.handlebars_file_na,e
+            $handlebarsTemplate.module.html(graffino.template.moduleName(moduleData));
+
+            // Calling callback function
+            callback();
+
+            return true;
+        },
     }
 };
 

@@ -3,25 +3,22 @@
 // Author: Graffino (http://www.graffino.com)
 //
 
-'use strict';
 
 /**
  * Module imports
  */
 
-// Gulp
+// Gulp requires
 var gulp    = require('gulp');
-
-// Environment
 var env     = require('./env');
-
-// Modules
 var bundle  = require('./bundle');
-var clean = require('./clean');
+var clean   = require('./clean');
 var compile = require('./compile');
 var copy    = require('./copy');
 var lint    = require('./lint');
+var inject  = require('./inject');
 var minify  = require('./minify');
+var notice  = require('./notice');
 
 
 /**
@@ -34,8 +31,14 @@ var buildDevelopment = gulp.series(
         bundle.deps
     ),
     copy.app,
-    compile.app,
-    bundle.app
+    gulp.parallel (
+        bundle.fonts,
+        gulp.series (
+            compile.app,
+            bundle.app
+        )
+    ),
+    notice.finished
 );
 
 
@@ -49,8 +52,13 @@ var buildStaging = gulp.series(
         bundle.deps
     ),
     copy.app,
-    compile.app,
-    bundle.app
+    gulp.parallel (
+        bundle.fonts,
+        gulp.series (
+            compile.app,
+            bundle.app
+        )
+    )
 );
 
 
@@ -65,9 +73,16 @@ var buildProduction = gulp.series(
         bundle.deps
     ),
     copy.app,
-    compile.app,
-    bundle.app,
-    minify.app
+    gulp.parallel (
+        bundle.fonts,
+        gulp.series (
+            compile.app,
+            bundle.app,
+            minify.app
+        )
+    ),
+    inject.critical,
+    clean.production
 );
 
 

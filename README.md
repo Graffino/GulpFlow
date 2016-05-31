@@ -1,6 +1,41 @@
 # GulpFlow 2
 Gulp basic flow we use at Graffino. This site uses *Stylus* and it's deployed with *Gulp.*
 
+## Before you start ##
+
+### 1. Make sure you have Gulp 4 beta
+
+```
+# Uninstall previous Gulp installation, if any
+$ npm uninstall gulp -g
+$ cd [your_project_root]
+$ npm uninstall gulp
+
+# Install the latest Gulp 4 CLI tools globally
+$ npm install gulpjs/gulp-cli -g
+
+# Install Gulp 4 into your project
+$ npm install gulpjs/gulp.git#4.0 --save-dev
+
+# Check the versions installed
+$ gulp -v
+---
+[10:48:35] CLI version 1.2.1
+[10:48:35] Local version 4.0.0-alpha.2
+```
+
+### 2. Make sure you have the latest node version
+
+```
+# Clear NPM's cache
+$ npm cache clean -f
+# Install a little helper called 'n'
+$ npm install -g n
+# Install latest node stable version
+$ sudo n stable
+
+```
+
 ## How to start ##
 
 Run in this order:
@@ -86,11 +121,6 @@ Run:
 2. `npm run check-npm-updates` to check for node modules updates
 3. `npm run update-npm-modules ` to update package.json with the new node module versions and install all non-breaking module updates.
 4. `npm run update-bower-modules ` to update bower.json with the new bower module versions and install all non-breaking module updates.
-
-
-## Bonus :) - Stylographic ##
-
-We've included a beta version (comming soon to GitHub) of our pet project <a href="https://github.com/Graffino/Stylographic">Stylographic</a> here. Compile and run `index.html` to see the magic.
 
 
 #### DISCLAIMER ####

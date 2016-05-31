@@ -1,7 +1,8 @@
 //
-// Name: Common
+// Common styles
 // Author: Graffino (http://www.graffino.com)
 //
+
 
 /**
  * Globals
@@ -12,42 +13,64 @@
     box-sizing: border-box;
 }
 
+// Body
+body {
+    // Defaults
+    overflow-x: hidden;
+    min-width: rem(320);
+    color: $default-color;
+    font-family: $sans-fontface-stack;
+    font-size: $default-font-size;
+    line-height: $default-font-size;
+
+    // Default font-family until webfonts are loaded
+    .no-fonts & {
+        font-family: $system-sans-fontface-stack;
+    }
+}
+
+// 100% height
+html,
+body {
+    height: 100%;
+}
+
+// Container
+.container {
+    center(rem($width-container));
+}
+
+// Wrapper
+.wrapper {
+    padding-right: rem(35);
+    padding-left: rem(35);
+}
+
+// Default extends
 p {
-    @extends .text;
-}
-
-a:not(.button) {
-    @extends .link;
-}
-
-ul {
-    @extends .list;
+    @extend .text;
 }
 
 h1 {
-    @extends $h1;
+    @extend $h1;
 }
 
 h2 {
-    @extends $h2;
+    @extend $h2;
 }
 
 h3 {
-    @extends $h3;
+    @extend $h3;
 }
 
 h4 {
-    @extends $h4;
+    @extend $h4;
 }
 
 h5 {
-    @extends $h5;
+    @extend $h5;
 }
 
 h6 {
-    @extends $h6;
-}
-
-abbr {
-    @extends .small-caps;
+    @extend $h6;
 }

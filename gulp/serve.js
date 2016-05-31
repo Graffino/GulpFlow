@@ -3,37 +3,28 @@
 // Author: Graffino (http://www.graffino.com)
 //
 
-'use strict';
-
 
 /**
  * Module imports
  */
 
-// Gulp
+// Gulp requries
 var gulp    = require('gulp');
-
-// Environment
-var env     = require('./env');
-
-// Node plugins
-var plugins = require('gulp-load-plugins')({
-    DEBUG         : env.NODE_DEBUG,
-    pattern       : ['gulp-*', 'gulp.*', 'debounce'],
-    replaceString : /^gulp(-|\.)/,
-    camelize      : true
-});
-
-// Paths
-var paths   = require('./paths');
-
-// Modules
 var build   = require('./build');
 var bundle  = require('./bundle');
+var env     = require('./env');
 var compile = require('./compile');
 var copy    = require('./copy');
 var lint    = require('./lint');
 var minify  = require('./minify');
+var notice  = require('./notice');
+var paths   = require('./paths');
+
+// Gulp plugins
+var plugins = require('gulp-load-plugins')({ DEBUG: env.NODE_DEBUG });
+
+// Node requires
+var debounce = require('debounce');
 
 
 /**
@@ -50,11 +41,24 @@ function watchApp() {
     // JS
     gulp.watch(
         paths.patterns.jsSource,
-        plugins.debounce(
+        debounce(
             gulp.series([
                 lint.js,
                 copy.js,
-                bundle.js
+                bundle.js,
+                notice.rebuilt
+            ]),
+        500)
+    );
+
+    // Handlebars
+    gulp.watch(
+        paths.patterns.handlebarsSource,
+        debounce(
+            gulp.series([
+                bundle.handlebars,
+                bundle.js,
+                notice.rebuilt
             ]),
         500)
     );
@@ -62,11 +66,12 @@ function watchApp() {
     // Stylus
     gulp.watch(
         [paths.patterns.stylusSource, paths.source.stylusMain],
-        plugins.debounce(
+        debounce(
             gulp.series([
                 lint.stylus,
                 compile.stylus,
-                bundle.css
+                bundle.css,
+                notice.rebuilt
             ]),
         500)
     );
@@ -74,11 +79,17 @@ function watchApp() {
     // Fonts
     gulp.watch(
         paths.patterns.fontsSource,
-        plugins.debounce(
+        debounce(
             gulp.series(
                 copy.fonts,
-                compile.stylus,
-                bundle.css
+                gulp.parallel (
+                    bundle.fonts,
+                    gulp.series (
+                        compile.stylus,
+                        bundle.css,
+                        notice.rebuilt
+                    )
+                )
             ),
         2000)
     );
@@ -86,10 +97,11 @@ function watchApp() {
     // Images
     gulp.watch(
         [paths.source.images, paths.source.svg],
-        plugins.debounce(
+        debounce(
             gulp.series(
                 copy.images,
-                minify.images
+                minify.images,
+                notice.rebuilt
             ),
         2000)
     );
@@ -97,12 +109,13 @@ function watchApp() {
     // Sprite
     gulp.watch(
         paths.patterns.spriteSource,
-        plugins.debounce(
+        debounce(
             gulp.series([
                 copy.images,
                 compile.sprite,
                 compile.stylus,
-                bundle.css
+                bundle.css,
+                notice.rebuilt
             ]),
         2000)
     );
@@ -110,10 +123,11 @@ function watchApp() {
     // HTML
     gulp.watch(
         paths.patterns.htmlSource,
-        plugins.debounce(
+        debounce(
             gulp.series([
                 lint.html,
-                copy.html
+                copy.html,
+                notice.rebuilt
             ]),
         2000)
     );

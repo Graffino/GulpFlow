@@ -1,5 +1,5 @@
 //
-// Name: Helpers
+// Global helpers
 // Author: Graffino (http://www.graffino.com)
 //
 
@@ -11,6 +11,18 @@
 .h {
     // Show only on specific viewport size
     &-show-for {
+        &-large-up {
+            +below($large) {
+                display: none !important;
+            }
+        }
+
+        &-large-down {
+            +above($large + 1) {
+                display: none !important;
+            }
+        }
+
         &-tablet-up {
             +below($tablet) {
                 display: none !important;
@@ -38,6 +50,18 @@
 
     // Hide for specific viewport size
     &-hide-for {
+        &-large-up {
+            +above($large + 1) {
+                display: none !important;
+            }
+        }
+
+        &-large-down {
+            +below($large) {
+                display: none !important;
+            }
+        }
+
         &-tablet-up {
             +above($tablet + 1) {
                 display: none !important;
@@ -65,15 +89,21 @@
 
     // Center for specific viewport size
     &-center-for {
+        &-large-down {
+            +below($large) {
+                text-align: center !important;
+            }
+        }
+
         &-tablet-down {
             +below($tablet) {
-                text-align: center;
+                text-align: center !important;
             }
         }
 
         &-mobile-down {
             +below($mobile) {
-                text-align: center;
+                text-align: center !important;
             }
         }
     }
@@ -225,6 +255,14 @@
     // Height 100%
     &-full-height {
         min-height: 100%;
+    }
+
+    // Equal height
+    &-equal-height {
+        display: flex;
+        &-child {
+            display: flex;
+        }
     }
 
     // Disable pointer events

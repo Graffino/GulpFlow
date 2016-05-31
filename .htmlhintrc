@@ -17,5 +17,5 @@
     "tag-pair"                 : true,
     "tag-self-close"           : false,
     "img-alt-require"          : true,
-    "inline-style-disabled"    : true
+    "inline-style-disabled"    : false
 }

@@ -1,14 +1,14 @@
 //
-// Name: Typography
+// Typography
 // Author: Graffino (http://www.graffino.com)
 //
 
+
 /**
- * HTML
+ * Font rendering
  */
 
 html {
-    font-size: $base-font-size-px;
     text-rendering: optimizeLegibility;
     font-variant-ligatures: common-ligatures;
     font-kerning: normal;
@@ -17,150 +17,89 @@ html {
 
 
 /**
- * Body
- */
-
-body {
-    // Defaults
-    min-width: rem(320);
-    background-color: $color-background;
-    color: $default-color;
-    font-family: $sans-stack;
-    font-size: rem($body-copy-size);
-    line-height: rem($unit);
-}
-
-
-/**
  * Headings
  */
 
-$h1, $h2, $h3, $h4, $h5, $h6 {
-    display: block;
-    color: $color-headings;
-}
+$h1-alt {
+    font-family: $heading-huge-font-family;
+    font-size: $heading-huge-font-size;
+    font-weight: $heading-huge-font-weight;
+    line-height: $heading-huge-line-height;
 
-$h1-xxl {
-    margin: 0 0 rem($unit);
-    padding: rem($rhythm-diff-headings[7]) 0 0;
-    font-size: rem($font-size-headings[7]);
-    font-weight: $font-weight-headings[7];
-    line-height: rem($line-height-headings[7]);
-    text-transform: $transform-headings[7];
-    letter-spacing: rem(-1);
-
-    &.-vert-diff {
-        &-bottom {
-            padding: 0 0 rem($rhythm-diff-headings[7]);
-        }
+    // Default font-family until webfonts are loaded
+    .no-fonts & {
+        font-family: $system-serif-fontface-stack;
     }
 }
-
-
-$h1-xl {
-    margin: 0 0 rem($unit);
-    padding: rem($rhythm-diff-headings[6]) 0 0;
-    font-size: rem($font-size-headings[6]);
-    font-weight: $font-weight-headings[6];
-    line-height: rem($line-height-headings[6]);
-    text-transform: $transform-headings[6];
-    letter-spacing: rem(-1);
-
-    &.-vert-diff {
-        &-bottom {
-            padding: 0 0 rem($rhythm-diff-headings[6]);
-        }
-    }
-}
-
 $h1 {
-    margin: 0 0 rem($unit);
-    padding: rem($rhythm-diff-headings[5]) 0 0;
-    font-size: rem($font-size-headings[5]);
-    font-weight: $font-weight-headings[5];
-    line-height: rem($line-height-headings[5]);
-    text-transform: $transform-headings[5];
-    letter-spacing: 0;
+    font-family: $height-xl-font-family;
+    font-size: $height-xl-font-size;
+    font-weight: $height-xl-font-weight;
+    line-height: $height-xl-line-height;
 
-    &.-vert-diff {
-        &-bottom {
-            padding: 0 0 rem($rhythm-diff-headings[5]);
-        }
+    // Default font-family until webfonts are loaded
+    .no-fonts & {
+        font-family: $system-serif-fontface-stack;
     }
 }
 
 $h2 {
-    margin: 0 0 rem($unit);
-    padding: rem($rhythm-diff-headings[4]) 0 0;
-    font-size: rem($font-size-headings[4]);
-    font-weight: $font-weight-headings[4];
-    line-height: rem($line-height-headings[4]);
-    text-transform: $transform-headings[4];
+    font-family: $heading-large-font-family;
+    font-size: $heading-large-font-size;
+    font-weight: $heading-large-font-weight;
+    line-height: $heading-large-line-height;
 
-    &.-vert-diff {
-        &-bottom {
-            padding: 0 0 rem($rhythm-diff-headings[4]);
-        }
+    // Default font-family until webfonts are loaded
+    .no-fonts & {
+        font-family: $system-serif-fontface-stack;
     }
 }
 
 $h3 {
-    margin: 0 0 rem($unit);
-    padding: rem($rhythm-diff-headings[3]) 0 0;
-    font-size: rem($font-size-headings[3]);
-    font-weight: $font-weight-headings[3];
-    line-height: rem($line-height-headings[3]);
-    text-transform: $transform-headings[3];
+    font-family: $heading-normal-font-family;
+    font-size: $heading-normal-font-size;
+    font-weight: $heading-normal-font-weight;
+    line-height: $heading-normal-line-height;
 
-    &.-vert-diff {
-        &-bottom {
-            padding: 0 0 rem($rhythm-diff-headings[3]);
-        }
+    // Default font-family until webfonts are loaded
+    .no-fonts & {
+        font-family: $system-serif-fontface-stack;
     }
 }
 
 $h4 {
-    margin: 0 0 rem($unit);
-    padding: rem($rhythm-diff-headings[2]) 0 0;
-    font-size: rem($font-size-headings[2]);
-    font-weight: $font-weight-headings[2];
-    line-height: rem($line-height-headings[2]);
-    text-transform: $transform-headings[2];
+    font-family: $heading-medium-font-family;
+    font-size: $heading-medium-font-size;
+    font-weight: $heading-medium-font-weight;
+    line-height: $heading-medium-line-height;
 
-    &.-vert-diff {
-        &-bottom {
-            padding: 0 0 rem($rhythm-diff-headings[2]);
-        }
+    // Default font-family until webfonts are loaded
+    .no-fonts & {
+        font-family: $system-sans-fontface-stack;
     }
 }
 
 $h5 {
-    margin: 0 0 rem($unit);
-    padding: rem($rhythm-diff-headings[1]) 0 0;
-    font-size: rem($font-size-headings[1]);
-    font-weight: $font-weight-headings[1];
-    line-height: rem($line-height-headings[1]);
-    text-transform: $transform-headings[1];
+    font-family: $heading-small-font-family;
+    font-size: $heading-small-font-size;
+    font-weight: $heading-small-font-weight;
+    line-height: $heading-small-line-height;
 
-    &.-vert-diff {
-        &-bottom {
-            padding: 0 0 rem($rhythm-diff-headings[1]);
-        }
+    // Default font-family until webfonts are loaded
+    .no-fonts & {
+        font-family: $system-sans-fontface-stack;
     }
 }
 
 $h6 {
-    margin: 0 0 rem($unit);
-    padding: rem($rhythm-diff-headings[0]) 0 0;
-    font-size: rem($font-size-headings[0]);
-    font-weight: $font-weight-headings[0];
-    line-height: rem($line-height-headings[0]);
-    text-transform: $transform-headings[0];
+    font-family: $heading-xsmall-font-family;
+    font-size: $heading-xsmall-font-size;
+    font-weight: $heading-xsmall-font-weight;
+    line-height: $heading-xsmall-line-height;
 
-    &.-vert-diff {
-        &-bottom {
-            padding: 0 0 rem($rhythm-diff-headings[0]);
-        }
+    // Default font-family until webfonts are loaded
+    .no-fonts & {
+        font-family: $system-sans-fontface-stack;
     }
 }
 
@@ -168,238 +107,150 @@ $h6 {
 /**
  * Heading
  */
+
 .heading {
-    &.-xl {
-        @extends $h1-xl
+    position: relative;
+    color: $color-heading;
+
+    // Colors
+    &.-color-white {
+        color: white;
     }
 
-    &.-xxl {
-        @extends $h1-xxl;
+    // Weights
+    &.-weight-normal {
+        font-weight: 400;
+    }
+    &.-weight-bold {
+        font-weight: 700;
+    }
+    &.-weight-black {
+        font-weight: 800;
+    }
+    &.-weight-extra-black {
+        font-weight: 800;
     }
 
-    &.-color {
-        &-white {
-            color: $color-white;
-        }
-
-        &-gray {
-            color: $color-text-gray;
-        }
-    }
-
-    &.-margin-bottom {
-        &-2 {
-            margin-bottom: rem($unit * 2);
-        }
-        &-3 {
-            margin-bottom: rem($unit * 3);
-        }
-        &-4 {
-            margin-bottom: rem($unit * 4);
-        }
-    }
-
+    // Margins
     &.-no-margin {
         margin: 0;
     }
-
+    &.-no-margin-top {
+        margin-top: 0;
+    }
     &.-no-margin-bottom {
         margin-bottom: 0;
     }
 
+    // Sizes
+    &.-size-huge {
+        font-size: $heading-huge-font-size;
+        line-height: $heading-huge-line-height;
+    }
+    &.-size-xl {
+        font-size: $height-xl-font-size;
+        line-height: $height-xl-line-height;
+    }
+    &.-size-large {
+        font-size: $heading-large-font-size;
+        line-height: $heading-large-line-height;
+    }
+    &.-size-normal {
+        font-size: $heading-normal-font-size;
+        line-height: $heading-normal-line-height;
+    }
+    &.-size-medium {
+        font-size: $heading-medium-font-size;
+        line-height: $heading-medium-line-height;
+    }
+    &.-size-small {
+        font-size: $heading-small-font-size;
+        line-height: $heading-small-line-height;
+    }
+    &.-size-xsmall {
+        font-size: $heading-xsmall-font-size;
+        line-height: $heading-xsmall-line-height;
+    }
+
+    // Other
+    &.-display-block {
+        display: block;
+    }
     &.-align-center {
         text-align: center;
     }
-
-    &.-has-subtitle {
-        margin-top: rem(10);
-        margin-bottom: rem(10);
-    }
-
-    &.-weight {
-        &-bold {
-            font-weight: 700;
-        }
-
-        &-normal {
-            font-weight: 400;
-        }
-    }
-
-    &.-style {
-        &-italic {
-            font-style: italic;
-        }
-    }
-
     &.-case-upper {
         text-transform: uppercase;
     }
-
     &.-no-break {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
-
-    /**
-     * Fontfaces
-     */
-
-    &.-serif {
-        font-family: $serif-stack;
-    }
-
-    &.-cursive {
-        font-family: $cursive-stack;
-    }
-
-    /**
-     * Custom heading styles
-     */
-
-    &.-page-title {
-        position: relative;
-        margin-top: rem($unit * 2);
-        color: $color-primary;
-
-        // left decoration border
-        &:before {
-            content: "";
-            position: absolute;
-            right: 105%;
-            display: block;
-            width: 100%;
-            height: rem($unit * 3);
-            background-color: $color-primary;
-        }
-
-        .separator {
-            position: relative;
-            display: inline-block;
-            width: rem(1);
-            height: rem($unit * 2);
-            margin: 0 rem($unit / 4);
-            background-color: $color-border;
-        }
-
-        .subtitle {
-            position: relative;
-            top: rem($unit / 3);
-            display: inline-block;
-            vertical-align: top;
-            margin: 0;
-            padding: 0;
-            color: $color-text-gray;
-            font-family: $serif-stack;
-            font-size: $font-size-headings[3];
-            font-style: italic;
-            font-weight: 100;
-            line-height: inherit;
-        }
-    }
-
-    &.-font-demo {
-        padding: 0;
-        word-break: break-all;
-        font-weight: 400;
-        line-height: rem($unit * 3);
-    }
-
-    &.-subsection {
-        margin-bottom: rem($unit * 2);
-        font-family: $serif-stack;
-        font-style: italic;
-        font-weight: 400;
-    }
-
-    &.-subtitle {
-        color: $color-text-gray;
-        font-weight: 400;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-    }
-
-    &.-subheading {
-        font-family: $serif-stack;
-        font-style: italic;
-        font-weight: 400;
-        text-transform: none;
-    }
-
-    // decorative heading
-    &.-to-background {
-        pointer-events: none;
-        position: absolute;
-        top: 20%;
-        color: lighten($color-background-dark, 0.5%);
-        font-size: rem($unit * 16);
-        line-height: rem($unit * 12);
-    }
 }
+
 
 /**
  * Text
  */
+
 .text {
-    margin: 0 0 $unit;
     color: $color-text;
-    font-weight: 200;
+    font-size: $font-size-normal;
 
-    &.-color {
-        &-white {
-            color: $color-white;
-        }
-
-        &-gray {
-            color: $color-text-gray;
-        }
+    // Colors
+    &.-color-white {
+        color: white;
     }
 
-    &.-style-italic {
-        font-style: italic;
+    // Sizes
+    &.-size-huge {
+        font-size: $font-size-huge;
+        line-height: $line-height-huge;
+    }
+    &.-size-xl {
+        font-size: $font-size-xl;
+        line-height: $line-height-xl;
+    }
+    &.-size-large {
+        font-size: $font-size-large;
+        line-height: $line-height-large;
+    }
+    &.-size-normal {
+        font-size: $font-size-normal;
+        line-height: $line-height-normal;
+    }
+    &.-size-medium {
+        font-size: $font-size-medium;
+        line-height: $line-height-medium;
+    }
+    &.-size-small {
+        font-size: $font-size-small;
+        line-height: $line-height-small;
+    }
+    &.-size-xsmall {
+        font-size: $font-size-xsmall;
+        line-height: $line-height-xsmall;
     }
 
+    // Weights
     &.-weight-normal {
-        font-weight: 500;
+        font-weight: 400;
     }
-
-    &.-weight-medium {
-        font-weight: 600;
-    }
-
     &.-weight-bold {
         font-weight: 700;
     }
-
-    &.-type-cursive {
-        font-family: $cursive-stack;
+    &.-weight-black {
+        font-weight: 800;
     }
 
-    &.-no-margin-top {
-        margin-top: 0;
-    }
-
-    /**
-     * Sizes
-     */
-
-    &.-small {
-        font-size: $font-size-small;
-    }
-
-    /**
-     * Fontfaces
-     */
-
-    &.-serif {
-        font-family: $serif-stack;
-    }
-
-    &.-cursive {
-        font-family: $cursive-stack;
+    // Others
+    &.-align-center {
+        display: block;
+        text-align: center;
     }
 }
+
 
 /**
  * Links
@@ -408,343 +259,8 @@ $h6 {
 .link {
     position: relative;
     display: inline-block;
-    color: $color-link-default;
-    text-decoration: none;
-    transition: transition-custom($property = color);
-
-    // custom underline
-    &:after {
-        content: "";
-        position: absolute;
-        bottom: -1px;
-        left: 0;
-        width: 0;
-        height: rem(2);
-        background-color: $color-link-hover;
-        transition: transition-custom($property = width);
-    }
 
     &:hover {
-        color: $color-link-hover;
 
-        &:after {
-            width: 100%;
-        }
-    }
-}
-
-
-/**
- * Drop cap
- */
-
-.drop-cap {
-    position: relative;
-    float: left;
-    height: rem($unit * 3);
-    margin: 0 rem($unit / 2) 0 rem(0 - $unit / 4);
-    color: $color-dropcap;
-    font-size: rem($unit * 3.6);
-    line-height: rem($unit * 3);
-
-    &.-serif {
-        top: rem($unit / 8);
-        font-family: $serif-stack;
-    }
-
-    &.-cursive {
-        font-family: $cursive-stack;
-    }
-
-    &.-color {
-        &-white {
-            color: white;
-        }
-    }
-}
-
-
-/**
- *  A "run-in" — first few words after the Drop Cap
- */
-.run-in {
-    margin-left: rem(0 - $unit * 0.3);
-}
-
-
-/**
- * Small caps
- */
-
-.small-caps {
-    position: relative;
-    top: rem(-2);
-    vertical-align: top;
-    font-size: rem($font-size-headings[1]);
-    font-variant: small-caps;
-    font-feature-settings: "smcp" on;
-    text-transform: lowercase;
-
-    // fake small caps (if font doesn't have the characters)
-    &.-fake {
-        font-variant: normal;
-        font-size: 0.95rem;
-        font-weight: 400;
-        text-transform: uppercase;
-    }
-
-    &.-serif {
-        font-family: $serif-stack;
-    }
-
-    &.-cursive {
-        font-family: $cursive-stack;
-    }
-}
-
-
-/**
- * Blockquote
- */
-
-.blockquote {
-    position: relative;
-    margin: rem($unit + $unit / 2);
-    font-family: $serif-stack;
-    font-size: $font-size-headings[1];
-    font-style: italic;
-    line-height: $line-height-headings[1];
-
-    &.-border {
-        &:before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: rem(0 - $unit - $unit / 2);
-            display: block;
-            width: rem($unit / 6);
-            height: 100%;
-            background-color: $color-border;
-        }
-    }
-
-    .footer {
-        font-family: $default-font-family;
-        font-size: rem($body-copy-size);
-        line-height: rem($unit);
-    }
-
-    .quote-content {
-        margin-bottom: 0;
-        padding-top: $rhythm-diff-headings[1];
-        color: $color-quote-content;
-        text-indent: rem(0 - $unit / 3);
-    }
-
-    .author {
-        display: inline-block;
-        margin: rem($unit / 2) 0;
-        color: $color-quote-author;
-        font-family: $sans-stack;
-        text-transform: normal;
-        font-style: normal;
-
-        .link {
-            color: inherit;
-
-            &:hover {
-                color: $color-primary;
-            }
-        }
-    }
-}
-
-
-/**
- * Divider
- */
-
-.divider {
-    position: relative;
-    height: rem($unit);
-
-    &:before {
-        content: "";
-        position: absolute;
-        bottom: rem($unit / 3);
-        display: block;
-        width: 100%;
-        height: 1px;
-        background-color: $color-border;
-    }
-
-    &.-margin {
-        &-top {
-            margin-top: rem($unit);
-        }
-        &-bottom {
-            margin-bottom: rem($unit);
-        }
-    }
-
-    &.-white {
-        &:before {
-            background-color: white;
-        }
-    }
-
-    &.-opacity {
-        &-10 {
-            opacity: 0.1;
-        }
-        &-20 {
-            opacity: 0.2;
-        }
-        &-50 {
-            opacity: 0.5;
-        }
-    }
-}
-
-
-/**
- * Images
- */
-
-.image {
-    display: block;
-    border-radius: rem($border-radius);
-}
-
-
-/**
- * Caption / Image caption
- */
-
-.caption {
-    @extends .text;
-
-    display: block;
-    margin: 0 0 rem($unit);
-    padding: rem($unit / 2) 0;
-    font-size: $font-size-small;
-}
-
-
-/**
- * Lists
- */
-.list {
-    margin: 0 0 rem($unit);
-    padding: 0 0 0 rem($unit);
-    font-family: $sans-stack-alt;
-    line-height: rem($unit * 1.5);
-
-    &.-extended {
-        .list__item {
-            padding: rem($unit / 2) 0;
-        }
-    }
-
-    // nested lists
-    .list {
-        margin: 0;
-    }
-
-    // types of lists
-    &.-custom-disk {
-        list-style: none;
-
-        .list__item {
-            position: relative;
-
-            &:before {
-                content: "";
-                position: absolute;
-                top: rem($unit / 3);
-                left: rem(0 - $unit);
-                display: block;
-                width: rem($unit / 4);
-                height: rem($unit / 4);
-                border: solid rem(2) $color-primary;
-                border-radius: rem($unit / 4);
-            }
-
-            .list {
-                list-style: none;
-            }
-
-        }
-
-        &.-extended {
-            .list__item:before {
-                top: rem($unit / 3 + $unit / 2);
-            }
-        }
-    }
-
-    &.-upper-roman {
-        list-style-type: upper-roman;
-
-        .list {
-            list-style-type: inherit;
-        }
-    }
-
-    &.-lower-alpha {
-        list-style-type: lower-alpha;
-
-        .list {
-            list-style-type: inherit;
-        }
-    }
-}
-
-
-/**
- * Blog post demo
- */
-
-.demo-blog-post {
-    padding: rem($unit * 3) 0;
-
-    .-post-meta {
-        margin: 0;
-        padding-top: rem($unit + $rhythm-diff-headings[1]);
-        color: $color-text-gray;
-        font-family: $serif-stack;
-        font-size: $font-size-headings[1];
-        font-style: italic;
-        font-weight: 400;
-        line-height: $line-height-headings[1];
-
-        a {
-            color: inherit;
-
-            &:after {
-                display: none;
-            }
-
-            &:hover {
-                color: $color-text;
-            }
-        }
-    }
-
-    .-post-title {
-        color: $color-headings;
-        font-weight: 700;
-
-        a {
-            color: inherit;
-
-            &:after {
-                display: none;
-            }
-
-            &:hover {
-                color: $color-primary;
-            }
-        }
     }
 }

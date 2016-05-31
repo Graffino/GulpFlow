@@ -1,44 +1,35 @@
 //
-// Name: Form
+// Forms
 // Author: Graffino (http://www.graffino.com)
 //
+
 
 /**
  * Standard form
  */
+
 .form {
     cf();
 
-    margin: 0 0 rem($unit);
+    &__label {
+
+    }
 
     &__input,
     &__textarea,
     &__select {
-        box-sizing: content-box;
-        display: block;
-        width: 75%;
-        margin-bottom: rem($unit);
-        border: solid $color-form-border;
-        border-width: 1px;
-        border-radius: rem($border-radius-form-fields);
-        padding: rem($unit - 1);
-        color: $color-form-text;
-        font-weight: 200;
-        line-height: $unit;
-        outline: 0;
-        transition: transition-custom($property = border-color);
 
         &:hover {
-            border-color: $color-form-border-hover;
+
         }
 
-        &:focus {
-            border-color: $color-form-border-focus;
-            color: $color-form-text-focus;
+        &:focus,
+        &:active {
+
         }
 
         &::placeholder {
-            color: $color-form-placeholder;
+
         }
 
     }
@@ -48,183 +39,9 @@
 
     &__field {
         cf();
-        clear: both;
     }
 
-    &__select__wrapper {
-        position: relative;
-        display: inline-block;
-        width: 75%;
-        margin-bottom: rem($unit);
-
-        // drop-down arrow
-        &:before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            right: rem(-6);
-            width: 0;
-            height: 0;
-            margin-top: rem(-3);
-            border-top: rem($unit/4) solid $color-form-border;
-            border-right: rem($unit/4) solid transparent;
-            border-left: rem($unit/4) solid transparent;
-            cursor: pointer;
-        }
+    &__notice {
+        display: none;
     }
-
-    &__select {
-        position: relative;
-        width: 100%;
-        margin: 0;
-        border-radius: rem($border-radius-form-fields);
-        background-color: transparent;
-        cursor: pointer;
-        appearance: none;
-    }
-
-    &__checkbox,
-    &__radio {
-        float: left;
-        display: inline-block;
-        vertical-align: top;
-        width: rem($unit * 2);
-        height: rem($unit * 2);
-        margin: rem($unit / 2) 0 rem($unit + $unit / 2);
-        border: solid 1px;
-        border-color: $color-form-border;
-        border-radius: rem(50%);
-        background-color: transparent;
-        line-height: rem($unit * 2);
-        outline: 0;
-        cursor: pointer;
-        transition: transition-custom($property = border-color);
-        appearance: none;
-
-        &:hover {
-            border-color: $color-form-border-hover;
-        }
-
-        &:checked + label {
-            position: relative;
-            float: left;
-            display: inline-block;
-            margin: rem($unit / 2) 0 rem($unit + $unit / 2);
-        }
-
-        &:checked + label span {
-            position: absolute;
-            top: rem($unit / 2);
-            left: rem(0 - $unit - $unit / 2);
-            display: block;
-            width: rem($unit);
-            height: @width;
-            border-radius: rem(50%);
-            background-color: $color-primary;
-            cursor: pointer;
-        }
-
-        &.-on-separate-line {
-            float: left;
-            clear: both;
-
-            &:checked + label {
-                float: left;
-            }
-        }
-    }
-
-    &__checkbox {
-        border: solid 1px;
-        border-color: $color-form-border;
-        border-radius: rem($border-radius);
-        background-color: transparent;
-
-        &:checked + label span {
-            border-radius: rem($border-radius);
-        }
-
-    }
-
-    &__button { }
-    &__notice { }
-
-    &__label {
-        display: block;
-        padding: rem($unit) 0;
-        font-size: $font-size-small;
-        font-weight: 200;
-
-        &.-for-radio,
-        &.-for-checkbox {
-            display: inline-block;
-            padding-left: rem($unit);
-            font-size: rem($body-copy-size);
-        }
-
-        &.-on-separate-line {
-            float: left;
-            width: width-from-100($unit * 3);
-        }
-
-        &.-inline {
-            float: left;
-            display: inline-block;
-            vertical-align: top;
-            margin-right: rem($unit);
-        }
-    }
-
-    // Message boxes
-    &__message {
-        display: block;
-        margin: 0 0 rem($unit);
-        border: solid 1px $color-form-border;
-        border-radius: rem($border-radius);
-        padding: rem($unit - 1) rem($unit); // top, bottom: 1/2 unit - 1px border
-        font-weight: 200;
-
-        &.-info {
-            border-color: darken($color-form-message-info, 3%);
-            background-color: $color-form-message-info;
-
-            .bold {
-                color: darken($color-form-message-info, 80%);
-            }
-        }
-
-        &.-warning {
-            border-color: darken($color-form-message-warning, 3%);
-            background-color: $color-form-message-warning;
-
-            .bold {
-                color: darken($color-form-message-warning, 80%);
-            }
-        }
-
-        &.-error {
-            border-color: darken($color-form-message-error, 3%);
-            background-color: $color-form-message-error;
-
-            .bold {
-                color: darken($color-form-message-error, 80%);
-            }
-        }
-
-        &.-success {
-            border-color: darken($color-form-message-success, 3%);
-            background-color: $color-form-message-success;
-
-            .bold {
-                color: darken($color-form-message-success, 80%);
-            }
-        }
-    }
-
-    // Submit button variation
-    .-submit {
-        display: block;
-        clear: both;
-    }
-
 }

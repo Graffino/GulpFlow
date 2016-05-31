@@ -3,28 +3,23 @@
 // Author: Graffino (http://www.graffino.com)
 //
 
-'use strict';
 
 /**
  * Module imports
  */
 
-// Gulp
-var gulp = require('gulp');
-
-// Environment
-var env = require('./env');
-
-// Node modules
-var plugins = require('gulp-load-plugins')({
-    DEBUG         : env.NODE_DEBUG,
-    pattern       : ['gulp-*', 'gulp.*', 'autoprefixer', 'postcss*', 'event-stream', 'stylint*'],
-    replaceString : /^gulp(-|\.)/,
-    camelize      : true
-});
-
-// Paths
+// Gulp requires
+var gulp  = require('gulp');
+var env   = require('./env');
+var error = require('./error');
 var paths = require('./paths');
+
+// Gulp plugins
+var plugins = require('gulp-load-plugins')({ DEBUG: env.NODE_DEBUG });
+
+// Node requires
+var autoprefixer = require ('autoprefixer');
+var postcssQuantityQueries = require('postcss-quantity-queries');
 
 
 /**
@@ -33,12 +28,14 @@ var paths = require('./paths');
 
 function compileStylus() {
     var processors = [
-        plugins.autoprefixer({ browsers: ['last 2 versions'] }),
+        autoprefixer({ browsers: ['last 2 versions'] }),
         plugins.combineMq,
-        plugins.postcssQuantityQueries
+        postcssQuantityQueries
     ];
 
     return gulp.src(paths.source.stylusMain)
+        // Fix pipe on error
+        .pipe(plugins.plumber({ errorHandler: error.handle }))
         // Create sourcemaps only if environment is development
         .pipe(
             plugins.if (

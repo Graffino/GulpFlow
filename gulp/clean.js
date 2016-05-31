@@ -3,28 +3,19 @@
 // Author: Graffino (http://www.graffino.com)
 //
 
-'use strict';
 
 /**
  * Module imports
  */
 
-// Gulp
-var gulp = require('gulp');
+// Gulp requires
+var gulp   = require('gulp');
+var env    = require('./env');
+var paths  = require('./paths');
+var notice = require('./notice');
 
-// Environment
-var env = require('./env');
-
-// Node modules
-var plugins = require('gulp-load-plugins')({
-    DEBUG         : env.NODE_DEBUG,
-    pattern       : ['del*'],
-    replaceString : /^gulp(-|\.)/,
-    camelize      : true
-});
-
-// Paths
-var paths = require('./paths');
+// Node requires
+var del = require('del');
 
 
 /**
@@ -32,9 +23,9 @@ var paths = require('./paths');
  */
 
 function clean(toClean) {
-    return plugins.del(toClean).then(function(paths) {
+    return del(toClean).then(function(paths) {
         if (env.isDebug()) {
-            console.log('Deleted files and folders:\n', paths.join('\n'));
+            notice.send('Deleted files and folders:\n', paths.join('\n'));
         }
     });
 }
@@ -79,6 +70,23 @@ function cleanJunk() {
         paths.www + '.*'
     ];
 
+    // Send notices only on development
+    if (env.isDevelopment()) {
+        notice.send('Application staging folder has been cleaned.');
+    }
+    return clean(toClean);
+}
+
+// Postproduction
+function cleanProduction() {
+    var toClean = [
+        paths.build.js + '**/*',
+        '!' + paths.build.js + 'main.min.js',
+        paths.build.css + '**/*',
+        '!' + paths.build.css + 'main.min.css',
+        paths.build.sprite,
+    ];
+
     return clean(toClean);
 }
 
@@ -107,5 +115,6 @@ module.exports = {
     fonts: cleanFonts,
     images: cleanImages,
     html: cleanHTML,
-    app: cleanApp
+    app: cleanApp,
+    production: cleanProduction
 };

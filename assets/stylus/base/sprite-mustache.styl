@@ -1,7 +1,8 @@
 //
-// Name: SVG Sprites
+// SVG sprite (auto-generated)
 // Author: Graffino (http://www.graffino.com)
 //
+
 
 /**
  * Mustache template
@@ -22,7 +23,7 @@
     background-repeat: no-repeat;
 }
 {{/hasMixin}}{{#shapes}}{{#selector.shape}}{{#escape}}{{expression}}() { {{/escape}}{{^last}},{{/last}}
-{{/selector.shape}}    {{^hasCommon}}{{#hasMixin}}{{mixinName}}(); {{/hasMixin}}{{^hasMixin}}@extends ${{commonName}};{{/hasMixin}}
+{{/selector.shape}}    {{^hasCommon}}{{#hasMixin}}{{mixinName}}(); {{/hasMixin}}{{^hasMixin}}@extend ${{commonName}};{{/hasMixin}}
     {{/hasCommon}}background-position: rem({{position.absolute.x}}) rem({{position.absolute.y}});{{#dimensions.inline}}
     width: rem({{width.outer}});
     height: rem({{height.outer}});{{/dimensions.inline}}

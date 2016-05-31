@@ -1,0 +1,256 @@
+//
+// Custom grid
+// Author: Graffino (http://www.graffino.com)
+//
+
+
+/**
+ * Grid
+ */
+
+// Row
+.row {
+    cf();
+}
+
+// Columns
+.columns {
+    &__one {
+        col(1/12);
+    }
+    &__two {
+        col(2/12);
+    }
+    &__three {
+        col(3/12);
+    }
+    &__four {
+        col(4/12);
+    }
+    &__five {
+        col(5/12);
+    }
+    &__six {
+        col(6/12);
+    }
+    &__seven {
+        col(7/12);
+    }
+    &__eight {
+        col(8/12);
+    }
+    &__nine {
+        col(9/12);
+    }
+    &__ten {
+        col(10/12);
+    }
+    &__eleven {
+        col(11/12);
+    }
+    &__twelve {
+        col(12/12);
+    }
+
+    &__one,
+    &__two,
+    &__three,
+    &__four,
+    &__five,
+    &__six,
+    &__seven,
+    &__eight,
+    &__nine,
+    &__ten,
+    &__eleven,
+    &__twelve {
+        &.-margin-for-large-down {
+            &-single {
+                +below($large) {
+                    margin-bottom: rem(26);
+                }
+            }
+
+            &-double {
+                +below($large) {
+                    margin-bottom: rem(52);
+                }
+            }
+        }
+
+        &.-margin-for-tablet-down {
+            &-single {
+                +below($tablet) {
+                    margin-bottom: rem(26);
+                }
+            }
+
+            &-double {
+                +below($tablet) {
+                    margin-bottom: rem(52);
+                }
+            }
+        }
+
+        &.-four-for {
+            &-large-down {
+                +below($large) {
+                    span(4/12);
+                }
+            }
+
+            &-tablet-down {
+                +below($tablet) {
+                    col(4/12);
+                }
+            }
+
+            &-mobile-down {
+                +below($xsmall) {
+                    col(4/12);
+                }
+            }
+        }
+
+        &.-twelve-for {
+            &-large-down {
+                +below($large) {
+                    col(12/12);
+                }
+            }
+
+            &-tablet-down {
+                +below($tablet) {
+                    col(12/12);
+                }
+            }
+
+            &-mobile-down {
+                +below($xsmall) {
+                    col(12/12);
+                }
+            }
+        }
+    }
+}
+
+// Spans
+.spans {
+    &__one {
+        span(1/12);
+    }
+    &__two {
+        span(2/12);
+    }
+    &__three {
+        span(3/12);
+    }
+    &__four {
+        span(4/12);
+    }
+    &__five {
+        span(5/12);
+    }
+    &__six {
+        span(6/12);
+    }
+    &__seven {
+        span(7/12);
+    }
+    &__eight {
+        span(8/12);
+    }
+    &__nine {
+        span(9/12);
+    }
+    &__ten {
+        span(10/12);
+    }
+    &__eleven {
+        span(11/12);
+    }
+    &__twelve {
+        span(12/12);
+    }
+
+    &__one,
+    &__two,
+    &__three,
+    &__four,
+    &__five,
+    &__six,
+    &__seven,
+    &__eight,
+    &__nine,
+    &__ten,
+    &__eleven,
+    &__twelve {
+        &.-margin-for-large-down {
+            &-single {
+                +below($large) {
+                    margin-bottom: rem(26);
+                }
+            }
+
+            &-double {
+                +below($large) {
+                    margin-bottom: rem(52);
+                }
+            }
+        }
+
+        &.-margin-for-tablet-down {
+            &-single {
+                +below($tablet) {
+                    margin-bottom: rem(26);
+                }
+            }
+
+            &-double {
+                +below($tablet) {
+                    margin-bottom: rem(52);
+                }
+            }
+        }
+
+        &.-four-for {
+            &-large-down {
+                +below($large) {
+                    span(4/12);
+                }
+            }
+
+            &-tablet-down {
+                +below($tablet) {
+                    span(4/12);
+                }
+            }
+
+            &-mobile-down {
+                +below($xsmall) {
+                    span(4/12);
+                }
+            }
+        }
+
+        &.-twelve-for {
+            &-large-down {
+                +below($large) {
+                    span(12/12);
+                }
+            }
+
+            &-tablet-down {
+                +below($tablet) {
+                    span(12/12);
+                }
+            }
+
+            &-mobile-down {
+                +below($xsmall) {
+                    span(12/12);
+                }
+            }
+        }
+    }
+}
