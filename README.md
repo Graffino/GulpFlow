@@ -64,7 +64,7 @@ By default the flow runs in development mode and starts to watch for changes.
 Run `gulp build --env production` to enable production flow. This runs minfier and image optimisation plugins.
 
 #### 2. Run Development Flow Without Watch ####
-Run `gulp build --env development` to run the development flow without once, and not enter watch mode.
+Run `gulp build --env development` to run the development flow once, without entering watch mode.
 
 #### 3. Gulp Clean Flow ####
 Run `gulp clean` to clean out any dynamically generated files.
@@ -73,7 +73,7 @@ Run `gulp clean` to clean out any dynamically generated files.
 Run `gulp build --debug true` to enable certain debug flags. Note that just some plugins have debug flags.
 
 ## Inject Critical CSS ##
-*This is still WIP*
+*This is still WIP. Note: injecting happens in the `--env production` task automatically*
 
 Run:
 
