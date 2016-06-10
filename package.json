@@ -85,7 +85,7 @@
   },
   "scripts": {
     "gulp": "./node_modules/gulp/bin/gulp.js",
-    "production": "./node_modules/hulp.bin/gulp build --env production",
+    "production": "./node_modules/gulp/bin/gulp.js build --env production",
     "staging": "./node_modules/gulp/bin/gulp.js build --env staging",
     "development": "./node_modules/gulp/bin/gulp.js build --env development",
     "debug": "./node_modules/gulp/bin/gulp.js build --env development --debug true",
