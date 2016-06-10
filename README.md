@@ -24,7 +24,7 @@ $ gulp -v
 [10:48:35] Local version 4.0.0-alpha.2
 ```
 
-### 2. Make sure you have the latest node version
+### 2. Make sure you have the latest node version (Linux/MAC)
 
 ```
 # Clear NPM's cache
@@ -33,7 +33,18 @@ $ npm cache clean -f
 $ npm install -g n
 # Install latest node stable version
 $ sudo n stable
+```
 
+### 2b. Make sure you have the latest node version (Windows)
+```
+# Get & Install NodeJS 5.11.1  
+https://nodejs.org/download/release/v5.11.1/
+```
+
+### 3b. Install Python (Windows)
+```
+# Get & Install NodeJS 2.7.11  
+https://www.python.org/downloads/release/python-2711/
 ```
 
 ## How to start ##
@@ -54,8 +65,24 @@ bower_components    -> Needed for development
 node_modules        -> Needed for development
 www                 -> This is where your project gets deployed
 tests/regression    -> Regression testing files
-
 ```
+
+## What's included ##
+1. Stylus -> compilation to CSS
+2. Javascript with jQuery
+3. Handlebars (helpers, partials and templates) -> compilation to JS
+4. SVG Sprites -> automatic stylus icon file generation
+5. Image optimization -> automatic optimization without significant loss of quality
+6. Font generation from TTF -> WOFF, WOFF2
+7. Dependencies management via bower -> automatic injection of CSS and JS dependencies into the project
+8. Concatenation & minification (CSS, JS, HTML)
+9. Critical CSS -> computation and injection into HTML
+10. Development mode -> Complete with JS, HTML, stylus linters, watch and live reload server
+11. Production mode -> Includes optimizations, minifications and critical CSS
+12. Regression testing with BackstopJS
+13. Git version bumping
+14. Notifications -> via native OS notification system
+15. Separate build folder -> 1 command creates a ready for deployment build
 
 ## What can it do? ##
 

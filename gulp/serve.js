@@ -53,7 +53,7 @@ function watchApp() {
 
     // Handlebars
     gulp.watch(
-        paths.patterns.handlebarsSource,
+        [paths.patterns.handlebarsHelpersSource, paths.patterns.handlebarsModulesSource, paths.patterns.handlebarsPartialsSource],
         debounce(
             gulp.series([
                 bundle.handlebars,

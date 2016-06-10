@@ -112,11 +112,27 @@ function compileModernizr() {
 
 
 /**
- * Bundle Handlebars Templates
+ * Complile Handlebars Templates
  */
-//v 4.0.5
-function bundleHandlebars() {
-    return gulp.src(paths.patterns.handlebarsSource)
+
+// Partials
+function compileHandlebarsPartials() {
+    // Compile handlebars with the right version from package.json
+    var handlebarsVersion = {
+        handlebars: require('handlebars')
+    };
+    // Wrap code with partials function
+    var handlebarsWrap = 'Handlebars.registerPartial(<%= processPartialName(file.relative) %>, Handlebars.template(<%= contents %>));';
+    // Strip the extension and the underscore from the file name
+    var handlebarsImports = {
+        imports: {
+            processPartialName: function(fileName) {
+                return JSON.stringify(fileName.slice(0, -3));
+            }
+        }
+    };
+
+    return gulp.src(paths.patterns.handlebarsPartialsSource)
         // Fix pipe on error
         .pipe(plugins.plumber({ errorHandler: error.handle }))
         .pipe(
@@ -125,16 +141,44 @@ function bundleHandlebars() {
                 plugins.sourcemaps.init({ loadMaps: true })
             )
         )
-        .pipe(plugins.handlebars({
-            // This is required in order to compile handlebars with the right
-            // version from package.json
-            handlebars: require('handlebars')
-        }))
-        .pipe(plugins.wrap('Handlebars.template(<%= contents %>)'))
-        .pipe(plugins.declare({
-            namespace: 'graffino.template',
-            noRedeclare: true, // Avoid duplicate declarations
-        }))
+        .pipe(plugins.handlebars(handlebarsVersion))
+        .pipe(plugins.wrap(handlebarsWrap, {}, handlebarsImports))
+        .pipe(plugins.concat('partials.js'))
+        .pipe(
+            plugins.if (
+                env.isDevelopment(),
+                plugins.sourcemaps.write('.')
+            )
+        )
+        .pipe(gulp.dest(paths.build.handlebars));
+}
+
+ // Modules (Templates)
+function compileHandlebarsTemplates() {
+    // Compile handlebars with the right version from package.json
+    var handlebarsVersion = {
+        handlebars: require('handlebars')
+    };
+    // Wrap code with template function
+    var handlebarsWrap = 'Handlebars.template(<%= contents %>)';
+    // Insert handlebars templates into graffino namespace
+    var handlebarsNamespace = {
+        namespace: 'graffino.template',
+        noRedeclare: true, // Avoid duplicate declarations
+    };
+
+    return gulp.src(paths.patterns.handlebarsModulesSource)
+        // Fix pipe on error
+        .pipe(plugins.plumber({ errorHandler: error.handle }))
+        .pipe(
+            plugins.if (
+                env.isDevelopment(),
+                plugins.sourcemaps.init({ loadMaps: true })
+            )
+        )
+        .pipe(plugins.handlebars(handlebarsVersion))
+        .pipe(plugins.wrap(handlebarsWrap))
+        .pipe(plugins.declare(handlebarsNamespace))
         .pipe(plugins.concat('templates.js'))
         .pipe(
             plugins.if (
@@ -238,6 +282,16 @@ function convertFontsWOFF2() {
 var bundleFonts = gulp.parallel(
     convertFontsWOFF,
     convertFontsWOFF2
+);
+
+
+/**
+ * Bundle h`andlebars function
+ */
+
+var bundleHandlebars = gulp.parallel(
+    compileHandlebarsPartials,
+    compileHandlebarsTemplates
 );
 
 

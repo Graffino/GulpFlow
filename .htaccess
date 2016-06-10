@@ -2,11 +2,12 @@
 AddDefaultCharset UTF-8
 AddCharset UTF-8 .woff
 
-# Add correct content-type for fonts 
+# Add correct content-type for fonts
 AddType application/vnd.ms-fontobject .eot
 AddType font/ttf .ttf
 AddType font/otf .otf
 AddType font/x-woff .woff
+AddType font/x-woff2 .woff2
 AddType image/svg+xml .svg
 
 # Gzip
@@ -74,6 +75,6 @@ AddType image/svg+xml .svg
 	ExpiresByType font/ttf "access plus 1 year"
 	ExpiresByType font/otf "access plus 1 year"
 	ExpiresByType font/x-woff "access plus 1 year"
-	ExpiresDefault "access plus 1 week"
+    ExpiresByType font/x-woff2 "access plus 1 year"
+    ExpiresDefault "access plus 1 week"
 </IfModule>
-
