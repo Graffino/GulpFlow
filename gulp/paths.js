@@ -52,6 +52,7 @@ var paths = {
     sprite : 'assets/images/sprite/',
     html   : '',
     lib    : 'lib/',
+    data   : 'data/'
 };
 
 
@@ -81,7 +82,8 @@ paths.build = {
     svg    : paths.www + paths.svg,
     sprite : paths.www + paths.sprite,
     html   : paths.www + paths.html,
-    lib    : paths.www + paths.lib
+    lib    : paths.www + paths.lib,
+    data   : paths.www + paths.data
  };
 
 
@@ -114,7 +116,8 @@ paths.source = {
     svg    : paths.root + paths.svg,
     sprite : paths.root + paths.sprite,
     html   : paths.root + paths.html,
-    lib    : paths.root + paths.lib
+    lib    : paths.root + paths.lib,
+    data   : paths.root + paths.data
 };
 
 
@@ -164,7 +167,9 @@ paths.patterns = {
     htmlBuild  : paths.build.html + '*.html',
 
     // Lib
-    libSource : paths.source.lib + '**/*'
+    libSource : paths.source.lib + '**/*',
+    // Data
+    dataSource : paths.source.data + '**/*'
 };
 
 

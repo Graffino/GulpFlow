@@ -66,6 +66,17 @@ function copyLib() {
 
 
 /**
+ * Copy Data
+ */
+
+function copyData() {
+    return gulp.src(paths.patterns.dataSource)
+        .pipe(gulp.dest(paths.build.data))
+        .pipe(plugins.livereload());
+}
+
+
+/**
  * Copy Miscellaneous
  */
 
@@ -90,6 +101,7 @@ var copyApp = gulp.parallel(
     copyImages,
     copyHTML,
     copyLib,
+    copyData,
     copyMiscellaneous
 );
 
@@ -104,5 +116,6 @@ module.exports = {
     images: copyImages,
     html: copyHTML,
     lib: copyLib,
+    data: copyData,
     app: copyApp
 };

@@ -131,6 +131,28 @@ function watchApp() {
             ]),
         2000)
     );
+
+    // Lib
+    gulp.watch(
+        paths.patterns.libSource,
+        debounce(
+            gulp.series([
+                copy.lib,
+                notice.rebuilt
+            ]),
+        2000)
+    );
+
+    // Data
+    gulp.watch(
+        paths.patterns.dataSource,
+        debounce(
+            gulp.series([
+                copy.data,
+                notice.rebuilt
+            ]),
+        2000)
+    );
 }
 
 
