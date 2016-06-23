@@ -60,14 +60,15 @@ function cleanHTML() {
     return clean(paths.patterns.htmlBuild);
 }
 
+// Bower
+function cleanBower() {
+    return clean('bower_components');
+}
+
 // Junk
 function cleanJunk() {
     var toClean = [
-        paths.root + '.DS_Store',
-        paths.assets + '**/.DS_Store',
-        paths.gulp + '**/.DS_Store',
-        paths.www + '*',
-        paths.www + '.*'
+        paths.root + '**/.DS_Store'
     ];
 
     // Send notices only on development
@@ -101,6 +102,7 @@ var cleanApp = gulp.parallel(
     cleanFonts,
     cleanImages,
     cleanHTML,
+    cleanBower,
     cleanJunk
 );
 
@@ -115,6 +117,7 @@ module.exports = {
     fonts: cleanFonts,
     images: cleanImages,
     html: cleanHTML,
+    bower: cleanBower,
     app: cleanApp,
     production: cleanProduction
 };
