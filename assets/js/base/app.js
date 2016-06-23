@@ -3,6 +3,9 @@
 // Author: Graffino (http://www.graffino.com)
 //
 
+// Mute jQuery migrate
+$.migrateMute = false;
+
 
 /**
  *  Global Vars
@@ -479,7 +482,7 @@ var graffino = {
  * Document ready (loaded)
  */
 
-jQuery(document).ready(function() {
+$(document).ready(function() {
     // Init scripts
     graffino.init();
 });
@@ -489,6 +492,6 @@ jQuery(document).ready(function() {
  *  Document load (in process of loading)
  */
 
-jQuery(window).load(function() {
+$(window).on('load', function() {
     // Do stuff
 });
