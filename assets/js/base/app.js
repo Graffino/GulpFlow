@@ -3,6 +3,9 @@
 // Author: Graffino (http://www.graffino.com)
 //
 
+// Mute jQuery migrate
+$.migrateMute = false;
+
 
 /**
  *  Global Vars
@@ -40,6 +43,9 @@ var $matchHeight           = $('.js-match-height');
 var $handlebarsTemplate    = {
     module : $('.js-handle-module')
 };
+
+// Data
+var dataJSONPath           = '/data/data.json';
 
 // All functions added in this array will be alled when the
 // window.resize event will fire
@@ -370,7 +376,7 @@ var graffino = {
                                             .velocity('fadeIn', { delay: 10000, duration: 1000 });
                                 // Show form notice for 9s
                                 $formNotice.velocity('fadeIn', { delay: 850, duration: 1500 })
-                                            .velocity('fadeOut', { delay: 9000, duration: 800 });
+                                           .velocity('fadeOut', { delay: 9000, duration: 800 });
                                 // Clear fields
                                 $form.trigger('reset');
                             }
@@ -435,40 +441,36 @@ var graffino = {
     handlebarsTemplates: {
         // Progress template
         module: function(callback) {
-            // Item data object
-            var data;
             // Module data
             var moduleData;
 
             // Get data values from an api
-            //
+            $.getJSON(dataJSONPath).done(function(data){
+                if (data !== undefined && data !== null) {
+                    moduleData = {
+                        module: {
+                            'title': data[0].title,
+                            'list': data[0].list,
+                        }
+                    };
+                } else {
+                    moduleData = {
+                        module: {
+                            'title': 'Handlebars works!',
+                            'list': [
+                                'Row one',
+                                'Row two'
+                            ]
+                        }
+                    };
+                }
+                // Apend template to DOM
+                // graffino.template.progressLifecycle - > namespace.template.handlebars_file_na,e
+                $handlebarsTemplate.module.html(graffino.template.moduleName(moduleData));
 
-            if (data !== undefined && data !== null) {
-                moduleData = {
-                    module: {
-                        'title': data.title,
-                        'list': data.items,
-                    }
-                };
-            } else {
-                moduleData = {
-                    module: {
-                        'title': 'Handlebars works!',
-                        'list': [
-                            'Row one',
-                            'Row two'
-                        ]
-                    }
-                };
-            }
-
-            // Apend template to DOM
-            // graffino.template.progressLifecycle - > namespace.template.handlebars_file_na,e
-            $handlebarsTemplate.module.html(graffino.template.moduleName(moduleData));
-
-            // Calling callback function
-            callback();
-
+                // Calling callback function
+                callback();
+            });
             return true;
         },
     }
@@ -479,7 +481,7 @@ var graffino = {
  * Document ready (loaded)
  */
 
-jQuery(document).ready(function() {
+$(document).ready(function() {
     // Init scripts
     graffino.init();
 });
@@ -489,6 +491,6 @@ jQuery(document).ready(function() {
  *  Document load (in process of loading)
  */
 
-jQuery(window).load(function() {
+$(window).on('load', function() {
     // Do stuff
 });

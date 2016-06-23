@@ -10,9 +10,7 @@
     <h1 class="module__title">{{module.title}}</h1>
     <div class="module__content">
         <ul class="module__list">
-        {{#each module.list}}
-            <li class="module__item">{{this}}</li>
-        {{/each}}
+            {{> partialName }}
         </ul>
     </div>
 </div>
