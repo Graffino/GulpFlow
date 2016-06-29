@@ -43,7 +43,7 @@ https://nodejs.org/download/release/v5.11.1/
 
 ### 3b. Install Python (Windows)
 ```
-# Get & Install NodeJS 2.7.11  
+# Get & Install Python 2.7.11  
 https://www.python.org/downloads/release/python-2711/
 ```
 
