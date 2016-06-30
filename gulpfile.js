@@ -8,15 +8,15 @@
  * Module imports
  */
 
-// Gulp
-var gulp    = require('gulp');
+// Gulp & plugins
+var gulp = require('gulp');
 
 // Modules
-var inject  = require('./gulp/inject');
-var clean   = require('./gulp/clean');
-var bump    = require('./gulp/bump');
-var build   = require('./gulp/build');
-var serve   = require('./gulp/serve');
+var inject = require('./gulp/inject');
+var clean = require('./gulp/clean');
+var bump = require('./gulp/bump');
+var build = require('./gulp/build');
+var serve = require('./gulp/serve');
 
 /**
  * Fix for failed build on Graffino staging

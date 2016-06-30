@@ -8,13 +8,12 @@
  * Module imports
  */
 
-// Gulp requires
-var gulp  = require('gulp');
-var env   = require('./env');
-var paths = require('./paths');
+// Gulp & plugins
+var gulp = require('gulp');
+var plugins = require('gulp-load-plugins')();
 
-// Gulp plugins
-var plugins = require('gulp-load-plugins')({ DEBUG: env.NODE_DEBUG });
+// Gulp requires
+var paths = require('./paths');
 
 
 /**

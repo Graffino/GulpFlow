@@ -8,19 +8,20 @@
  * Module imports
  */
 
+// Gulp & plugins
+var gulp = require('gulp');
+var plugins = require('gulp-load-plugins')();
+
+// Node requires
+var imageminMozjpeg = require('imagemin-mozjpeg');
+var imageminPngquant = require('imagemin-pngquant');
+var csswring = require('csswring');
+
 // Gulp requires
-var gulp  = require('gulp');
-var env   = require('./env');
+var env = require('./env');
 var error = require('./error');
 var paths = require('./paths');
 
-// Gulp plugins
-var plugins = require('gulp-load-plugins')({ DEBUG   : env.NODE_DEBUG });
-
-// Node requires
-var imageminMozjpeg  = require('imagemin-mozjpeg');
-var imageminPngquant = require('imagemin-pngquant');
-var csswring         = require('csswring');
 
 /**
  * Minify JS
@@ -29,19 +30,19 @@ var csswring         = require('csswring');
 function minifyJS() {
     return gulp.src(paths.build.js + 'main.js')
         // Fix pipe on error
-        .pipe(plugins.plumber({ errorHandler: error.handle }))
+        .pipe(plugins.plumber({errorHandler: error.handle}))
         // Create sourcemaps only if environment is development
         .pipe(
-            plugins.if (
+            plugins.if(
                 env.isDevelopment(),
                 plugins.sourcemaps.init()
             )
         )
         .pipe(plugins.uglify())
-        .pipe(plugins.rename({ suffix: '.min' }))
+        .pipe(plugins.rename({suffix: '.min'}))
         // Create sourcemaps only if environment is development
         .pipe(
-            plugins.if (
+            plugins.if(
                 env.isDevelopment(),
                 plugins.sourcemaps.write('.')
             )
@@ -58,19 +59,19 @@ function minifyJS() {
 function minifyCSS() {
     return gulp.src(paths.build.css + 'main.css')
         // Fix pipe on error
-        .pipe(plugins.plumber({ errorHandler: error.handle }))
+        .pipe(plugins.plumber({errorHandler: error.handle}))
         // Create sourcemaps only if environment is development
         .pipe(
-            plugins.if (
+            plugins.if(
                 env.isDevelopment(),
-                plugins.sourcemaps.init({ loadMaps: true })
+                plugins.sourcemaps.init({loadMaps: true})
             )
         )
         .pipe(plugins.postcss([csswring]))
-        .pipe(plugins.rename({ suffix: '.min'}))
+        .pipe(plugins.rename({suffix: '.min'}))
         // Create sourcemaps only if environment is development
         .pipe(
-            plugins.if (
+            plugins.if(
                 env.isDevelopment(),
                 plugins.sourcemaps.write('.')
             )
@@ -86,7 +87,7 @@ function minifyCSS() {
 function minifyHTML() {
     return gulp.src(paths.patterns.htmlBuild)
         // Fix pipe on error
-        .pipe(plugins.plumber({ errorHandler: error.handle }))
+        .pipe(plugins.plumber({errorHandler: error.handle}))
         .pipe(plugins.htmlmin({
             removeComments: true,
             collapseWhitespace: true
@@ -129,7 +130,7 @@ function minifyImages() {
                 }),
                 imageminMozjpeg({
                     quality: '80',
-                    progressive: true,
+                    progressive: true
                 }
             )]
         };
@@ -137,13 +138,9 @@ function minifyImages() {
 
     return gulp.src(paths.patterns.imagesBuild)
         // Fix pipe on error
-        .pipe(plugins.plumber({ errorHandler: error.handle }))
+        .pipe(plugins.plumber({errorHandler: error.handle}))
         .pipe(plugins.imagemin(config))
         .pipe(gulp.dest(paths.build.images));
-
-        // TODO: Figure out if reloading all images is really needed each time
-        // something changes
-        // .pipe(plugins.livereload());
 }
 
 

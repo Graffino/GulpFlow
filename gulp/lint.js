@@ -8,14 +8,13 @@
  * Module imports
  */
 
+// Gulp & plugins
+var gulp = require('gulp');
+var plugins = require('gulp-load-plugins')();
+
 // Gulp requires
-var gulp  = require('gulp');
-var env   = require('./env');
 var error = require('./error');
 var paths = require('./paths');
-
-// Gulp plugins
-var plugins = require('gulp-load-plugins')({ DEBUG: env.NODE_DEBUG });
 
 
 /**
@@ -25,8 +24,9 @@ var plugins = require('gulp-load-plugins')({ DEBUG: env.NODE_DEBUG });
 function lintJS() {
     return gulp.src(paths.patterns.jsSource)
         // Fix pipe on error
-        .pipe(plugins.plumber({ errorHandler: error.handle }))
+        .pipe(plugins.plumber({errorHandler: error.handle}))
         .pipe(plugins.jshint('.jshintrc'))
+        .pipe(plugins.xo())
         .pipe(plugins.jshint.reporter());
 }
 
@@ -45,7 +45,7 @@ function lintStylus() {
     };
     return gulp.src(paths.patterns.stylusSource)
         // Fix pipe on error
-        .pipe(plugins.plumber({ errorHandler: error.handle }))
+        .pipe(plugins.plumber({errorHandler: error.handle}))
         .pipe(plugins.stylint(config))
         .pipe(plugins.stylint.reporter());
 }
@@ -58,7 +58,7 @@ function lintStylus() {
 function lintHTML() {
     return gulp.src(paths.patterns.htmlSource)
         // Fix pipe on error
-        .pipe(plugins.plumber({ errorHandler: error.handle }))
+        .pipe(plugins.plumber({errorHandler: error.handle}))
         .pipe(plugins.htmlhint('.htmlhintrc'))
         .pipe(plugins.htmlhint.reporter('htmlhint-stylish'));
 }

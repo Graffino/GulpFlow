@@ -6,7 +6,7 @@
 // Linting exceptions
 /* global Handlebars */
 
-Handlebars.registerHelper('pagination', function(currentPage, totalPage, size, options) {
+Handlebars.registerHelper('pagination', function (currentPage, totalPage, size, options) {
     var startPage, endPage, context;
 
     if (arguments.length === 3) {
@@ -34,7 +34,7 @@ Handlebars.registerHelper('pagination', function(currentPage, totalPage, size, o
     context = {
         startFromFirstPage: false,
         pages: [],
-        endAtLastPage: false,
+        endAtLastPage: false
     };
     if (startPage === 1) {
         context.startFromFirstPage = true;
@@ -42,7 +42,7 @@ Handlebars.registerHelper('pagination', function(currentPage, totalPage, size, o
     for (var i = startPage; i <= endPage; i++) {
         context.pages.push({
             page: i,
-            isCurrent: i === currentPage,
+            isCurrent: i === currentPage
         });
     }
     if (endPage === totalPage) {

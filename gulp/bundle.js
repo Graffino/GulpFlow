@@ -8,17 +8,17 @@
  * Module imports
  */
 
-// Gulp requires
-var gulp  = require('gulp');
-var env   = require('./env');
-var error = require('./error');
-var paths = require('./paths');
-
-// Gulp plugins
-var plugins = require('gulp-load-plugins')({ DEBUG: env.NODE_DEBUG });
-
 // Node requires
 var mainBowerFiles = require('main-bower-files');
+
+// Gulp & plugins
+var gulp = require('gulp');
+var plugins = require('gulp-load-plugins')();
+
+// Gulp requires
+var env = require('./env');
+var error = require('./error');
+var paths = require('./paths');
 
 
 /**
@@ -27,25 +27,25 @@ var mainBowerFiles = require('main-bower-files');
 
 // Update bower
 function updateBower() {
-    return gulp.src(paths.root, { read: false })
+    return gulp.src(paths.root, {read: false})
         .pipe(plugins.exec('bower install && bower prune'))
         .pipe(plugins.exec.reporter());
 }
 
 // Update bower
 function compileBower() {
-    var jsFiles = plugins.filter(['**/*.js', '!**/*main*.js'], { restore: true });
-    var cssFiles = plugins.filter(['**/*.css', '!**/*main*.css'], { restore: true });
+    var jsFiles = plugins.filter(['**/*.js', '!**/*main*.js'], {restore: true});
+    var cssFiles = plugins.filter(['**/*.css', '!**/*main*.css'], {restore: true});
 
     return gulp.src(mainBowerFiles({
-            includeDev: true,
-            includeSelf: true,
-            debugging: env.NODE_DEBUG
-        }))
+        includeDev: true,
+        includeSelf: true,
+        debugging: env.NODE_DEBUG
+    }))
         // Fix pipe on error
-        .pipe(plugins.plumber({ errorHandler: error.handle }))
+        .pipe(plugins.plumber({errorHandler: error.handle}))
         .pipe(
-            plugins.if (
+            plugins.if(
                 env.isDevelopment(),
                 plugins.sourcemaps.init()
             )
@@ -53,7 +53,7 @@ function compileBower() {
         .pipe(cssFiles)
         .pipe(plugins.groupConcat({'bower.css': '**/*.css'}))
         .pipe(
-            plugins.if (
+            plugins.if(
                 env.isDevelopment(),
                 plugins.sourcemaps.write('.')
             )
@@ -61,15 +61,15 @@ function compileBower() {
         .pipe(gulp.dest(paths.build.cssLib))
         .pipe(cssFiles.restore)
         .pipe(
-            plugins.if (
+            plugins.if(
                 env.isDevelopment(),
                 plugins.sourcemaps.init()
             )
         )
         .pipe(jsFiles)
-        .pipe(plugins.groupConcat({ 'bower.js': '**/*.js' }))
+        .pipe(plugins.groupConcat({'bower.js': '**/*.js'}))
         .pipe(
-            plugins.if (
+            plugins.if(
                 env.isDevelopment(),
                 plugins.sourcemaps.write('.')
             )
@@ -92,20 +92,20 @@ function compileModernizr() {
             'setClasses'
         ],
         tests: [
-            'canvas', 'fullscreen', 'hiddenscroll', 'history','htmlimports',
-            'input', 'inputtypes','requestanimationframe', 'svg', 'touchevents',
+            'canvas', 'fullscreen', 'hiddenscroll', 'history', 'htmlimports',
+            'input', 'inputtypes', 'requestanimationframe', 'svg', 'touchevents',
             'geolocation', 'appearance', 'backgroundblendmode',
             'backgroundcliptext', 'csscalc', 'csscolumns', 'cssfilters', 'flexbox',
             'flexboxlegacy', 'flexwrap', 'cssinvalid', 'cssmask',
             'csspointerevents', 'csspositionsticky', 'cssreflections',
             'csstransitions', 'cssvhunit', 'cssvmaxunit', 'cssvminunit',
             'cssvwunit', 'willchange', 'placeholder', 'sizes',
-            'srcset', 'svgasimg', 'svgfilters','svgclippaths', 'videoautoplay'
+            'srcset', 'svgasimg', 'svgfilters', 'svgclippaths', 'videoautoplay'
         ]
     };
     return gulp.src(paths.source.jsMain)
         // Fix pipe on error
-        .pipe(plugins.plumber({ errorHandler: error.handle }))
+        .pipe(plugins.plumber({errorHandler: error.handle}))
         .pipe(plugins.modernizr(config))
         .pipe(gulp.dest(paths.build.jsLib));
 }
@@ -126,7 +126,7 @@ function compileHandlebarsPartials() {
     // Strip the extension and the underscore from the file name
     var handlebarsImports = {
         imports: {
-            processPartialName: function(fileName) {
+            processPartialName: function (fileName) {
                 return JSON.stringify(fileName.slice(0, -3));
             }
         }
@@ -134,18 +134,18 @@ function compileHandlebarsPartials() {
 
     return gulp.src(paths.patterns.handlebarsPartialsSource)
         // Fix pipe on error
-        .pipe(plugins.plumber({ errorHandler: error.handle }))
+        .pipe(plugins.plumber({errorHandler: error.handle}))
         .pipe(
-            plugins.if (
+            plugins.if(
                 env.isDevelopment(),
-                plugins.sourcemaps.init({ loadMaps: true })
+                plugins.sourcemaps.init({loadMaps: true})
             )
         )
         .pipe(plugins.handlebars(handlebarsVersion))
         .pipe(plugins.wrap(handlebarsWrap, {}, handlebarsImports))
         .pipe(plugins.concat('partials.js'))
         .pipe(
-            plugins.if (
+            plugins.if(
                 env.isDevelopment(),
                 plugins.sourcemaps.write('.')
             )
@@ -164,16 +164,16 @@ function compileHandlebarsTemplates() {
     // Insert handlebars templates into graffino namespace
     var handlebarsNamespace = {
         namespace: 'graffino.template',
-        noRedeclare: true, // Avoid duplicate declarations
+        noRedeclare: true // Avoid duplicate declarations
     };
 
     return gulp.src(paths.patterns.handlebarsModulesSource)
         // Fix pipe on error
-        .pipe(plugins.plumber({ errorHandler: error.handle }))
+        .pipe(plugins.plumber({errorHandler: error.handle}))
         .pipe(
-            plugins.if (
+            plugins.if(
                 env.isDevelopment(),
-                plugins.sourcemaps.init({ loadMaps: true })
+                plugins.sourcemaps.init({loadMaps: true})
             )
         )
         .pipe(plugins.handlebars(handlebarsVersion))
@@ -181,7 +181,7 @@ function compileHandlebarsTemplates() {
         .pipe(plugins.declare(handlebarsNamespace))
         .pipe(plugins.concat('templates.js'))
         .pipe(
-            plugins.if (
+            plugins.if(
                 env.isDevelopment(),
                 plugins.sourcemaps.write('.')
             )
@@ -197,20 +197,20 @@ function compileHandlebarsTemplates() {
 function bundleJS() {
     return gulp.src(paths.patterns.jsBuild)
         // Fix pipe on error
-        .pipe(plugins.plumber({ errorHandler: error.handle }))
+        .pipe(plugins.plumber({errorHandler: error.handle}))
         .pipe(
-            plugins.if (
+            plugins.if(
                 env.isDevelopment(),
-                plugins.sourcemaps.init({ loadMaps: true })
+                plugins.sourcemaps.init({loadMaps: true})
             )
         )
         .pipe(plugins.order([
             '**/bower.js',
             '**/*.js'
         ]))
-        .pipe(plugins.groupConcat({ 'main.js': ['**/*.js', '!**/*main*.js'] }))
+        .pipe(plugins.groupConcat({'main.js': ['**/*.js', '!**/*main*.js']}))
         .pipe(
-            plugins.if (
+            plugins.if(
                 env.isDevelopment(),
                 plugins.sourcemaps.write('.')
             )
@@ -227,20 +227,20 @@ function bundleJS() {
 function bundleCSS() {
     return gulp.src(paths.patterns.cssBuild)
         // Fix pipe on error
-        .pipe(plugins.plumber({ errorHandler: error.handle }))
+        .pipe(plugins.plumber({errorHandler: error.handle}))
         .pipe(
-            plugins.if (
+            plugins.if(
                 env.isDevelopment(),
-                plugins.sourcemaps.init({ loadMaps: true })
+                plugins.sourcemaps.init({loadMaps: true})
             )
         )
         .pipe(plugins.order([
             '**/bower.css',
             '**/*.css'
         ]))
-        .pipe(plugins.groupConcat({ 'main.css': ['**/*.css', '!**/*main*.css'] }))
+        .pipe(plugins.groupConcat({'main.css': ['**/*.css', '!**/*main*.css']}))
         .pipe(
-            plugins.if (
+            plugins.if(
                 env.isDevelopment(),
                 plugins.sourcemaps.write('.')
             )
@@ -258,7 +258,7 @@ function bundleCSS() {
 function convertFontsWOFF() {
     return gulp.src(paths.patterns.fontsBuildTTF)
         // Fix pipe on error
-        .pipe(plugins.plumber({ errorHandler: error.handle }))
+        .pipe(plugins.plumber({errorHandler: error.handle}))
         .pipe(plugins.ttf2woff())
         .pipe(gulp.dest(paths.build.fonts))
         .pipe(plugins.livereload());
@@ -268,7 +268,7 @@ function convertFontsWOFF() {
 function convertFontsWOFF2() {
     return gulp.src(paths.patterns.fontsBuildTTF)
         // Fix pipe on error
-        .pipe(plugins.plumber({ errorHandler: error.handle }))
+        .pipe(plugins.plumber({errorHandler: error.handle}))
         .pipe(plugins.ttf2woff2())
         .pipe(gulp.dest(paths.build.fonts))
         .pipe(plugins.livereload());

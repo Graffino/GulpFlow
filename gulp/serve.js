@@ -8,23 +8,22 @@
  * Module imports
  */
 
-// Gulp requries
-var gulp    = require('gulp');
-var build   = require('./build');
-var bundle  = require('./bundle');
-var env     = require('./env');
-var compile = require('./compile');
-var copy    = require('./copy');
-var lint    = require('./lint');
-var minify  = require('./minify');
-var notice  = require('./notice');
-var paths   = require('./paths');
-
-// Gulp plugins
-var plugins = require('gulp-load-plugins')({ DEBUG: env.NODE_DEBUG });
+// Gulp & plugins
+var gulp = require('gulp');
+var plugins = require('gulp-load-plugins')();
 
 // Node requires
 var debounce = require('debounce');
+
+// Gulp requries
+var build = require('./build');
+var bundle = require('./bundle');
+var compile = require('./compile');
+var copy = require('./copy');
+var lint = require('./lint');
+var minify = require('./minify');
+var notice = require('./notice');
+var paths = require('./paths');
 
 
 /**
@@ -82,9 +81,9 @@ function watchApp() {
         debounce(
             gulp.series(
                 copy.fonts,
-                gulp.parallel (
+                gulp.parallel(
                     bundle.fonts,
-                    gulp.series (
+                    gulp.series(
                         compile.stylus,
                         bundle.css,
                         notice.rebuilt

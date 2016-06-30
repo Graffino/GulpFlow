@@ -8,12 +8,9 @@
  * Module imports
  */
 
-// Gulp requires
+// Gulp & plugins
 var gulp = require('gulp');
-var env  = require('./env');
-
-// Gulp plugins
-var plugins = require('gulp-load-plugins')({ DEBUG: env.NODE_DEBUG });
+var plugins = require('gulp-load-plugins')();
 
 
 /**
@@ -22,7 +19,7 @@ var plugins = require('gulp-load-plugins')({ DEBUG: env.NODE_DEBUG });
 
 function bump(type) {
     return gulp.src(['./package.json', './bower.json'])
-        .pipe(plugins.bump({type: type }))
+        .pipe(plugins.bump({type: type}))
         .pipe(gulp.dest('./'))
         .pipe(plugins.git.commit('Bump app to ' + type + ' version.'));
 }

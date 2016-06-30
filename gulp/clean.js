@@ -8,14 +8,16 @@
  * Module imports
  */
 
-// Gulp requires
-var gulp   = require('gulp');
-var env    = require('./env');
-var paths  = require('./paths');
-var notice = require('./notice');
-
 // Node requires
 var del = require('del');
+
+// Gulp & plugins
+var gulp = require('gulp');
+
+// Gulp requires
+var env = require('./env');
+var paths = require('./paths');
+var notice = require('./notice');
 
 
 /**
@@ -23,7 +25,7 @@ var del = require('del');
  */
 
 function clean(toClean) {
-    return del(toClean).then(function(paths) {
+    return del(toClean).then(function (paths) {
         if (env.isDebug()) {
             notice.send('Deleted files and folders:\n', paths.join('\n'));
         }
@@ -77,7 +79,7 @@ function cleanMiscellaneous() {
         paths.www + 'LICENSE',
         paths.www + 'robots.txt',
         paths.www + '.htaccess',
-        paths.www + 'assets',
+        paths.www + 'assets'
     ];
 
     return clean(toClean);
@@ -86,7 +88,7 @@ function cleanMiscellaneous() {
 // Junk
 function cleanJunk() {
     var toClean = [
-        paths.root + '**/.DS_Store',
+        paths.root + '**/.DS_Store'
     ];
 
     // Send notices only on development
@@ -103,7 +105,7 @@ function cleanProduction() {
         '!' + paths.build.js + 'main.min.js',
         paths.build.css + '**/*',
         '!' + paths.build.css + 'main.min.css',
-        paths.build.sprite,
+        paths.build.sprite
     ];
 
     return clean(toClean);
