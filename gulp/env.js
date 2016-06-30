@@ -11,6 +11,12 @@
 // Node requires
 var minimist = require('minimist');
 
+/**
+ * Project path
+ */
+
+var PATH_ENV = process.cwd();
+
 
 /**
  * Environment vars
@@ -28,10 +34,12 @@ var env = {
 
 // Known environment
 var knownOptions = {
-    string: ['env', 'debug'],
+    string: ['env', 'debug', 'path'],
+    path: PATH_ENV,
     default: {
         env: process.env.NODE_ENV || env.DEFAULT_ENV,
-        debug: process.env.NODE_ENV || env.DEFAULT_DEBUG
+        debug: process.env.NODE_ENV || env.DEFAULT_DEBUG,
+        path: PATH_ENV
     }
 };
 
@@ -39,6 +47,7 @@ var knownOptions = {
 var options = minimist(process.argv.slice(3), knownOptions);
 env.NODE_ENV = options.env;
 env.NODE_DEBUG = options.debug;
+env.NODE_PATH = options.path;
 
 /**
  * Check current environment
