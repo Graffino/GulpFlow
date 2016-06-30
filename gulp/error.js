@@ -8,11 +8,8 @@
  * Module imports
  */
 
-// Gulp requires
-var env = require('./env');
-
-// Gulp plugins
-var plugins = require('gulp-load-plugins')({ DEBUG: env.NODE_DEBUG });
+// Gulp & plugins
+var plugins = require('gulp-load-plugins')();
 
 
 /**

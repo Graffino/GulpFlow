@@ -8,17 +8,19 @@
  * Module imports
  */
 
+// Gulp & plugins
+var gulp = require('gulp');
+
 // Gulp requires
-var gulp    = require('gulp');
-var env     = require('./env');
-var bundle  = require('./bundle');
-var clean   = require('./clean');
+var env = require('./env');
+var bundle = require('./bundle');
+var clean = require('./clean');
 var compile = require('./compile');
-var copy    = require('./copy');
-var lint    = require('./lint');
-var inject  = require('./inject');
-var minify  = require('./minify');
-var notice  = require('./notice');
+var copy = require('./copy');
+var lint = require('./lint');
+var inject = require('./inject');
+var minify = require('./minify');
+var notice = require('./notice');
 
 
 /**
@@ -26,14 +28,14 @@ var notice  = require('./notice');
  */
 
 var buildDevelopment = gulp.series(
-    gulp.parallel (
+    gulp.parallel(
         lint.app,
         bundle.deps
     ),
     copy.app,
-    gulp.parallel (
+    gulp.parallel(
         bundle.fonts,
-        gulp.series (
+        gulp.series(
             compile.app,
             bundle.app
         )
@@ -48,13 +50,13 @@ var buildDevelopment = gulp.series(
 
 var buildStaging = gulp.series(
     clean.app,
-    gulp.parallel (
+    gulp.parallel(
         bundle.deps
     ),
     copy.app,
-    gulp.parallel (
+    gulp.parallel(
         bundle.fonts,
-        gulp.series (
+        gulp.series(
             compile.app,
             bundle.app
         )
@@ -68,14 +70,14 @@ var buildStaging = gulp.series(
 
 var buildProduction = gulp.series(
     clean.app,
-    gulp.parallel (
+    gulp.parallel(
         lint.app,
         bundle.deps
     ),
     copy.app,
-    gulp.parallel (
+    gulp.parallel(
         bundle.fonts,
-        gulp.series (
+        gulp.series(
             compile.app,
             bundle.app,
             minify.app
@@ -90,10 +92,16 @@ var buildProduction = gulp.series(
  * Build according to environment
  */
 
-var build = function(cb) {
-    if ( env.isProduction() ) { return buildProduction(cb); }
-    else if (env.isDevelopment()) { return buildDevelopment(cb); }
-    else { return buildStaging(cb); }
+var build = function (cb) {
+    var buildType;
+    if (env.isProduction()) {
+        buildType = buildProduction(cb);
+    } else if (env.isDevelopment()) {
+        buildType = buildDevelopment(cb);
+    } else {
+        buildType = buildStaging(cb);
+    }
+    return buildType;
 };
 
 

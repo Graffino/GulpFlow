@@ -8,18 +8,18 @@
  * Module imports
  */
 
+// Node requires
+var autoprefixer = require('autoprefixer');
+var postcssQuantityQueries = require('postcss-quantity-queries');
+
+// Gulp & plugins
+var gulp = require('gulp');
+var plugins = require('gulp-load-plugins')();
+
 // Gulp requires
-var gulp  = require('gulp');
-var env   = require('./env');
+var env = require('./env');
 var error = require('./error');
 var paths = require('./paths');
-
-// Gulp plugins
-var plugins = require('gulp-load-plugins')({ DEBUG: env.NODE_DEBUG });
-
-// Node requires
-var autoprefixer = require ('autoprefixer');
-var postcssQuantityQueries = require('postcss-quantity-queries');
 
 
 /**
@@ -28,25 +28,25 @@ var postcssQuantityQueries = require('postcss-quantity-queries');
 
 function compileStylus() {
     var processors = [
-        autoprefixer({ browsers: ['last 2 versions'] }),
+        autoprefixer({browsers: ['last 2 versions']}),
         plugins.combineMq,
         postcssQuantityQueries
     ];
 
     return gulp.src(paths.source.stylusMain)
         // Fix pipe on error
-        .pipe(plugins.plumber({ errorHandler: error.handle }))
+        .pipe(plugins.plumber({errorHandler: error.handle}))
         // Create sourcemaps only if environment is development
         .pipe(
-            plugins.if (
+            plugins.if(
                 env.isDevelopment(),
-                plugins.sourcemaps.init({ loadMaps: true })
+                plugins.sourcemaps.init({loadMaps: true})
             )
         )
         .pipe(plugins.stylus())
         .pipe(plugins.postcss(processors))
         .pipe(
-            plugins.if (
+            plugins.if(
                 env.isDevelopment(),
                 plugins.sourcemaps.write('.')
             )
