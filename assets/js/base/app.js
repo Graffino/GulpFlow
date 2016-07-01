@@ -52,7 +52,7 @@ var $handlebarsPlaceholder = {
 };
 
 // Data
-var dataJSONPath = '/data/data.json';
+var dataJSONPath = 'data/data.json';
 
 // All functions added in this array will be alled when the
 // window.resize event will fire
@@ -238,6 +238,7 @@ graffino = {
         function init() {
             if ($.browser.msie) {
                 $html.addClass('browser-ie');
+                $html.addClass('browser-ie' + $.browser.versionNumber);
             }
             if ($.browser.msedge) {
                 $html.addClass('browser-edge');
@@ -286,8 +287,18 @@ graffino = {
 
         // Initialize function
         function init() {
-            // Initialize polyfill
-            PointerEventsPolyfill.initialize({});
+            // Initialize polyfill for links
+            PointerEventsPolyfill.initialize({
+                selector: 'a'
+            });
+            // Initialize polyfill for spans
+            PointerEventsPolyfill.initialize({
+                selector: 'span'
+            });
+            // Initialize polyfill for divs
+            PointerEventsPolyfill.initialize({
+                selector: 'div'
+            });
 
             // Disable pointer events on iOS drag to prevent scroll stopping when
             // dragging on form elements (iOS workaround)
@@ -413,7 +424,7 @@ graffino = {
                 // Process contact form
                 $form.submit(function (e) {
                     // Vars
-                    var $this = $(e);
+                    var $this = $(this);
                     var result = $this.h5Validate('allValid');
                     var data;
                     var url;
