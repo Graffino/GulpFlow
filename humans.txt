@@ -1,7 +1,21 @@
 # humanstxt.org/
 # The humans responsible & technology colophon
 
-# TEAM
 
-# TECHNOLOGY COLOPHON
+ .88888.                    .8888b .8888b oo
+d8'   `88                   88   " 88   "
+88        88d888b. .d8888b. 88aaa  88aaa  dP 88d888b. .d8888b.
+88   YP88 88'  `88 88'  `88 88     88     88 88'  `88 88'  `88
+Y8.   .88 88       88.  .88 88     88     88 88    88 88.  .88
+ `88888'  dP       `88888P8 dP     dP     dP dP    dP `88888P'
 
+
+/* Team */
+
+Title:     Graffino
+Position:  Author
+Email:     hello@graffino.com
+Website:   https://graffino.com
+Medium:    https://by.graffino.com
+Twitter:   https://twitter.com/graffino
+Location:  Sibiu, Romania
