@@ -633,10 +633,10 @@ graffino = {
                 } else {
                     moduleData = {
                         module: {
-                            title: 'Handlebars works!',
+                            title: 'H1 - Handlebars JSON Test!',
                             list: [
-                                'Row one',
-                                'Row two'
+                                'JSON fetch failed',
+                                'JSON fetch failed'
                             ]
                         }
                     };

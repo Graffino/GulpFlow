@@ -1,7 +1,7 @@
 [{
-    "title": "Handlebars template works!",
+    "title": "H1 - Handlebars JSON Test",
     "list": [
-        "Partial row one",
-        "Partial row two"
+        "Partial template test",
+        "Partial template test row"
     ]
 }]
