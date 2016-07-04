@@ -97,7 +97,7 @@
     "htmlhint-stylish": "^1.0.3",
     "imagemin-mozjpeg": "~6.0.0",
     "imagemin-pngquant": "~5.0.0",
-    "jeet": "6.1.4",
+    "jeet": "^6.1.2",
     "main-bower-files": "~2.13.1",
     "merge-stream": "~1.0.0",
     "minimist": "1.2.0",
