@@ -59,7 +59,7 @@ function cleanImages() {
 
 // HTML
 function cleanHTML() {
-    return clean(paths.patterns.htmlBuild);
+    return clean(paths.patterns.html);
 }
 
 // Bower

@@ -31,7 +31,7 @@ var paths = {
 
     // HTML Templates
     htmlTemplates: 'templates/',
-    htmlViews: 'pages/',
+    htmlViews: 'templates/views/',
 
     // Stylus
     stylus: 'assets/stylus/',
@@ -53,6 +53,7 @@ var paths = {
     svg: 'assets/images/svg/',
     sprite: 'assets/images/sprite/',
     lib: 'lib/',
+    html: '',
     data: 'data/'
 };
 
@@ -86,6 +87,7 @@ paths.build = {
     svg: paths.www + paths.svg,
     sprite: paths.www + paths.sprite,
     lib: paths.www + paths.lib,
+    html: paths.www + paths.html,
     data: paths.www + paths.data
 };
 
@@ -170,6 +172,9 @@ paths.patterns = {
 
     // Lib
     libSource: paths.source.lib + '**/*',
+
+    // HTML
+    html: paths.build.html + '*.html',
 
     // Data
     dataSource: paths.source.data + '**/*.json',

@@ -23,7 +23,7 @@ var paths = require('./paths');
 function criticalCSS() {
     var critical = require('critical').stream;
 
-    return gulp.src(paths.patterns.htmlBuild)
+    return gulp.src(paths.patterns.html)
         .pipe(critical({
             base: paths.www,
             inline: true,
