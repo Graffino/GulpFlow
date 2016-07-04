@@ -19,7 +19,7 @@ var $html = $('html');
 var $body = $('body');
 var $window = $(window);
 
-// Check if webfonts are loaded. Set to false to prevent detection.
+// Check if webfonts are loaded. Type in main font-family name. Set to false to prevent detection.
 var fontFaceObserverName = false;
 
 // Boolean variable for storing localStorage capability checker
@@ -633,10 +633,10 @@ graffino = {
                 } else {
                     moduleData = {
                         module: {
-                            title: 'Handlebars works!',
+                            title: 'H1 - Handlebars JSON Test!',
                             list: [
-                                'Row one',
-                                'Row two'
+                                'JSON fetch failed',
+                                'JSON fetch failed'
                             ]
                         }
                     };
