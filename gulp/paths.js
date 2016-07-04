@@ -25,11 +25,15 @@ var paths = {
     jsLib: 'assets/js/lib/',
     jsMain: 'assets/js/base/app.js',
 
-    // Handlebars
-    handlebars: 'assets/js/handlebars/',
-    handlebarsHelpers: 'assets/js/handlebars/helpers/',
-    handlebarsModules: 'assets/js/handlebars/modules/',
-    handlebarsPartials: 'assets/js/handlebars/partials/',
+    // JS Templates
+    jsTemplates: 'assets/js/templates/',
+    jsPartials: 'assets/js/templates/partials/',
+    jsViews: 'assets/js/templates/views/',
+
+    // HTML Templates
+    htmlTemplates: 'templates/',
+    htmlPartials: 'templates/partials/',
+    htmlPages: 'pages/',
 
     // Stylus
     stylus: 'assets/stylus/',
@@ -50,7 +54,6 @@ var paths = {
     images: 'assets/images/',
     svg: 'assets/images/svg/',
     sprite: 'assets/images/sprite/',
-    html: '',
     lib: 'lib/',
     data: 'data/'
 };
@@ -67,8 +70,11 @@ paths.build = {
     jsBase: paths.www + paths.jsBase,
     jsModules: paths.www + paths.jsModules,
 
-    // Handlebars
-    handlebars: paths.www + paths.handlebars,
+    // JS Templates
+    jsTemplates: paths.www + paths.jsTemplates,
+
+    // HTMl Templates
+    htmlTemplates: paths.www,
 
     // CSS
     css: paths.www + paths.css, // Only in build
@@ -81,7 +87,6 @@ paths.build = {
     images: paths.www + paths.images,
     svg: paths.www + paths.svg,
     sprite: paths.www + paths.sprite,
-    html: paths.www + paths.html,
     lib: paths.www + paths.lib,
     data: paths.www + paths.data
 };
@@ -98,11 +103,15 @@ paths.source = {
     jsModules: paths.root + paths.jsModules,
     jsMain: paths.root + paths.jsMain, // Only in source
 
-    // Handlebars
-    handlebars: paths.root + paths.handlebars, // Only in source
-    handlebarsHelpers: paths.root + paths.handlebarsHelpers, // Only in source
-    handlebarsModules: paths.root + paths.handlebarsModules, // Only in source
-    handlebarsPartials: paths.root + paths.handlebarsPartials, // Only in source
+    // JS Templates
+    jsTemplates: paths.root + paths.jsTemplates, // Only in source
+    jsPartials: paths.root + paths.jsPartials, // Only in source
+    jsViews: paths.root + paths.jsViews, // Only in source
+
+    // HTML Templates
+    htmlTemplates: paths.root + paths.htmlTemplates,
+    htmlPartials: paths.root + paths.htmlPartials,
+    htmlPages: paths.root + paths.htmlPages,
 
     // Stylus
     stylus: paths.root + paths.stylus, // Only in source
@@ -115,7 +124,6 @@ paths.source = {
     images: paths.root + paths.images,
     svg: paths.root + paths.svg,
     sprite: paths.root + paths.sprite,
-    html: paths.root + paths.html,
     lib: paths.root + paths.lib,
     data: paths.root + paths.data
 };
@@ -131,11 +139,15 @@ paths.patterns = {
     jsBuild: [paths.build.js + '**/*.js', '!' + paths.build.css + 'main*.js'],
     jsBuldMin: paths.build.js + '**/*.min.js',
 
-    // Handlebars
-    handlebarsHelpersSource: paths.source.handlebarsHelpers + '**/*.js',
-    handlebarsModulesSource: paths.source.handlebarsModules + '**/*.hbs',
-    handlebarsPartialsSource: paths.source.handlebarsPartials + '**/*.hbs',
+    // JS Templates
+    jsTemplatesSource: paths.source.jsTemplates + '**/*.+(njk|nunjucks)',
+    jsPartialsSource: paths.source.jsPartials + '**/*.+(njk|nunjucks)',
+    jsViewsSource: paths.source.jsViews + '**/*.+(njk|nunjucks)',
 
+    // HTML Templates
+    htmlTemplatesSource: paths.source.htmlTemplates + '**/*.+(njk|nunjucks)',
+    htmlPartialsSource: paths.source.htmlPartials + '**/*.+(njk|nunjucks)',
+    htmlPagesSource: paths.source.htmlPages + '**/*.+(njk|nunjucks)',
 
     // CSS
     cssBuild: [paths.build.css + '**/*.css', '!' + paths.build.css + 'main*.css'],
@@ -162,14 +174,12 @@ paths.patterns = {
     spriteSource: paths.source.sprite + '*.svg',
     spriteBuild: paths.build.sprite + '*.svg',
 
-    // HTML
-    htmlSource: paths.source.html + '*.html',
-    htmlBuild: paths.build.html + '*.html',
-
     // Lib
     libSource: paths.source.lib + '**/*',
+
     // Data
-    dataSource: paths.source.data + '**/*'
+    dataSource: paths.source.data + '**/*.json',
+    dataSourceSingle: paths.source.data + 'data.json'
 };
 
 

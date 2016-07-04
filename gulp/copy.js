@@ -24,6 +24,16 @@ function copyJS() {
     return gulp.src(paths.patterns.jsSource).pipe(gulp.dest(paths.build.js));
 }
 
+
+/**
+ * Copy JS Templates
+ */
+
+function copyJsTemplates() {
+    return gulp.src(paths.patterns.jsTemplatesSource).pipe(gulp.dest(paths.build.jsTemplates));
+}
+
+
 /**
  * Copy fonts
  */
@@ -39,17 +49,6 @@ function copyFonts() {
 
 function copyImages() {
     return gulp.src(paths.patterns.imagesSource).pipe(gulp.dest(paths.build.images));
-}
-
-
-/**
- * Copy HTML
- */
-
-function copyHTML() {
-    return gulp.src(paths.patterns.htmlSource)
-        .pipe(gulp.dest(paths.build.html))
-        .pipe(plugins.livereload());
 }
 
 
@@ -96,9 +95,9 @@ function copyMiscellaneous() {
 
 var copyApp = gulp.parallel(
     copyJS,
+    copyJsTemplates,
     copyFonts,
     copyImages,
-    copyHTML,
     copyLib,
     copyData,
     copyMiscellaneous
@@ -113,7 +112,7 @@ module.exports = {
     js: copyJS,
     fonts: copyFonts,
     images: copyImages,
-    html: copyHTML,
+    jsTemplates: copyJsTemplates,
     lib: copyLib,
     data: copyData,
     app: copyApp
