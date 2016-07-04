@@ -50,12 +50,25 @@ function watchApp() {
         500)
     );
 
-    // Handlebars
+    // JS Templates
     gulp.watch(
-        [paths.patterns.handlebarsHelpersSource, paths.patterns.handlebarsModulesSource, paths.patterns.handlebarsPartialsSource],
+        [paths.patterns.jsTemplatesSource],
         debounce(
             gulp.series([
-                bundle.handlebars,
+                bundle.templates,
+                bundle.js,
+                notice.rebuilt
+            ]),
+        500)
+    );
+
+    // HTML Templates
+    gulp.watch(
+        [paths.patterns.htmlTemplatesSource],
+        debounce(
+            gulp.series([
+                lint.html,
+                bundle.templates,
                 bundle.js,
                 notice.rebuilt
             ]),
@@ -114,18 +127,6 @@ function watchApp() {
                 compile.sprite,
                 compile.stylus,
                 bundle.css,
-                notice.rebuilt
-            ]),
-        2000)
-    );
-
-    // HTML
-    gulp.watch(
-        paths.patterns.htmlSource,
-        debounce(
-            gulp.series([
-                lint.html,
-                copy.html,
                 notice.rebuilt
             ]),
         2000)

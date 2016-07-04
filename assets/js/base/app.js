@@ -4,7 +4,7 @@
 //
 
 // Linting exceptions
-/* global FontFaceObserver, PointerEventsPolyfill */
+/* global FontFaceObserver, PointerEventsPolyfill, nunjucks */
 
 // Mute jQuery migrate
 $.migrateMute = true;
@@ -46,10 +46,12 @@ var $grid = $('.js-grid');
 // Smooth scroll class
 var smoothScrollClass = '.js-smooth-scroll';
 
-// Handlebars
-var $handlebarsPlaceholder = {
-    module: $('.js-handle-module')
+// Template
+var $templatePlaceholder = {
+    module: $('.js-template-module')
 };
+var templatePath = '/assets/js/templates/views';
+var templateEnv;
 
 // Data
 var dataJSONPath = 'data/data.json';
@@ -110,9 +112,9 @@ graffino = {
         // Plugin: https://github.com/mathiasbynens/jquery-placeholder
         graffino.placeholder();
 
-        // Handlebar templates
-        // Plugin: http://handlebarsjs.com
-        graffino.handlebarsTemplates.module(function () {
+        // Nunjucks templates
+        // Plugin: http://mozilla.github.io/nunjucks/
+        graffino.template.module(function () {
             return;
         });
 
@@ -613,13 +615,14 @@ graffino = {
         }
     },
 
-    // Handlebar templates
-    // Plugin: http://handlebarsjs.com
-    handlebarsTemplates: {
+    // Nunjucks templates
+    // Plugin: http://mozilla.github.io/nunjucks/
+    template: {
         // Progress template
         module: function (callback) {
             // Module data
             var moduleData;
+            var template;
 
             // Get data values from an api
             $.getJSON(dataJSONPath).done(function (data) {
@@ -633,7 +636,7 @@ graffino = {
                 } else {
                     moduleData = {
                         module: {
-                            title: 'H1 - Handlebars JSON Test!',
+                            title: 'H1 - Template JSON Test!',
                             list: [
                                 'JSON fetch failed',
                                 'JSON fetch failed'
@@ -642,13 +645,20 @@ graffino = {
                     };
                 }
 
+                // Load nunjucks WebLoader to detect precompiled templates (Compiled with gulp)
+                // IMPORTANT: If templates are not precompiled a path error will be thrown (there is no workaround)
+                templateEnv = new nunjucks.Environment(new nunjucks.WebLoader(templatePath), {autoescape: true});
+
+                // Render nunjucks template using WebLoader
+                template = templateEnv.render('moduleName.njk', moduleData);
+
                 // Apend template to DOM
-                // graffino.template.progressLifecycle - > namespace.template.handlebars_file_na,e
-                $handlebarsPlaceholder.module.html(graffino.template.moduleName(moduleData));
+                $templatePlaceholder.module.html(template);
+
                 // Calling callback function
                 callback();
             });
-            return true;
+            return;
         }
     }
 };

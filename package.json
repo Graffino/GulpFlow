@@ -1,6 +1,6 @@
 {
   "name": "gulp-flow",
-  "version": "2.3.3",
+  "version": "2.4.0",
   "title": "Gulp Flow",
   "description": "Gulp Flow we use at Graffino.",
   "homepage": "http://gulp-flow.dev",
@@ -28,7 +28,8 @@
       "localStorage",
       "console",
       "FontFaceObserver",
-      "PointerEventsPolyfill"
+      "PointerEventsPolyfill",
+      "nunjucks"
     ],
     "rules": {
       "no-multiple-empty-lines": [
@@ -51,12 +52,14 @@
     "debounce": "1.0.0",
     "del": "^2.2.1",
     "es6-promise": "^3.2.1",
+    "fs": "0.0.2",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-bump": "~2.2.0",
     "gulp-combine-mq": "~0.4.0",
     "gulp-concat": "2.6.0",
     "gulp-copy": "~0.0.2",
     "gulp-cssmin": "0.1.7",
+    "gulp-data": "^1.2.1",
     "gulp-declare": "^0.3.0",
     "gulp-exec": "^2.1.2",
     "gulp-file": "0.3.0",
@@ -74,6 +77,8 @@
     "gulp-load-plugins": "~1.2.4",
     "gulp-modernizr": "~1.0.0-alpha",
     "gulp-notify": "^2.2.0",
+    "gulp-nunjucks": "^2.2.0",
+    "gulp-nunjucks-render": "^2.0.0",
     "gulp-order": "^1.1.1",
     "gulp-plumber": "^1.1.0",
     "gulp-postcss": "~6.1.1",

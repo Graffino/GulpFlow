@@ -85,7 +85,7 @@ function minifyCSS() {
  */
 
 function minifyHTML() {
-    return gulp.src(paths.patterns.htmlBuild)
+    return gulp.src(paths.patterns.html)
         // Fix pipe on error
         .pipe(plugins.plumber({errorHandler: error.handle}))
         .pipe(plugins.htmlmin({

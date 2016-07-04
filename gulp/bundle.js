@@ -9,6 +9,7 @@
  */
 
 // Node requires
+var fs = require('fs');
 var mainBowerFiles = require('main-bower-files');
 
 // Gulp & plugins
@@ -112,62 +113,25 @@ function compileModernizr() {
 
 
 /**
- * Complile Handlebars Templates
+ * Complile Nunjucks Templates
  */
 
 // Partials
-function compileHandlebarsPartials() {
-    // Compile handlebars with the right version from package.json
-    var handlebarsVersion = {
-        handlebars: require('handlebars')
-    };
-    // Wrap code with partials function
-    var handlebarsWrap = 'Handlebars.registerPartial(<%= processPartialName(file.relative) %>, Handlebars.template(<%= contents %>));';
-    // Strip the extension and the underscore from the file name
-    var handlebarsImports = {
-        imports: {
-            processPartialName: function (fileName) {
-                return JSON.stringify(fileName.slice(0, -3));
-            }
-        }
-    };
-
-    return gulp.src(paths.patterns.handlebarsPartialsSource)
-        // Fix pipe on error
-        .pipe(plugins.plumber({errorHandler: error.handle}))
-        .pipe(
-            plugins.if(
-                env.isDevelopment(),
-                plugins.sourcemaps.init({loadMaps: true})
-            )
-        )
-        .pipe(plugins.handlebars(handlebarsVersion))
-        .pipe(plugins.wrap(handlebarsWrap, {}, handlebarsImports))
-        .pipe(plugins.concat('partials.js'))
-        .pipe(
-            plugins.if(
-                env.isDevelopment(),
-                plugins.sourcemaps.write('.')
-            )
-        )
-        .pipe(gulp.dest(paths.build.handlebars));
+function compileTemplatesStatic() {
+    return gulp.src(paths.patterns.htmlViewsSource)
+    // Adding data to Nunjucks
+    .pipe(plugins.data(function () {
+        return JSON.parse(fs.readFileSync(paths.patterns.dataSourceSingle));
+    }))
+    .pipe(plugins.nunjucksRender({
+        path: [paths.source.htmlTemplates]
+    }))
+    .pipe(gulp.dest(paths.build.htmlTemplates));
 }
 
- // Modules (Templates)
-function compileHandlebarsTemplates() {
-    // Compile handlebars with the right version from package.json
-    var handlebarsVersion = {
-        handlebars: require('handlebars')
-    };
-    // Wrap code with template function
-    var handlebarsWrap = 'Handlebars.template(<%= contents %>)';
-    // Insert handlebars templates into graffino namespace
-    var handlebarsNamespace = {
-        namespace: 'graffino.template',
-        noRedeclare: true // Avoid duplicate declarations
-    };
-
-    return gulp.src(paths.patterns.handlebarsModulesSource)
+// Modules (Templates)
+function compileTemplates() {
+    return gulp.src(paths.patterns.jsViewsSource)
         // Fix pipe on error
         .pipe(plugins.plumber({errorHandler: error.handle}))
         .pipe(
@@ -176,9 +140,7 @@ function compileHandlebarsTemplates() {
                 plugins.sourcemaps.init({loadMaps: true})
             )
         )
-        .pipe(plugins.handlebars(handlebarsVersion))
-        .pipe(plugins.wrap(handlebarsWrap))
-        .pipe(plugins.declare(handlebarsNamespace))
+        .pipe(plugins.nunjucks.precompile())
         .pipe(plugins.concat('templates.js'))
         .pipe(
             plugins.if(
@@ -186,7 +148,7 @@ function compileHandlebarsTemplates() {
                 plugins.sourcemaps.write('.')
             )
         )
-        .pipe(gulp.dest(paths.build.handlebars));
+        .pipe(gulp.dest(paths.build.jsTemplates));
 }
 
 
@@ -286,12 +248,12 @@ var bundleFonts = gulp.parallel(
 
 
 /**
- * Bundle h`andlebars function
+ * Bundle templates function
  */
 
-var bundleHandlebars = gulp.parallel(
-    compileHandlebarsPartials,
-    compileHandlebarsTemplates
+var bundleTemplates = gulp.parallel(
+    compileTemplates,
+    compileTemplatesStatic
 );
 
 
@@ -314,7 +276,7 @@ var bundleDeps = gulp.parallel(
 
 var bundleApp = gulp.parallel(
     gulp.series(
-        bundleHandlebars,
+        bundleTemplates,
         bundleJS
     ),
     bundleCSS
@@ -331,7 +293,7 @@ module.exports = {
     modernizr: compileModernizr,
     fonts: bundleFonts,
     deps: bundleDeps,
-    handlebars: bundleHandlebars,
+    templates: bundleTemplates,
     js: bundleJS,
     css: bundleCSS,
     app: bundleApp

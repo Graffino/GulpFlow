@@ -1,6 +1,6 @@
 {
   "name": "gulp-flow",
-  "version": "2.3.3",
+  "version": "2.4.0",
   "description": "Gulp Flow we use at Graffino.",
   "main": [
     "www/assets/css/main.css",
@@ -37,8 +37,8 @@
     "select2": "~4.0.3",
     "jquery-placeholder": "~2.3.1",
     "jquery.browser": "^0.1.0",
-    "handlebars": "^4.0.5",
-    "jquery-migrate": "^3.0.0"
+    "jquery-migrate": "^3.0.0",
+    "nunjucks": "^2.4.2"
   },
   "resolutions": {
     "jquery": "~3.0.0"
