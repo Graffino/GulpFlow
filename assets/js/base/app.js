@@ -19,7 +19,7 @@ var $html = $('html');
 var $body = $('body');
 var $window = $(window);
 
-// Check if webfonts are loaded. Set to false to prevent detection.
+// Check if webfonts are loaded. Type in main font-family name. Set to false to prevent detection.
 var fontFaceObserverName = false;
 
 // Boolean variable for storing localStorage capability checker
