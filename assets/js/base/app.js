@@ -644,11 +644,17 @@ graffino = {
                         }
                     };
                 }
+
+                // Load nunjucks WebLoader to detect precompiled templates (Compiled with gulp)
+                // IMPORTANT: If templates are not precompiled a path error will be thrown (there is no workaround)
                 templateEnv = new nunjucks.Environment(new nunjucks.WebLoader(templatePath), {autoescape: true});
+
+                // Render nunjucks template using WebLoader
                 template = templateEnv.render('moduleName.njk', moduleData);
 
                 // Apend template to DOM
                 $templatePlaceholder.module.html(template);
+
                 // Calling callback function
                 callback();
             });

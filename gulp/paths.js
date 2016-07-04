@@ -27,13 +27,11 @@ var paths = {
 
     // JS Templates
     jsTemplates: 'assets/js/templates/',
-    jsPartials: 'assets/js/templates/partials/',
     jsViews: 'assets/js/templates/views/',
 
     // HTML Templates
     htmlTemplates: 'templates/',
-    htmlPartials: 'templates/partials/',
-    htmlPages: 'pages/',
+    htmlViews: 'pages/',
 
     // Stylus
     stylus: 'assets/stylus/',
@@ -105,13 +103,11 @@ paths.source = {
 
     // JS Templates
     jsTemplates: paths.root + paths.jsTemplates, // Only in source
-    jsPartials: paths.root + paths.jsPartials, // Only in source
     jsViews: paths.root + paths.jsViews, // Only in source
 
     // HTML Templates
     htmlTemplates: paths.root + paths.htmlTemplates,
-    htmlPartials: paths.root + paths.htmlPartials,
-    htmlPages: paths.root + paths.htmlPages,
+    htmlViews: paths.root + paths.htmlViews,
 
     // Stylus
     stylus: paths.root + paths.stylus, // Only in source
@@ -141,13 +137,11 @@ paths.patterns = {
 
     // JS Templates
     jsTemplatesSource: paths.source.jsTemplates + '**/*.+(njk|nunjucks)',
-    jsPartialsSource: paths.source.jsPartials + '**/*.+(njk|nunjucks)',
     jsViewsSource: paths.source.jsViews + '**/*.+(njk|nunjucks)',
 
     // HTML Templates
     htmlTemplatesSource: paths.source.htmlTemplates + '**/*.+(njk|nunjucks)',
-    htmlPartialsSource: paths.source.htmlPartials + '**/*.+(njk|nunjucks)',
-    htmlPagesSource: paths.source.htmlPages + '**/*.+(njk|nunjucks)',
+    htmlViewsSource: paths.source.htmlViews + '**/*.+(njk|nunjucks)',
 
     // CSS
     cssBuild: [paths.build.css + '**/*.css', '!' + paths.build.css + 'main*.css'],

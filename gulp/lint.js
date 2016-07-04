@@ -56,7 +56,7 @@ function lintStylus() {
  */
 
 function lintHTML() {
-    return gulp.src([paths.patterns.htmlPagesSource, paths.patterns.htmlTemplatesSource])
+    return gulp.src([paths.patterns.htmlTemplatesSource])
         // Fix pipe on error
         .pipe(plugins.plumber({errorHandler: error.handle}))
         .pipe(plugins.htmlhint('.htmlhintrc'))

@@ -64,7 +64,7 @@ function watchApp() {
 
     // HTML Templates
     gulp.watch(
-        [paths.patterns.htmlTemplatesSource, paths.patterns.htmlPagesSource],
+        [paths.patterns.htmlTemplatesSource],
         debounce(
             gulp.series([
                 lint.html,
