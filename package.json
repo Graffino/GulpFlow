@@ -40,7 +40,8 @@
       ],
       "max-lines": 0,
       "one-var": 0,
-      "max-params": 0
+      "max-params": 0,
+      "quote-props": [0, "consistent-as-needed", {"keywords": true}]
     }
   },
   "dependencies": {},
