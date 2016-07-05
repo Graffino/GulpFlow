@@ -60,6 +60,14 @@ var dataJSONPath = 'data/data.json';
 // window.resize event will fire
 var resizeFunctionsArray = [];
 
+// All functions added in this array will be called when
+// the window.scroll event will fire
+var scrollFunctionsArray = {
+    instant: [],
+    throttled: [],
+    onScrollStop: []
+};
+
 
 /**
  * Init
@@ -333,17 +341,19 @@ graffino = {
 
         // Fire after scroll stopped for 250ms
         function scrollStopped() {
+            graffino.callArrayFunctions(scrollFunctionsArray.onScrollStop);
             return;
         }
 
         // Fire instantly (performance issue)
         function scrollInstantly() {
+            graffino.callArrayFunctions(scrollFunctionsArray.instant);
             return;
         }
 
         // Fire on scroll in 250ms intervals
         function scrollThrottled() {
-            // Sticky Header
+            graffino.callArrayFunctions(scrollFunctionsArray.throttled);
             return;
         }
 

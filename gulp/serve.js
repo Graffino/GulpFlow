@@ -106,6 +106,17 @@ function watchApp() {
         2000)
     );
 
+    // Media
+    gulp.watch(
+        [paths.source.media],
+        debounce(
+            gulp.series(
+                copy.media,
+                notice.rebuilt
+            ),
+        200)
+    );
+
     // Images
     gulp.watch(
         [paths.source.images, paths.source.svg],

@@ -52,6 +52,11 @@ function cleanFonts() {
     return clean(paths.build.fonts);
 }
 
+// Media
+function cleanMedia() {
+    return clean(paths.build.media);
+}
+
 // Images
 function cleanImages() {
     return clean(paths.build.images);
@@ -120,6 +125,7 @@ var cleanApp = gulp.parallel(
     cleanJS,
     cleanCSS,
     cleanFonts,
+    cleanMedia,
     cleanImages,
     cleanHTML,
     cleanBower,
@@ -137,6 +143,7 @@ module.exports = {
     js: cleanJS,
     css: cleanCSS,
     fonts: cleanFonts,
+    media: cleanMedia,
     images: cleanImages,
     html: cleanHTML,
     bower: cleanBower,
