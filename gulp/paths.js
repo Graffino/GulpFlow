@@ -49,6 +49,7 @@ var paths = {
 
     // Others
     fonts: 'assets/fonts/',
+    media: 'assets/media/',
     images: 'assets/images/',
     svg: 'assets/images/svg/',
     sprite: 'assets/images/sprite/',
@@ -83,6 +84,7 @@ paths.build = {
 
     // Others
     fonts: paths.www + paths.fonts,
+    media: paths.www + paths.media,
     images: paths.www + paths.images,
     svg: paths.www + paths.svg,
     sprite: paths.www + paths.sprite,
@@ -119,6 +121,7 @@ paths.source = {
 
     // Others
     fonts: paths.root + paths.fonts,
+    media: paths.root + paths.media,
     images: paths.root + paths.images,
     svg: paths.root + paths.svg,
     sprite: paths.root + paths.sprite,
@@ -157,6 +160,9 @@ paths.patterns = {
     fontsBuild: paths.build.fonts + '**/*.+(ttf|woff|woff2)',
     fontsBuildTTF: paths.build.fonts + '**/*.+(ttf)',
     fontsBuildWOFF: paths.build.fonts + '**/*.+(woff)',
+
+    // Media
+    mediaSource: paths.source.media + '**/*.+(mebm|mp4|mp3|pdf|doc)',
 
     // Images
     imagesSource: paths.source.images + '**/*.+(jpg|jpeg|png|gif|svg|ico)',

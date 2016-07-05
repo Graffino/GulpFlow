@@ -44,6 +44,15 @@ function copyFonts() {
 
 
 /**
+ * Copy media
+ */
+
+function copyMedia() {
+    return gulp.src(paths.patterns.mediaSource).pipe(gulp.dest(paths.build.media));
+}
+
+
+/**
  * Copy images
  */
 
@@ -97,6 +106,7 @@ var copyApp = gulp.parallel(
     copyJS,
     copyJsTemplates,
     copyFonts,
+    copyMedia,
     copyImages,
     copyLib,
     copyData,
@@ -111,6 +121,7 @@ var copyApp = gulp.parallel(
 module.exports = {
     js: copyJS,
     fonts: copyFonts,
+    media: copyMedia,
     images: copyImages,
     jsTemplates: copyJsTemplates,
     lib: copyLib,
