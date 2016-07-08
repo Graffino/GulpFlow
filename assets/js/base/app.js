@@ -208,8 +208,6 @@ graffino = {
             $('a[rel="external"]').attr('target', '_blank');
             // Prevent default action on # (hash) links
             $('a[href="#"]').on('click', function (e) {
-                // Stop event propagation bubble
-                e.stopPropagation();
                 // Prevent the default "go-to" action
                 e.preventDefault();
             });
@@ -230,8 +228,11 @@ graffino = {
                 // Add fonts-class when fonts are loaded
                 observer.check().then(function () {
                     $html.removeClass('no-fonts')
-                        .addClass('fonts');
+                         .addClass('fonts');
                 });
+            } else {
+                $html.removeClass('no-fonts')
+                     .addClass('fonts');
             }
         }
 
