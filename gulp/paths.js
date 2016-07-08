@@ -162,7 +162,7 @@ paths.patterns = {
     fontsBuildWOFF: paths.build.fonts + '**/*.+(woff)',
 
     // Media
-    mediaSource: paths.source.media + '**/*.+(mebm|mp4|mp3|pdf|doc)',
+    mediaSource: paths.source.media + '**/*.+(webm|mp4|mp3|pdf|doc)',
 
     // Images
     imagesSource: paths.source.images + '**/*.+(jpg|jpeg|png|gif|svg|ico)',
