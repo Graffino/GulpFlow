@@ -13,6 +13,11 @@
     box-sizing: border-box;
 }
 
+//HTML
+html {
+    position: relative;
+}
+
 // Body
 body {
     // Defaults
@@ -22,6 +27,7 @@ body {
     font-family: $sans-fontface-stack;
     font-size: $default-font-size;
     line-height: $default-font-size;
+
 
     // Default font-family until webfonts are loaded
     .no-fonts & {
@@ -33,19 +39,6 @@ body {
 html,
 body {
     height: 100%;
-}
-
-// Container
-.container {
-    cf();
-    center(rem($width-container));
-    position: relative;
-}
-
-// Wrapper
-.wrapper {
-    padding-right: rem(35);
-    padding-left: rem(35);
 }
 
 // Default extends
