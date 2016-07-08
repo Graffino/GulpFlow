@@ -18,12 +18,10 @@ $.migrateMute = true;
 var $html = $('html');
 var $body = $('body');
 var $window = $(window);
+var $document = $(document);
 
 // Check if webfonts are loaded. Type in main font-family name. Set to false to prevent detection.
 var fontFaceObserverName = false;
-
-// Boolean variable for storing localStorage capability checker
-var hasLocalStorage = false;
 
 // Scroll
 var scrollPoolingDelay = 250;
@@ -40,8 +38,11 @@ var $formNotice = $('.js-form-notice');
 // Placeholder
 var $placeHolder = $('input, textarea');
 
-// Grid toggle element
-var $grid = $('.js-grid');
+// Grid debug & console
+// We make an exception on var naming due to the nature of the feature
+var $grid = $('.grid');
+var gridDebugStateClass = 'is-debug';
+var consoleStateClass = 'is-console';
 
 // Smooth scroll class
 var smoothScrollClass = '.js-smooth-scroll';
@@ -56,17 +57,9 @@ var templateEnv;
 // Data
 var dataJSONPath = 'data/data.json';
 
-// All functions added in this array will be alled when the
+// All functions added in this array will be called when the
 // window.resize event will fire
 var resizeFunctionsArray = [];
-
-// All functions added in this array will be called when
-// the window.scroll event will fire
-var scrollFunctionsArray = {
-    instant: [],
-    throttled: [],
-    onScrollStop: []
-};
 
 
 /**
@@ -88,6 +81,9 @@ graffino = {
 
         // Console handler
         graffino.consoleHandler();
+
+        // Grid debug handler
+        graffino.gridDebugHandler();
 
         // Links actions
         graffino.linksHandler();
@@ -128,11 +124,7 @@ graffino = {
 
         // Call all functions in the resize function array
         graffino.callArrayFunctions(resizeFunctionsArray);
-
-        // Toggle grid
-        graffino.toggleGrid();
     },
-
 
     // Check for local storage capability
     hasStorage: function () {
@@ -141,6 +133,7 @@ graffino = {
         // Initialize function
         function init() {
             var result;
+
             // Try accessing localStorage
             try {
                 localStorage.setItem('testKey', 'testValue');
@@ -150,7 +143,6 @@ graffino = {
                 console.log(err);
                 result = false;
             }
-            hasLocalStorage = result;
             return result;
         }
 
@@ -192,6 +184,71 @@ graffino = {
                     console[method] = noop;
                 }
             }
+        }
+
+        // Initialize module
+        return init();
+    },
+
+    // Grid debug handler
+    gridDebugHandler: function () {
+        'use strict';
+
+        // Initialize function
+        function init() {
+            var hasLocalStorage = graffino.hasStorage();
+
+            // check localStorage if element was left active last time
+            if (hasLocalStorage) {
+                // if yes turn the grid on
+                if (localStorage.isGridActive === 'true') {
+                    $grid.addClass(gridDebugStateClass);
+                // if not then make sure it's off
+                } else {
+                    $grid.removeClass(gridDebugStateClass);
+                }
+
+                // if yes turn the console on
+                if (localStorage.isConsoleActive === 'true') {
+                    $body.addClass(consoleStateClass);
+                // if not then make sure it's off
+                } else {
+                    $body.removeClass(consoleStateClass);
+                }
+            } // end if
+
+            // Adding key press event for On/Off function
+            $(document).keydown(function (e) {
+                // If F2 key is pressed
+                if (e.which === 113) {
+                    // Hide/show the grid
+                    $grid.toggleClass(gridDebugStateClass);
+                    // Store current state in LocalStorage
+                    if (hasLocalStorage) {
+                        if ($grid.hasClass(gridDebugStateClass)) {
+                            localStorage.isGridActive = true;
+                        } else {
+                            localStorage.isGridActive = false;
+                        }
+                    }
+                    return false;
+                } // end if
+
+                // If F3 key is pressed
+                if (e.which === 114) {
+                    // Hide/show the grid
+                    $body.toggleClass(consoleStateClass);
+                    // Store current state in LocalStorage
+                    if (hasLocalStorage) {
+                        if ($body.hasClass(consoleStateClass)) {
+                            localStorage.isConsoleActive = true;
+                        } else {
+                            localStorage.isConsoleActive = false;
+                        }
+                    }
+                    return false;
+                } // end if
+            }); // end of keydown();
         }
 
         // Initialize module
@@ -248,8 +305,8 @@ graffino = {
         // Initialize function
         function init() {
             if ($.browser.msie) {
-                $html.addClass('browser-ie');
-                $html.addClass('browser-ie' + $.browser.versionNumber);
+                $html.addClass('browser-ie')
+                     .addClass('browser-ie' + $.browser.versionNumber);
             }
             if ($.browser.msedge) {
                 $html.addClass('browser-edge');
@@ -342,26 +399,24 @@ graffino = {
 
         // Fire after scroll stopped for 250ms
         function scrollStopped() {
-            graffino.callArrayFunctions(scrollFunctionsArray.onScrollStop);
             return;
         }
 
         // Fire instantly (performance issue)
         function scrollInstantly() {
-            graffino.callArrayFunctions(scrollFunctionsArray.instant);
             return;
         }
 
         // Fire on scroll in 250ms intervals
         function scrollThrottled() {
-            graffino.callArrayFunctions(scrollFunctionsArray.throttled);
+            // Sticky Header
             return;
         }
 
         // Initialize function
         function init() {
             // Check for scroll function
-            $(window).scroll(function (e) {
+            $window.scroll(function (e) {
                 scrollEvent = true;
 
                 // Clear Timeout
@@ -513,69 +568,6 @@ graffino = {
         init();
     },
 
-    // Toggle On/Off for grid guides
-    toggleGrid: function () {
-        'use strict';
-
-        // Initialize function
-        function init() {
-            // check localStorage if element was left active last time
-            if (hasLocalStorage) {
-                // if yes turn the grid on
-                if (localStorage.isGridActive === 'true') {
-                    $grid.addClass('is-visible');
-                // if not then make sure it's off
-                } else {
-                    $grid.removeClass('is-visible');
-                }
-
-                // if yes turn the console on
-                if (localStorage.isConsoleActive === 'true') {
-                    $body.addClass('-console');
-                // if not then make sure it's off
-                } else {
-                    $body.removeClass('-console');
-                }
-            } // end if
-
-            // Adding key press event for On/Off function
-            $(document).keydown(function (e) {
-                // If F2 key is pressed
-                if (e.which === 113) {
-                    // Hide/show the grid
-                    $grid.toggleClass('is-visible');
-                    // Store current state in LocalStorage
-                    if (hasLocalStorage) {
-                        if ($grid.hasClass('is-visible')) {
-                            localStorage.isGridActive = true;
-                        } else {
-                            localStorage.isGridActive = false;
-                        }
-                    }
-                    return false;
-                } // end if
-
-                // If F3 key is pressed
-                if (e.which === 114) {
-                    // Hide/show the grid
-                    $body.toggleClass('-console');
-                    // Store current state in LocalStorage
-                    if (hasLocalStorage) {
-                        if ($body.hasClass('-console')) {
-                            localStorage.isConsoleActive = true;
-                        } else {
-                            localStorage.isConsoleActive = false;
-                        }
-                    }
-                    return false;
-                } // end if
-            }); // end of keydown();
-        }
-
-        // Initialize module
-        return init();
-    },
-
     // Smooth scrolling function to specific target
     smoothScroll: {
         init: function () {
@@ -679,7 +671,7 @@ graffino = {
  * Document ready (loaded)
  */
 
-$(document).ready(function () {
+$document.ready(function () {
     'use strict';
 
     // Init scripts
@@ -691,7 +683,7 @@ $(document).ready(function () {
  *  Document load (in process of loading)
  */
 
-$(window).on('load', function () {
+$window.on('load', function () {
     'use strict';
 
     // Smooth Scrolling function
