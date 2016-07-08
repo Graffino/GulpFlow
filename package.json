@@ -1,6 +1,6 @@
 {
   "name": "gulp-flow",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "title": "Gulp Flow",
   "description": "Gulp Flow we use at Graffino.",
   "homepage": "http://gulp-flow.dev",
@@ -41,6 +41,7 @@
       "max-lines": 0,
       "one-var": 0,
       "max-params": 0,
+      "no-warning-comments": 0,
       "quote-props": [0, "consistent-as-needed", {"keywords": true}]
     }
   },
