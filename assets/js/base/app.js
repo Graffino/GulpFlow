@@ -23,9 +23,29 @@ var $document = $(document);
 // Check if webfonts are loaded. Type in main font-family name. Set to false to prevent detection.
 var fontFaceObserverName = false;
 
+// Resize
+var resizePoolingDelay = 250;
+var resizeEvent = false;
+
+// All functions added in this array will be called when the
+// window.resize event will fire
+var resizeFunctionsArray = {
+    instant: [],
+    throttled: [],
+    onStop: []
+};
+
 // Scroll
 var scrollPoolingDelay = 250;
 var scrollEvent = false;
+
+// All functions added in this array will be called when the
+// window.scroll event will fire
+var scrollFunctionsArray = {
+    instant: [],
+    throttled: [],
+    onStop: []
+};
 
 // Validate
 var $validate = $('.js-validate');
@@ -56,10 +76,6 @@ var templateEnv;
 
 // Data
 var dataJSONPath = 'data/data.json';
-
-// All functions added in this array will be called when the
-// window.resize event will fire
-var resizeFunctionsArray = [];
 
 
 /**
@@ -399,18 +415,17 @@ graffino = {
 
         // Fire after scroll stopped for 250ms
         function scrollStopped() {
-            return;
+            graffino.callArrayFunctions(scrollFunctionsArray.onStop);
         }
 
         // Fire instantly (performance issue)
         function scrollInstantly() {
-            return;
+            graffino.callArrayFunctions(scrollFunctionsArray.instant);
         }
 
         // Fire on scroll in 250ms intervals
         function scrollThrottled() {
-            // Sticky Header
-            return;
+            graffino.callArrayFunctions(scrollFunctionsArray.throttled);
         }
 
         // Initialize function
@@ -450,12 +465,48 @@ graffino = {
     resizeHandler: function () {
         'use strict';
 
+        // Fire after resize stopped for 250ms
+        function resizeStopped() {
+            graffino.callArrayFunctions(resizeFunctionsArray.onStop);
+        }
+
+        // Fire instantly (performance issue)
+        function resizeInstantly() {
+            graffino.callArrayFunctions(resizeFunctionsArray.instant);
+        }
+
+        // Fire on resize in 250ms intervals
+        function resizeThrottled() {
+            graffino.callArrayFunctions(resizeFunctionsArray.throttled);
+        }
+
         // Initialize function
         function init() {
-            $window.on('resize', function () {
-                // Fire all functions in the resize functions array
-                graffino.callArrayFunctions(resizeFunctionsArray);
+            // Check for resize function
+            $window.resize(function (e) {
+                scrollEvent = true;
+
+                // Clear Timeout
+                clearTimeout($.data(e, 'resizeTimer'));
+
+                $.data(e, 'resizeTimer', setTimeout(function () {
+                    // Fire after resize stopped for 250ms
+                    resizeStopped();
+                }, resizePoolingDelay));
+
+                // Fire instantly (performance issue)
+                resizeInstantly();
             });
+
+            // Fire on resize in 250ms intervals
+            setInterval(function () {
+                if (resizeEvent) {
+                    resizeThrottled();
+
+                    // Reset resize count
+                    resizeEvent = false;
+                }
+            }, resizePoolingDelay);
         }
 
         // Initialize module
