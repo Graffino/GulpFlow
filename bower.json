@@ -1,6 +1,6 @@
 {
   "name": "gulp-flow",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "description": "Gulp Flow we use at Graffino.",
   "main": [
     "www/assets/css/main.css",
