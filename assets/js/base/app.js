@@ -138,6 +138,8 @@ graffino = {
             return;
         });
 
+        // Call all functions in the scroll function array
+        graffino.callArrayFunctions(scrollFunctionsArray);
         // Call all functions in the resize function array
         graffino.callArrayFunctions(resizeFunctionsArray);
     },

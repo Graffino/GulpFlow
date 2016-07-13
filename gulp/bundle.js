@@ -119,6 +119,8 @@ function compileModernizr() {
 // Partials
 function compileTemplatesStatic() {
     return gulp.src(paths.patterns.htmlViewsSource)
+    // Fix pipe on error
+    .pipe(plugins.plumber({errorHandler: error.handle}))
     // Adding data to Nunjucks
     .pipe(plugins.data(function () {
         return JSON.parse(fs.readFileSync(paths.patterns.dataSourceSingle));
