@@ -29,7 +29,8 @@ function criticalCSS() {
             inline: true,
             minify: true,
             width: 1300,
-            height: 900
+            height: 900,
+            timeout: 300000 // 5 min timeout
         }))
         // Correct assets path
         .pipe(plugins.replace('../', 'assets/'))
