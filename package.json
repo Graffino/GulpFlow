@@ -1,6 +1,6 @@
 {
   "name": "gulp-flow",
-  "version": "2.5.3",
+  "version": "2.5.4",
   "title": "Gulp Flow",
   "description": "Gulp Flow we use at Graffino.",
   "homepage": "http://gulp-flow.dev",
@@ -111,7 +111,7 @@
   },
   "scripts": {
     "gulp": "./node_modules/gulp/bin/gulp.js",
-    "production": "./node_modules/gulp/bin/gulp.js --env production",
+    "production": "./node_modules/gulp/bin/gulp.js build --env production",
     "staging": "./node_modules/gulp/bin/gulp.js build --env staging",
     "development": "./node_modules/gulp/bin/gulp.js build --env development",
     "debug": "./node_modules/gulp/bin/gulp.js build --env development --debug true",
