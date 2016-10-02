@@ -36,6 +36,7 @@ function criticalCSS() {
         }))
         // Correct assets path
         .pipe(plugins.replace('../', '/assets/'))
+        .pipe(plugins.replace('assets//', 'assets/'))
         .pipe(gulp.dest(paths.build.html));
 }
 
