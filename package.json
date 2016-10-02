@@ -42,7 +42,22 @@
       "one-var": 0,
       "max-params": 0,
       "no-warning-comments": 0,
-      "quote-props": [0, "consistent-as-needed", {"keywords": true}]
+      "quote-props": [
+        0,
+        "consistent-as-needed",
+        {
+          "keywords": true
+        }
+      ],
+      "no-prototype-builtins": 0,
+      "no-extra-bind": 0,
+      "max-depth": [
+        "error",
+        {
+          "max": 10
+        }
+      ],
+      "babel/new-cap": 0
     }
   },
   "dependencies": {},
@@ -72,7 +87,6 @@
     "gulp-if": "^2.0.1",
     "gulp-imagemin": "~3.0.3",
     "gulp-inject": "^4.1.0",
-    "gulp-jshint": "~2.0.1",
     "gulp-livereload": "^3.8.1",
     "gulp-load-plugins": "~1.3.0",
     "gulp-modernizr": "~1.0.0-alpha",
