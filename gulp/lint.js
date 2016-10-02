@@ -25,9 +25,7 @@ function lintJS() {
     return gulp.src(paths.patterns.jsSource)
         // Fix pipe on error
         .pipe(plugins.plumber({errorHandler: error.handle}))
-        .pipe(plugins.jshint('.jshintrc'))
-        .pipe(plugins.xo())
-        .pipe(plugins.jshint.reporter());
+        .pipe(plugins.xo());
 }
 
 
