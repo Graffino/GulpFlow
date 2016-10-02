@@ -4,7 +4,7 @@
 // Plugin: https://github.com/mathiasbynens/jquery-placeholder
 //
 
-/* global $graffino */
+/* global $graffino, Cookies */
 
 /* eslint
     block-scoped-var: 0,
@@ -51,7 +51,7 @@ $.extend($graffino, {
         },
 
         setCookie: function () {
-            var _that = $glittio,
+            var _that = $graffino,
                 _this = this,
                 vars = this.vars;
             if (_that.isOnPage(vars.$cookieAction)) {
