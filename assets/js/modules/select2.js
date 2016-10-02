@@ -30,7 +30,7 @@ $.extend($graffino, {
 
         // Init method
         init: function () {
-            var _that = $glittio,
+            var _that = $graffino,
                 _this = this,
                 vars = this.vars;
 
