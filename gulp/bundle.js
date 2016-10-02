@@ -143,6 +143,7 @@ function compileTemplates() {
             )
         )
         .pipe(plugins.nunjucks.precompile())
+        .pipe(plugins.replace('partials\\', 'partials/'))
         .pipe(plugins.concat('templates.js'))
         .pipe(
             plugins.if(

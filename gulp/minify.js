@@ -85,12 +85,13 @@ function minifyCSS() {
  */
 
 function minifyHTML() {
-    return gulp.src(paths.patterns.html)
+    return gulp.src(paths.patterns.htmlBuild)
         // Fix pipe on error
         .pipe(plugins.plumber({errorHandler: error.handle}))
         .pipe(plugins.htmlmin({
             removeComments: true,
-            collapseWhitespace: true
+            collapseWhitespace: true,
+            keepClosingSlash: true
         }))
         // Replace with minifed CSS/JS versions
         .pipe(plugins.replace('main.js', 'main.min.js'))

@@ -24,15 +24,19 @@ function criticalCSS() {
     var critical = require('critical').stream;
 
     return gulp.src(paths.patterns.html)
+        // Convert assets path to absolute path
+        .pipe(plugins.replace('../assets', '/assets/'))
         .pipe(critical({
             base: paths.www,
             inline: true,
             minify: true,
             width: 1300,
-            height: 900
+            height: 900,
+            timeout: 1000 * 60 * 10
         }))
         // Correct assets path
-        .pipe(plugins.replace('../', 'assets/'))
+        .pipe(plugins.replace('../', '/assets/'))
+        .pipe(plugins.replace('assets//', 'assets/'))
         .pipe(gulp.dest(paths.build.html));
 }
 

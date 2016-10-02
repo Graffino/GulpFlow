@@ -24,8 +24,9 @@ var notice = require('./notice');
  * Global clean function
  */
 
-function clean(toClean) {
-    return del(toClean).then(function (paths) {
+function clean(toClean, cleanOptions) {
+    cleanOptions = cleanOptions || null;
+    return del(toClean, cleanOptions).then(function (paths) {
         if (env.isDebug()) {
             notice.send('Deleted files and folders:\n', paths.join('\n'));
         }
@@ -83,8 +84,13 @@ function cleanMiscellaneous() {
         paths.www + 'humans.txt',
         paths.www + 'LICENSE',
         paths.www + 'robots.txt',
+        paths.www + 'index.php',
         paths.www + '.htaccess',
-        paths.www + 'assets'
+        paths.www + 'assets',
+        paths.www + 'lib',
+        paths.www + 'ro',
+        paths.www + 'de',
+        paths.www + 'en'
     ];
 
     return clean(toClean);

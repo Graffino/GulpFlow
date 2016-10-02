@@ -20,11 +20,18 @@ $ npm install gulpjs/gulp.git#4.0 --save-dev
 # Check the versions installed
 $ gulp -v
 ---
-[10:48:35] CLI version 1.2.1
+[10:48:35] CLI version 1.2.2
 [10:48:35] Local version 4.0.0-alpha.2
 ```
 
-### 2. Make sure you have the latest node version (Linux/MAC)
+### 2. Make sure you have the latest node version (macOS)
+
+```
+# Use Homebrew to install node
+$ brew install nodejs
+```
+
+### 2b. Make sure you have the latest node version (Linux)
 
 ```
 # Clear NPM's cache
@@ -35,10 +42,10 @@ $ npm install -g n
 $ sudo n stable
 ```
 
-### 2b. Make sure you have the latest node version (Windows)
+### 2c. Make sure you have the latest node version (Windows)
 ```
-# Get & Install NodeJS 5.11.1  
-https://nodejs.org/download/release/v5.11.1/
+# Get & Install NodeJS 6.x.x
+https://nodejs.org/download/release/v6.x.x/
 ```
 
 ### 3b. Install Python (Windows)
@@ -113,9 +120,7 @@ Run:
 
 1. Install smimerjs: `npm install -g slimerjs`
 2. Install casper: `npm install -g casperjs`
-3. Initialize backstopjs:
-    - `cd ./node_modules/backstopjs/ `
-    - `npm install`
+3. Install backstopjs: `npm install -g backstopjs`
 4. Regression initial config:
     - `npm run regression-config`
     - Edit/Insert required scenarios in `backstop.json`.

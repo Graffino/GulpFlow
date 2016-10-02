@@ -180,7 +180,8 @@ paths.patterns = {
     libSource: paths.source.lib + '**/*',
 
     // HTML
-    html: paths.build.html + '*.html',
+    html: paths.build.html + '**/*.html',
+    htmlBuild: paths.build.html + '**/*.html',
 
     // Data
     dataSource: paths.source.data + '**/*.json',
