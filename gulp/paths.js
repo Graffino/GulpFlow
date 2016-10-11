@@ -18,6 +18,9 @@ var paths = {
     // Gulp folder
     gulp: './gulp',
 
+    // Wordpress theme folder
+    theme: 'wordpress/theme/',
+
     // JS
     js: 'assets/js/',
     jsBase: 'assets/js/base/',
@@ -126,7 +129,10 @@ paths.source = {
     svg: paths.root + paths.svg,
     sprite: paths.root + paths.sprite,
     lib: paths.root + paths.lib,
-    data: paths.root + paths.data
+    data: paths.root + paths.data,
+
+    // Wordpress
+    theme: paths.root + paths.theme
 };
 
 
@@ -185,7 +191,10 @@ paths.patterns = {
 
     // Data
     dataSource: paths.source.data + '**/*.json',
-    dataSourceSingle: paths.source.data + 'data.json'
+    dataSourceSingle: paths.source.data + 'data.json',
+
+    // Wordpress
+    themeSource: paths.source.theme + '**/*'
 };
 
 

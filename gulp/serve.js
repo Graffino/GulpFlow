@@ -24,6 +24,7 @@ var lint = require('./lint');
 var minify = require('./minify');
 var notice = require('./notice');
 var paths = require('./paths');
+var wordpress = require('./wordpress');
 
 
 /**
@@ -164,6 +165,17 @@ function watchApp() {
             ]),
         2000)
     );
+
+    // Wordpress
+    gulp.watch(
+        paths.patterns.themeSource,
+        debounce(
+            gulp.series([
+                wordpress.copy,
+                notice.rebuilt
+            ]),
+        2000)
+    );
 }
 
 
@@ -173,6 +185,7 @@ function watchApp() {
 
 var serveApp = gulp.series(
     build.app,
+    notice.watching,
     watchApp
 );
 

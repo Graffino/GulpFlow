@@ -24,9 +24,8 @@ var notice = require('./notice');
  * Global clean function
  */
 
-function clean(toClean, cleanOptions) {
-    cleanOptions = cleanOptions || null;
-    return del(toClean, cleanOptions).then(function (paths) {
+function clean(toClean) {
+    return del(toClean).then(function (paths) {
         if (env.isDebug()) {
             notice.send('Deleted files and folders:\n', paths.join('\n'));
         }
@@ -84,13 +83,13 @@ function cleanMiscellaneous() {
         paths.www + 'humans.txt',
         paths.www + 'LICENSE',
         paths.www + 'robots.txt',
-        paths.www + 'index.php',
         paths.www + '.htaccess',
         paths.www + 'assets',
-        paths.www + 'lib',
-        paths.www + 'ro',
-        paths.www + 'de',
-        paths.www + 'en'
+        paths.www + 'admin',
+        paths.www + 'includes',
+        paths.www + '*.php',
+        paths.www + '*.png',
+        paths.www + '*.css'
     ];
 
     return clean(toClean);
@@ -104,20 +103,33 @@ function cleanJunk() {
 
     // Send notices only on development
     if (env.isDevelopment()) {
-        notice.send('Application staging folder has been cleaned.');
+        notice.send('Application staging (www) folder has been cleaned.');
     }
     return clean(toClean);
 }
 
 // Postproduction
 function cleanProduction() {
-    var toClean = [
-        paths.build.js + '**/*',
-        '!' + paths.build.js + 'main.min.js',
-        paths.build.css + '**/*',
-        '!' + paths.build.css + 'main.min.css',
-        paths.build.sprite
-    ];
+    var toClean;
+
+    if (env.isWP) {
+        toClean = [
+            paths.build.js + '**/*',
+            '!' + paths.build.js + 'main.min.js',
+            paths.build.css + '**/*',
+            '!' + paths.build.css + 'main.min.css',
+            paths.build.sprite,
+            paths.www + '*.html'
+        ];
+    } else {
+        toClean = [
+            paths.build.js + '**/*',
+            '!' + paths.build.js + 'main.min.js',
+            paths.build.css + '**/*',
+            '!' + paths.build.css + 'main.min.css',
+            paths.build.sprite
+        ];
+    }
 
     return clean(toClean);
 }

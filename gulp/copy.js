@@ -92,8 +92,7 @@ function copyMiscellaneous() {
         paths.root + 'humans.txt',
         paths.root + 'LICENSE',
         paths.root + 'robots.txt',
-        paths.root + '.htaccess',
-        paths.root + 'index.php'
+        paths.root + '.htaccess'
     ];
 
     return gulp.src(toCopy).pipe(gulp.dest(paths.www));

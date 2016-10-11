@@ -36,10 +36,10 @@
     }
   ],
   "paths": {
-    "bitmaps_reference": "../../tests/regression/bitmaps_reference",
-    "bitmaps_test": "../../tests/regression/bitmaps_test",
-    "compare_data": "../../tests/regression/bitmaps_test/compare.json",
-    "casper_scripts": "../../tests/regression/casper_scripts"
+    "bitmaps_reference": "tests/regression/bitmaps_reference",
+    "bitmaps_test": "tests/regression/bitmaps_test",
+    "compare_data": "tests/regression/bitmaps_test/compare.json",
+    "casper_scripts": "tests/regression/casper_scripts"
   },
   "report": ["CLI", "browser"],
   "cliExitOnFail": false,

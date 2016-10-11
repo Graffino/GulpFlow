@@ -29,13 +29,19 @@ function sendNotice(message) {
 // Finished
 function finished() {
     return gulp.src(paths.root)
-        .pipe(plugins.notify('Gulp flow has finished.'));
+        .pipe(plugins.notify('Application has been built.'));
+}
+
+// Watching
+function watching() {
+    return gulp.src(paths.root)
+        .pipe(plugins.notify('Entering watch mode.'));
 }
 
 // Rebuilt
 function rebuilt() {
     return gulp.src(paths.root)
-        .pipe(plugins.notify('Application has been re-built.'));
+        .pipe(plugins.notify('Detected changes have been applied. Entering watch mode.'));
 }
 
 
@@ -46,5 +52,6 @@ function rebuilt() {
 module.exports = {
     send: sendNotice,
     finished: finished,
-    rebuilt: rebuilt
+    rebuilt: rebuilt,
+    watching: watching
 };
