@@ -23,22 +23,43 @@ var STAGING_ENV = 'staging';
 // Default environment
 var env = {
     DEFAULT_ENV: DEVELOPMENT_ENV,
-    DEFAULT_DEBUG: false
+    DEFAULT_DEBUG: false,
+    DEFAULT_WP: false
 };
 
 // Known environment
 var knownOptions = {
-    string: ['env', 'debug'],
+    string: ['env', 'debug', 'wp'],
     default: {
         env: process.env.NODE_ENV || env.DEFAULT_ENV,
-        debug: process.env.NODE_ENV || env.DEFAULT_DEBUG
+        debug: process.env.NODE_ENV || env.DEFAULT_DEBUG,
+        wp: process.env.NODE_ENV || env.DEFAULT_WP
     }
 };
 
 // Set new environment variables
 var options = minimist(process.argv.slice(3), knownOptions);
-env.NODE_ENV = options.env;
-env.NODE_DEBUG = options.debug;
+
+if (options.env === '') {
+    env.NODE_ENV = env.DEFAULT_ENV;
+} else {
+    env.NODE_ENV = options.env;
+}
+
+// Make options work without true / false
+if (options.debug === false) {
+    env.NODE_DEBUG = false;
+} else {
+    env.NODE_DEBUG = true;
+}
+
+// Make options work without true / false
+if (options.wp === false) {
+    env.NODE_WP = false;
+} else {
+    env.NODE_WP = true;
+}
+
 
 /**
  * Check current environment
@@ -62,6 +83,11 @@ env.isStaging = function () {
 // Debug
 env.isDebug = function () {
     return env.NODE_DEBUG;
+};
+
+// Wordpress
+env.isWP = function () {
+    return env.NODE_WP;
 };
 
 

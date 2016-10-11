@@ -21,6 +21,7 @@ var lint = require('./lint');
 var inject = require('./inject');
 var minify = require('./minify');
 var notice = require('./notice');
+var wordpress = require('./wordpress');
 
 
 /**
@@ -40,6 +41,7 @@ var buildDevelopment = gulp.series(
             bundle.app
         )
     ),
+    wordpress.copy,
     notice.finished
 );
 
@@ -60,7 +62,8 @@ var buildStaging = gulp.series(
             compile.app,
             bundle.app
         )
-    )
+    ),
+    wordpress.copy
 );
 
 
@@ -84,7 +87,8 @@ var buildProduction = gulp.series(
         )
     ),
     inject.critical,
-    clean.production
+    clean.production,
+    wordpress.copy
 );
 
 

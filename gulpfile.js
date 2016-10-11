@@ -31,6 +31,7 @@ require('es6-promise').polyfill();
 
 gulp.task('clean', clean.app);
 gulp.task('build', build.app);
+gulp.task('serve', serve.app);
 gulp.task('default', serve.app);
 
 
