@@ -48,7 +48,7 @@ $.extend($graffino, {
         initNotEmptyClass: function ($fields) {
             $fields.each(function (index, el) {
                 $(el).on('keyup change', function (e) {
-                    if (e.target.value.replace(/^\s+/g, '').length) {
+                    if (e.target.value.replace(/^\s+/g, '').length > 0) {
                         $(el).addClass('is-not-empty');
                         $(el).removeClass('is-empty');
                     } else {
