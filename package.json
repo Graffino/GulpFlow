@@ -120,6 +120,7 @@
     "npm-check-updates": "^2.8.5",
     "postcss-quantity-queries": "0.4.0",
     "rupture": "0.6.2",
+    "stylint": "^1.5.7",
     "stylint-stylish": "^1.4.0",
     "xo": "^0.17.0"
   },
