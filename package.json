@@ -1,6 +1,6 @@
 {
   "name": "gulp-flow",
-  "version": "2.6.2",
+  "version": "2.6.3",
   "title": "Gulp Flow",
   "description": "Gulp Flow we use at Graffino.",
   "homepage": "http://gulp-flow.dev",
@@ -63,7 +63,7 @@
   "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^6.5.1",
-    "backstopjs": "^2.0.4",
+    "backstopjs": "^2.0.5",
     "critical": "^0.8.0",
     "csswring": "^5.1.0",
     "debounce": "1.0.0",

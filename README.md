@@ -3,35 +3,14 @@ Gulp basic flow we use at Graffino. This site uses *Stylus* and it's deployed wi
 
 ## Before you start ##
 
-### 1. Make sure you have Gulp 4 beta
-
-```
-# Uninstall previous Gulp installation, if any
-$ npm uninstall gulp -g
-$ cd [your_project_root]
-$ npm uninstall gulp
-
-# Install the latest Gulp 4 CLI tools globally
-$ npm install gulpjs/gulp-cli -g
-
-# Install Gulp 4 into your project
-$ npm install gulpjs/gulp.git#4.0 --save-dev
-
-# Check the versions installed
-$ gulp -v
----
-[10:48:35] CLI version 1.2.2
-[10:48:35] Local version 4.0.0-alpha.2
-```
-
-### 2. Make sure you have the latest node version (macOS)
+### 1 (macOS). Make sure you have the latest node version
 
 ```
 # Use Homebrew to install node
 $ brew install nodejs
 ```
 
-### 2b. Make sure you have the latest node version (Linux)
+### 1 (Linux). Make sure you have the latest node version
 
 ```
 # Clear NPM's cache
@@ -42,23 +21,50 @@ $ npm install -g n
 $ sudo n stable
 ```
 
-### 2c. Make sure you have the latest node version (Windows)
+### 1 (Windows). Make sure you have the latest node version
 ```
 # Get & Install NodeJS 6.x.x
 https://nodejs.org/download/release/v6.x.x/
 ```
 
-### 3b. Install Python (Windows)
+### 2. Install Python (Windows)
 ```
 # Get & Install Python 2.7.11  
 https://www.python.org/downloads/release/python-2711/
+```
+
+### 3. Install Yarn for node packet management
+
+```
+$ npm install yarn -g
+```
+
+### 4. Make sure you have Gulp 4 beta
+
+```
+# Uninstall previous Gulp installation, if any
+$ yarn global remove gulp
+$ cd [your_project_root]
+$ yarn remove gulp
+
+# Install the latest Gulp 4 CLI tools globally
+$ yarn global add gulpjs/gulp-cli
+
+# Install Gulp 4 into your project
+$ yarn add gulpjs/gulp.git#4.0 --dev
+
+# Check the versions installed
+$ gulp -v
+---
+[10:48:35] CLI version 1.2.2
+[10:48:35] Local version 4.0.0-alpha.2
 ```
 
 ## How to start ##
 
 Run in this order:
 ```
-npm install
+yarn
 gulp
 ```
 
@@ -118,22 +124,22 @@ Run:
 
 #### To get regression testing up and running: ####
 
-1. Install smimerjs: `npm install -g slimerjs`
-2. Install casper: `npm install -g casperjs`
-3. Install backstopjs: `npm install -g backstopjs`
+1. Install smimerjs: `yarn global add slimerjs`
+2. Install casper: `yarn global add casperjs`
+3. Install backstopjs: `yarn global add backstopjs`
 4. Regression initial config:
-    - `npm run regression-config`
+    - `yarn run regression-config`
     - Edit/Insert required scenarios in `backstop.json`.
 
 #### To test for regressions ####
 1. Create Regression reference:
-    - `npm run regression-reference`
+    - `yarn run regression-reference`
 2. Run a regression test:
-    - `npm run regression-test`
+    - `yarn run regression-test`
 3. Bless files (if we have older reference files):
-    - `npm run regression-bless`
+    - `yarn run regression-bless`
 4. Open regression report:
-    - `npm run regression-report`
+    - `yarn run regression-report`
 
 
 ## Bump Project Version ##
@@ -149,10 +155,10 @@ Run:
 
 Run:
 
-1. `npm run check-npm-updates` to check for node modules updates
-2. `npm run check-npm-updates` to check for node modules updates
-3. `npm run update-npm-modules ` to update package.json with the new node module versions and install all non-breaking module updates.
-4. `npm run update-bower-modules ` to update bower.json with the new bower module versions and install all non-breaking module updates.
+1. `yarn run check-npm-updates` to check for node modules updates
+2. `yarn run check-npm-updates` to check for node modules updates
+3. `yarn run update-npm-modules ` to update package.json with the new node module versions and install all non-breaking module updates.
+4. `yarn run update-bower-modules ` to update bower.json with the new bower module versions and install all non-breaking module updates.
 
 
 #### DISCLAIMER ####
