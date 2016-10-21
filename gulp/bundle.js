@@ -181,7 +181,7 @@ function bundleJS() {
             )
         )
         .pipe(gulp.dest(paths.build.js))
-        .pipe(plugins.livereload(true));
+        .pipe(plugins.livereload());
 }
 
 
