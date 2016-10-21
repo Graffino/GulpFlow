@@ -38,7 +38,6 @@ if (typeof plugins.util.env.env === 'undefinded' || plugins.util.env.env == null
 // Make options work without true / false
 if (typeof plugins.util.env.debug === 'undefinded' || plugins.util.env.debug == null) {
     env.NODE_DEBUG = env.DEFAULT_DEBUG;
-    console.log(true);
 } else {
     env.NODE_DEBUG = true;
 }
