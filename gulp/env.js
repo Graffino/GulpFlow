@@ -8,8 +8,8 @@
  * Module imports
  */
 
-// Node requires
-var minimist = require('minimist');
+// Gulp & plugins
+var plugins = require('gulp-load-plugins')();
 
 
 /**
@@ -27,35 +27,23 @@ var env = {
     DEFAULT_WP: false
 };
 
-// Known environment
-var knownOptions = {
-    string: ['env', 'debug', 'wp'],
-    default: {
-        env: process.env.NODE_ENV || env.DEFAULT_ENV,
-        debug: process.env.NODE_ENV || env.DEFAULT_DEBUG,
-        wp: process.env.NODE_ENV || env.DEFAULT_WP
-    }
-};
-
-// Set new environment variables
-var options = minimist(process.argv.slice(3), knownOptions);
-
-if (options.env === '') {
-    env.NODE_ENV = env.DEFAULT_ENV;
+// Make options work without true / false
+if (typeof plugins.util.env.env === 'undefined' || plugins.util.env.env === null) {
+    env.NODE_ENV = env.DEVELOPMENT_ENV;
 } else {
-    env.NODE_ENV = options.env;
+    env.NODE_ENV = plugins.util.env.env;
 }
 
 // Make options work without true / false
-if (options.debug === false) {
-    env.NODE_DEBUG = false;
+if (typeof plugins.util.env.debug === 'undefined' || plugins.util.env.debug === null) {
+    env.NODE_DEBUG = env.DEFAULT_DEBUG;
 } else {
     env.NODE_DEBUG = true;
 }
 
 // Make options work without true / false
-if (options.wp === false) {
-    env.NODE_WP = false;
+if (typeof plugins.util.env.wp === 'undefined' || plugins.util.env.wp === null) {
+    env.NODE_WP = env.DEFAULT_WP;
 } else {
     env.NODE_WP = true;
 }

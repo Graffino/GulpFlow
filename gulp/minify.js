@@ -15,6 +15,7 @@ var plugins = require('gulp-load-plugins')();
 // Node requires
 var imageminMozjpeg = require('imagemin-mozjpeg');
 var imageminPngquant = require('imagemin-pngquant');
+var imageminSvgo = require('imagemin-svgo');
 var csswring = require('csswring');
 
 // Gulp requires
@@ -113,7 +114,26 @@ function minifyImages() {
         config = {
             optimizationLevel: 0,
             progressive: false,
-            interlaced: false
+            interlaced: false,
+            plugins: [
+                imageminSvgo({
+                    removeViewBox: false
+                }),
+                imageminPngquant({
+                    quality: '100',
+                    speed: 10,
+                    nofs: true
+                }),
+                imageminMozjpeg({
+                    quality: '100',
+                    fastcrush: true,
+                    progressive: false,
+                    dcScanOpt: 0,
+                    notrellis: true,
+                    notrellisDC: true,
+                    noovershoot: true
+                }
+            )]
         };
     // Use production config according to env
     } else {
@@ -124,7 +144,7 @@ function minifyImages() {
             svgoPlugins: [{
                 removeViewBox: false
             }],
-            use: [
+            plugins: [
                 imageminPngquant({
                     quality: '65-80',
                     speed: 4
