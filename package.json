@@ -112,6 +112,7 @@
     "htmlhint-stylish": "^1.0.3",
     "imagemin-mozjpeg": "~6.0.0",
     "imagemin-pngquant": "~5.0.0",
+    "imagemin-svgo": "^5.2.0",
     "jeet": "6.1.5",
     "lodash": "^4.16.4",
     "main-bower-files": "~2.13.1",

@@ -9,8 +9,7 @@
  */
 
 // Gulp & plugins
-var gulp = require('gulp');
-vvar plugins = require('gulp-load-plugins')();
+var plugins = require('gulp-load-plugins')();
 
 
 /**
@@ -29,21 +28,21 @@ var env = {
 };
 
 // Make options work without true / false
-if (typeof plugins.util.env.env === 'undefinded' || plugins.util.env.env == null) {
+if (typeof plugins.util.env.env === 'undefined' || plugins.util.env.env === null) {
     env.NODE_ENV = env.DEVELOPMENT_ENV;
 } else {
     env.NODE_ENV = plugins.util.env.env;
 }
 
 // Make options work without true / false
-if (typeof plugins.util.env.debug === 'undefinded' || plugins.util.env.debug == null) {
+if (typeof plugins.util.env.debug === 'undefined' || plugins.util.env.debug === null) {
     env.NODE_DEBUG = env.DEFAULT_DEBUG;
 } else {
     env.NODE_DEBUG = true;
 }
 
 // Make options work without true / false
-if (typeof plugins.util.env.wp === 'undefinded' || plugins.util.env.wp == null) {
+if (typeof plugins.util.env.wp === 'undefined' || plugins.util.env.wp === null) {
     env.NODE_WP = env.DEFAULT_WP;
 } else {
     env.NODE_WP = true;
