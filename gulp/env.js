@@ -29,7 +29,7 @@ var env = {
 
 // Make options work without true / false
 if (typeof plugins.util.env.env === 'undefined' || plugins.util.env.env === null) {
-    env.NODE_ENV = env.DEVELOPMENT_ENV;
+    env.NODE_ENV = DEVELOPMENT_ENV;
 } else {
     env.NODE_ENV = plugins.util.env.env;
 }
