@@ -37,7 +37,7 @@ function minifyJS() {
         .pipe(
             // Create sourcemaps according to config
             plugins.if(
-                config.sourcemaps.js,
+                config.enabled.sourcemaps.js,
                 plugins.sourcemaps.init()
             )
         )
@@ -46,7 +46,7 @@ function minifyJS() {
         .pipe(
             plugins.if(
                 // Create sourcemaps according to config
-                config.sourcemaps.js,
+                config.enabled.sourcemaps.js,
                 plugins.sourcemaps.write('.')
             )
         )
@@ -66,7 +66,7 @@ function minifyCSS() {
         .pipe(
             plugins.if(
                 // Create sourcemaps according to config
-                config.sourcemaps.css,
+                config.enabled.sourcemaps.css,
                 plugins.sourcemaps.init({loadMaps: true})
             )
         )
@@ -75,7 +75,7 @@ function minifyCSS() {
         .pipe(
             plugins.if(
                 // Create sourcemaps according to config
-                config.sourcemaps.css,
+                config.enabled.sourcemaps.css,
                 plugins.sourcemaps.write('.')
             )
         )
@@ -109,11 +109,11 @@ function minifyHTML() {
  */
 
 function minifyImages() {
-    if (env.isDevelopment()) {
+    if (env.isDevelopment() && config.enabled.notice) {
         return notice.send('Image minification skipped due to environment (--env develop)');
     }
 
-    var config = {
+    var minifyConfig = {
         optimizationLevel: 7,
         progressive: true,
         interlaced: true,
@@ -135,7 +135,7 @@ function minifyImages() {
     return gulp.src(paths.patterns.imagesBuild)
         // Fix pipe on error
         .pipe(plugins.plumber({errorHandler: error.handle}))
-        .pipe(plugins.imagemin(config))
+        .pipe(plugins.imagemin(minifyConfig))
         .pipe(gulp.dest(paths.build.images));
 }
 
@@ -146,16 +146,16 @@ function minifyImages() {
 
 var minifyApp = gulp.parallel(
     // Minify Images according to config
-    config.minify.img ? minifyImages : notice.silent,
+    config.enabled.minify.img ? minifyImages : plugins.util.noop,
 
     // Minify JS according to config
-    config.minify.js ? minifyJS : notice.silent,
+    config.enabled.minify.js ? minifyJS : plugins.util.noop,
 
     // Minify CSS according to config
-    config.minify.css ? minifyCSS : notice.silent,
+    config.enabled.minify.css ? minifyCSS : plugins.util.noop,
 
     // Minify HTML according to config
-    config.minify.html ? minifyHTML : notice.silent
+    config.enabled.minify.html ? minifyHTML : plugins.util.noop
 );
 
 
@@ -165,16 +165,16 @@ var minifyApp = gulp.parallel(
 
 module.exports = {
     // Minify Images according to config
-    images: config.minify.img ? minifyImages : notice.silent,
+    images: config.enabled.minify.img ? minifyImages : plugins.util.noop,
 
     // Minify JS according to config
-    js: config.minify.js ? minifyJS : notice.silent,
+    js: config.enabled.minify.js ? minifyJS : plugins.util.noop,
 
     // Minify CSS according to config
-    css: config.minify.css ? minifyCSS : notice.silent,
+    css: config.enabled.minify.css ? minifyCSS : plugins.util.noop,
 
     // Minify HTML according to config
-    html: config.minify.html ? minifyHTML : notice.silent,
+    html: config.enabled.minify.html ? minifyHTML : plugins.util.noop,
 
     app: minifyApp
 };

@@ -16,7 +16,6 @@ var plugins = require('gulp-load-plugins')();
 var config = require('./config');
 var error = require('./error');
 var paths = require('./paths');
-var notice = require('./notice');
 
 
 /**
@@ -36,7 +35,7 @@ function lintJS() {
  */
 
 function lintStylus() {
-    var config = {
+    var configStylus = {
         config: '.stylintrc',
         reporter: 'stylint-stylish',
         reporterOptions: {
@@ -46,7 +45,7 @@ function lintStylus() {
     return gulp.src(paths.patterns.stylusSource)
         // Fix pipe on error
         .pipe(plugins.plumber({errorHandler: error.handle}))
-        .pipe(plugins.stylint(config))
+        .pipe(plugins.stylint(configStylus))
         .pipe(plugins.stylint.reporter());
 }
 
@@ -69,13 +68,13 @@ function lintHTML() {
 
 var lintApp = gulp.parallel(
     // Lint JS according to config
-    config.lint.js ? lintJS : notice.silent,
+    config.enabled.lint.js ? lintJS : plugins.util.noop,
 
     // Lint CSS according to config
-    config.lint.js ? lintStylus : notice.silent,
+    config.enabled.lint.js ? lintStylus : plugins.util.noop,
 
     // Lint HTML according to config
-    config.lint.html ? lintHTML : notice.silent
+    config.enabled.lint.html ? lintHTML : plugins.util.noop
 );
 
 /**
@@ -84,13 +83,13 @@ var lintApp = gulp.parallel(
 
 module.exports = {
     // Lint JS according to config
-    js: config.lint.js ? lintJS : notice.silent,
+    js: config.enabled.lint.js ? lintJS : plugins.util.noop,
 
     // Lint CSS according to config
-    stylus: config.lint.js ? lintStylus : notice.silent,
+    stylus: config.enabled.lint.js ? lintStylus : plugins.util.noop,
 
     // Lint HTML according to config
-    html: config.lint.html ? lintHTML : notice.silent,
+    html: config.enabled.lint.html ? lintHTML : plugins.util.noop,
 
     app: lintApp
 };

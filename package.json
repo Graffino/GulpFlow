@@ -60,7 +60,9 @@
       "babel/new-cap": 0
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "gulp-empty": "^0.1.1"
+  },
   "devDependencies": {
     "autoprefixer": "^6.7.0",
     "backstopjs": "^2.3.7",

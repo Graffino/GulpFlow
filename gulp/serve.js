@@ -49,7 +49,8 @@ function watchJS() {
                 lint.js,
                 copy.js,
                 bundle.js,
-                notice.rebuilt
+                // Sent notice according to config
+                config.enabled.notice ? notice.rebuilt : plugins.util.noop
             ]),
         500)
     );
@@ -67,7 +68,9 @@ function watchJSTemplates() {
             gulp.series([
                 bundle.templates,
                 bundle.js,
-                notice.rebuilt
+
+                // Sent notice according to config
+                config.enabled.notice ? notice.rebuilt : plugins.util.noop
             ]),
         500)
     );
@@ -86,7 +89,9 @@ function watchHTML() {
                 lint.html,
                 bundle.templates,
                 bundle.js,
-                notice.rebuilt
+
+                // Sent notice according to config
+                config.enabled.notice ? notice.rebuilt : plugins.util.noop
             ]),
         500)
     );
@@ -105,7 +110,9 @@ function watchStylus() {
                 lint.stylus,
                 compile.stylus,
                 bundle.css,
-                notice.rebuilt
+
+                // Sent notice according to config
+                config.enabled.notice ? notice.rebuilt : plugins.util.noop
             ]),
         500)
     );
@@ -126,7 +133,9 @@ function watchFonts() {
                     gulp.series(
                         compile.stylus,
                         bundle.css,
-                        notice.rebuilt
+
+                        // Sent notice according to config
+                        config.enabled.notice ? notice.rebuilt : plugins.util.noop
                     )
                 )
             ),
@@ -145,7 +154,9 @@ function watchMedia() {
         debounce(
             gulp.series(
                 copy.media,
-                notice.rebuilt
+
+                // Sent notice according to config
+                config.enabled.notice ? notice.rebuilt : plugins.util.noop
             ),
         200)
     );
@@ -163,7 +174,9 @@ function watchImages() {
             gulp.series(
                 copy.images,
                 minify.images,
-                notice.rebuilt
+
+                // Sent notice according to config
+                config.enabled.notice ? notice.rebuilt : plugins.util.noop
             ),
         2000)
     );
@@ -183,7 +196,9 @@ function watchSprite() {
                 compile.sprite,
                 compile.stylus,
                 bundle.css,
-                notice.rebuilt
+
+                // Sent notice according to config
+                config.enabled.notice ? notice.rebuilt : plugins.util.noop
             ]),
         2000)
     );
@@ -200,7 +215,9 @@ function watchLib() {
         debounce(
             gulp.series([
                 copy.lib,
-                notice.rebuilt
+
+                // Sent notice according to config
+                config.enabled.notice ? notice.rebuilt : plugins.util.noop
             ]),
         2000)
     );
@@ -217,7 +234,9 @@ function watchData() {
         debounce(
             gulp.series([
                 copy.data,
-                notice.rebuilt
+
+                // Sent notice according to config
+                config.enabled.notice ? notice.rebuilt : plugins.util.noop
             ]),
         2000)
     );
@@ -234,7 +253,9 @@ function watchWordpress() {
         debounce(
             gulp.series([
                 wordpress.copy,
-                notice.rebuilt
+
+                // Sent notice according to config
+                config.enabled.notice ? notice.rebuilt : plugins.util.noop
             ]),
         2000)
     );
@@ -252,30 +273,30 @@ var watchApp = gulp.series(
         watchJS,
 
         // Watch JS Templates according to config
-        config.nunjucks.js ? watchJSTemplates : notice.silent,
+        config.enabled.nunjucks.js ? watchJSTemplates : plugins.util.noop,
 
         watchHTML,
 
         watchStylus,
 
         // Watch Fonts according to config
-        config.fonts ? watchFonts : notice.silent,
+        config.enabled.fonts ? watchFonts : plugins.util.noop,
 
         // Watch Media according to config
-        config.media ? watchMedia : notice.silent,
+        config.enabled.media ? watchMedia : plugins.util.noop,
 
         watchImages,
 
         watchSprite,
 
         // Watch Lib according to config
-        config.lib ? watchLib : notice.silent,
+        config.enabled.lib ? watchLib : plugins.util.noop,
 
         // Watch data according to config
-        config.data ? watchData : notice.silent,
+        config.enabled.data ? watchData : plugins.util.noop,
 
         // Watch Wordpress according to config
-        config.wordpress ? watchWordpress : notice.silent
+        config.enabled.wordpress ? watchWordpress : plugins.util.noop
     )
 );
 
@@ -286,7 +307,10 @@ var watchApp = gulp.series(
 
 var serveApp = gulp.series(
     build.app,
-    notice.watching,
+
+    // Sent notice according to config
+    config.enabled.notice ? notice.watching : plugins.util.noop,
+
     watchApp
 );
 

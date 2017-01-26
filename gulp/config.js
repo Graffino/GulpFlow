@@ -5,39 +5,57 @@
 
 
 /**
+ * Imports
+ */
+
+// Gulp requires
+var paths = require('./paths');
+
+
+/**
  * Global config
  */
 
 var config = {
+    // Languages
+    languages: [
+        'ro',
+        'en'
+    ]
+};
+
+
+/**
+ * Global config
+ */
+
+config.enabled = {
+    // Enable system notices
+    notice: true,
     // Enable modernizr
-    modernizr: false,
+    modernizr: true,
     // Critical CSS generation
-    critical: false,
+    critical: true,
     // Wordpress
-    wordpress: false,
+    wordpress: true,
     // Fonts conversion
-    fonts: false,
+    fonts: true,
     // Data folder
-    data: false,
+    data: true,
     // Media folder
-    media: false,
+    media: true,
     // Library folder
-    lib: false,
+    lib: true,
 
     // JS templates
     nunjucks: {
-        js: false
-    },
-
-    // PostCSS versions
-    postcss: {
-        browsers: 'last 2 versions'
+        js: true
     },
 
     // Sourcemaps
     sourcemaps: {
-        css: false,
-        js: false
+        css: true,
+        js: true
     },
 
     // Lint
@@ -53,6 +71,28 @@ var config = {
         js: true,
         img: true,
         html: true
+    },
+};
+
+
+/**
+ * Module config
+ */
+
+config.module = {
+    // Autoprefixer versions
+    autoprefixer: {
+        browsers: 'last 2 versions'
+    },
+
+    // Critical
+    critical: {
+        base: paths.www,
+        inline: true,
+        minify: true,
+        width: 1300,
+        height: 900,
+        timeout: 1000 * 60 * 10
     }
 };
 

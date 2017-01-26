@@ -27,7 +27,8 @@ var notice = require('./notice');
 
 function clean(toClean) {
     return del(toClean).then(function (paths) {
-        if (env.isDebug()) {
+        // Send notice according to environment and config
+        if (env.isDebug() && config.enabled.notice) {
             notice.send('Deleted files and folders:\n', paths.join('\n'));
         }
     });
@@ -102,8 +103,8 @@ function cleanJunk() {
         paths.root + '**/.DS_Store'
     ];
 
-    // Send notices only on development
-    if (env.isDevelopment()) {
+    // Send notice according to environment and config
+    if (env.isDevelopment() && config.enabled.notice) {
         notice.send('Application staging (www) folder has been cleaned.');
     }
     return clean(toClean);
@@ -114,7 +115,7 @@ function cleanProduction() {
     var toClean;
 
     // Remove HTML files on production if Wordpress is enabled
-    if (config.wordress) {
+    if (config.enabled.wordress) {
         toClean = [
             paths.build.js + '**/*',
             '!' + paths.build.js + 'main.min.js',

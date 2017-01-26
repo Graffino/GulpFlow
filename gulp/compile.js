@@ -29,7 +29,7 @@ var paths = require('./paths');
 function compileStylus() {
     var processors = [
         // Autoprefixer options according to config
-        autoprefixer(config.postcss),
+        autoprefixer(config.module.autoprefixer),
         plugins.combineMq,
         postcssQuantityQueries
     ];
@@ -40,7 +40,7 @@ function compileStylus() {
         // Create sourcemaps according to config
         .pipe(
             plugins.if(
-                config.sourcemaps.css,
+                config.enabled.sourcemaps.css,
                 plugins.sourcemaps.init({loadMaps: true})
             )
         )
@@ -49,7 +49,7 @@ function compileStylus() {
         // Create sourcemaps according to config
         .pipe(
             plugins.if(
-                config.sourcemaps.css,
+                config.enabled.sourcemaps.css,
                 plugins.sourcemaps.write('.')
             )
         )
@@ -62,7 +62,7 @@ function compileStylus() {
  */
 
 function compileSprite() {
-    var config = {
+    var configSprite = {
         shape: {
             // Set a default padding between elements
             spacing: {
@@ -88,7 +88,7 @@ function compileSprite() {
     };
 
     return gulp.src(paths.patterns.spriteSource)
-        .pipe(plugins.svgSprite(config))
+        .pipe(plugins.svgSprite(configSprite))
         .pipe(gulp.dest(paths.build.images))
         .pipe(plugins.livereload());
 }

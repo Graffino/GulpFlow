@@ -15,7 +15,6 @@ var plugins = require('gulp-load-plugins')();
 // Gulp requires
 var paths = require('./paths');
 var config = require('./config');
-var notice = require('./notice');
 
 
 /**
@@ -28,14 +27,7 @@ function criticalCSS() {
     return gulp.src(paths.patterns.html)
         // Convert assets path to absolute path
         .pipe(plugins.replace('../assets', '/assets/'))
-        .pipe(critical({
-            base: paths.www,
-            inline: true,
-            minify: true,
-            width: 1300,
-            height: 900,
-            timeout: 1000 * 60 * 10
-        }))
+        .pipe(critical(config.module.critical))
         // Correct assets path
         .pipe(plugins.replace('../', '/assets/'))
         .pipe(gulp.dest(paths.build.html));
@@ -48,5 +40,5 @@ function criticalCSS() {
 
 module.exports = {
     // Skip Critical CSS according to config
-    critical: config.critical ? criticalCSS : notice.silent
+    critical: config.enabled.critical ? criticalCSS : plugins.util.noop
 };

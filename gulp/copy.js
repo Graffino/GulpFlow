@@ -15,7 +15,6 @@ var plugins = require('gulp-load-plugins')();
 // Gulp requires
 var config = require('./config');
 var paths = require('./paths');
-var notice = require('./notice');
 
 
 /**
@@ -94,7 +93,8 @@ function copyMiscellaneous() {
         paths.root + 'humans.txt',
         paths.root + 'LICENSE',
         paths.root + 'robots.txt',
-        paths.root + '.htaccess'
+        paths.root + '.htaccess',
+        paths.root + 'index.html'
     ];
 
     return gulp.src(toCopy).pipe(gulp.dest(paths.www));
@@ -108,21 +108,21 @@ var copyApp = gulp.parallel(
     copyJS,
 
     // Skip Nunjucks JS Templates according to config
-    config.nunjucks.js ? copyJsTemplates : notice.silent,
+    config.enabled.nunjucks.js ? copyJsTemplates : plugins.util.noop,
 
     // Skip Fonts according to config
-    config.fonts ? copyFonts : notice.silent,
+    config.enabled.fonts ? copyFonts : plugins.util.noop,
 
     // Skip Media folder according to config
-    config.media ? copyMedia : notice.silent,
+    config.enabled.media ? copyMedia : plugins.util.noop,
 
     copyImages,
 
     // Skip Lib folder according to config
-    config.lib ? copyLib : notice.silent,
+    config.enabled.lib ? copyLib : plugins.util.noop,
 
     // Skip Data folder according to config
-    config.data ? copyData : notice.silent,
+    config.enabled.data ? copyData : plugins.util.noop,
 
     copyMiscellaneous
 );
@@ -136,21 +136,21 @@ module.exports = {
     js: copyJS,
 
     // Skip Fonts according to config
-    fonts: config.fonts ? copyFonts : notice.silent,
+    fonts: config.enabled.fonts ? copyFonts : plugins.util.noop,
 
     // Skip Media folder according to config
-    media: config.media ? copyMedia : notice.silent,
+    media: config.enabled.media ? copyMedia : plugins.util.noop,
 
     images: copyImages,
 
     // Skip Nunjucks JS Templates according to config
-    jsTemplates: config.nunjucks.js ? copyJsTemplates : notice.silent,
+    jsTemplates: config.enabled.nunjucks.js ? copyJsTemplates : plugins.util.noop,
 
     // Skip Lib folder according to config
-    lib: config.lib ? copyLib : notice.silent,
+    lib: config.enabled.lib ? copyLib : plugins.util.noop,
 
     // Skip Data folder according to config
-    data: config.data ? copyData : notice.silent,
+    data: config.enabled.data ? copyData : plugins.util.noop,
 
     app: copyApp
 };

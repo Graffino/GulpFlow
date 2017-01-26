@@ -10,12 +10,11 @@
 
 // Gulp & plugins
 var gulp = require('gulp');
+var plugins = require('gulp-load-plugins')();
 
 // Gulp requires
 var config = require('./config');
-var env = require('./env');
 var paths = require('./paths');
-var notice = require('./notice');
 
 
 /**
@@ -24,7 +23,7 @@ var notice = require('./notice');
 
 function copyWP() {
     var toReturn;
-    if (env.isWP()) {
+    if (config.enabled.wordpress) {
         toReturn = gulp.src(paths.patterns.themeSource).pipe(gulp.dest(paths.www));
     } else {
         toReturn = gulp.src('.');
@@ -39,5 +38,5 @@ function copyWP() {
 
 module.exports = {
     // Copy Wordpress according to config
-    copy: config.wordpress ? copyWP : notice.silent
+    copy: config.enabled.wordpress ? copyWP : plugins.util.noop
 };

@@ -13,6 +13,7 @@ var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 
 // Gulp requires
+var config = require('./config');
 var paths = require('./paths');
 
 
@@ -24,11 +25,6 @@ var paths = require('./paths');
 function sendNotice(message) {
     return gulp.src(paths.root)
         .pipe(plugins.notify(message));
-}
-
-// Finished
-function skip() {
-    return gulp.src(paths.root);
 }
 
 // Finished
@@ -55,9 +51,8 @@ function rebuilt() {
  */
 
 module.exports = {
-    send: sendNotice,
-    silent: skip,
-    finished: finished,
-    rebuilt: rebuilt,
-    watching: watching
+    send: config.enabled.notice ? sendNotice : plugins.util.noop,
+    finished: config.enabled.notice ? finished : plugins.util.noop,
+    rebuilt: config.enabled.notice ? rebuilt : plugins.util.noop,
+    watching: config.enabled.notice ? watching : plugins.util.noop
 };
