@@ -27,6 +27,13 @@ function sendNotice(message) {
         .pipe(plugins.notify(message));
 }
 
+// Cleaned
+function cleaned() {
+    return gulp.src(paths.root)
+        .pipe(plugins.notify('Application staging (www) folder has been cleaned.'));
+}
+
+
 // Finished
 function finished() {
     return gulp.src(paths.root)
@@ -52,6 +59,7 @@ function rebuilt() {
 
 module.exports = {
     send: config.enabled.notice ? sendNotice : plugins.util.noop,
+    cleaned: config.enabled.notice ? cleaned : plugins.util.noop,
     finished: config.enabled.notice ? finished : plugins.util.noop,
     rebuilt: config.enabled.notice ? rebuilt : plugins.util.noop,
     watching: config.enabled.notice ? watching : plugins.util.noop

@@ -13,6 +13,7 @@ var del = require('del');
 
 // Gulp & plugins
 var gulp = require('gulp');
+var plugins = require('gulp-load-plugins')();
 
 // Gulp requires
 var config = require('./config');
@@ -103,10 +104,6 @@ function cleanJunk() {
         paths.root + '**/.DS_Store'
     ];
 
-    // Send notice according to environment and config
-    if (env.isDevelopment() && config.enabled.notice) {
-        notice.send('Application staging (www) folder has been cleaned.');
-    }
     return clean(toClean);
 }
 
@@ -142,17 +139,21 @@ function cleanProduction() {
  * Clean function
  */
 
-var cleanApp = gulp.parallel(
-    cleanJS,
-    cleanCSS,
-    cleanFonts,
-    cleanMedia,
-    cleanImages,
-    cleanHTML,
-    cleanBower,
-    cleanData,
-    cleanMiscellaneous,
-    cleanJunk
+var cleanApp = gulp.series(
+    gulp.parallel(
+        cleanJS,
+        cleanCSS,
+        cleanFonts,
+        cleanMedia,
+        cleanImages,
+        cleanHTML,
+        cleanBower,
+        cleanData,
+        cleanMiscellaneous,
+        cleanJunk
+    ),
+    // Send notice according to environment and config
+    env.isDevelopment() && config.enabled.notice ? notice.cleaned : plugins.util.noop
 );
 
 

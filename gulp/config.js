@@ -71,7 +71,7 @@ config.enabled = {
         js: true,
         img: true,
         html: true
-    },
+    }
 };
 
 
@@ -87,8 +87,8 @@ config.module = {
 
     // Critical
     critical: {
-        base: paths.www,
-        inline: true,
+        src: 'http://gulpflow.dev/ro',
+        dest: paths.www,
         minify: true,
         width: 1300,
         height: 900,
