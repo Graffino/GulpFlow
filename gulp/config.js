@@ -87,11 +87,12 @@ config.module = {
 
     // Critical
     critical: {
-        src: 'http://gulpflow.dev/ro',
-        dest: paths.www,
+        base: './www/',
+        inline: false,
+        css: '/www/assets/css/main.css',
         minify: true,
-        width: 1300,
-        height: 900,
+        width: 2000,
+        height: 2000,
         timeout: 1000 * 60 * 10
     }
 };

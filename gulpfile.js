@@ -12,7 +12,7 @@
 var gulp = require('gulp');
 
 // Modules
-var inject = require('./gulp/inject');
+var critical = require('./gulp/critical');
 var clean = require('./gulp/clean');
 var bump = require('./gulp/bump');
 var build = require('./gulp/build');
@@ -44,8 +44,8 @@ gulp.task('bump:major', bump.major);
 gulp.task('bump:minor', bump.minor);
 
 /**
-* Gulp inject taks
+* Gulp critical CSS taks
 */
 
 // Critical CSS
-gulp.task('critical', inject.critical);
+gulp.task('critical', critical.css);

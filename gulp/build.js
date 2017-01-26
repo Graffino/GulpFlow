@@ -20,7 +20,7 @@ var clean = require('./clean');
 var compile = require('./compile');
 var copy = require('./copy');
 var lint = require('./lint');
-var inject = require('./inject');
+var critical = require('./critical');
 var minify = require('./minify');
 var notice = require('./notice');
 var wordpress = require('./wordpress');
@@ -96,7 +96,7 @@ var buildProduction = gulp.series(
     ),
 
     // Skip Critical CSS according to config
-    config.enabled.critical ? inject.critical : plugins.util.noop,
+    config.enabled.critical ? critical.css : plugins.util.noop,
 
     clean.production,
 
