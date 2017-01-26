@@ -27,6 +27,11 @@ function sendNotice(message) {
 }
 
 // Finished
+function silent() {
+    return true;
+}
+
+// Finished
 function finished() {
     return gulp.src(paths.root)
         .pipe(plugins.notify('Application has been built.'));
@@ -51,6 +56,7 @@ function rebuilt() {
 
 module.exports = {
     send: sendNotice,
+    silent: silent,
     finished: finished,
     rebuilt: rebuilt,
     watching: watching

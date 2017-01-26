@@ -19,9 +19,11 @@ var imageminSvgo = require('imagemin-svgo');
 var csswring = require('csswring');
 
 // Gulp requires
+var config = require('./config');
 var env = require('./env');
 var error = require('./error');
 var paths = require('./paths');
+var notice = require('./notice');
 
 
 /**
@@ -32,19 +34,19 @@ function minifyJS() {
     return gulp.src(paths.build.js + 'main.js')
         // Fix pipe on error
         .pipe(plugins.plumber({errorHandler: error.handle}))
-        // Create sourcemaps only if environment is development
         .pipe(
+            // Create sourcemaps according to config
             plugins.if(
-                env.isDevelopment(),
+                config.sourcemaps.js,
                 plugins.sourcemaps.init()
             )
         )
         .pipe(plugins.uglify())
         .pipe(plugins.rename({suffix: '.min'}))
-        // Create sourcemaps only if environment is development
         .pipe(
             plugins.if(
-                env.isDevelopment(),
+                // Create sourcemaps according to config
+                config.sourcemaps.js,
                 plugins.sourcemaps.write('.')
             )
         )
@@ -61,19 +63,19 @@ function minifyCSS() {
     return gulp.src(paths.build.css + 'main.css')
         // Fix pipe on error
         .pipe(plugins.plumber({errorHandler: error.handle}))
-        // Create sourcemaps only if environment is development
         .pipe(
             plugins.if(
-                env.isDevelopment(),
+                // Create sourcemaps according to config
+                config.sourcemaps.css,
                 plugins.sourcemaps.init({loadMaps: true})
             )
         )
         .pipe(plugins.postcss([csswring]))
         .pipe(plugins.rename({suffix: '.min'}))
-        // Create sourcemaps only if environment is development
         .pipe(
             plugins.if(
-                env.isDevelopment(),
+                // Create sourcemaps according to config
+                config.sourcemaps.css,
                 plugins.sourcemaps.write('.')
             )
         )
@@ -107,55 +109,28 @@ function minifyHTML() {
  */
 
 function minifyImages() {
-    var config;
-
-    // Use development config according to env
     if (env.isDevelopment()) {
-        config = {
-            optimizationLevel: 0,
-            progressive: false,
-            interlaced: false,
-            plugins: [
-                imageminSvgo({
-                    removeViewBox: false
-                }),
-                imageminPngquant({
-                    quality: '100',
-                    speed: 10,
-                    nofs: true
-                }),
-                imageminMozjpeg({
-                    quality: '100',
-                    fastcrush: true,
-                    progressive: false,
-                    dcScanOpt: 0,
-                    notrellis: true,
-                    notrellisDC: true,
-                    noovershoot: true
-                }
-            )]
-        };
-    // Use production config according to env
-    } else {
-        config = {
-            optimizationLevel: 7,
-            progressive: true,
-            interlaced: true,
-            svgoPlugins: [{
-                removeViewBox: false
-            }],
-            plugins: [
-                imageminPngquant({
-                    quality: '65-80',
-                    speed: 4
-                }),
-                imageminMozjpeg({
-                    quality: '80',
-                    progressive: true
-                }
-            )]
-        };
+        return notice.send('Image minification skipped due to environment (--env develop)');
     }
+
+    var config = {
+        optimizationLevel: 7,
+        progressive: true,
+        interlaced: true,
+        plugins: [
+            imageminSvgo({
+                removeViewBox: false
+            }),
+            imageminPngquant({
+                quality: '65-80',
+                speed: 4
+            }),
+            imageminMozjpeg({
+                quality: '80',
+                progressive: true
+            }
+        )]
+    };
 
     return gulp.src(paths.patterns.imagesBuild)
         // Fix pipe on error
@@ -170,10 +145,17 @@ function minifyImages() {
  */
 
 var minifyApp = gulp.parallel(
-    minifyImages,
-    minifyJS,
-    minifyCSS,
-    minifyHTML
+    // Minify Images according to config
+    config.minify.img ? minifyImages : notice.silent,
+
+    // Minify JS according to config
+    config.minify.js ? minifyJS : notice.silent,
+
+    // Minify CSS according to config
+    config.minify.css ? minifyCSS : notice.silent,
+
+    // Minify HTML according to config
+    config.minify.html ? minifyHTML : notice.silent
 );
 
 
@@ -182,9 +164,17 @@ var minifyApp = gulp.parallel(
  */
 
 module.exports = {
-    js: minifyJS,
-    css: minifyCSS,
-    html: minifyHTML,
-    images: minifyImages,
+    // Minify Images according to config
+    images: config.minify.img ? minifyImages : notice.silent,
+
+    // Minify JS according to config
+    js: config.minify.js ? minifyJS : notice.silent,
+
+    // Minify CSS according to config
+    css: config.minify.css ? minifyCSS : notice.silent,
+
+    // Minify HTML according to config
+    html: config.minify.html ? minifyHTML : notice.silent,
+
     app: minifyApp
 };

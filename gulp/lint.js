@@ -13,8 +13,10 @@ var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 
 // Gulp requires
+var config = require('./config');
 var error = require('./error');
 var paths = require('./paths');
+var notice = require('./notice');
 
 
 /**
@@ -66,9 +68,14 @@ function lintHTML() {
  */
 
 var lintApp = gulp.parallel(
-    lintJS,
-    lintStylus,
-    lintHTML
+    // Lint JS according to config
+    config.lint.js ? lintJS : notice.silent,
+
+    // Lint CSS according to config
+    config.lint.js ? lintStylus : notice.silent,
+
+    // Lint HTML according to config
+    config.lint.html ? lintHTML : notice.silent,
 );
 
 /**
@@ -76,8 +83,14 @@ var lintApp = gulp.parallel(
  */
 
 module.exports = {
-    js: lintJS,
-    stylus: lintStylus,
-    html: lintHTML,
+    // Lint JS according to config
+    js: config.lint.js ? lintJS : notice.silent,
+
+    // Lint CSS according to config
+    stylus: config.lint.js ? lintStylus : notice.silent,
+
+    // Lint HTML according to config
+    html: config.lint.html ? lintHTML : notice.silent,
+
     app: lintApp
 };

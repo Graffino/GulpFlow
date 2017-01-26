@@ -17,9 +17,11 @@ var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 
 // Gulp requires
+var config = require('./config');
 var env = require('./env');
 var error = require('./error');
 var paths = require('./paths');
+var notice = require('./notice');
 
 
 /**
@@ -46,32 +48,36 @@ function compileBower() {
         // Fix pipe on error
         .pipe(plugins.plumber({errorHandler: error.handle}))
         .pipe(
+            // Create sourcemaps according to config
             plugins.if(
-                env.isDevelopment(),
+                config.sourcemaps.css,
                 plugins.sourcemaps.init()
             )
         )
         .pipe(cssFiles)
         .pipe(plugins.groupConcat({'bower.css': '**/*.css'}))
+        // Create sourcemaps according to config
         .pipe(
             plugins.if(
-                env.isDevelopment(),
+                config.sourcemaps.css,
                 plugins.sourcemaps.write('.')
             )
         )
         .pipe(gulp.dest(paths.build.cssLib))
         .pipe(cssFiles.restore)
+        // Create sourcemaps according to config
         .pipe(
             plugins.if(
-                env.isDevelopment(),
+                config.sourcemaps.js,
                 plugins.sourcemaps.init()
             )
         )
         .pipe(jsFiles)
         .pipe(plugins.groupConcat({'bower.js': '**/*.js'}))
+        // Create sourcemaps according to config
         .pipe(
             plugins.if(
-                env.isDevelopment(),
+                config.sourcemaps.js,
                 plugins.sourcemaps.write('.')
             )
         )
@@ -137,8 +143,9 @@ function compileTemplates() {
         // Fix pipe on error
         .pipe(plugins.plumber({errorHandler: error.handle}))
         .pipe(
+            // Create sourcemaps according to config
             plugins.if(
-                env.isDevelopment(),
+                config.sourcemaps.js,
                 plugins.sourcemaps.init({loadMaps: true})
             )
         )
@@ -146,8 +153,9 @@ function compileTemplates() {
         .pipe(plugins.replace('partials\\', 'partials/'))
         .pipe(plugins.concat('templates.js'))
         .pipe(
+            // Create sourcemaps according to config
             plugins.if(
-                env.isDevelopment(),
+                config.sourcemaps.js,
                 plugins.sourcemaps.write('.')
             )
         )
@@ -164,8 +172,9 @@ function bundleJS() {
         // Fix pipe on error
         .pipe(plugins.plumber({errorHandler: error.handle}))
         .pipe(
+            // Create sourcemaps according to config
             plugins.if(
-                env.isDevelopment(),
+                config.sourcemaps.js,
                 plugins.sourcemaps.init({loadMaps: true})
             )
         )
@@ -176,7 +185,7 @@ function bundleJS() {
         .pipe(plugins.groupConcat({'main.js': ['**/*.js', '!**/*main*.js']}))
         .pipe(
             plugins.if(
-                env.isDevelopment(),
+                config.sourcemaps.js,
                 plugins.sourcemaps.write('.')
             )
         )
@@ -193,9 +202,10 @@ function bundleCSS() {
     return gulp.src(paths.patterns.cssBuild)
         // Fix pipe on error
         .pipe(plugins.plumber({errorHandler: error.handle}))
+        // Create sourcemaps according to config
         .pipe(
             plugins.if(
-                env.isDevelopment(),
+                config.sourcemaps.css,
                 plugins.sourcemaps.init({loadMaps: true})
             )
         )
@@ -205,8 +215,9 @@ function bundleCSS() {
         ]))
         .pipe(plugins.groupConcat({'main.css': ['**/*.css', '!**/*main*.css']}))
         .pipe(
+            // Create sourcemaps according to config
             plugins.if(
-                env.isDevelopment(),
+                config.sourcemaps.css,
                 plugins.sourcemaps.write('.')
             )
         )
@@ -255,7 +266,9 @@ var bundleFonts = gulp.parallel(
  */
 
 var bundleTemplates = gulp.parallel(
-    compileTemplates,
+    // Skip Nunjucks JS Templates according to config
+    config.nunjucks.js ? compileTemplates : notice.silent,
+
     compileTemplatesStatic
 );
 
@@ -269,7 +282,9 @@ var bundleDeps = gulp.parallel(
         updateBower,
         compileBower
     ),
-    compileModernizr
+
+    // Skip Modernizr according to config
+    config.modernizr ? compileModernizr : notice.silent
 );
 
 
@@ -292,12 +307,22 @@ var bundleApp = gulp.parallel(
 
 module.exports = {
     update: updateBower,
+
     compile: compileBower,
-    modernizr: compileModernizr,
-    fonts: bundleFonts,
+
+    // Skip Modernizr according to config
+    modernizr: config.modernizr ? compileModernizr : notice.silent,
+
+    // Skip Fonts according to config
+    fonts: config.fonts ? bundleFonts : notice.silent,
+
     deps: bundleDeps,
+
     templates: bundleTemplates,
+
     js: bundleJS,
+
     css: bundleCSS,
+
     app: bundleApp
 };

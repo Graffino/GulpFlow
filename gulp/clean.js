@@ -15,6 +15,7 @@ var del = require('del');
 var gulp = require('gulp');
 
 // Gulp requires
+var config = require('./config');
 var env = require('./env');
 var paths = require('./paths');
 var notice = require('./notice');
@@ -112,7 +113,8 @@ function cleanJunk() {
 function cleanProduction() {
     var toClean;
 
-    if (env.isWP) {
+    // Remove HTML files on production if Wordpress is enabled
+    if (config.wordress) {
         toClean = [
             paths.build.js + '**/*',
             '!' + paths.build.js + 'main.min.js',

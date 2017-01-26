@@ -17,7 +17,7 @@ var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 
 // Gulp requires
-var env = require('./env');
+var config = require('./config');
 var error = require('./error');
 var paths = require('./paths');
 
@@ -28,7 +28,8 @@ var paths = require('./paths');
 
 function compileStylus() {
     var processors = [
-        autoprefixer({browsers: ['last 2 versions']}),
+        // Autoprefixer options according to config
+        autoprefixer({browsers: [config.postCSS]}),
         plugins.combineMq,
         postcssQuantityQueries
     ];
@@ -36,18 +37,19 @@ function compileStylus() {
     return gulp.src(paths.source.stylusMain)
         // Fix pipe on error
         .pipe(plugins.plumber({errorHandler: error.handle}))
-        // Create sourcemaps only if environment is development
+        // Create sourcemaps according to config
         .pipe(
             plugins.if(
-                env.isDevelopment(),
+                config.sourcemaps.css(),
                 plugins.sourcemaps.init({loadMaps: true})
             )
         )
         .pipe(plugins.stylus())
         .pipe(plugins.postcss(processors))
+        // Create sourcemaps according to config
         .pipe(
             plugins.if(
-                env.isDevelopment(),
+                config.sourcemaps.css(),
                 plugins.sourcemaps.write('.')
             )
         )

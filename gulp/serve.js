@@ -16,6 +16,7 @@ var plugins = require('gulp-load-plugins')();
 var debounce = require('debounce');
 
 // Gulp requries
+var config = require('./config');
 var build = require('./build');
 var bundle = require('./bundle');
 var compile = require('./compile');
@@ -28,19 +29,12 @@ var wordpress = require('./wordpress');
 
 
 /**
- * Watch for changes
+ * Watch JS
  */
 
-function watchApp() {
-    // Gulp watch issue, must use debounce with gulp.series to work around it:
-    // https://github.com/gulpjs/gulp/issues/1304
-
-    // Live reload listen
-    plugins.livereload.listen();
-
-    // JS
-    gulp.watch(
-        paths.patterns.jsSource,
+function watchJS() {
+    return gulp.watch(
+        [paths.patterns.jsSource],
         debounce(
             gulp.series([
                 lint.js,
@@ -50,9 +44,15 @@ function watchApp() {
             ]),
         500)
     );
+}
 
-    // JS Templates
-    gulp.watch(
+
+/**
+ * Watch JS Templates
+ */
+
+function watchJSTemplates() {
+    return gulp.watch(
         [paths.patterns.jsTemplatesSource],
         debounce(
             gulp.series([
@@ -62,9 +62,15 @@ function watchApp() {
             ]),
         500)
     );
+}
 
-    // HTML Templates
-    gulp.watch(
+
+/**
+ * Watch HTML
+ */
+
+function watchHTML() {
+    return gulp.watch(
         [paths.patterns.htmlTemplatesSource],
         debounce(
             gulp.series([
@@ -75,9 +81,15 @@ function watchApp() {
             ]),
         500)
     );
+}
 
-    // Stylus
-    gulp.watch(
+
+/**
+ * Watch Stylus
+ */
+
+function watchStylus() {
+    return gulp.watch(
         [paths.patterns.stylusSource, paths.source.stylusMain],
         debounce(
             gulp.series([
@@ -88,10 +100,15 @@ function watchApp() {
             ]),
         500)
     );
+}
 
-    // Fonts
-    gulp.watch(
-        paths.patterns.fontsSource,
+/**
+ * Watch Fonts
+ */
+
+function watchFonts() {
+    return gulp.watch(
+        [paths.patterns.fontsSource],
         debounce(
             gulp.series(
                 copy.fonts,
@@ -106,9 +123,15 @@ function watchApp() {
             ),
         2000)
     );
+}
 
-    // Media
-    gulp.watch(
+
+/**
+ * Watch Media
+ */
+
+function watchMedia() {
+    return gulp.watch(
         [paths.source.media],
         debounce(
             gulp.series(
@@ -117,9 +140,15 @@ function watchApp() {
             ),
         200)
     );
+}
 
-    // Images
-    gulp.watch(
+
+/**
+ * Watch Images
+ */
+
+function watchImages() {
+    return gulp.watch(
         [paths.source.images, paths.source.svg],
         debounce(
             gulp.series(
@@ -129,10 +158,16 @@ function watchApp() {
             ),
         2000)
     );
+}
 
-    // Sprite
-    gulp.watch(
-        paths.patterns.spriteSource,
+
+/**
+ * Watch Sprite
+ */
+
+function watchSprite() {
+    return gulp.watch(
+        [paths.patterns.spriteSource],
         debounce(
             gulp.series([
                 copy.images,
@@ -143,10 +178,16 @@ function watchApp() {
             ]),
         2000)
     );
+}
 
-    // Lib
-    gulp.watch(
-        paths.patterns.libSource,
+
+/**
+ * Watch Lib
+ */
+
+function watchLib() {
+    return gulp.watch(
+        [paths.patterns.libSource],
         debounce(
             gulp.series([
                 copy.lib,
@@ -154,9 +195,15 @@ function watchApp() {
             ]),
         2000)
     );
+}
 
-    // Data
-    gulp.watch(
+
+/**
+ * Watch Data
+ */
+
+function watchData() {
+    return gulp.watch(
         paths.patterns.dataSource,
         debounce(
             gulp.series([
@@ -165,9 +212,15 @@ function watchApp() {
             ]),
         2000)
     );
+}
 
-    // Wordpress
-    gulp.watch(
+
+/**
+ * Watch Wordpress
+ */
+
+function watchWordpress() {
+    return gulp.watch(
         paths.patterns.themeSource,
         debounce(
             gulp.series([
@@ -177,6 +230,45 @@ function watchApp() {
         2000)
     );
 }
+
+
+/**
+ * Watch app
+ */
+
+var watchApp = gulp.series(
+    // Live reload listen
+    plugins.livereload.listen(),
+    gulp.parallel(
+        watchJS,
+
+        // Watch JS Templates according to config
+        config.nunjucks.js ? watchJSTemplates : notice.silent,
+
+        watchHTML,
+
+        watchStylus,
+
+        // Watch Fonts according to config
+        config.fonts ? watchFonts : notice.silent,
+
+        // Watch Media according to config
+        config.media ? watchMedia : notice.silent,
+
+        watchImages,
+
+        watchSprite,
+
+        // Watch Lib according to config
+        config.lib ? watchLib : notice.silent,
+
+        // Watch data according to config
+        config.data ? watchData : notice.silent,
+
+        // Watch Wordpress according to config
+        config.wordpress ? watchWordpress : notice.silent
+    )
+);
 
 
 /**

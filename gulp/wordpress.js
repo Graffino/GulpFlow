@@ -12,8 +12,10 @@
 var gulp = require('gulp');
 
 // Gulp requires
+var config = require('./config');
 var env = require('./env');
 var paths = require('./paths');
+var notice = require('./notice');
 
 
 /**
@@ -36,5 +38,6 @@ function copyWP() {
  */
 
 module.exports = {
-    copy: copyWP
+    // Copy Wordpress according to config
+    copy: config.wordpress ? copyWP : notice.silent
 };

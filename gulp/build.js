@@ -12,6 +12,7 @@
 var gulp = require('gulp');
 
 // Gulp requires
+var config = require('./config');
 var env = require('./env');
 var bundle = require('./bundle');
 var clean = require('./clean');
@@ -41,7 +42,10 @@ var buildDevelopment = gulp.series(
             bundle.app
         )
     ),
-    wordpress.copy,
+
+    // Skip Wordpress according to config
+    config.wordress ? wordpress.copy : notice.silent,
+
     notice.finished
 );
 
@@ -63,7 +67,9 @@ var buildStaging = gulp.series(
             bundle.app
         )
     ),
-    wordpress.copy
+
+    // Skip Wordpress according to config
+    config.wordress ? wordpress.copy : notice.silent
 );
 
 
@@ -86,9 +92,14 @@ var buildProduction = gulp.series(
             minify.app
         )
     ),
-    inject.critical,
+
+    // Skip Critical CSS according to config
+    config.critical ? inject.critical : notice.silent,
+
     clean.production,
-    wordpress.copy
+
+    // Skip Wordpress according to config
+    config.wordress ? wordpress.copy : notice.silent
 );
 
 

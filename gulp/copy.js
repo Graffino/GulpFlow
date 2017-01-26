@@ -13,7 +13,9 @@ var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 
 // Gulp requires
+var config = require('./config');
 var paths = require('./paths');
+var notice = require('./notice');
 
 
 /**
@@ -104,12 +106,24 @@ function copyMiscellaneous() {
 
 var copyApp = gulp.parallel(
     copyJS,
-    copyJsTemplates,
-    copyFonts,
-    copyMedia,
+
+    // Skip Nunjucks JS Templates according to config
+    config.nunjucks.js ? copyJsTemplates : notice.silent,
+
+    // Skip Fonts according to config
+    config.fonts ? copyFonts : notice.silent,
+
+    // Skip Media folder according to config
+    config.media ? copyMedia : notice.silent,
+
     copyImages,
-    copyLib,
-    copyData,
+
+    // Skip Lib folder according to config
+    config.lib ? copyLib : notice.silent,
+
+    // Skip Data folder according to config
+    config.data ? copyData : notice.silent,
+
     copyMiscellaneous
 );
 
@@ -120,11 +134,23 @@ var copyApp = gulp.parallel(
 
 module.exports = {
     js: copyJS,
-    fonts: copyFonts,
-    media: copyMedia,
+
+    // Skip Fonts according to config
+    fonts: config.fonts ? copyFonts : notice.silent,
+
+    // Skip Media folder according to config
+    media: config.media ? copyMedia : notice.silent,
+
     images: copyImages,
-    jsTemplates: copyJsTemplates,
-    lib: copyLib,
-    data: copyData,
+
+    // Skip Nunjucks JS Templates according to config
+    jsTemplates: config.nunjucks.js ? copyJsTemplates : notice.silent,
+
+    // Skip Lib folder according to config
+    lib: config.lib ? copyLib : notice.silent,
+
+    // Skip Data folder according to config
+    data: config.data ? copyData : notice.silent,
+
     app: copyApp
 };

@@ -23,8 +23,7 @@ var STAGING_ENV = 'staging';
 // Default environment
 var env = {
     DEFAULT_ENV: DEVELOPMENT_ENV,
-    DEFAULT_DEBUG: false,
-    DEFAULT_WP: false
+    DEFAULT_DEBUG: false
 };
 
 // Make options work without true / false
@@ -39,13 +38,6 @@ if (typeof plugins.util.env.debug === 'undefined' || plugins.util.env.debug === 
     env.NODE_DEBUG = env.DEFAULT_DEBUG;
 } else {
     env.NODE_DEBUG = true;
-}
-
-// Make options work without true / false
-if (typeof plugins.util.env.wp === 'undefined' || plugins.util.env.wp === null) {
-    env.NODE_WP = env.DEFAULT_WP;
-} else {
-    env.NODE_WP = true;
 }
 
 
@@ -71,11 +63,6 @@ env.isStaging = function () {
 // Debug
 env.isDebug = function () {
     return env.NODE_DEBUG;
-};
-
-// Wordpress
-env.isWP = function () {
-    return env.NODE_WP;
 };
 
 

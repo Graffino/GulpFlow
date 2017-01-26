@@ -14,6 +14,8 @@ var plugins = require('gulp-load-plugins')();
 
 // Gulp requires
 var paths = require('./paths');
+var config = require('./config');
+var notice = require('./notice');
 
 
 /**
@@ -45,5 +47,6 @@ function criticalCSS() {
  */
 
 module.exports = {
-    critical: criticalCSS
+    // Skip Critical CSS according to config
+    critical: config.critical ? criticalCSS : notice.silent
 };
