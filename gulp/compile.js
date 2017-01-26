@@ -29,7 +29,7 @@ var paths = require('./paths');
 function compileStylus() {
     var processors = [
         // Autoprefixer options according to config
-        autoprefixer({browsers: [config.postCSS]}),
+        autoprefixer(config.postcss),
         plugins.combineMq,
         postcssQuantityQueries
     ];
@@ -40,7 +40,7 @@ function compileStylus() {
         // Create sourcemaps according to config
         .pipe(
             plugins.if(
-                config.sourcemaps.css(),
+                config.sourcemaps.css,
                 plugins.sourcemaps.init({loadMaps: true})
             )
         )
@@ -49,7 +49,7 @@ function compileStylus() {
         // Create sourcemaps according to config
         .pipe(
             plugins.if(
-                config.sourcemaps.css(),
+                config.sourcemaps.css,
                 plugins.sourcemaps.write('.')
             )
         )

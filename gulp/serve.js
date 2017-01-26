@@ -29,6 +29,15 @@ var wordpress = require('./wordpress');
 
 
 /**
+ * Start listening
+ */
+
+function startListening() {
+    return plugins.livereload.listen();
+}
+
+
+/**
  * Watch JS
  */
 
@@ -238,7 +247,7 @@ function watchWordpress() {
 
 var watchApp = gulp.series(
     // Live reload listen
-    plugins.livereload.listen(),
+    startListening,
     gulp.parallel(
         watchJS,
 

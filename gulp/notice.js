@@ -27,8 +27,8 @@ function sendNotice(message) {
 }
 
 // Finished
-function silent() {
-    return true;
+function skip() {
+    return gulp.src(paths.root);
 }
 
 // Finished
@@ -56,7 +56,7 @@ function rebuilt() {
 
 module.exports = {
     send: sendNotice,
-    silent: silent,
+    silent: skip,
     finished: finished,
     rebuilt: rebuilt,
     watching: watching

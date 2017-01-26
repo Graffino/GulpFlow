@@ -75,7 +75,7 @@ var lintApp = gulp.parallel(
     config.lint.js ? lintStylus : notice.silent,
 
     // Lint HTML according to config
-    config.lint.html ? lintHTML : notice.silent,
+    config.lint.html ? lintHTML : notice.silent
 );
 
 /**
