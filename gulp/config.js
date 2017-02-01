@@ -37,7 +37,7 @@ config.enabled = {
     // Critical CSS generation
     critical: true,
     // Wordpress
-    wordpress: true,
+    wordpress: false,
     // Fonts conversion
     fonts: true,
     // Data folder
@@ -87,9 +87,11 @@ config.module = {
 
     // Critical
     critical: {
-        base: './www/',
-        inline: false,
-        css: '/www/assets/css/main.css',
+        base: paths.www,
+        // If false -> generates filename.css next to filename.html
+        inline: true,
+        pathPrefix: '/',
+        css: paths.www + paths.css + 'main.css',
         minify: true,
         width: 2000,
         height: 2000,

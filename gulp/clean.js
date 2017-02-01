@@ -110,9 +110,8 @@ function cleanJunk() {
 // Postproduction
 function cleanProduction() {
     var toClean;
-
     // Remove HTML files on production if Wordpress is enabled
-    if (config.enabled.wordress) {
+    if (config.enabled.wordpress) {
         toClean = [
             paths.build.js + '**/*',
             '!' + paths.build.js + 'main.min.js',

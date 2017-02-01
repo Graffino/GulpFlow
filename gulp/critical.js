@@ -24,14 +24,10 @@ var config = require('./config');
 function criticalCSS() {
     var critical = require('critical').stream;
 
-    return gulp.src('./www/ro/*.html')
-    // Convert assets path to absolute path
-        .pipe(plugins.replace('../assets', '/assets/'))
+    return gulp.src(paths.www + '**/*.html')
         .pipe(critical(config.module.critical).on('error', function (err) {
             plugins.util.log(plugins.util.colors.red(err.message));
         }))
-        // Correct assets path
-        .pipe(plugins.replace('../', '/assets/'))
         .pipe(gulp.dest(paths.build.html));
 }
 

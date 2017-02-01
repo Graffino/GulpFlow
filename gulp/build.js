@@ -71,7 +71,7 @@ var buildStaging = gulp.series(
     ),
 
     // Skip Wordpress according to config
-    config.enabled.wordress ? wordpress.copy : plugins.util.noop
+    config.enabled.wordpress ? wordpress.copy : plugins.util.noop
 );
 
 
@@ -101,7 +101,7 @@ var buildProduction = gulp.series(
     clean.production,
 
     // Skip Wordpress according to config
-    config.enabled.wordress ? wordpress.copy : plugins.util.noop
+    config.enabled.wordpress ? wordpress.copy : plugins.util.noop
 );
 
 
