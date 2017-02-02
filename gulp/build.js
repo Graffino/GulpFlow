@@ -10,11 +10,11 @@
 
 // Gulp & plugins
 var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
 
 // Gulp requires
 var config = require('./config');
 var env = require('./env');
+var utils = require('./utils');
 var bundle = require('./bundle');
 var clean = require('./clean');
 var compile = require('./compile');
@@ -45,10 +45,10 @@ var buildDevelopment = gulp.series(
     ),
 
     // Skip Wordpress according to config
-    config.enabled.wordpress ? wordpress.copy : plugins.util.noop,
+    config.enabled.wordpress ? wordpress.copy : utils.noop,
 
     // Send notice according to config
-    config.enabled.notice ? notice.finished : plugins.util.noop
+    config.enabled.notice ? notice.finished : utils.noop
 );
 
 
@@ -71,7 +71,7 @@ var buildStaging = gulp.series(
     ),
 
     // Skip Wordpress according to config
-    config.enabled.wordpress ? wordpress.copy : plugins.util.noop
+    config.enabled.wordpress ? wordpress.copy : utils.noop
 );
 
 
@@ -96,12 +96,12 @@ var buildProduction = gulp.series(
     ),
 
     // Skip Critical CSS according to config
-    config.enabled.critical ? critical.css : plugins.util.noop,
+    config.enabled.critical ? critical.css : utils.noop,
 
     clean.production,
 
     // Skip Wordpress according to config
-    config.enabled.wordpress ? wordpress.copy : plugins.util.noop
+    config.enabled.wordpress ? wordpress.copy : utils.noop
 );
 
 

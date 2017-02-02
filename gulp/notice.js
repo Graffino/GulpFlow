@@ -15,6 +15,7 @@ var plugins = require('gulp-load-plugins')();
 // Gulp requires
 var config = require('./config');
 var paths = require('./paths');
+var utils = require('./utils');
 
 
 /**
@@ -58,9 +59,9 @@ function rebuilt() {
  */
 
 module.exports = {
-    send: config.enabled.notice ? sendNotice : plugins.util.noop,
-    cleaned: config.enabled.notice ? cleaned : plugins.util.noop,
-    finished: config.enabled.notice ? finished : plugins.util.noop,
-    rebuilt: config.enabled.notice ? rebuilt : plugins.util.noop,
-    watching: config.enabled.notice ? watching : plugins.util.noop
+    send: config.enabled.notice ? sendNotice : utils.noop,
+    cleaned: config.enabled.notice ? cleaned : utils.noop,
+    finished: config.enabled.notice ? finished : utils.noop,
+    rebuilt: config.enabled.notice ? rebuilt : utils.noop,
+    watching: config.enabled.notice ? watching : utils.noop
 };

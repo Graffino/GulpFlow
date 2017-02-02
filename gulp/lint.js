@@ -16,6 +16,7 @@ var plugins = require('gulp-load-plugins')();
 var config = require('./config');
 var error = require('./error');
 var paths = require('./paths');
+var utils = require('./utils');
 
 
 /**
@@ -68,13 +69,13 @@ function lintHTML() {
 
 var lintApp = gulp.parallel(
     // Lint JS according to config
-    config.enabled.lint.js ? lintJS : plugins.util.noop,
+    config.enabled.lint.js ? lintJS : utils.noop,
 
     // Lint CSS according to config
-    config.enabled.lint.js ? lintStylus : plugins.util.noop,
+    config.enabled.lint.js ? lintStylus : utils.noop,
 
     // Lint HTML according to config
-    config.enabled.lint.html ? lintHTML : plugins.util.noop
+    config.enabled.lint.html ? lintHTML : utils.noop
 );
 
 /**
@@ -83,13 +84,13 @@ var lintApp = gulp.parallel(
 
 module.exports = {
     // Lint JS according to config
-    js: config.enabled.lint.js ? lintJS : plugins.util.noop,
+    js: config.enabled.lint.js ? lintJS : utils.noop,
 
     // Lint CSS according to config
-    stylus: config.enabled.lint.js ? lintStylus : plugins.util.noop,
+    stylus: config.enabled.lint.js ? lintStylus : utils.noop,
 
     // Lint HTML according to config
-    html: config.enabled.lint.html ? lintHTML : plugins.util.noop,
+    html: config.enabled.lint.html ? lintHTML : utils.noop,
 
     app: lintApp
 };

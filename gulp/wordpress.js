@@ -10,11 +10,11 @@
 
 // Gulp & plugins
 var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
 
 // Gulp requires
 var config = require('./config');
 var paths = require('./paths');
+var utils = require('./utils');
 
 
 /**
@@ -38,5 +38,5 @@ function copyWP() {
 
 module.exports = {
     // Copy Wordpress according to config
-    copy: config.enabled.wordpress ? copyWP : plugins.util.noop
+    copy: config.enabled.wordpress ? copyWP : utils.noop
 };

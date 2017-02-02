@@ -13,13 +13,13 @@ var del = require('del');
 
 // Gulp & plugins
 var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
 
 // Gulp requires
 var config = require('./config');
 var env = require('./env');
 var paths = require('./paths');
 var notice = require('./notice');
+var utils = require('./utils');
 
 
 /**
@@ -152,7 +152,7 @@ var cleanApp = gulp.series(
         cleanJunk
     ),
     // Send notice according to environment and config
-    env.isDevelopment() && config.enabled.notice ? notice.cleaned : plugins.util.noop
+    env.isDevelopment() && config.enabled.notice ? notice.cleaned : utils.noop
 );
 
 

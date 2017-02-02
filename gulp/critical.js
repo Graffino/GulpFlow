@@ -15,6 +15,7 @@ var plugins = require('gulp-load-plugins')();
 // Gulp requires
 var paths = require('./paths');
 var config = require('./config');
+var utils = require('./utils');
 
 
 /**
@@ -38,5 +39,5 @@ function criticalCSS() {
 
 module.exports = {
     // Skip Critical CSS according to config
-    css: config.enabled.critical ? criticalCSS : plugins.util.noop
+    css: config.enabled.critical ? criticalCSS : utils.noop
 };

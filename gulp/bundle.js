@@ -21,6 +21,7 @@ var config = require('./config');
 var env = require('./env');
 var error = require('./error');
 var paths = require('./paths');
+var utils = require('./utils');
 
 
 /**
@@ -266,7 +267,7 @@ var bundleFonts = gulp.parallel(
 
 var bundleTemplates = gulp.parallel(
     // Skip Nunjucks JS Templates according to config
-    config.enabled.nunjucks.js ? compileTemplates : plugins.util.noop,
+    config.enabled.nunjucks.js ? compileTemplates : utils.noop,
 
     compileTemplatesStatic
 );
@@ -283,7 +284,7 @@ var bundleDeps = gulp.parallel(
     ),
 
     // Skip Modernizr according to config
-    config.enabled.modernizr ? compileModernizr : plugins.util.noop
+    config.enabled.modernizr ? compileModernizr : utils.noop
 );
 
 
@@ -310,10 +311,10 @@ module.exports = {
     compile: compileBower,
 
     // Skip Modernizr according to config
-    modernizr: config.enabled.modernizr ? compileModernizr : plugins.util.noop,
+    modernizr: config.enabled.modernizr ? compileModernizr : utils.noop,
 
     // Skip Fonts according to config
-    fonts: config.enabled.fonts ? bundleFonts : plugins.util.noop,
+    fonts: config.enabled.fonts ? bundleFonts : utils.noop,
 
     deps: bundleDeps,
 

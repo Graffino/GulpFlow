@@ -24,6 +24,7 @@ var env = require('./env');
 var error = require('./error');
 var paths = require('./paths');
 var notice = require('./notice');
+var utils = require('./utils');
 
 
 /**
@@ -146,16 +147,16 @@ function minifyImages() {
 
 var minifyApp = gulp.parallel(
     // Minify Images according to config
-    config.enabled.minify.img ? minifyImages : plugins.util.noop,
+    config.enabled.minify.img ? minifyImages : utils.noop,
 
     // Minify JS according to config
-    config.enabled.minify.js ? minifyJS : plugins.util.noop,
+    config.enabled.minify.js ? minifyJS : utils.noop,
 
     // Minify CSS according to config
-    config.enabled.minify.css ? minifyCSS : plugins.util.noop,
+    config.enabled.minify.css ? minifyCSS : utils.noop,
 
     // Minify HTML according to config
-    config.enabled.minify.html ? minifyHTML : plugins.util.noop
+    config.enabled.minify.html ? minifyHTML : utils.noop
 );
 
 
@@ -165,16 +166,16 @@ var minifyApp = gulp.parallel(
 
 module.exports = {
     // Minify Images according to config
-    images: config.enabled.minify.img ? minifyImages : plugins.util.noop,
+    images: config.enabled.minify.img ? minifyImages : utils.noop,
 
     // Minify JS according to config
-    js: config.enabled.minify.js ? minifyJS : plugins.util.noop,
+    js: config.enabled.minify.js ? minifyJS : utils.noop,
 
     // Minify CSS according to config
-    css: config.enabled.minify.css ? minifyCSS : plugins.util.noop,
+    css: config.enabled.minify.css ? minifyCSS : utils.noop,
 
     // Minify HTML according to config
-    html: config.enabled.minify.html ? minifyHTML : plugins.util.noop,
+    html: config.enabled.minify.html ? minifyHTML : utils.noop,
 
     app: minifyApp
 };

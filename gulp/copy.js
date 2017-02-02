@@ -15,6 +15,7 @@ var plugins = require('gulp-load-plugins')();
 // Gulp requires
 var config = require('./config');
 var paths = require('./paths');
+var utils = require('./utils');
 
 
 /**
@@ -108,21 +109,21 @@ var copyApp = gulp.parallel(
     copyJS,
 
     // Skip Nunjucks JS Templates according to config
-    config.enabled.nunjucks.js ? copyJsTemplates : plugins.util.noop,
+    config.enabled.nunjucks.js ? copyJsTemplates : utils.noop,
 
     // Skip Fonts according to config
-    config.enabled.fonts ? copyFonts : plugins.util.noop,
+    config.enabled.fonts ? copyFonts : utils.noop,
 
     // Skip Media folder according to config
-    config.enabled.media ? copyMedia : plugins.util.noop,
+    config.enabled.media ? copyMedia : utils.noop,
 
     copyImages,
 
     // Skip Lib folder according to config
-    config.enabled.lib ? copyLib : plugins.util.noop,
+    config.enabled.lib ? copyLib : utils.noop,
 
     // Skip Data folder according to config
-    config.enabled.data ? copyData : plugins.util.noop,
+    config.enabled.data ? copyData : utils.noop,
 
     copyMiscellaneous
 );
@@ -136,21 +137,21 @@ module.exports = {
     js: copyJS,
 
     // Skip Fonts according to config
-    fonts: config.enabled.fonts ? copyFonts : plugins.util.noop,
+    fonts: config.enabled.fonts ? copyFonts : utils.noop,
 
     // Skip Media folder according to config
-    media: config.enabled.media ? copyMedia : plugins.util.noop,
+    media: config.enabled.media ? copyMedia : utils.noop,
 
     images: copyImages,
 
     // Skip Nunjucks JS Templates according to config
-    jsTemplates: config.enabled.nunjucks.js ? copyJsTemplates : plugins.util.noop,
+    jsTemplates: config.enabled.nunjucks.js ? copyJsTemplates : utils.noop,
 
     // Skip Lib folder according to config
-    lib: config.enabled.lib ? copyLib : plugins.util.noop,
+    lib: config.enabled.lib ? copyLib : utils.noop,
 
     // Skip Data folder according to config
-    data: config.enabled.data ? copyData : plugins.util.noop,
+    data: config.enabled.data ? copyData : utils.noop,
 
     app: copyApp
 };
