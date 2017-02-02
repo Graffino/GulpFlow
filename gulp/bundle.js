@@ -269,7 +269,8 @@ var bundleTemplates = gulp.parallel(
     // Skip Nunjucks JS Templates according to config
     config.enabled.nunjucks.js ? compileTemplates : utils.noop,
 
-    compileTemplatesStatic
+    // Skip Nunjucks HTML Templates according to config
+    config.enabled.nunjucks.html ? compileTemplatesStatic : utils.noop
 );
 
 

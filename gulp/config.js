@@ -37,7 +37,7 @@ config.enabled = {
     // Critical CSS generation
     critical: true,
     // Wordpress
-    wordpress: false,
+    wordpress: true,
     // Fonts conversion
     fonts: true,
     // Data folder
@@ -47,9 +47,10 @@ config.enabled = {
     // Library folder
     lib: true,
 
-    // JS templates
+    // Nunjucks templates
     nunjucks: {
-        js: true
+        js: true,
+        html: true
     },
 
     // Sourcemaps
