@@ -18,7 +18,7 @@ $.extend($graffino, {
 
         // Plugin options
         options: {
-            autoInit: true,
+            autoInit: false,
             debug: false
         },
 
