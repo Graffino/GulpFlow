@@ -150,6 +150,7 @@ function compileTemplates() {
             )
         )
         .pipe(plugins.nunjucks.precompile())
+        // Fix Windows path issue
         .pipe(plugins.replace('partials\\', 'partials/'))
         .pipe(plugins.concat('templates.js'))
         .pipe(
