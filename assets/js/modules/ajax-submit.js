@@ -27,7 +27,8 @@ $.extend($graffino, {
             $forms: $('.js-ajax-form'),
             defaultMethod: 'POST',
             initClass: 'js-ajax-initialized',
-            formNoticeClass: '.js-ajax-form-notice'
+            formNoticeClass: '.js-ajax-form-notice',
+            formContentClass: '.js-ajax-form-content'
         },
 
         // Init method
@@ -43,8 +44,11 @@ $.extend($graffino, {
                     var $form = $(form),
                         $element = $form,
                         $notice = $form.find(vars.formNoticeClass),
+                        $content = $form.find(vars.formContentClass),
                         customCallback = $form.data('ajax-callback'),
                         data,
+                        dataType,
+                        contentType,
                         method,
                         action,
                         triggerClass,
@@ -99,6 +103,20 @@ $.extend($graffino, {
                             }
                         }
 
+                        // Getting form data-type
+                        dataType = $form.attr('data-type');
+                        if (dataType === undefined || dataType === '') {
+                            dataType = 'text';
+                            _this.log('Form id ' + index + ' dataType is undefined or invalid. Using `text` as default.');
+                        // Getting form data-type
+                        }
+
+                        contentType = $form.attr('data-content-type');
+                        if (contentType === undefined || dataType === '') {
+                            contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
+                            _this.log('Form id ' + index + ' dataType is undefined or invalid. Using `application/x-www-form-urlencoded; charset=UTF-8` as default.');
+                        }
+
                         // Validating the custom callback function
                         if (customCallback === undefined || typeof _this[customCallback] !== 'function') {
                             customCallback = false;
@@ -142,17 +160,19 @@ $.extend($graffino, {
                                             url: action,
                                             type: method,
                                             data: data,
+                                            dataType: dataType,
+                                            contentType: contentType,
                                             cache: false,
                                             // On success callback
                                             success: function (response) {
-                                                _this.onSuccess(index, data, response, $notice, customCallback);
+                                                _this.onSuccess($form, index, data, response, $content, $notice, customCallback);
                                             },
                                             // On error callback
                                             error: function (response) {
                                                 // Lowering flag to allow another request to be sent
                                                 isRequesting = false;
                                                 // Fire the onError callback function
-                                                _this.onError(index, data, response, $notice);
+                                                _this.onError($form, index, data, response, $content, $notice);
                                             },
                                             // On request complete
                                             complete: function () {
@@ -182,9 +202,10 @@ $.extend($graffino, {
             }
         },
 
-        onSuccess: function (formID, data, response, $notice, customCallback) {
+        onSuccess: function ($form, formID, data, response, $content, $notice, customCallback) {
             var _that = $graffino,
-                _this = this;
+                _this = this,
+                noticeText;
 
             _this.log('[SENT] Form id ' + formID + ' information was sent successfully!');
             _this.log('\t\u251c Data:', data);
@@ -194,23 +215,74 @@ $.extend($graffino, {
             if (customCallback === false) {
                 // Adding visible class to the success notice element
                 // Adding the text message from the AJAX response
-                $notice
-                    .addClass(_that.vars.stateClass.visible)
-                    .text(response.message);
+
+                // Save notice text
+                noticeText = $notice.html();
+
+                // Reset form fields
+                $form[0].reset();
+
+                // Hide content
+                $content.addClass(_that.vars.stateClass.hidden);
+
+                // Show notice
+                setTimeout(function () {
+                    $notice.addClass(_that.vars.stateClass.visible);
+                }, 500);
+
+                if (response.result === 'error') {
+                    $notice
+                        .addClass(_that.vars.stateClass.error)
+                        .html('<p class="text">' + response.msg + '</p>');
+                } else {
+                    $notice
+                        .addClass(_that.vars.stateClass.success);
+                }
+
+                setTimeout(function () {
+                    $notice
+                        .removeClass(_that.vars.stateClass.visible)
+                        .removeClass(_that.vars.stateClass.error)
+                        .removeClass(_that.vars.stateClass.success)
+                        .html(noticeText);
+
+                    $content.removeClass(_that.vars.stateClass.hidden);
+                }, 5000);
             } else {
                 // Calling the custom success callback
                 _this[customCallback](response, $notice, customCallback);
             }
         },
 
-        onError: function (formID, data, response, $notice) {
+        onError: function ($form, formID, data, response, $content, $notice) {
             var _that = $graffino,
-                _this = this;
+                _this = this,
+                noticeText;
+
+            // Save notice text
+            noticeText = $notice.html();
+
+            // Hide content
+            $content.addClass(_that.vars.stateClass.hidden);
+
+            // Show notice
+            setTimeout(function () {
+                $notice.addClass(_that.vars.stateClass.visible);
+            }, 500);
 
             // Adding visible class to the success notice element
             $notice
-                .addClass(_that.vars.stateClass.visible)
-                .text(JSON.parse(response.responseText).message);
+                .addClass(_that.vars.stateClass.error)
+                .html('<p class="text">' + response.msg + '</p>');
+
+            setTimeout(function () {
+                $notice
+                    .removeClass(_that.vars.stateClass.visible)
+                    .removeClass(_that.vars.stateClass.error)
+                    .html(noticeText);
+
+                $content.removeClass(_that.vars.stateClass.hidden);
+            }, 5000);
 
             _this.log('\u2757 ERROR on sending request for form id ' + formID);
             _this.log('\t\u251c Data:', data);
@@ -222,12 +294,12 @@ $.extend($graffino, {
          * Callbacks for custom forms
          */
 
-        customCallback: function (response, $notice, callbackName) {
+        notice: function (response, $notice, notice) {
             var _this = this;
             // Making sure response is an AJAX object
             response = typeof response === 'object' ? response : JSON.parse(response);
 
-            _this.log('\t\u251c Custom callback [' + callbackName + '] was fired.');
+            _this.log('\t\u251c Custom callback [' + notice + '] was fired.');
         }
     }
 });

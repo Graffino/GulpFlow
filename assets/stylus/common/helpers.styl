@@ -35,6 +35,18 @@
             }
         }
 
+        &-small-up {
+            +below($small) {
+                display: none !important;
+            }
+        }
+
+        &-small-down {
+            +above($small + 1) {
+                display: none !important;
+            }
+        }
+
         &-mobile-up {
             +below($mobile) {
                 display: none !important;
@@ -80,9 +92,29 @@
             }
         }
 
+        &-small-down {
+            +below($small) {
+                display: none !important;
+            }
+        }
+
         &-mobile-down {
             +below($mobile) {
                 display: none !important;
+            }
+        }
+    }
+
+    &-float {
+        &-none {
+            float: none !important;
+        }
+
+        &-none-for {
+            &-tablet-down {
+                +below($tablet) {
+                    float: none !important;
+                }
             }
         }
     }
