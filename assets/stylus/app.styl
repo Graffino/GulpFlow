@@ -23,15 +23,21 @@
  */
 
 // General variables
-@import "base/variables";
+@import "common/variables";
 // Mixins
-@import "base/mixins";
+@import "common/mixins";
 // Color variables
-@import "base/colors";
+@import "common/colors";
 // Fonts and sizes variables
-@import "base/fonts";
+@import "common/fonts";
 // Icons
-@import "base/icons";
+@import "common/icons";
+
+// Common styles and extends
+@import "common/common";
+
+// Grid — custom 12 column grid
+@import "common/grid";
 
 
 /**
@@ -39,7 +45,7 @@
  */
 
 // Helper classes (e.g. ".h-float-left");
-@import "base/helpers";
+@import "common/helpers";
 
 
 /**
@@ -48,18 +54,12 @@
 
 // Typography — body copy, headings, lists, blockquotes, etc
 @import "modules/typography";
-
-// Common styles and extends
-@import "modules/common";
-
 // Header — styles and modules
 @import "modules/header";
 // Page sections — project specific areas
 @import "modules/section";
 // Navigation — desktop & mobile
 @import "modules/nav";
-// Grid — custom 12 column grid
-@import "modules/grid";
 // Form elements - styles
 @import "modules/form";
 // Button — styles and sizes
@@ -69,9 +69,10 @@
 // Footer — styles
 @import "modules/footer";
 
+
 /**
  * Stylus console
  */
 
 // Sort of a (pseudo-)console for exporting values to the front-end
-@import "base/console";
+@import "common/console";
