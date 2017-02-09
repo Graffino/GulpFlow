@@ -90,6 +90,7 @@ function cleanMiscellaneous() {
         paths.www + 'assets',
         paths.www + 'admin',
         paths.www + 'includes',
+        paths.www + 'partials',
         paths.www + '*.php',
         paths.www + '*.png',
         paths.www + '*.css'
