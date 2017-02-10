@@ -20,7 +20,7 @@
   "private": false,
   "engines": {},
   "xo": {
-    "space": 4,
+    "space": 2,
     "globals": [
       "$",
       "window",
@@ -124,7 +124,8 @@
     "stylint": "^1.5.9",
     "stylint-json-reporter": "^0.3.1",
     "stylint-stylish": "^1.4.0",
-    "xo": "^0.17.1"
+    "xo": "^0.17.1",
+    "require-dir": "0.3.0"
   },
   "scripts": {
     "gulp": "./node_modules/gulp/bin/gulp.js",
