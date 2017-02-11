@@ -1,258 +1,262 @@
-//
-// Custom grid
-// Author: Graffino (http://www.graffino.com)
-//
+/**
+ * Custom grid
+ * Author: Graffino (http://www.graffino.com)
+ */
 
 
 /**
  * Grid
  */
 
+// Maximum width of non-fullwidth content
+$width-container   = 1190px;
+
 // Container
 .grid {
-    center(rem($width-container), pad = rem(10));
+  center(rem($width-container), pad = rem(10));
 
-    &.is-debug {
-        edit();
-        * {
-            transition: transition-custom($property = background);
-        }
+  // Debug class
+  &.is-debug {
+    edit();
+    * {
+      transition: transition-custom($property = background);
     }
+  }
 
-    // Row
-    &__row {
-        clearfix();
-    }
+  // Row
+  &__row {
+    clearfix();
+  }
 
-    // Column
-    &__column {
-        &.-one {
-            column(1/12);
-        }
-        &.-two {
-            column(2/12);
-        }
-        &.-three {
-            column(3/12);
-        }
-        &.-four {
-            column(4/12);
-        }
-        &.-five {
-            column(5/12);
-        }
-        &.-six {
-            column(6/12);
-        }
-        &.-seven {
-            column(7/12);
-        }
-        &.-eight {
-            column(8/12);
-        }
-        &.-nine {
-            column(9/12);
-        }
-        &.-ten {
-            column(10/12);
-        }
-        &.-eleven {
-            column(11/12);
-        }
-        &.-twelve {
-            column(12/12);
-        }
-        &.-offset-right {
-            &-one {
-                move(1/12);
-            }
-            &-two {
-                move(2/12);
-            }
-            &-three {
-                move(3/12);
-            }
-            &-four {
-                move(4/12);
-            }
-            &-five {
-                move(5/12);
-            }
-            &-six {
-                move(6/12);
-            }
-            &-seven {
-                move(7/12);
-            }
-            &-eight {
-                move(8/12);
-            }
-            &-nine {
-                move(9/12);
-            }
-            &-ten {
-                move(10/12);
-            }
-            &-eleven {
-                move(11/12);
-            }
-            &-twelve {
-                move(12/12);
-            }
-        }
-        &.-offset-left {
-            &-one {
-                move(-1/12);
-            }
-            &-two {
-                move(-2/12);
-            }
-            &-three {
-                move(-3/12);
-            }
-            &-four {
-                move(-4/12);
-            }
-            &-five {
-                move(-5/12);
-            }
-            &-six {
-                move(-6/12);
-            }
-            &-seven {
-                move(-7/12);
-            }
-            &-eight {
-                move(-8/12);
-            }
-            &-nine {
-                move(-9/12);
-            }
-            &-ten {
-                move(-10/12);
-            }
-            &-eleven {
-                move(-11/12);
-            }
-            &-twelve {
-                move(-12/12);
-            }
-        }
+  // Column
+  &__column {
+    &.-one {
+      column(1/12);
     }
+    &.-two {
+      column(2/12);
+    }
+    &.-three {
+      column(3/12);
+    }
+    &.-four {
+      column(4/12);
+    }
+    &.-five {
+      column(5/12);
+    }
+    &.-six {
+      column(6/12);
+    }
+    &.-seven {
+      column(7/12);
+    }
+    &.-eight {
+      column(8/12);
+    }
+    &.-nine {
+      column(9/12);
+    }
+    &.-ten {
+      column(10/12);
+    }
+    &.-eleven {
+      column(11/12);
+    }
+    &.-twelve {
+      column(12/12);
+    }
+    &.-offset-right {
+      &-one {
+        move(1/12);
+      }
+      &-two {
+        move(2/12);
+      }
+      &-three {
+        move(3/12);
+      }
+      &-four {
+        move(4/12);
+      }
+      &-five {
+        move(5/12);
+      }
+      &-six {
+        move(6/12);
+      }
+      &-seven {
+        move(7/12);
+      }
+      &-eight {
+        move(8/12);
+      }
+      &-nine {
+        move(9/12);
+      }
+      &-ten {
+        move(10/12);
+      }
+      &-eleven {
+        move(11/12);
+      }
+      &-twelve {
+        move(12/12);
+      }
+    }
+    &.-offset-left {
+      &-one {
+        move(-1/12);
+      }
+      &-two {
+        move(-2/12);
+      }
+      &-three {
+        move(-3/12);
+      }
+      &-four {
+        move(-4/12);
+      }
+      &-five {
+        move(-5/12);
+      }
+      &-six {
+        move(-6/12);
+      }
+      &-seven {
+        move(-7/12);
+      }
+      &-eight {
+        move(-8/12);
+      }
+      &-nine {
+        move(-9/12);
+      }
+      &-ten {
+        move(-10/12);
+      }
+      &-eleven {
+        move(-11/12);
+      }
+      &-twelve {
+        move(-12/12);
+      }
+    }
+  }
 
-    // Spans
-    &__span {
-        &.-one {
-            span(1/12);
-        }
-        &.-two {
-            span(2/12);
-        }
-        &.-three {
-            span(3/12);
-        }
-        &.-four {
-            span(4/12);
-        }
-        &.-five {
-            span(5/12);
-        }
-        &.-six {
-            span(6/12);
-        }
-        &.-seven {
-            span(7/12);
-        }
-        &.-eight {
-            span(8/12);
-        }
-        &.-nine {
-            span(9/12);
-        }
-        &.-ten {
-            span(10/12);
-        }
-        &.-eleven {
-            span(11/12);
-        }
-        &.-twelve {
-            span(12/12);
-        }
-        &.-offset-right {
-            &-one {
-                move(1/12);
-            }
-            &-two {
-                move(2/12);
-            }
-            &-three {
-                move(3/12);
-            }
-            &-four {
-                move(4/12);
-            }
-            &-five {
-                move(5/12);
-            }
-            &-six {
-                move(6/12);
-            }
-            &-seven {
-                move(7/12);
-            }
-            &-eight {
-                move(8/12);
-            }
-            &-nine {
-                move(9/12);
-            }
-            &-ten {
-                move(10/12);
-            }
-            &-eleven {
-                move(11/12);
-            }
-            &-twelve {
-                move(12/12);
-            }
-        }
-        &.-offset-left {
-            &-one {
-                move(-1/12);
-            }
-            &-two {
-                move(-2/12);
-            }
-            &-three {
-                move(-3/12);
-            }
-            &-four {
-                move(-4/12);
-            }
-            &-five {
-                move(-5/12);
-            }
-            &-six {
-                move(-6/12);
-            }
-            &-seven {
-                move(-7/12);
-            }
-            &-eight {
-                move(-8/12);
-            }
-            &-nine {
-                move(-9/12);
-            }
-            &-ten {
-                move(-10/12);
-            }
-            &-eleven {
-                move(-11/12);
-            }
-            &-twelve {
-                move(-12/12);
-            }
-        }
+  // Spans
+  &__span {
+    &.-one {
+      span(1/12);
     }
+    &.-two {
+      span(2/12);
+    }
+    &.-three {
+      span(3/12);
+    }
+    &.-four {
+      span(4/12);
+    }
+    &.-five {
+      span(5/12);
+    }
+    &.-six {
+      span(6/12);
+    }
+    &.-seven {
+      span(7/12);
+    }
+    &.-eight {
+      span(8/12);
+    }
+    &.-nine {
+      span(9/12);
+    }
+    &.-ten {
+      span(10/12);
+    }
+    &.-eleven {
+      span(11/12);
+    }
+    &.-twelve {
+      span(12/12);
+    }
+    &.-offset-right {
+      &-one {
+        move(1/12);
+      }
+      &-two {
+        move(2/12);
+      }
+      &-three {
+        move(3/12);
+      }
+      &-four {
+        move(4/12);
+      }
+      &-five {
+        move(5/12);
+      }
+      &-six {
+        move(6/12);
+      }
+      &-seven {
+        move(7/12);
+      }
+      &-eight {
+        move(8/12);
+      }
+      &-nine {
+        move(9/12);
+      }
+      &-ten {
+        move(10/12);
+      }
+      &-eleven {
+        move(11/12);
+      }
+      &-twelve {
+        move(12/12);
+      }
+    }
+    &.-offset-left {
+      &-one {
+        move(-1/12);
+      }
+      &-two {
+        move(-2/12);
+      }
+      &-three {
+        move(-3/12);
+      }
+      &-four {
+        move(-4/12);
+      }
+      &-five {
+        move(-5/12);
+      }
+      &-six {
+        move(-6/12);
+      }
+      &-seven {
+        move(-7/12);
+      }
+      &-eight {
+        move(-8/12);
+      }
+      &-nine {
+        move(-9/12);
+      }
+      &-ten {
+        move(-10/12);
+      }
+      &-eleven {
+        move(-11/12);
+      }
+      &-twelve {
+        move(-12/12);
+      }
+    }
+  }
 }

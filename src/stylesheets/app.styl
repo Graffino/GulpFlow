@@ -1,7 +1,7 @@
-//
-// Main stylus file
-// Author: Graffino (http://www.graffino.com)
-//
+/**
+ * Main stylesheet (stylus) file
+ * Author: Graffino (http://www.graffino.com)
+ */
 
 
 /**
@@ -14,38 +14,31 @@
 @import "../../node_modules/normalize.styl/_normalize";
 // Rupture
 @import "../../node_modules/rupture/rupture/index";
-// Generated SVG Sprite
-@import "lib/sprite";
+
+// Generated SVG icon sprite
+@import "vendor/sprite";
 
 
 /**
- * Base
+ * Common
  */
 
-// General variables
-@import "common/variables";
+// Stylus CSS Console
+@import "common/console";
 // Mixins
 @import "common/mixins";
-// Color variables
+// Breakpoints
+@import "common/breakpoints";
+// Colors
 @import "common/colors";
-// Fonts and sizes variables
+// Fonts & sizes
 @import "common/fonts";
-// Icons
-@import "common/icons";
-
-// Common styles and extends
-@import "common/common";
-
-// Grid — custom 12 column grid
-@import "common/grid";
-
-
-/**
- * Helper classes
- */
-
-// Helper classes (e.g. ".h-float-left");
+// Helpers
 @import "common/helpers";
+// Custom grid
+@import "common/grid";
+// Default styles
+@import "common/defaults";
 
 
 /**
@@ -57,22 +50,14 @@
 // Header — styles and modules
 @import "modules/header";
 // Page sections — project specific areas
-@import "modules/section";
-// Navigation — desktop & mobile
-@import "modules/nav";
+@import "modules/sections";
+// Menus — desktop & mobile
+@import "modules/menus";
 // Form elements - styles
-@import "modules/form";
+@import "modules/formss";
 // Button — styles and sizes
 @import "modules/button";
 // Page - inner page
-@import "modules/page";
+@import "modules/pages";
 // Footer — styles
 @import "modules/footer";
-
-
-/**
- * Stylus console
- */
-
-// Sort of a (pseudo-)console for exporting values to the front-end
-@import "common/console";

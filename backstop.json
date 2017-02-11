@@ -1,6 +1,5 @@
 {
-  "viewports": [
-    {
+  "viewports": [{
       "name": "phone",
       "width": 320,
       "height": 480
@@ -16,25 +15,23 @@
       "height": 768
     }
   ],
-  "scenarios": [
-    {
-      "label": "http://graffino.com",
-      "url": "http://graffino.com",
-      "hideSelectors": [],
-      "removeSelectors": [
-        "#carbonads-container"
-      ],
-      "selectors": [
-        "header",
-        "footer",
-        "body"
-      ],
-      "readyEvent": null,
-      "delay": 500,
-      "misMatchThreshold" : 0.1,
-      "onReadyScript": "onReady.js"
-    }
-  ],
+  "scenarios": [{
+    "label": "http://graffino.com",
+    "url": "http://graffino.com",
+    "hideSelectors": [],
+    "removeSelectors": [
+      "#carbonads-container"
+    ],
+    "selectors": [
+      "header",
+      "footer",
+      "body"
+    ],
+    "readyEvent": null,
+    "delay": 500,
+    "misMatchThreshold": 0.1,
+    "onReadyScript": "onReady.js"
+  }],
   "paths": {
     "bitmaps_reference": "tests/regression/bitmaps_reference",
     "bitmaps_test": "tests/regression/bitmaps_test",

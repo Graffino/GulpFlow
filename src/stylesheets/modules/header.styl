@@ -1,31 +1,31 @@
-//
-// Header block
-// Author: Graffino (http://www.graffino.com)
-//
+/**
+ * Header
+ * Author: Graffino (http://www.graffino.com)
+ */
 
 
 /**
- * Main header
+ *  Main header
  */
 
 .header {
-    clearfix();
+  clearfix();
 
-    &__logo {
+  &__logo {
+    display: inline-block;
+
+    .logo {
+      &__anchor {
         display: inline-block;
+      }
 
-        .logo {
-            &__anchor {
-                display: inline-block;
-            }
-
-            &__image {
-                vertical-align: top;
-            }
-        }
+      &__image {
+        vertical-align: top;
+      }
     }
+  }
 
-    &__nav {
-        position: relative;
-    }
+  &__nav {
+    position: relative;
+  }
 }

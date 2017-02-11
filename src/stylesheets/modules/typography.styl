@@ -1,91 +1,92 @@
-//
-// Typography
-// Author: Graffino (http://www.graffino.com)
-//
+/**
+ * Typography
+ * Author: Graffino (http://www.graffino.com)
+ */
+
 
 /**
  * Heading
  */
 
 .heading {
-    position: relative;
-    color: $color-heading;
+  position: relative;
+  color: $color-heading;
 
-    // Colors
-    &.-color-white {
-        color: white;
-    }
+  // Colors
+  &.-color-white {
+    color: white;
+  }
 
-    // Weights
-    &.-weight-normal {
-        font-weight: 400;
-    }
-    &.-weight-bold {
-        font-weight: 700;
-    }
-    &.-weight-black {
-        font-weight: 800;
-    }
-    &.-weight-extra-black {
-        font-weight: 800;
-    }
+  // Weights
+  &.-weight-normal {
+    font-weight: 400;
+  }
+  &.-weight-bold {
+    font-weight: 700;
+  }
+  &.-weight-black {
+    font-weight: 800;
+  }
+  &.-weight-extra-black {
+    font-weight: 800;
+  }
 
-    // Margins
-    &.-no-margin {
-        margin: 0;
-    }
-    &.-no-margin-top {
-        margin-top: 0;
-    }
-    &.-no-margin-bottom {
-        margin-bottom: 0;
-    }
+  // Margins
+  &.-no-margin {
+    margin: 0;
+  }
+  &.-no-margin-top {
+    margin-top: 0;
+  }
+  &.-no-margin-bottom {
+    margin-bottom: 0;
+  }
 
-    // Sizes
-    &.-size-huge {
-        font-size: $heading-huge-font-size;
-        line-height: $heading-huge-line-height;
-    }
-    &.-size-xl {
-        font-size: $heading-xl-font-size;
-        line-height: $heading-xl-line-height;
-    }
-    &.-size-large {
-        font-size: $heading-large-font-size;
-        line-height: $heading-large-line-height;
-    }
-    &.-size-normal {
-        font-size: $heading-normal-font-size;
-        line-height: $heading-normal-line-height;
-    }
-    &.-size-medium {
-        font-size: $heading-medium-font-size;
-        line-height: $heading-medium-line-height;
-    }
-    &.-size-small {
-        font-size: $heading-small-font-size;
-        line-height: $heading-small-line-height;
-    }
-    &.-size-xsmall {
-        font-size: $heading-xsmall-font-size;
-        line-height: $heading-xsmall-line-height;
-    }
+  // Sizes
+  &.-size-huge {
+    font-size: $heading-huge-font-size;
+    line-height: $heading-huge-line-height;
+  }
+  &.-size-xl {
+    font-size: $heading-xl-font-size;
+    line-height: $heading-xl-line-height;
+  }
+  &.-size-large {
+    font-size: $heading-large-font-size;
+    line-height: $heading-large-line-height;
+  }
+  &.-size-normal {
+    font-size: $heading-normal-font-size;
+    line-height: $heading-normal-line-height;
+  }
+  &.-size-medium {
+    font-size: $heading-medium-font-size;
+    line-height: $heading-medium-line-height;
+  }
+  &.-size-small {
+    font-size: $heading-small-font-size;
+    line-height: $heading-small-line-height;
+  }
+  &.-size-xsmall {
+    font-size: $heading-xsmall-font-size;
+    line-height: $heading-xsmall-line-height;
+  }
 
-    // Other
-    &.-display-block {
-        display: block;
-    }
-    &.-align-center {
-        text-align: center;
-    }
-    &.-case-upper {
-        text-transform: uppercase;
-    }
-    &.-no-break {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+  // Other
+  &.-display-block {
+    display: block;
+  }
+  &.-align-center {
+    text-align: center;
+  }
+  &.-case-upper {
+    text-transform: uppercase;
+  }
+  &.-no-break {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
 
@@ -94,60 +95,60 @@
  */
 
 .text {
-    color: $color-text;
+  color: $color-text;
+  font-size: $font-size-normal;
+
+  // Colors
+  &.-color-white {
+    color: white;
+  }
+
+  // Sizes
+  &.-size-huge {
+    font-size: $font-size-huge;
+    line-height: $line-height-huge;
+  }
+  &.-size-xl {
+    font-size: $font-size-xl;
+    line-height: $line-height-xl;
+  }
+  &.-size-large {
+    font-size: $font-size-large;
+    line-height: $line-height-large;
+  }
+  &.-size-normal {
     font-size: $font-size-normal;
+    line-height: $line-height-normal;
+  }
+  &.-size-medium {
+    font-size: $font-size-medium;
+    line-height: $line-height-medium;
+  }
+  &.-size-small {
+    font-size: $font-size-small;
+    line-height: $line-height-small;
+  }
+  &.-size-xsmall {
+    font-size: $font-size-xsmall;
+    line-height: $line-height-xsmall;
+  }
 
-    // Colors
-    &.-color-white {
-        color: white;
-    }
+  // Weights
+  &.-weight-normal {
+    font-weight: 400;
+  }
+  &.-weight-bold {
+    font-weight: 700;
+  }
+  &.-weight-black {
+    font-weight: 800;
+  }
 
-    // Sizes
-    &.-size-huge {
-        font-size: $font-size-huge;
-        line-height: $line-height-huge;
-    }
-    &.-size-xl {
-        font-size: $font-size-xl;
-        line-height: $line-height-xl;
-    }
-    &.-size-large {
-        font-size: $font-size-large;
-        line-height: $line-height-large;
-    }
-    &.-size-normal {
-        font-size: $font-size-normal;
-        line-height: $line-height-normal;
-    }
-    &.-size-medium {
-        font-size: $font-size-medium;
-        line-height: $line-height-medium;
-    }
-    &.-size-small {
-        font-size: $font-size-small;
-        line-height: $line-height-small;
-    }
-    &.-size-xsmall {
-        font-size: $font-size-xsmall;
-        line-height: $line-height-xsmall;
-    }
-
-    // Weights
-    &.-weight-normal {
-        font-weight: 400;
-    }
-    &.-weight-bold {
-        font-weight: 700;
-    }
-    &.-weight-black {
-        font-weight: 800;
-    }
-
-    // Others
-    &.-align-center {
-        display: block;
-        text-align: center;
-    }
+  // Others
+  &.-align-center {
+    display: block;
+    text-align: center;
+  }
 }
 
 
@@ -156,10 +157,10 @@
  */
 
 .link {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 
-    &:hover {
+  &:hover {
 
-    }
+  }
 }

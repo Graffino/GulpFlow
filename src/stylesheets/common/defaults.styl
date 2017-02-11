@@ -1,0 +1,144 @@
+/**
+ * Default styles
+ * Author: Graffino (http://www.graffino.com)
+ */
+
+
+/**
+ * Globals
+ */
+
+// Border-box
+* {
+  box-sizing: border-box;
+}
+
+// Font rendering
+html {
+  text-rendering: optimizeLegibility;
+  font-variant-ligatures: common-ligatures;
+  font-kerning: normal;
+  font-feature-settings: "kern";
+}
+
+// Body
+body {
+  overflow-x: hidden;
+  min-width: rem(320);
+  color: $default-color;
+  font-family: $default-fontface-stack;
+  font-size: $default-font-size;
+  line-height: $default-line-height;
+
+  // Default font-family until webfonts are loaded
+  .no-fonts & {
+    font-family: $default-system-stack;
+  }
+}
+
+
+/**
+ * Default headings
+ */
+
+h1 {
+  font-family: $heading-1-font-family;
+  font-size: $heading-1-font-size;
+  font-weight: $heading-1-font-weight;
+  line-height: $heading-1-line-height;
+  letter-spacing: $heading-1-letter-spacing;
+
+  // Default font-family until webfonts are loaded
+  .no-fonts & {
+    font-family: $heading-1-default-stack;
+  }
+}
+
+h2 {
+  font-family: $heading-2-font-family;
+  font-size: $heading-2-font-size;
+  font-weight: $heading-2-font-weight;
+  line-height: $heading-2-line-height;
+  letter-spacing: $heading-2-letter-spacing;
+
+  // Default font-family until webfonts are loaded
+  .no-fonts & {
+    font-family: $heading-2-default-stack;
+  }
+}
+
+h3 {
+  font-family: $heading-3-font-family;
+  font-size: $heading-3-font-size;
+  font-weight: $heading-3-font-weight;
+  line-height: $heading-3-line-height;
+  letter-spacing: $heading-3-letter-spacing;
+
+  // Default font-family until webfonts are loaded
+  .no-fonts & {
+    font-family: $heading-3-default-stack;
+  }
+}
+
+h4 {
+  font-family: $heading-4-font-family;
+  font-size: $heading-4-font-size;
+  font-weight: $heading-4-font-weight;
+  line-height: $heading-4-line-height;
+  letter-spacing: $heading-4-letter-spacing;
+
+  // Default font-family until webfonts are loaded
+  .no-fonts & {
+    font-family: $heading-4-default-stack ;
+  }
+}
+
+h5 {
+  font-family: $heading-5-font-family;
+  font-size: $heading-5-font-size;
+  font-weight: $heading-5-font-weight;
+  line-height: $heading-5-line-height;
+  letter-spacing: $heading-5-letter-spacing;
+
+  // Default font-family until webfonts are loaded
+  .no-fonts & {
+    font-family: $heading-5-default-stack ;
+  }
+}
+
+h6 {
+  font-family: $heading-6-font-family;
+  font-size: $heading-6-font-size;
+  font-weight: $heading-6-font-weight;
+  line-height: $heading-6-line-height;
+  letter-spacing: $heading-6-letter-spacing;
+
+  // Default font-family until webfonts are loaded
+  .no-fonts & {
+    font-family: $heading-6-default-stack;
+  }
+}
+
+
+/**
+ * Default paragraph
+ */
+
+p {
+  color: $default-color;
+  font-family: $default-font-family;
+  font-size: $default-font-size;
+}
+
+
+/**
+ * Default link
+ */
+
+a {
+  color: $default-link-color;
+
+  &:hover {
+    color: $default-link-hover;
+  }
+}

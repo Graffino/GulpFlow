@@ -1,7 +1,7 @@
-//
-// Stylys console
-// Author: Graffino (http://www.graffino.com)
-//
+/**
+ * Stylys console
+ * Author: Graffino (http://www.graffino.com)
+ */
 
 
 /**
@@ -9,28 +9,28 @@
  */
 
 body {
-    &:before {
-        content: "";
-        pointer-events: none;
-        opacity: 0;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        z-index: 100;
-        width: 100%;
-        padding: rem(12);
-        background-color: rgba(black, 0.6);
-        color: white;
-        font-family: "Courier New", monospace;
-        font-size: rem(14);
-        transition: transition-custom($property = opacity);
-    }
+  &:before {
+    content: "";
+    pointer-events: none;
+    opacity: 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    padding: rem(12);
+    background-color: rgba(black, 0.6);
+    color: white;
+    font-family: "Courier New", monospace;
+    font-size: rem(14);
+    transition: transition-custom($property = opacity);
+  }
 
-    &.is-console {
-        &:before {
-            opacity: 1;
-        }
+  &.is-console {
+    &:before {
+      opacity: 1;
     }
+  }
 }
 
 // Output string to pseudo-console
