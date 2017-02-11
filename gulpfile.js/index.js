@@ -1,5 +1,5 @@
 /**
- * Gulp config file
+ * Gulp index file
  * Author: Graffino (http://www.graffino.com)
  */
 
