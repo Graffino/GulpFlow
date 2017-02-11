@@ -1,7 +1,7 @@
 bower_components
 node_modules
-assets/stylus/lib/sprite.styl
-assets/js/lib/
+stylesheets/vendor/sprite.styl
+javascripts/vendor/
 www
 tests/regression/bitmaps_test/compare.json
 .DS_Store
