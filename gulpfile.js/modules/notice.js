@@ -24,32 +24,32 @@ var utils = require('../modules/utils');
 
 // Send notice
 function sendNotice(message) {
-  return gulp.src(paths.root)
+  return gulp.src(paths.base.root)
   .pipe(plugins.notify(message));
 }
 
 // Cleaned
 function cleaned() {
-  return gulp.src(paths.root)
+  return gulp.src(paths.base.root)
   .pipe(plugins.notify('Application staging (www) folder has been cleaned.'));
 }
 
 
 // Finished
 function finished() {
-  return gulp.src(paths.root)
+  return gulp.src(paths.base.root)
   .pipe(plugins.notify('Application has been built.'));
 }
 
 // Watching
 function watching() {
-  return gulp.src(paths.root)
+  return gulp.src(paths.base.root)
   .pipe(plugins.notify('Entering watch mode.'));
 }
 
 // Rebuilt
 function rebuilt() {
-  return gulp.src(paths.root)
+  return gulp.src(paths.base.root)
   .pipe(plugins.notify('Detected changes have been applied. Entering watch mode.'));
 }
 

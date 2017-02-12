@@ -12,15 +12,14 @@ var base = {
   // Root
   root: './',
   // Source
-  src: 'src/',
+  src: './src/',
   // Build
   www: './www/',
 
   // Vendor
   vendor: 'vendor/',
-
-  // Wordpress theme
-  wordpress: 'wordpress/theme/'
+  // Wordpress
+  wordpress: 'wordpress/'
 };
 
 
@@ -31,81 +30,92 @@ var base = {
 var modules = {
   // Cascading Stylesheets
   css: {
-    root: base.src + 'css/',
-    common: base.src + 'css/common/',
-    modules: base.src + 'css/modules/',
+    root: 'css/',
+    common: 'css/common/',
+    modules: 'css/modules/',
 
     // App main file
-    app: base.src + 'css/common/app.css'
+    app: 'css/common/app.css'
   },
 
   // Javascript
   js: {
-    root: base.src + 'js/',
-    common: base.src + 'js/common/',
-    modules: base.src + 'js/modules/',
-    vendor: base.src + 'js/vendor/',
+    root: 'js/',
+    common: 'js/common/',
+    modules: 'js/modules/',
+    vendor: 'js/vendor/',
 
     // App main file
-    app: base.src + 'js/common/app.js',
+    app: 'js/common/app.js',
 
     // Javascript Templates
-    templates: base.src + 'js/templates/',
-    views: base.src + 'js/templates/views/',
-    partials: base.src + 'js/templates/views/partials/'
+    templates: 'js/templates/',
+    views: 'js/templates/views/',
+    partials: 'js/templates/views/partials/'
   },
 
   // Stylus
   stylus: {
-    root: base.src + 'stylus/',
-    common: base.src + 'stylus/common/',
-    modules: base.src + 'stylus/modules/',
+    root: 'stylus/',
+    common: 'stylus/common/',
+    modules: 'stylus/modules/',
 
     // App main file
-    app: base.src + 'stylus/common/app.styl',
+    app: 'stylus/common/app.styl',
 
     // Icons sprite
-    sprite: base.src + 'stylus/vendor/sprite.styl',
-    mustache: base.src + 'stylus/vendor/sprite.hbs'
+    sprite: 'stylus/vendor/sprite.styl',
+    mustache: 'stylus/vendor/sprite.hbs'
   },
 
   // Sprite icons
   icons: {
-    root: base.src + 'icons/'
+    root: 'icons/'
   },
 
   // Images
   images: {
-    root: base.src + 'images/',
-    svgs: base.src + 'images/svgs/'
+    root: 'images/',
+    svgs: 'images/svgs/'
   },
 
   // Fonts
   fonts: {
-    root: base.src + 'fonts/'
+    root: 'fonts/'
   },
 
   // Media
   media: {
-    root: base.src + 'media/'
+    root: 'media/'
   },
 
   // HTML Templates
   html: {
-    root: base.src + 'html/',
-    views: base.src + 'html/views/',
-    partials: base.src + 'html/partials/'
+    root: 'html/',
+    views: 'html/views/',
+    partials: 'html/partials/'
   },
 
   // JSON Data
   data: {
-    root: base.src + 'data/',
-    common: base.src + 'data/common.json'
+    root: 'data/',
+    common: 'data/common.json'
   },
 
   // Static
   static: {
-    root: base.src + 'static/'
+    root: 'static/'
+  },
+
+  // Vedor
+  vendor: {
+    root: base.root + base.vendor
+  },
+
+  // Wordpress
+  wordpress: {
+    root: base.root + base.wordpress,
+    theme: base.root + base.wordpress + 'theme/'
   }
 };
 
@@ -132,15 +142,15 @@ var patterns = {
     all: modules.stylus.root + '**/*.styl'
   },
 
+  // Icons
+  icons: {
+    all: modules.icons.root + '**/*.svg'
+  },
+
   // Images
   images: {
     all: modules.images.root + '**/*.+(jpg|jpeg|png|svg|gif|ico)',
     svgs: modules.images.svgs + '*.svg'
-  },
-
-  // Icons
-  icons: {
-    all: modules.icons.root + '**/*.svg'
   },
 
   // Fonts
@@ -165,23 +175,23 @@ var patterns = {
 
   // Data
   data: {
-    all: modules.data + '**/*.json',
-    common: modules.data + '**/common.json'
+    all: modules.data.root + '**/*.json',
+    common: modules.data.root + '**/common.json'
   },
 
   // Static
   static: {
-    all: modules.static + '**/*.json'
+    all: modules.static.root + '**/*'
   },
 
   // Vendor
   vendor: {
-    all: base.vendor + '**/*'
+    all: modules.vendor.root + '**/*'
   },
 
   // Theme
   wordpress: {
-    all: base.wordpress + '**/*'
+    all: modules.wordpress.theme + '**/*'
   }
 };
 
@@ -198,7 +208,7 @@ var ignore = {
 
   // JS
   js: {
-    vendor: '!' + base.root + modules.js.vendor,
+    vendor: '!' + base.src + modules.js.vendor,
     main: '!' + base.www + modules.js.root + 'main*.js'
   }
 };

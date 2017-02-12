@@ -16,7 +16,7 @@ var paths = require('./modules/paths');
  * Languages
  */
 
-var language = [
+var languages = [
   'ro',
   'en'
 ];
@@ -116,7 +116,7 @@ var modules = {
   */
 
 module.exports = {
-  language: language,
+  languages: languages,
   enabled: enabled,
   modules: modules
 };

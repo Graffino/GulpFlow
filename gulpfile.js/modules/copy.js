@@ -23,49 +23,8 @@ var utils = require('./utils');
 
 function copyJS() {
   return gulp.src([
-    paths.base.root + paths.patterns.js.all,
+    paths.base.src + paths.patterns.js.all,
     paths.ignore.js.vendor
-  ], {
-    base: paths.base.src
-  })
-  .pipe(gulp.dest(paths.base.www));
-}
-
-/**
- * Copy fonts
- */
-
-function copyFonts() {
-  return gulp.src([
-    paths.base.root + paths.patterns.fonts.all
-  ], {
-    base: paths.base.src
-  })
-  .pipe(gulp.dest(paths.base.www));
-}
-
-
-/**
- * Copy media
- */
-
-function copyMedia() {
-  return gulp.src([
-    paths.base.root + paths.patterns.media.all
-  ], {
-    base: paths.base.src
-  })
-  .pipe(gulp.dest(paths.base.www));
-}
-
-
-/**
- * Copy images
- */
-
-function copyImages() {
-  return gulp.src([
-    paths.base.root + paths.patterns.images.all
   ], {
     base: paths.base.src
   })
@@ -79,7 +38,7 @@ function copyImages() {
 
 function copyIcons() {
   return gulp.src([
-    paths.base.root + paths.patterns.icons.all
+    paths.base.src + paths.patterns.icons.all
   ], {
     base: paths.base.src
   })
@@ -88,7 +47,49 @@ function copyIcons() {
 
 
 /**
- * Copy Data
+ * Copy images
+ */
+
+function copyImages() {
+  return gulp.src([
+    paths.base.src + paths.patterns.images.all
+  ], {
+    base: paths.base.src
+  })
+  .pipe(gulp.dest(paths.base.www));
+}
+
+
+/**
+ * Copy fonts
+ */
+
+function copyFonts() {
+  return gulp.src([
+    paths.base.src + paths.patterns.fonts.all
+  ], {
+    base: paths.base.src
+  })
+  .pipe(gulp.dest(paths.base.www));
+}
+
+
+/**
+ * Copy media
+ */
+
+function copyMedia() {
+  return gulp.src([
+    paths.base.src + paths.patterns.media.all
+  ], {
+    base: paths.base.src
+  })
+  .pipe(gulp.dest(paths.base.www));
+}
+
+
+/**
+ * Copy data
  */
 
 function copyData() {
@@ -96,6 +97,21 @@ function copyData() {
     paths.base.src + paths.patterns.data.all
   ], {
     base: paths.base.src
+  })
+  .pipe(gulp.dest(paths.base.www));
+}
+
+
+/**
+ * Copy Static
+ */
+
+function copyStatic() {
+  return gulp.src([
+    paths.base.src + paths.patterns.static.all
+  ], {
+    base: paths.base.src + paths.modules.static.root,
+    dot: true
   })
   .pipe(gulp.dest(paths.base.www));
 }
@@ -114,24 +130,14 @@ function copyVendor() {
 
 
 /**
- * Copy Static
- */
-
-function copyStatic() {
-  return gulp.src([
-    paths.base.root + paths.patterns.static.all
-  ], {
-    base: paths.modules.static.root
-  })
-  .pipe(gulp.dest(paths.base.www));
-}
-
-/**
  * Copy function
  */
 
 var copyApp = gulp.parallel(
   copyJS,
+
+  copyIcons,
+  copyImages,
 
   // Skip Fonts according to config
   config.enabled.fonts ? copyFonts : utils.noop,
@@ -139,16 +145,13 @@ var copyApp = gulp.parallel(
   // Skip Media folder according to config
   config.enabled.media ? copyMedia : utils.noop,
 
-  copyImages,
-  copyIcons,
-
-  // Skip Vendor folder according to config
-  config.enabled.vendor ? copyVendor : utils.noop,
-
   // Skip Data folder according to config
   config.enabled.data ? copyData : utils.noop,
 
-  copyStatic
+  copyStatic,
+
+  // Skip Vendor folder according to config
+  config.enabled.vendor ? copyVendor : utils.noop
 );
 
 
@@ -159,20 +162,23 @@ var copyApp = gulp.parallel(
 module.exports = {
   js: copyJS,
 
+  icons: copyIcons,
+  images: copyImages,
+
   // Skip Fonts according to config
   fonts: config.enabled.fonts ? copyFonts : utils.noop,
 
   // Skip Media folder according to config
   media: config.enabled.media ? copyMedia : utils.noop,
 
-  images: copyImages,
-  icons: copyIcons,
+  // Skip Data folder according to config
+  data: config.enabled.data ? copyData : utils.noop,
+
+  // Skip Static folder according to config
+  static: copyStatic,
 
   // Skip Vendor folder according to config
   vendor: config.enabled.vendor ? copyVendor : utils.noop,
-
-  // Skip Data folder according to config
-  data: config.enabled.data ? copyData : utils.noop,
 
   app: copyApp
 };
