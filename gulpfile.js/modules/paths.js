@@ -191,7 +191,16 @@ var patterns = {
 
   // Static
   static: {
-    all: modules.static.root + '**/*'
+    all: modules.static.root + '**/*',
+    clean: [
+      base.www + '.htaccess',
+      base.www + 'favicon.ico',
+      base.www + 'humans.txt',
+      base.www + 'pin-icon.svg',
+      base.www + 'robots.txt',
+      base.www + 'social.png',
+      base.www + 'touch-icon*.png'
+    ]
   },
 
   // Vendor
@@ -201,7 +210,15 @@ var patterns = {
 
   // Theme
   wordpress: {
-    all: modules.wordpress.theme + '**/*'
+    all: modules.wordpress.theme + '**/*',
+    clean: [
+      base.www + 'includes',
+      base.www + 'partials',
+      base.www + 'admin',
+      base.www + '*.php',
+      base.www + 'screenshot.png',
+      base.www + 'style.css'
+    ]
   }
 };
 

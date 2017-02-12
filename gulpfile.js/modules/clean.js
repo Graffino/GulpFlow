@@ -89,15 +89,7 @@ function cleanData() {
 
 // Static
 function cleanStatic() {
-  var toClean = [
-    paths.base.www + '*.txt',
-    paths.base.www + '*.ico',
-    paths.base.www + '*.png',
-    paths.base.www + '*.svg',
-    paths.base.www + '.htaccess'
-  ];
-
-  return clean(toClean);
+  return clean(paths.patterns.static.clean);
 }
 
 // Vendor
@@ -121,16 +113,7 @@ function cleanJunk() {
 
 // Wordpress
 function cleanWordpress() {
-  var toClean = [
-    paths.base.www + 'includes',
-    paths.base.www + 'partials',
-    paths.base.www + 'admin',
-    paths.base.www + '*.php',
-    paths.base.www + 'screenshot.png',
-    paths.base.www + 'style.css'
-  ];
-
-  return clean(toClean);
+  return clean(paths.patterns.wordpress.clean);
 }
 
 // Postproduction
