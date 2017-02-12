@@ -13,8 +13,8 @@ var gulp = require('gulp');
 
 // Gulp requires
 var config = require('../config');
-var paths = require('./paths');
-var utils = require('./utils');
+var paths = require('../modules/paths');
+var utils = require('../modules/utils');
 
 
 /**
@@ -182,3 +182,10 @@ module.exports = {
 
   app: copyApp
 };
+
+
+/**
+ * Gulp copy task
+ */
+
+gulp.task('copy', copyApp);

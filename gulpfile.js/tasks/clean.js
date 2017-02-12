@@ -192,3 +192,10 @@ module.exports = {
   app: cleanApp,
   postproduction: cleanPostProduction
 };
+
+
+/**
+ * Gulp clean task
+ */
+
+gulp.task('clean', cleanApp);
