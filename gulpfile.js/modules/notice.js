@@ -31,7 +31,7 @@ function sendNotice(message) {
 // Cleaned
 function cleaned() {
   return gulp.src(paths.base.root)
-  .pipe(plugins.notify('Application staging (www) folder has been cleaned.'));
+  .pipe(plugins.notify('Application build (www) folder has been cleaned.'));
 }
 
 

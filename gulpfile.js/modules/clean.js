@@ -72,7 +72,13 @@ function cleanMedia() {
 
 // HTML
 function cleanHTML() {
-  var toClean = config.languages;
+  // HTML
+  var html = [paths.base.www + '*.html'];
+  // Language folders
+  var languages = paths.languages;
+  // Concatenate arrays
+  var toClean = html.concat(languages);
+
   return clean(toClean);
 }
 

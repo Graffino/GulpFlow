@@ -24,6 +24,16 @@ var base = {
 
 
 /**
+ * Language paths
+ */
+
+var languages = [
+  base.www + 'ro/',
+  base.www + 'en/'
+];
+
+
+/**
  * Module paths
  */
 
@@ -220,6 +230,7 @@ var ignore = {
 
 module.exports = {
   base: base,
+  languages: languages,
   modules: modules,
   patterns: patterns,
   ignore: ignore
