@@ -50,7 +50,7 @@ function compileHTMLTemplates() {
  */
 
 function compileJSTemplates() {
-  var exclude = path.normalize('!**/{' + paths.patterns.nunjucks.html.exclude.join(',') + '}/**');
+  var exclude = path.normalize('!**/{' + paths.patterns.nunjucks.js.exclude.join(',') + '}/**');
 
   return gulp.src([paths.base.src + paths.patterns.nunjucks.js.all, exclude])
     // Fix pipe on error
@@ -97,7 +97,7 @@ module.exports = {
 
 
 /**
- * Gulp copy task
+ * Gulp nunjucks task
  */
 
 gulp.task('nunjucks', compileAppTemplates);

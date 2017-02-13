@@ -191,14 +191,15 @@ var patterns = {
       views: modules.nunjucks.html.views + '**/*.+(html|njk|nunjucks)',
       partials: modules.nunjucks.html.partials + '**/*.+(html|njk|nunjucks)',
       exclude: [
-        'layouts',
-        'macros',
-        'partials'
+        'macros'
       ]
     },
     js: {
       all: modules.nunjucks.js.root + '**/*.+(njk|nunjucks)',
-      views: modules.nunjucks.js.views + '**/*.+(njk|nunjucks)'
+      views: modules.nunjucks.js.views + '**/*.+(njk|nunjucks)',
+      exclude: [
+        'macros'
+      ]
     }
   },
 

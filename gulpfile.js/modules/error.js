@@ -25,11 +25,24 @@ var onError = function (error) {
   this.emit('end');
 };
 
+var sendIgnore = function () {
+  this.emit('end');
+};
+
+var sendNotice = function (error) {
+  plugins.notify.onError({
+    title: 'Gulp error in ' + error.plugin
+  })(error);
+  plugins.util.beep();
+  this.emit('end');
+};
 
 /**
  * Export handler
  */
 
 module.exports = {
-  handle: onError
+  handle: onError,
+  ignore: sendIgnore,
+  notice: sendNotice
 };
