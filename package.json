@@ -42,7 +42,6 @@
       "one-var": 0,
       "no-warning-comments": 0,
       "max-params": 0,
-      "no-warning-comments": 0,
       "quote-props": [
         0,
         "consistent-as-needed",
@@ -65,7 +64,7 @@
   "devDependencies": {
     "autoprefixer": "^6.7.2",
     "backstopjs": "^2.3.7",
-    "critical": "^0.8.1",
+    "critical": "^0.8.2",
     "csswring": "^5.1.1",
     "debounce": "1.0.0",
     "del": "^2.2.2",
@@ -120,12 +119,13 @@
     "normalize.styl": "3.0.3",
     "npm-check-updates": "^2.10.2",
     "postcss-quantity-queries": "0.4.0",
+    "require-dir": "0.3.1",
     "rupture": "0.6.2",
     "stylint": "^1.5.9",
     "stylint-json-reporter": "^0.3.1",
     "stylint-stylish": "^1.4.0",
-    "xo": "^0.17.1",
-    "require-dir": "0.3.0"
+    "webpack": "^2.2.1",
+    "xo": "^0.17.1"
   },
   "scripts": {
     "gulp": "./node_modules/gulp/bin/gulp.js",

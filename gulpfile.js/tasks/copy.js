@@ -8,6 +8,9 @@
  * Module imports
  */
 
+// Node requires
+var path = require('path');
+
 // Gulp & plugins
 var gulp = require('gulp');
 
@@ -22,9 +25,11 @@ var utils = require('../modules/utils');
  */
 
 function copyJS() {
+  var exclude = path.normalize('!**/{' + paths.patterns.js.exclude.join(',') + '}/**');
+
   return gulp.src([
     paths.base.src + paths.patterns.js.all,
-    paths.ignore.js.vendor
+    exclude
   ], {
     base: paths.base.src
   })

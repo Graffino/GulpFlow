@@ -56,12 +56,7 @@ var modules = {
     vendor: 'js/vendor/',
 
     // App main file
-    app: 'js/common/app.js',
-
-    // Javascript Templates
-    templates: 'js/templates/',
-    views: 'js/templates/views/',
-    partials: 'js/templates/views/partials/'
+    app: 'js/common/app.js'
   },
 
   // Stylus
@@ -99,11 +94,20 @@ var modules = {
     root: 'media/'
   },
 
-  // HTML Templates
-  html: {
-    root: 'html/',
-    views: 'html/views/',
-    partials: 'html/partials/'
+  // Nunjucks HTML Templates
+  nunjucks: {
+    // HTML Templates
+    html: {
+      root: 'html/',
+      views: 'html/views/',
+      partials: 'html/partials/'
+    },
+    // Javascript Templates
+    js: {
+      root: 'js/templates/',
+      views: 'js/templates/views/',
+      partials: 'js/templates/views/partials/'
+    }
   },
 
   // JSON Data
@@ -137,14 +141,18 @@ var modules = {
 var patterns = {
   // Cascading Stylesheets
   css: {
-    all: modules.css.root + '**/*.css'
+    all: modules.css.root + '**/*.css',
+    exclude: [
+      'main*.css'
+    ]
   },
 
   // Javascripts
   js: {
     all: modules.js.root + '**/*.js',
-    templates: modules.js.templates + '**/*.+(njk|nunjucks)',
-    views: modules.js.views + '**/*.+(njk|nunjucks)'
+    exclude: [
+      'main*.js'
+    ]
   },
 
   // Stylus
@@ -176,17 +184,28 @@ var patterns = {
     all: modules.media.root + '**/*.+(webm|mp4|mp3|pdf|doc)'
   },
 
-  // HTML Templates
-  html: {
-    all: modules.html.root + '**/*.+(njk|nunjucks)',
-    views: modules.html.views + '**/*.+(njk|nunjucks)',
-    partials: modules.html.partials + '**/*.+(njk|nunjucks)'
+  // Nunjucks HTML Templates
+  nunjucks: {
+    html: {
+      all: modules.nunjucks.html.root + '**/*.+(html|njk|nunjucks)',
+      views: modules.nunjucks.html.views + '**/*.+(html|njk|nunjucks)',
+      partials: modules.nunjucks.html.partials + '**/*.+(html|njk|nunjucks)',
+      exclude: [
+        'layouts',
+        'macros',
+        'partials'
+      ]
+    },
+    js: {
+      all: modules.nunjucks.js.root + '**/*.+(njk|nunjucks)',
+      views: modules.nunjucks.js.views + '**/*.+(njk|nunjucks)'
+    }
   },
 
   // Data
   data: {
     all: modules.data.root + '**/*.json',
-    common: modules.data.root + '**/common.json'
+    common: modules.data.root + 'common.json'
   },
 
   // Static
@@ -223,24 +242,6 @@ var patterns = {
 };
 
 
-/**
- * Paths ignores
- */
-
-var ignore = {
-  // CSS
-  css: {
-    main: '!' + base.www + modules.css.root + 'main*.css'
-  },
-
-  // JS
-  js: {
-    vendor: '!' + base.src + modules.js.vendor,
-    main: '!' + base.www + modules.js.root + 'main*.js'
-  }
-};
-
-
 /*
  * Export modules paths
  */
@@ -249,6 +250,5 @@ module.exports = {
   base: base,
   languages: languages,
   modules: modules,
-  patterns: patterns,
-  ignore: ignore
+  patterns: patterns
 };
