@@ -50,7 +50,7 @@ module.exports = {
 
 
 /**
- * Gulp bower task
+ * Gulp Bower task
  */
 
 gulp.task('bower', processBower);

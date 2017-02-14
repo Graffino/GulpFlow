@@ -11,6 +11,7 @@
  */
 
 // Gulp requires
+var env = require('./modules/env');
 var paths = require('./modules/paths');
 
 
@@ -104,12 +105,56 @@ var modules = {
   }
 };
 
+var webpackDevelopment = {
+  entry: paths.base.src + paths.modules.js.app,
+  output: {
+    path: paths.base.www + paths.modules.js.root,
+    filename: 'bundle.js'
+  },
+  resolve: {
+    // you can now require('file') instead of require('file.js')
+    extensions: ['', '.js', '.json']
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        query: {
+          presets: ['es2015']
+        }
+      },
+      {
+        test: /\.styl$/,
+        loader: 'style-loader!css-loader!stylus-loader'
+      },
+      {
+        test: /\.(njk|nunjucks)$/,
+        loader: 'nunjucks-loader',
+        query: {
+          root: paths.base.src + paths.modules.js.views,
+          config: './config/nunjucks.config.js',
+          quiet: true // Don't show the 'Cannot configure nunjucks environment before precompile' warning
+        }
+      }
+    ]
+  }
+};
 
- /*
-  * Export module paths
-  */
+if (env.isDevelopment) {
+  webpackDevelopment.devtool = 'inline-source-map';
+}
+
+
+/*
+ * Export module paths
+ */
 
 module.exports = {
   enabled: enabled,
-  modules: modules
+  modules: modules,
+  webpack: {
+    development: webpackDevelopment
+  }
 };

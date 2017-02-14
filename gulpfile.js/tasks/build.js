@@ -12,16 +12,8 @@
 var gulp = require('gulp');
 
 // Gulp requires
-var env = require('./env');
-var bundle = require('./bundle');
-var clean = require('./clean');
-var compile = require('./compile');
-var copy = require('./copy');
-var lint = require('./lint');
-var inject = require('./inject');
-var minify = require('./minify');
-var notice = require('./notice');
-var wordpress = require('./wordpress');
+var env = require('../modules/env');
+var notice = require('../modules/notice');
 
 
 /**
@@ -30,18 +22,18 @@ var wordpress = require('./wordpress');
 
 var buildDevelopment = gulp.series(
   gulp.parallel(
-    lint.app,
-    bundle.deps
+//    lint.app,
+//    bundle.deps
   ),
-  copy.app,
+//  copy.app,
   gulp.parallel(
-    bundle.fonts,
+//    bundle.fonts,
     gulp.series(
-      compile.app,
-      bundle.app
+//      compile.app,
+//      bundle.app
     )
   ),
-  wordpress.copy,
+//  wordpress.copy,
   notice.finished
 );
 
@@ -49,7 +41,7 @@ var buildDevelopment = gulp.series(
 /**
  * Build for staging
  */
-
+/*
 var buildStaging = gulp.series(
   clean.app,
   gulp.parallel(
@@ -70,7 +62,7 @@ var buildStaging = gulp.series(
 /**
  * Build for production
  */
-
+/*
 var buildProduction = gulp.series(
   clean.app,
   gulp.parallel(
@@ -99,11 +91,11 @@ var buildProduction = gulp.series(
 var build = function (cb) {
   var buildType;
   if (env.isProduction()) {
-    buildType = buildProduction(cb);
+    // buildType = buildProduction(cb);
   } else if (env.isDevelopment()) {
     buildType = buildDevelopment(cb);
   } else {
-    buildType = buildStaging(cb);
+    // buildType = buildStaging(cb);
   }
   return buildType;
 };
@@ -116,3 +108,10 @@ var build = function (cb) {
 module.exports = {
   app: build
 };
+
+/**
+ * Gulp build task
+ */
+
+gulp.task('default', buildDevelopment);
+gulp.task('build', buildDevelopment);

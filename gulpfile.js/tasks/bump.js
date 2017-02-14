@@ -56,7 +56,7 @@ module.exports = {
 
 
 /**
- * Create bump tasks
+ * Gulp bump tasks
  */
 
 gulp.task('bump', bumpPatch);
