@@ -66,9 +66,9 @@ console($value) {
 webfont($family, $file, $weight = normal, $style = normal, $range = "U+0000-007F") {
     @font-face {
         font-family: $family;
-        src: url("../fonts/" + $file + ".woff2") format("woff2"),
-            url("../fonts/" + $file + ".woff") format("woff"),     // @stylint ignore
-            url("../fonts/" + $file + ".ttf") format("truetype");  // @stylint ignore
+        src: url("/src/fonts/" + $file + ".woff2") format("woff2"),
+            url("/src/fonts/" + $file + ".woff") format("woff"),     // @stylint ignore
+            url("/src/fonts/" + $file + ".ttf") format("truetype");  // @stylint ignore
         font-style: $style;
         font-weight: $weight;
         unicode-range: $range;                                    // @stylint ignore

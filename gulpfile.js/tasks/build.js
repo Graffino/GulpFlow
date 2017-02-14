@@ -15,25 +15,15 @@ var gulp = require('gulp');
 var env = require('../modules/env');
 var notice = require('../modules/notice');
 
+// Gulp tasks
+var webpack = require('../tasks/webpack');
 
 /**
  * Build for development
  */
 
 var buildDevelopment = gulp.series(
-  gulp.parallel(
-//    lint.app,
-//    bundle.deps
-  ),
-//  copy.app,
-  gulp.parallel(
-//    bundle.fonts,
-    gulp.series(
-//      compile.app,
-//      bundle.app
-    )
-  ),
-//  wordpress.copy,
+  webpack.develop,
   notice.finished
 );
 

@@ -68,7 +68,7 @@ var modules = {
     modules: 'stylus/modules/',
 
     // App main file
-    app: 'stylus/common/app.styl',
+    app: 'stylus/app.styl',
 
     // Icons sprite
     sprite: 'stylus/vendor/sprite.styl',

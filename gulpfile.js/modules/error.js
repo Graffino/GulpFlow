@@ -39,6 +39,32 @@ var sendNotice = function (error) {
   this.emit('end');
 };
 
+var humanTime = function (milliseconds) {
+  return (milliseconds > 999) ? (milliseconds / 1000).toFixed(2) + ' s' : milliseconds + ' ms';
+};
+
+var webpack = function (error, stats) {
+  var statColor = stats.compilation.warnings.length < 1 ? 'green' : 'yellow';
+
+  if (error) {
+    throw new plugins.gutil.PluginError('webpack', error);
+  }
+
+  if (stats.compilation.errors.length > 0) {
+    stats.compilation.errors.forEach(function (error) {
+      plugins.notify.onError({
+        title: 'Gulp error in ' + error.plugin
+      })(error);
+      statColor = 'red';
+    });
+  } else {
+    var compileTime = humanTime(stats.endTime - stats.startTime);
+    plugins.util.log(plugins.util.colors[statColor](stats));
+    plugins.util.log('Compiled with', plugins.util.colors.cyan('webpack'), 'in', plugins.util.colors.magenta(compileTime));
+  }
+};
+
+
 /**
  * Export handler
  */
@@ -46,5 +72,6 @@ var sendNotice = function (error) {
 module.exports = {
   handle: onError,
   ignore: sendIgnore,
-  notice: sendNotice
+  notice: sendNotice,
+  webpack: webpack
 };

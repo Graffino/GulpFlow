@@ -21,10 +21,14 @@
 
 // Gulp & plugins
 var gulp = require('gulp');
+var util = require('gulp-util');
 var HubRegistry = require('gulp-hub');
 
+// Gulpfile booting message
+util.log(util.colors.green('Starting to Gulp! Please wait...'));
+
 /* Load files into the registry */
-  var hub = new HubRegistry(['tasks/*.js']);
+var hub = new HubRegistry(['tasks/*.js']);
 
 /* Tell gulp to use the loaded tasks */
 gulp.registry(hub);

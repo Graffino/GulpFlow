@@ -10,6 +10,9 @@
  * Imports
  */
 
+// Node requires
+var qs = require('qs');
+
 // Gulp requires
 var env = require('./modules/env');
 var paths = require('./modules/paths');
@@ -106,14 +109,19 @@ var modules = {
 };
 
 var webpackDevelopment = {
-  entry: paths.base.src + paths.modules.js.app,
+  entry: {
+    main: [
+      paths.base.src + paths.modules.js.app,
+      paths.base.src + paths.modules.stylus.app
+    ]
+  },
   output: {
     path: paths.base.www + paths.modules.js.root,
     filename: 'bundle.js'
   },
   resolve: {
     // you can now require('file') instead of require('file.js')
-    extensions: ['', '.js', '.json']
+    extensions: ['.js', '.json', '.styl']
   },
   module: {
     loaders: [
@@ -128,6 +136,13 @@ var webpackDevelopment = {
       {
         test: /\.styl$/,
         loader: 'style-loader!css-loader!stylus-loader'
+      },
+      {
+        test: /\.(ttf|woff|woff2)$/,
+        include: paths.base.src + paths.modules.fonts.root,
+        loader: `file?${qs.stringify({
+          name: `[path]$[name].[ext]`
+        })}`
       },
       {
         test: /\.(njk|nunjucks)$/,

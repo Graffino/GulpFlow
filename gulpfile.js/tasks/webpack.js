@@ -18,7 +18,7 @@ var webpack = require('webpack');
 
 // Gulp requires
 var config = require('../config');
-// var paths = require('../modules/paths');
+var error = require('../modules/error');
 // var utils = require('../modules/utils');
 
 
@@ -40,9 +40,9 @@ function processDevelopment() {
  */
 
 var webpackDevelopment = function (callback) {
-  webpack(config, function(err, stats) {
-    logger(err, stats)
-    callback()
+  webpack(config.webpack.development, function (err, stats) {
+    error.webpack(err, stats);
+    callback();
   });
 };
 

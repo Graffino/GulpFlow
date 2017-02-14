@@ -27,32 +27,46 @@ var utils = require('../modules/utils');
 // Send notice
 function sendNotice(message) {
   return gulp.src(paths.base.root)
-  .pipe(plugins.notify(message));
+  .pipe(plugins.notify({
+    message: utils.pumped(message)
+  }));
 }
 
 // Cleaned
 function cleaned() {
   return gulp.src(paths.base.root)
-  .pipe(plugins.notify('Application build (www) folder has been cleaned.'));
+  .pipe(plugins.notify({
+    message: utils.pumped('Application build (www) folder has been cleaned.'),
+    onLast: true
+  }));
 }
 
 
 // Finished
 function finished() {
   return gulp.src(paths.base.root)
-  .pipe(plugins.notify('Application has been built.'));
+  .pipe(plugins.notify({
+    message: utils.pumped('Application has been built.'),
+    onLast: true
+  }));
 }
 
 // Watching
 function watching() {
   return gulp.src(paths.base.root)
-  .pipe(plugins.notify('Entering watch mode.'));
+  .pipe(plugins.notify({
+    message: utils.pumped('Entering watch mode.'),
+    onLast: true
+  }));
 }
 
 // Rebuilt
 function rebuilt() {
   return gulp.src(paths.base.root)
-  .pipe(plugins.notify('Detected changes have been applied. Entering watch mode.'));
+  .pipe(plugins.notify({
+    message: utils.pumped('Detected changes have been applied. Entering watch mode.'),
+    onLast: true
+  }));
 }
 
 
