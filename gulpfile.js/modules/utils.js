@@ -9,7 +9,7 @@
  */
 
 // Send noop
-function noop(done) {
+function ಠ_ಠ(done) {
   done();
 }
 
@@ -19,5 +19,5 @@ function noop(done) {
  */
 
 module.exports = {
-  noop: noop
+  noop: ಠ_ಠ
 };

@@ -26,7 +26,7 @@ var enabled = {
   // Wordpress
   wordpress: true,
   // Fonts conversion
-  fonts: true,
+  fonts: false,
   // Data folder
   data: true,
   // Media folder

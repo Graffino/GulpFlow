@@ -91,8 +91,10 @@ var compileAppTemplates = gulp.parallel(
 
 module.exports = {
   app: compileAppTemplates,
-  html: compileHTMLTemplates,
-  js: compileJSTemplates
+  // Skip HTML Nunjucks according to config
+  html: config.enabled.nunjucks.html ? compileHTMLTemplates : utils.noop,
+  // Skip JS Nunjucks according to config
+  js: config.enabled.nunjucks.js ? compileJSTemplates : utils.noop
 };
 
 
