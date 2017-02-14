@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Gulp bower file
  * Author: Graffino (http://www.graffino.com)
@@ -13,11 +15,13 @@ var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 
 // Gulp requires
+var config = require('../config');
 var paths = require('../modules/paths');
+var utils = require('../modules/utils');
 
 
 /**
- * Fetch bower packages
+ * Fetch Bower packages
  */
 
 function fetchBower() {
@@ -28,11 +32,20 @@ function fetchBower() {
 
 
 /**
+ * Process Bower
+ */
+
+var processBower = gulp.parallel(
+  config.enabled.bower ? fetchBower : utils.noop
+);
+
+
+/**
  * Export module functions
  */
 
 module.exports = {
-  fetch: fetchBower
+  process: config.enabled.bower ? fetchBower : utils.noop
 };
 
 
@@ -40,4 +53,4 @@ module.exports = {
  * Gulp bower task
  */
 
-gulp.task('bower', fetchBower);
+gulp.task('bower', processBower);

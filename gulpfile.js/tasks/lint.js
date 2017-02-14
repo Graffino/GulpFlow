@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Gulp lint file
  * Author: Graffino (http://www.graffino.com)

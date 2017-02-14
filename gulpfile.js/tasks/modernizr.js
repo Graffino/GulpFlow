@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Gulp modernizr file
  * Author: Graffino (http://www.graffino.com)
@@ -22,7 +24,7 @@ var utils = require('../modules/utils');
  * Compile modernizr files
  */
 
-function compileModernizr() {
+function buildModernizr() {
   var configModernizr = {
     cache: true,
     crawl: false,
@@ -42,12 +44,11 @@ function compileModernizr() {
 
 
 /**
- * Modernizr function
+ * Build modernizr function
  */
 
-var buildModernizr = gulp.parallel(
-  // Run modernizr according to config
-  config.enabled.modernizr ? compileModernizr : utils.noop
+var processModernizr = gulp.parallel(
+  config.enabled.modernizr ? buildModernizr : utils.noop
 );
 
 
@@ -56,7 +57,7 @@ var buildModernizr = gulp.parallel(
  */
 
 module.exports = {
-  build: config.enabled.modernizr ? buildModernizr : utils.noop
+  process: config.enabled.modernizr ? buildModernizr : utils.noop
 };
 
 
@@ -64,4 +65,4 @@ module.exports = {
  * Gulp modernizr task
  */
 
-gulp.task('modernizr', buildModernizr);
+gulp.task('modernizr', processModernizr);

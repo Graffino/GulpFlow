@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Gulp clean file
  * Author: Graffino (http://www.graffino.com)

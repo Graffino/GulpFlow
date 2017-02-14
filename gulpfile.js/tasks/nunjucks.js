@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Gulp Nunjucks file
  * Author: Graffino (http://www.graffino.com)
@@ -72,6 +74,7 @@ function compileJSTemplates() {
     )
     .pipe(gulp.dest(paths.base.www + paths.modules.js.vendor));
 }
+
 
 /**
  * Compile function

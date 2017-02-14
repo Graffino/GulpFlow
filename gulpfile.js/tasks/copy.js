@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Gulp copy file
  * Author: Graffino (http://www.graffino.com)

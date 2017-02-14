@@ -1,7 +1,9 @@
-//
-// Gulp environment file
-// Author: Graffino (http://www.graffino.com)
-//
+'use strict';
+
+/**
+ * Gulp environment file
+ * Author: Graffino (http://www.graffino.com)
+ */
 
 
 /**
@@ -22,22 +24,22 @@ var STAGING_ENV = 'staging';
 
 // Default environment
 var env = {
-    DEFAULT_ENV: DEVELOPMENT_ENV,
-    DEFAULT_DEBUG: false
+  DEFAULT_ENV: DEVELOPMENT_ENV,
+  DEFAULT_DEBUG: false
 };
 
 // Make options work without true / false
 if (typeof plugins.util.env.env === 'undefined' || plugins.util.env.env === null) {
-    env.NODE_ENV = DEVELOPMENT_ENV;
+  env.NODE_ENV = DEVELOPMENT_ENV;
 } else {
-    env.NODE_ENV = plugins.util.env.env;
+  env.NODE_ENV = plugins.util.env.env;
 }
 
 // Make options work without true / false
 if (typeof plugins.util.env.debug === 'undefined' || plugins.util.env.debug === null) {
-    env.NODE_DEBUG = env.DEFAULT_DEBUG;
+  env.NODE_DEBUG = env.DEFAULT_DEBUG;
 } else {
-    env.NODE_DEBUG = true;
+  env.NODE_DEBUG = true;
 }
 
 
@@ -47,22 +49,22 @@ if (typeof plugins.util.env.debug === 'undefined' || plugins.util.env.debug === 
 
 // Development
 env.isDevelopment = function () {
-    return env.NODE_ENV === DEVELOPMENT_ENV;
+  return env.NODE_ENV === DEVELOPMENT_ENV;
 };
 
 // Production
 env.isProduction = function () {
-    return env.NODE_ENV === PRODUCTION_ENV;
+  return env.NODE_ENV === PRODUCTION_ENV;
 };
 
 // Staging
 env.isStaging = function () {
-    return env.NODE_ENV === STAGING_ENV;
+  return env.NODE_ENV === STAGING_ENV;
 };
 
 // Debug
 env.isDebug = function () {
-    return env.NODE_DEBUG;
+  return env.NODE_DEBUG;
 };
 
 

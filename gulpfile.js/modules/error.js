@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Gulp error file
  * Author: Graffino (http://www.graffino.com)

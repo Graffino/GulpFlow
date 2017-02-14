@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Gulp bump file
  * Author: Graffino (http://www.graffino.com)

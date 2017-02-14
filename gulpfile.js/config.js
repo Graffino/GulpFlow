@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Gulp config file
  * Author: Graffino (http://www.graffino.com)
@@ -19,6 +21,8 @@ var paths = require('./modules/paths');
 var enabled = {
   // Enable system notices
   notice: true,
+  // Enable bower
+  bower: true,
   // Enable modernizr
   modernizr: true,
   // Critical CSS generation
@@ -26,7 +30,7 @@ var enabled = {
   // Wordpress
   wordpress: true,
   // Fonts conversion
-  fonts: false,
+  fonts: true,
   // Data folder
   data: true,
   // Media folder

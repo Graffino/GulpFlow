@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Gulp wordpress file
  * Author: Graffino (http://www.graffino.com)
@@ -30,7 +32,7 @@ function copyWordpress() {
 
 
 /**
- * Convert fonts function
+ * Process Wordpress function
  */
 
 var processWordpress = gulp.parallel(
@@ -44,7 +46,7 @@ var processWordpress = gulp.parallel(
 
 module.exports = {
   // Copy Wordpress according to config
-  copy: config.enabled.wordpress ? processWordpress : utils.noop
+  process: config.enabled.wordpress ? copyWordpress : utils.noop
 };
 
 

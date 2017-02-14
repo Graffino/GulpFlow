@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Gulp config
  * Author: Graffino (http://www.graffino.com)

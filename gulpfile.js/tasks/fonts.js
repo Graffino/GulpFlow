@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Gulp fonts file
  * Author: Graffino (http://www.graffino.com)
@@ -48,7 +50,7 @@ function convertFontsWOFF2() {
  * Convert fonts function
  */
 
-var convertFonts = gulp.parallel(
+var processFonts = gulp.parallel(
   config.enabled.fonts ? convertFontsWOFF : utils.noop,
   config.enabled.fonts ? convertFontsWOFF2 : utils.noop
 );
@@ -59,7 +61,7 @@ var convertFonts = gulp.parallel(
  */
 
 module.exports = {
-  build: config.enabled.fonts ? convertFonts : utils.noop
+  process: config.enabled.fonts ? processFonts : utils.noop
 };
 
 
@@ -67,4 +69,4 @@ module.exports = {
  * Gulp fonts task
  */
 
-gulp.task('fonts', convertFonts);
+gulp.task('fonts', processFonts);

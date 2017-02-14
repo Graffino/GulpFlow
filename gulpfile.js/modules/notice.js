@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Gulp notice file
  * Author: Graffino (http://www.graffino.com)
