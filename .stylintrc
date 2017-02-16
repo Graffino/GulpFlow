@@ -1,5 +1,5 @@
 {
-  "blocks": false,
+  "blocks": "always",
   "brackets": "always",
   "colons": "always",
   "colors": "always",
