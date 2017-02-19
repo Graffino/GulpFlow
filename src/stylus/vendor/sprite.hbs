@@ -2,8 +2,16 @@
   SVG sprite handlebars template
   Author: Graffino (http://www.graffino.com)
 }}
+/**
+ * Icon sprite
+ * Author: Graffino (http://www.graffino.com)
+ * [This file has been automatically generated]
+ * Use <symbol> directly in your HTML
+ * Use https://github.com/jonathantneal/svg4everybody for remote svg spritess
+ */
+
 {{#hasMixin}}{{mixinName}}() {
-  background-image: url("../images/{{{sprite}}}");
+  background-image: url("../icons/{{{sprite}}}");
   background-size: rem({{spriteWidth}}) rem({{spriteHeight}});
   background-repeat: no-repeat;
 }
@@ -15,15 +23,19 @@
   background-size: rem({{spriteWidth}}) rem({{spriteHeight}});
   background-repeat: no-repeat;
 }
-{{/hasMixin}}{{#shapes}}{{#selector.shape}}{{#escape}}{{expression}}() { {{/escape}}{{^last}},{{/last}}
-{{/selector.shape}}  {{^hasCommon}}{{#hasMixin}}{{mixinName}}(); {{/hasMixin}}{{^hasMixin}}@extend ${{commonName}};{{/hasMixin}}
-  {{/hasCommon}}background-position: rem({{position.absolute.x}}) rem({{position.absolute.y}});{{#dimensions.inline}}
-  width: rem({{width.outer}});
-  height: rem({{height.outer}});{{/dimensions.inline}}
-}{{#dimensions.extra}}
-{{#selector.dimensions}}{{#escape}}{{expression}}() { {{/escape}}{{^last}},{{/last}}
-{{/selector.dimensions}}  width: rem({{width.outer}});
-  height: rem({{height.outer}});
-}{{/dimensions.extra}}
+{{/hasMixin}}
 
-{{/shapes}}
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  {{^hasCommon}}{{#hasMixin}}{{mixinName}}(); {{/hasMixin}}{{^hasMixin}}@extend ${{commonName}};{{/hasMixin}}
+  {{/hasCommon}}
+  {{#shapes}}
+  {{#selector.shape}}{{#escape}}
+  &.-{{expression}} { {{/escape}}{{^last}},{{/last}} {{/selector.shape}}
+    background-position: rem({{position.absolute.x}}) rem({{position.absolute.y}});
+    width: rem({{width.outer}});
+    height: rem({{height.outer}});
+  }
+  {{/shapes}}
+}

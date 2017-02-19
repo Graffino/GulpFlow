@@ -1,0 +1,31 @@
+/**
+ * Icon sprite
+ * Author: Graffino (http://www.graffino.com)
+ * [This file has been automatically generated]
+ * Use <symbol> directly in your HTML
+ * Use https://github.com/jonathantneal/svg4everybody for remote svg spritess
+ */
+
+sprite() {
+  background-image: url("../icons/sprite.svg");
+  background-size: rem(1608) rem(604);
+  background-repeat: no-repeat;
+}
+
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  sprite(); 
+
+  &.-placeholder {  
+    background-position: rem(0) rem(0);
+    width: rem(804);
+    height: rem(604);
+  }
+
+  &.-placeholder-2 {  
+    background-position: rem(-804) rem(0);
+    width: rem(804);
+    height: rem(604);
+  }
+}

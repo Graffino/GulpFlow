@@ -25,8 +25,37 @@ var utils = require('../modules/utils');
  */
 
 function compileSprite() {
-  return gulp.src(paths.base.src + paths.patterns.icons)
-    .pipe(plugins.svgSprite(config.modules.sprite))
+  var config = {
+    shape: {
+      // Set a default padding between elements
+      spacing: {
+        padding: 2
+      },
+      transform: ['svgo']
+    },
+    log: 'info',
+    mode: {
+      symbol: true,
+      css: {
+        bust: false,
+        prefix: '',
+        dest: '',
+        common: '',
+        sprite: 'sprite.svg',
+        mixin: 'sprite',
+        dimensions: 'inline',
+        render: {
+          styl: {
+            template: paths.base.src + paths.modules.stylus.mustache,
+            dest: '../../' + paths.base.src + paths.modules.stylus.sprite
+          }
+        }
+      }
+    }
+  };
+
+  return gulp.src(paths.base.src + paths.patterns.icons.all)
+    .pipe(plugins.svgSprite(config))
     .pipe(gulp.dest(paths.base.www + paths.modules.icons.root))
     .pipe(plugins.livereload());
 }

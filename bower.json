@@ -37,7 +37,8 @@
     "pointer-events-poly": "*",
     "select2": "~4.0.3",
     "slick.js": "~1.6.0",
-    "velocity": "~1.4.2"
+    "velocity": "~1.4.2",
+    "svg4everybody": "^2.1.4"
   },
   "overrides": {
     "browser-update": {

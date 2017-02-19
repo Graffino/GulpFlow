@@ -106,14 +106,14 @@ var modules = {
       css: {
         bust: false,
         prefix: 'svg-',
-        dest: '',
+        dest: paths.www + paths.modules.icons.root,
         common: '',
         sprite: 'sprite.svg',
         mixin: 'sprite',
         render: {
           styl: {
             template: paths.base.src + paths.modules.stylus.mustache,
-            dest: paths.www + paths.modules.stylus.sprite
+            dest: '../../../' + paths.modules.stylus.sprite
           }
         }
       }
