@@ -18,11 +18,13 @@ var notice = require('../modules/notice');
 // Gulp tasks
 var bower = require('../tasks/bower');
 var modernizr = require('../tasks/modernizr');
+var js = require('../tasks/js');
 var fonts = require('../tasks/fonts');
 var nunjucks = require('../tasks/nunjucks');
 var sprite = require('../tasks/sprite');
 var stylus = require('../tasks/stylus');
 var copy = require('../tasks/copy');
+var bundle = require('../tasks/bundle');
 var wordpress = require('../tasks/wordpress');
 var lint = require('../tasks/lint');
 
@@ -35,6 +37,7 @@ var buildDevelopment = gulp.series(
   gulp.parallel(
     bower.process,
     modernizr.process,
+    js.process,
     fonts.process,
     nunjucks.process,
     gulp.series(
@@ -43,6 +46,7 @@ var buildDevelopment = gulp.series(
     ),
     copy.app
   ),
+  bundle.process,
   wordpress.process,
   lint.app,
   notice.finished

@@ -29,6 +29,8 @@ var enabled = {
   stylus: true,
   // Sprite generation,
   sprite: true,
+  // JS
+  js: true,
   // Fonts conversion
   fonts: true,
   // Data folder
@@ -123,6 +125,14 @@ var modules = {
         }
       }
     }
+  },
+
+  // Babel
+  babel: {
+    presets: [
+      'es2015',
+      'stage-0'
+    ]
   },
 
   // Critical
