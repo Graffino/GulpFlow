@@ -52,6 +52,11 @@ function cleanJS() {
   return clean(paths.base.www + paths.modules.js.root);
 }
 
+// Sprite
+function cleanSprite() {
+  return clean(paths.base.src + paths.modules.stylus.sprite);
+}
+
 // Icons
 function cleanIcons() {
   return clean(paths.base.www + paths.modules.icons.root);
@@ -155,6 +160,7 @@ function cleanPostProduction() {
 var cleanApp = gulp.series(
   gulp.parallel(
     cleanCSS,
+    cleanSprite,
     cleanJS,
     cleanIcons,
     cleanImages,
@@ -179,6 +185,7 @@ var cleanApp = gulp.series(
 
 module.exports = {
   css: cleanCSS,
+  sprite: cleanSprite,
   js: cleanJS,
   icons: cleanIcons,
   images: cleanImages,

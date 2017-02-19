@@ -100,20 +100,25 @@ var modules = {
       // Set a default padding between elements
       spacing: {
         padding: 2
-      }
+      },
+      transform: ['svgo']
     },
+    // 'info' | 'debug' | 'false'
+    log: false,
     mode: {
+      symbol: true,
       css: {
         bust: false,
-        prefix: 'svg-',
-        dest: paths.www + paths.modules.icons.root,
+        prefix: '',
+        dest: '',
         common: '',
         sprite: 'sprite.svg',
         mixin: 'sprite',
+        dimensions: 'inline',
         render: {
           styl: {
             template: paths.base.src + paths.modules.stylus.mustache,
-            dest: '../../../' + paths.modules.stylus.sprite
+            dest: '../../' + paths.base.src + paths.modules.stylus.sprite
           }
         }
       }
