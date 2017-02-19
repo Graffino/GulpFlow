@@ -33,9 +33,9 @@
   {{#shapes}}
   {{#selector.shape}}{{#escape}}
   &.-{{expression}} { {{/escape}}{{^last}},{{/last}} {{/selector.shape}}
-    background-position: rem({{position.absolute.x}}) rem({{position.absolute.y}});
     width: rem({{width.outer}});
     height: rem({{height.outer}});
+    background-position: rem({{position.absolute.x}}) rem({{position.absolute.y}});
   }
   {{/shapes}}
 }
