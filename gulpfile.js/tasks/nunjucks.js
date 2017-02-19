@@ -80,7 +80,7 @@ function compileJSTemplates() {
  * Compile function
  */
 
-var compileAppTemplates = gulp.parallel(
+var processAppTemplates = gulp.parallel(
   // Skip HTML Nunjucks according to config
   config.enabled.nunjucks.html ? compileHTMLTemplates : utils.noop,
   // Skip JS Nunjucks according to config
@@ -93,7 +93,7 @@ var compileAppTemplates = gulp.parallel(
  */
 
 module.exports = {
-  app: compileAppTemplates,
+  process: processAppTemplates,
   // Skip HTML Nunjucks according to config
   html: config.enabled.nunjucks.html ? compileHTMLTemplates : utils.noop,
   // Skip JS Nunjucks according to config
@@ -105,4 +105,4 @@ module.exports = {
  * Gulp nunjucks task
  */
 
-gulp.task('nunjucks', compileAppTemplates);
+gulp.task('nunjucks', processAppTemplates);

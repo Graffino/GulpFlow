@@ -25,10 +25,10 @@ var enabled = {
   bower: true,
   // Enable modernizr
   modernizr: true,
-  // Critical CSS generation
-  critical: true,
-  // Wordpress
-  wordpress: true,
+  // Stylus compile
+  stylus: true,
+  // Sprite generation,
+  sprite: true,
   // Fonts conversion
   fonts: true,
   // Data folder
@@ -37,6 +37,10 @@ var enabled = {
   media: true,
   // Library folder
   vendor: true,
+  // Critical CSS generation
+  critical: true,
+  // Wordpress
+  wordpress: true,
 
   // Nunjucks templates
   nunjucks: {
@@ -89,6 +93,32 @@ var modules = {
     'cssvwunit', 'willchange', 'placeholder', 'sizes',
     'srcset', 'svgasimg', 'svgfilters', 'svgclippaths', 'videoautoplay'
   ],
+
+  // SVG Sprite
+  sprite: {
+    shape: {
+      // Set a default padding between elements
+      spacing: {
+        padding: 2
+      }
+    },
+    mode: {
+      css: {
+        bust: false,
+        prefix: 'svg-',
+        dest: '',
+        common: '',
+        sprite: 'sprite.svg',
+        mixin: 'sprite',
+        render: {
+          styl: {
+            template: paths.base.src + paths.modules.stylus.mustache,
+            dest: paths.www + paths.modules.stylus.sprite
+          }
+        }
+      }
+    }
+  },
 
   // Critical
   critical: {

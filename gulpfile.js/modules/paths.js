@@ -45,6 +45,7 @@ var modules = {
     root: 'css/',
     common: 'css/common/',
     modules: 'css/modules/',
+    vendor: 'css/vendor/',
 
     // App main file
     app: 'css/common/app.css'

@@ -143,6 +143,8 @@ function copyVendor() {
 var copyApp = gulp.parallel(
   copyJS,
 
+// Skipped -> Sprite copies these
+//  icons: copyIcons,
   copyIcons,
   copyImages,
 
@@ -169,7 +171,8 @@ var copyApp = gulp.parallel(
 module.exports = {
   js: copyJS,
 
-  icons: copyIcons,
+// Skipped -> Sprite copies these
+//  icons: copyIcons,
   images: copyImages,
 
   // Skip Fonts according to config

@@ -16,14 +16,33 @@ var env = require('../modules/env');
 var notice = require('../modules/notice');
 
 // Gulp tasks
-var webpack = require('../tasks/webpack');
+var bower = require('../tasks/bower');
+var modernizr = require('../tasks/modernizr');
+var fonts = require('../tasks/fonts');
+var nunjucks = require('../tasks/nunjucks');
+var stylus = require('../tasks/stylus');
+var copy = require('../tasks/copy');
+var wordpress = require('../tasks/wordpress');
+var lint = require('../tasks/lint');
+
 
 /**
  * Build for development
  */
 
 var buildDevelopment = gulp.series(
-  webpack.develop,
+  gulp.parallel(
+    bower.process,
+    modernizr.process,
+    fonts.process,
+    nunjucks.process,
+    gulp.series(
+      stylus.process
+    ),
+    copy.app
+  ),
+  wordpress.process,
+  lint.app,
   notice.finished
 );
 
