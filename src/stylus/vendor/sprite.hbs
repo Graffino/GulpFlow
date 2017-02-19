@@ -11,30 +11,21 @@
  * HowTo: https://css-tricks.com/svg-symbol-good-choice-icons/
  */
 
-{{#hasMixin}}{{mixinName}}() {
+{{mixinName}}() {
   background-image: url("../icons/{{{sprite}}}");
   background-size: rem({{spriteWidth}}) rem({{spriteHeight}});
   background-repeat: no-repeat;
 }
-{{#hasCommon}}.{{commonName}}
-  {{mixinName}}();
-
-{{/hasCommon}}{{/hasMixin}}{{^hasMixin}}{{#hasCommon}}.{{/hasCommon}}{{^hasCommon}}${{/hasCommon}}{{commonName}} {
-  background-image: url("../images/{{{sprite}}}");
-  background-size: rem({{spriteWidth}}) rem({{spriteHeight}});
-  background-repeat: no-repeat;
-}
-{{/hasMixin}}
 
 .icon {
   display: inline-block;
   vertical-align: middle;
-  {{^hasCommon}}{{#hasMixin}}{{mixinName}}(); {{/hasMixin}}{{^hasMixin}}@extend ${{commonName}};{{/hasMixin}}
-  {{/hasCommon}}
+  {{mixinName}}();
+
   {{#shapes}}
   {{#selector.shape}}{{#escape}}
-  &.-{{expression}} { {{/escape}}{{^last}},{{/last}} {{/selector.shape}}
-    width: rem({{width.outer}});
+  &.-{{expression}} {
+    {{/escape}}{{^last}},{{/last}}{{/selector.shape}}width: rem({{width.outer}});
     height: rem({{height.outer}});
     background-position: rem({{position.absolute.x}}) rem({{position.absolute.y}});
   }

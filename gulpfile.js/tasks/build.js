@@ -20,6 +20,7 @@ var bower = require('../tasks/bower');
 var modernizr = require('../tasks/modernizr');
 var fonts = require('../tasks/fonts');
 var nunjucks = require('../tasks/nunjucks');
+var sprite = require('../tasks/sprite');
 var stylus = require('../tasks/stylus');
 var copy = require('../tasks/copy');
 var wordpress = require('../tasks/wordpress');
@@ -37,6 +38,7 @@ var buildDevelopment = gulp.series(
     fonts.process,
     nunjucks.process,
     gulp.series(
+      sprite.process,
       stylus.process
     ),
     copy.app
