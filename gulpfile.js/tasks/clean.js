@@ -39,7 +39,7 @@ function clean(toClean) {
 
 
 /**
- * Individual clean functions
+ * Clean CSS
  */
 
 // CSS
@@ -47,35 +47,85 @@ function cleanCSS() {
   return clean(paths.base.www + paths.modules.css.root);
 }
 
+
+/**
+ * Clean JS
+ */
+
 // Javascript
-function cleanJS() {
+function cleanJSAll() {
   return clean(paths.base.www + paths.modules.js.root);
 }
+
+// Javascript common files
+function cleanJSCommon() {
+  return clean(paths.base.www + paths.patterns.js.common);
+}
+
+// Javascript modules files
+function cleanJSModules() {
+  return clean(paths.base.www + paths.patterns.js.modules);
+}
+
+// Javascript vendor files
+function cleanJSVendor() {
+  return clean(paths.base.www + paths.patterns.js.vendor);
+}
+
+
+/**
+ * Clean sprite
+ */
 
 // Sprite
 function cleanSprite() {
   return clean(paths.base.src + paths.modules.stylus.sprite);
 }
 
+
+/**
+ * Clean icons
+ */
+
 // Icons
 function cleanIcons() {
   return clean(paths.base.www + paths.modules.icons.root);
 }
+
+
+/**
+ * Clean images
+ */
 
 // Images
 function cleanImages() {
   return clean(paths.base.www + paths.modules.images.root);
 }
 
+
+/**
+ * Clean fonts
+ */
+
 // Fonts
 function cleanFonts() {
   return clean(paths.base.www + paths.modules.fonts.root);
 }
 
+
+/**
+ * Clean media
+ */
+
 // Media
 function cleanMedia() {
   return clean(paths.base.www + paths.modules.media.root);
 }
+
+
+/**
+ * Clean HTML
+ */
 
 // HTML
 function cleanHTML() {
@@ -88,6 +138,11 @@ function cleanHTML() {
 
   return clean(toClean);
 }
+
+
+/**
+ * Other
+ */
 
 // Data
 function cleanData() {
@@ -122,6 +177,11 @@ function cleanJunk() {
 function cleanWordpress() {
   return clean(paths.patterns.wordpress.clean);
 }
+
+
+/**
+ * Clean Postproduction
+ */
 
 // Postproduction
 function cleanPostProduction() {
@@ -161,7 +221,7 @@ var cleanApp = gulp.series(
   gulp.parallel(
     cleanCSS,
     cleanSprite,
-    cleanJS,
+    cleanJSAll,
     cleanIcons,
     cleanImages,
     cleanFonts,
@@ -186,7 +246,12 @@ var cleanApp = gulp.series(
 module.exports = {
   css: cleanCSS,
   sprite: cleanSprite,
-  js: cleanJS,
+  js: {
+    all: cleanJSAll,
+    common: cleanJSCommon,
+    modules: cleanJSModules,
+    vendor: cleanJSVendor
+  },
   icons: cleanIcons,
   images: cleanImages,
   fonts: cleanFonts,

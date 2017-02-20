@@ -153,6 +153,8 @@ var patterns = {
   // Javascripts
   js: {
     all: modules.js.root + '**/*.js',
+    common: modules.js.common + '**/*.js',
+    modules: modules.js.modules + '**/*.js',
     exclude: [
       'main*.js'
     ]
