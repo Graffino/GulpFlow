@@ -4,46 +4,59 @@
  */
 
 
+/* eslint
+  unicorn/no-process-exit: 0
+*/
+
+
 /**
  * Module imports
  */
 
+// Node requires
+var path = require('path');
+var debounce = require('debounce');
+var browserSync = require('browser-sync').create();
+
 // Gulp & plugins
 var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
-
-// Node requires
-var debounce = require('debounce');
 
 // Gulp requries
+var config = require('../config');
 var notice = require('../modules/notice');
 var paths = require('../modules/paths');
+var utils = require('../modules/utils');
 
 // Gulp tasks
 var bower = require('../tasks/bower');
-var modernizr = require('../tasks/modernizr');
-var js = require('../tasks/js');
+var bundle = require('../tasks/bundle');
+var clean = require('../tasks/clean');
+var copy = require('../tasks/copy');
 var fonts = require('../tasks/fonts');
+var js = require('../tasks/js');
+var lint = require('../tasks/lint');
 var nunjucks = require('../tasks/nunjucks');
 var sprite = require('../tasks/sprite');
 var stylus = require('../tasks/stylus');
-var clean = require('../tasks/clean');
-var copy = require('../tasks/copy');
-var bundle = require('../tasks/bundle');
 var wordpress = require('../tasks/wordpress');
-var lint = require('../tasks/lint');
+
+// Use to watch gulp itself
+var firstRun = true;
 
 
 /**
  * Watch for changes
  */
 
-function watch() {
+function watchChanges() {
   // Gulp watch issue, must use debounce with gulp.series to work around it:
   // https://github.com/gulpjs/gulp/issues/1304
 
-  // Live reload listen
-  plugins.livereload.listen();
+  // Gulp already ran
+  firstRun = false;
+
+  // Init Browser Sync
+  browserSync.init(config.modules.browsersync);
 
   // JS Common, Modules
   gulp.watch(
@@ -63,145 +76,165 @@ function watch() {
         notice.rebuilt
       ]),
     500)
-  );
+  ).on('change', browserSync.reload);
 
-  // JS Templates
+  // Nunjucks JS Templates
   gulp.watch(
-    [paths.patterns.jsTemplatesSource],
+    [paths.base.src + paths.patterns.nunjucks.js.all],
     debounce(
       gulp.series([
-        bundle.templates,
+        nunjucks.js,
         bundle.js,
         notice.rebuilt
       ]),
     500)
-  );
-
-  // HTML Templates
-  gulp.watch(
-    [paths.patterns.htmlTemplatesSource],
-    debounce(
-      gulp.series([
-        lint.html,
-        bundle.templates,
-        bundle.js,
-        notice.rebuilt
-      ]),
-    500)
-  );
+  ).on('change', browserSync.reload);
 
   // Stylus
   gulp.watch(
-    [paths.patterns.stylusSource, paths.source.stylusMain],
+    [
+      paths.base.src + paths.patterns.stylus.all,
+      path.normalize('!**/' + paths.patterns.stylus.exclude.join(','))
+    ],
     debounce(
       gulp.series([
-        lint.stylus,
-        compile.stylus,
+        stylus.process,
         bundle.css,
+        lint.stylus,
         notice.rebuilt
       ]),
     500)
   );
 
+  // Nunjucks HTML Templates
+  gulp.watch(
+    [paths.base.src + paths.patterns.nunjucks.html.all],
+    debounce(
+      gulp.series([
+        clean.html,
+        nunjucks.html,
+        lint.html,
+        notice.rebuilt
+      ]),
+    500)
+  ).on('change', browserSync.reload);
+
   // Fonts
   gulp.watch(
-    paths.patterns.fontsSource,
+    [paths.base.src + paths.patterns.fonts.all],
     debounce(
       gulp.series(
+        clean.fonts,
         copy.fonts,
-        gulp.parallel(
-          bundle.fonts,
-          gulp.series(
-            compile.stylus,
-            bundle.css,
-            notice.rebuilt
-          )
-        )
+        fonts.process,
+        notice.rebuilt
       ),
     2000)
-  );
+  ).on('change', browserSync.reload);
 
   // Media
   gulp.watch(
-    [paths.source.media],
+    [paths.base.src + paths.patterns.media.all],
     debounce(
       gulp.series(
         copy.media,
         notice.rebuilt
       ),
     200)
-  );
+  ).on('change', browserSync.reload);
+
+  // Data
+  gulp.watch(
+    [paths.base.src + paths.patterns.data.all],
+    debounce(
+      gulp.series(
+        clean.data,
+        copy.data,
+        notice.rebuilt
+      ),
+    200)
+  ).on('change', browserSync.reload);
+
+  // Static
+  gulp.watch(
+    [paths.base.src + paths.patterns.static.all],
+    debounce(
+      gulp.series(
+        clean.static,
+        copy.static,
+        notice.rebuilt
+      ),
+    200)
+  ).on('change', browserSync.reload);
 
   // Images
   gulp.watch(
-    [paths.source.images, paths.source.svg],
+    [paths.base.src + paths.patterns.images.all],
     debounce(
       gulp.series(
+        clean.images,
         copy.images,
-        minify.images,
         notice.rebuilt
       ),
     2000)
-  );
+  ).on('change', browserSync.reload);
 
-  // Sprite
+  // Sprite icons
   gulp.watch(
-    paths.patterns.spriteSource,
+    [paths.base.src + paths.patterns.icons.all],
     debounce(
       gulp.series([
-        copy.images,
-        compile.sprite,
-        compile.stylus,
+        clean.icons,
+        sprite.process,
+        stylus.process,
         bundle.css,
         notice.rebuilt
       ]),
     2000)
-  );
+  ).on('change', browserSync.reload);
 
-  // Lib
+  // Vendor
   gulp.watch(
-    paths.patterns.libSource,
+    [paths.base.src + paths.patterns.vendor.all],
     debounce(
       gulp.series([
-        copy.lib,
+        clean.vendor,
+        copy.vendor,
         notice.rebuilt
       ]),
     2000)
-  );
-
-  // Data
-  gulp.watch(
-    paths.patterns.dataSource,
-    debounce(
-      gulp.series([
-        copy.data,
-        notice.rebuilt
-      ]),
-    2000)
-  );
+  ).on('change', browserSync.reload);
 
   // Wordpress
   gulp.watch(
-    paths.patterns.themeSource,
+    [paths.base.src + paths.patterns.wordpress.all],
     debounce(
       gulp.series([
-        wordpress.copy,
+        wordpress.process,
         notice.rebuilt
       ]),
     2000)
+  ).on('change', browserSync.reload);
+
+  // Bower
+  gulp.watch(
+    [paths.base.root + 'bower.json'],
+    debounce(
+      gulp.series([
+        bower.process,
+        bundle.js,
+        bundle.css,
+        notice.rebuilt
+      ]),
+    2000)
+  ).on('change', browserSync.reload);
+
+  // Gulp config
+  gulp.watch(
+    [paths.base.root + 'gulpfile.js/**/*.js'],
+    gulp.series(['default'])
   );
 }
-
-
-/**
- * Serve app
- */
-
-var serveApp = gulp.series(
-  build.app,
-  notice.watching,
-  watch
-);
 
 
 /**
@@ -210,7 +243,7 @@ var serveApp = gulp.series(
 
 var watchApp = gulp.series(
   notice.watching,
-  watch
+  firstRun ? watchChanges : utils.noop
 );
 
 
@@ -219,6 +252,12 @@ var watchApp = gulp.series(
  */
 
 module.exports = {
-  serve: serveApp,
-  watch: watchApp
+  app: watchApp
 };
+
+
+/**
+ * Gulp watch tasks
+ */
+
+gulp.task('watch', watchApp);

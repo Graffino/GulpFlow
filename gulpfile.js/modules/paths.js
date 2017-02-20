@@ -162,7 +162,10 @@ var patterns = {
 
   // Stylus
   stylus: {
-    all: modules.stylus.root + '**/*.styl'
+    all: modules.stylus.root + '**/*.styl',
+    exclude: [
+      'sprite.styl'
+    ]
   },
 
   // Icons

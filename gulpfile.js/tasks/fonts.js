@@ -31,8 +31,7 @@ function convertFontsWOFF() {
     // Fix pipe on error
     .pipe(plugins.plumber({errorHandler: error.handle}))
     .pipe(plugins.ttf2woff())
-    .pipe(gulp.dest(paths.base.www + paths.modules.fonts.root))
-    .pipe(plugins.livereload());
+    .pipe(gulp.dest(paths.base.www + paths.modules.fonts.root));
 }
 
 // WOFF2
@@ -41,8 +40,7 @@ function convertFontsWOFF2() {
     // Fix pipe on error
     .pipe(plugins.plumber({errorHandler: error.handle}))
     .pipe(plugins.ttf2woff2())
-    .pipe(gulp.dest(paths.base.www + paths.modules.fonts.root))
-    .pipe(plugins.livereload());
+    .pipe(gulp.dest(paths.base.www + paths.modules.fonts.root));
 }
 
 

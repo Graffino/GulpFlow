@@ -27,8 +27,7 @@ var utils = require('../modules/utils');
 function compileSprite() {
   return gulp.src(paths.base.src + paths.patterns.icons.all)
     .pipe(plugins.svgSprite(config.modules.sprite))
-    .pipe(gulp.dest(paths.base.www + paths.modules.icons.root))
-    .pipe(plugins.livereload());
+    .pipe(gulp.dest(paths.base.www + paths.modules.icons.root));
 }
 
 

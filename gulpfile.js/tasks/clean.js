@@ -59,17 +59,17 @@ function cleanJSAll() {
 
 // Javascript common files
 function cleanJSCommon() {
-  return clean(paths.base.www + paths.patterns.js.common);
+  return clean(paths.base.www + paths.modules.js.common);
 }
 
 // Javascript modules files
 function cleanJSModules() {
-  return clean(paths.base.www + paths.patterns.js.modules);
+  return clean(paths.base.www + paths.modules.js.modules);
 }
 
 // Javascript vendor files
 function cleanJSVendor() {
-  return clean(paths.base.www + paths.patterns.js.vendor);
+  return clean(paths.base.www + paths.modules.js.vendor);
 }
 
 

@@ -11,6 +11,7 @@
  */
 
 // Node requires
+var path = require('path');
 var mainBowerFiles = require('main-bower-files');
 
 // Gulp & plugins
@@ -41,8 +42,17 @@ function fetchBower() {
  */
 
 function compileBower() {
-  var jsFiles = plugins.filter(['**/*.js', '!**/*main*.js'], {restore: true});
-  var cssFiles = plugins.filter(['**/*.css', '!**/*main*.css'], {restore: true});
+  var excludeCSS = path.normalize('!**/' + paths.patterns.css.exclude.join(','));
+  var excludeJS = path.normalize('!**/' + paths.patterns.js.exclude.join(','));
+
+  var jsFiles = plugins.filter([
+    '**/*.js',
+    excludeJS
+  ], {restore: true});
+  var cssFiles = plugins.filter([
+    '**/*.css',
+    excludeCSS
+  ], {restore: true});
 
   return gulp.src(mainBowerFiles({
     includeDev: true,
@@ -58,7 +68,10 @@ function compileBower() {
       )
     )
     .pipe(cssFiles)
-    .pipe(plugins.groupConcat({'bower.css': '**/*.css'}))
+    .pipe(plugins.groupConcat({'bower.css': [
+      '**/*.css',
+      excludeCSS
+    ]}))
     .pipe(
       plugins.if(
         env.isDevelopment(),
@@ -74,7 +87,10 @@ function compileBower() {
       )
     )
     .pipe(jsFiles)
-    .pipe(plugins.groupConcat({'bower.js': '**/*.js'}))
+    .pipe(plugins.groupConcat({'bower.js': [
+      '**/*.js',
+      excludeJS
+    ]}))
     .pipe(
       plugins.if(
         env.isDevelopment(),

@@ -27,7 +27,7 @@ var utils = require('../modules/utils');
  */
 
 function copyJS() {
-  var exclude = path.normalize('!**/{' + paths.patterns.js.exclude.join(',') + '}/**');
+  var exclude = path.normalize('!**/' + paths.patterns.js.exclude.join(','));
 
   return gulp.src([
     paths.base.src + paths.patterns.js.all,

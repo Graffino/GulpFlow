@@ -61,7 +61,7 @@ function lintStylus() {
  */
 
 function lintHTML() {
-  var exclude = path.normalize('!**/{' + paths.patterns.nunjucks.html.exclude.join(',') + '}/**');
+  var exclude = path.normalize('!**/' + paths.patterns.nunjucks.html.exclude.join(','));
 
   return gulp.src([paths.base.src + paths.patterns.nunjucks.html.all, exclude])
     // Fix pipe on error

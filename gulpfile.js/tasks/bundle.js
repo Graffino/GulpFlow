@@ -10,6 +10,9 @@
  * Module imports
  */
 
+// Node requires
+var path = require('path');
+var browserSync = require('browser-sync');
 
 // Gulp & plugins
 var gulp = require('gulp');
@@ -26,7 +29,12 @@ var error = require('../modules/error');
  */
 
 function bundleJS() {
-  return gulp.src(paths.base.www + paths.patterns.js.all)
+  var exclude = path.normalize('!**/' + paths.patterns.js.exclude.join(','));
+
+  return gulp.src([
+    paths.base.www + paths.patterns.js.all,
+    exclude
+  ])
   // Fix pipe on error
   .pipe(plugins.plumber({errorHandler: error.handle}))
   .pipe(
@@ -40,15 +48,19 @@ function bundleJS() {
     '**/app.js',
     '**/*.js'
   ]))
-  .pipe(plugins.groupConcat({'main.js': ['**/*.js', '!**/*main*.js']}))
+  .pipe(plugins.groupConcat({
+    'main.js': [
+      '**/*.js',
+      exclude
+    ]
+  }))
   .pipe(
     plugins.if(
       env.isDevelopment(),
       plugins.sourcemaps.write('.')
     )
   )
-  .pipe(gulp.dest(paths.base.www + paths.modules.js.root))
-  .pipe(plugins.livereload());
+  .pipe(gulp.dest(paths.base.www + paths.modules.js.root));
 }
 
 
@@ -57,29 +69,37 @@ function bundleJS() {
  */
 
 function bundleCSS() {
-  return gulp.src(paths.base.www + paths.patterns.css.all)
-    // Fix pipe on error
-    .pipe(plugins.plumber({errorHandler: error.handle}))
-    .pipe(
-      plugins.if(
-        env.isDevelopment(),
-        plugins.sourcemaps.init({loadMaps: true})
-      )
+  var exclude = path.normalize('!**/' + paths.patterns.css.exclude.join(','));
+
+  return gulp.src([
+    paths.base.www + paths.patterns.css.all,
+    exclude
+  ])
+  // Fix pipe on error
+  .pipe(plugins.plumber({errorHandler: error.handle}))
+  .pipe(
+    plugins.if(
+      env.isDevelopment(),
+      plugins.sourcemaps.init({loadMaps: true})
     )
-    .pipe(plugins.order([
-      '**/bower.css',
-      '**/app.css',
-      '**/*.css'
-    ]))
-    .pipe(plugins.groupConcat({'main.css': ['**/*.css', '!**/*main*.css']}))
-    .pipe(
-      plugins.if(
-        env.isDevelopment(),
-        plugins.sourcemaps.write('.')
-      )
+  )
+  .pipe(plugins.order([
+    '**/bower.css',
+    '**/app.css',
+    '**/*.css'
+  ]))
+  .pipe(plugins.groupConcat({'main.css': [
+    '**/*.css',
+    exclude
+  ]}))
+  .pipe(
+    plugins.if(
+      env.isDevelopment(),
+      plugins.sourcemaps.write('.')
     )
-    .pipe(gulp.dest(paths.base.www + paths.modules.css.root))
-    .pipe(plugins.livereload());
+  )
+  .pipe(gulp.dest(paths.base.www + paths.modules.css.root))
+  .pipe(browserSync.stream());
 }
 
 

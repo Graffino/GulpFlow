@@ -17,16 +17,18 @@ var notice = require('../modules/notice');
 
 // Gulp tasks
 var bower = require('../tasks/bower');
-var modernizr = require('../tasks/modernizr');
-var js = require('../tasks/js');
+var bundle = require('../tasks/bundle');
+var clean = require('../tasks/clean');
+var copy = require('../tasks/copy');
 var fonts = require('../tasks/fonts');
+var js = require('../tasks/js');
+var lint = require('../tasks/lint');
+var modernizr = require('../tasks/modernizr');
 var nunjucks = require('../tasks/nunjucks');
 var sprite = require('../tasks/sprite');
 var stylus = require('../tasks/stylus');
-var copy = require('../tasks/copy');
-var bundle = require('../tasks/bundle');
+var watch = require('../tasks/watch');
 var wordpress = require('../tasks/wordpress');
-var lint = require('../tasks/lint');
 
 
 /**
@@ -49,6 +51,7 @@ var buildDevelopment = gulp.series(
   bundle.process,
   wordpress.process,
   lint.app,
+  watch.app,
   notice.finished
 );
 
@@ -56,46 +59,49 @@ var buildDevelopment = gulp.series(
 /**
  * Build for staging
  */
-/*
+
 var buildStaging = gulp.series(
   clean.app,
   gulp.parallel(
-    bundle.deps
-  ),
-  copy.app,
-  gulp.parallel(
-    bundle.fonts,
+    bower.process,
+    modernizr.process,
+    js.process,
+    fonts.process,
+    nunjucks.process,
     gulp.series(
-      compile.app,
-      bundle.app
-    )
+      sprite.process,
+      stylus.process
+    ),
+    copy.app
   ),
-  wordpress.copy
+  bundle.process,
+  wordpress.process
 );
 
 
 /**
  * Build for production
  */
-/*
+
 var buildProduction = gulp.series(
   clean.app,
   gulp.parallel(
-    lint.app,
-    bundle.deps
-  ),
-  copy.app,
-  gulp.parallel(
-    bundle.fonts,
+    bower.process,
+    modernizr.process,
+    js.process,
+    fonts.process,
+    nunjucks.process,
     gulp.series(
-      compile.app,
-      bundle.app,
-      minify.app
-    )
+      sprite.process,
+      stylus.process
+    ),
+    copy.app
   ),
-  inject.critical,
-  clean.production,
-  wordpress.copy
+  bundle.process,
+//  minify.app,
+//  critical.process,
+//  clean.postproduction,
+  wordpress.process
 );
 
 
@@ -103,14 +109,14 @@ var buildProduction = gulp.series(
  * Build according to environment
  */
 
-var build = function (cb) {
+var buildApp = function (cb) {
   var buildType;
   if (env.isProduction()) {
-    // buildType = buildProduction(cb);
+    buildType = buildProduction(cb);
   } else if (env.isDevelopment()) {
     buildType = buildDevelopment(cb);
   } else {
-    // buildType = buildStaging(cb);
+    buildType = buildStaging(cb);
   }
   return buildType;
 };
@@ -121,12 +127,12 @@ var build = function (cb) {
  */
 
 module.exports = {
-  app: build
+  app: buildApp
 };
 
 /**
  * Gulp build task
  */
 
-gulp.task('default', buildDevelopment);
-gulp.task('build', buildDevelopment);
+gulp.task('default', buildApp);
+gulp.task('build', buildApp);

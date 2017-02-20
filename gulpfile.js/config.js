@@ -78,6 +78,39 @@ var enabled = {
  */
 
 var modules = {
+  // BrowserSyc
+  browsersync: {
+    // Porxy mode
+    /* proxy: {
+      target: 'localhost'
+    },
+    */
+    port: 8888,
+    // 'false' | '{port:3000}'
+    ui: {
+      port: 8881
+    },
+    reloadDebounce: 1000,
+    injectChanges: true,
+    minify: false,
+    // e.g. '.scroller-mobile', '.scroller'
+    scrollElementMapping: [],
+    reloadOnRestart: false,
+    // e.g. '["google chrome", "firefox"]'
+    browser: 'google chrome',
+    // false | 'local' | 'external' | 'ui'
+    open: false,
+    // 'info' | 'debug' | 'warn' | 'silent'
+    logLevel: 'silent',
+    // 'offline' | 'online'
+    plugins: [
+      'bs-html-injector',
+      'bs-latency'
+    ],
+    online: undefined,
+    notify: true
+  },
+
   // Autoprefixer versions
   autoprefixer: {
     browsers: 'last 2 versions'

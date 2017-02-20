@@ -43,8 +43,7 @@ function compileJS() {
         plugins.sourcemaps.init()
       )
     )
-    .pipe(gulp.dest(paths.base.www + paths.modules.js.root))
-    .pipe(plugins.livereload());
+    .pipe(gulp.dest(paths.base.www + paths.modules.js.root));
 }
 
 
