@@ -27,8 +27,14 @@ var HubRegistry = require('gulp-hub');
 // Gulpfile booting message
 util.log(util.colors.green('Starting to Gulp! Please wait...'));
 
-/* Load files into the registry */
+// Load files into the registry
 var hub = new HubRegistry(['tasks/*.js']);
 
-/* Tell gulp to use the loaded tasks */
+// Tell gulp to use the loaded tasks
 gulp.registry(hub);
+
+// Kill Gulp on CTRL+C
+process.on('SIGINT', function () {
+  util.log(util.colors.green('Terminating Gulp: (╯°□°）╯︵ ┻━┻'));
+  process.kill(process.pid, 'SIGKILL');
+});
