@@ -90,12 +90,13 @@ var modules = {
     ui: {
       port: 8881
     },
+    files: [paths.base.www + paths.patterns.css.all],
     reloadDebounce: 1000,
     injectChanges: true,
     minify: false,
     // e.g. '.scroller-mobile', '.scroller'
     scrollElementMapping: [],
-    reloadOnRestart: false,
+    reloadOnRestart: true,
     // e.g. '["google chrome", "firefox"]'
     browser: 'google chrome',
     // false | 'local' | 'external' | 'ui'

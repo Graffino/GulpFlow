@@ -13,19 +13,22 @@
  * Module imports
  */
 
+// Use to watch gulp itself
+var spawn = require('child_process').spawn;
+
 // Node requires
 var path = require('path');
 var debounce = require('debounce');
-var browserSync = require('browser-sync').create();
+var browserSync = require('browser-sync');
 
 // Gulp & plugins
 var gulp = require('gulp');
+var plugins = require('gulp-load-plugins')();
 
 // Gulp requries
 var config = require('../config');
 var notice = require('../modules/notice');
 var paths = require('../modules/paths');
-var utils = require('../modules/utils');
 
 // Gulp tasks
 var bower = require('../tasks/bower');
@@ -40,9 +43,6 @@ var sprite = require('../tasks/sprite');
 var stylus = require('../tasks/stylus');
 var wordpress = require('../tasks/wordpress');
 
-// Use to watch gulp itself
-var firstRun = true;
-
 
 /**
  * Watch for changes
@@ -52,8 +52,20 @@ function watchChanges() {
   // Gulp watch issue, must use debounce with gulp.series to work around it:
   // https://github.com/gulpjs/gulp/issues/1304
 
-  // Gulp already ran
-  firstRun = false;
+  var gulpProcess;
+
+  gulp.watch(
+    [paths.base.root + 'gulpfile.js/**/*.js'], function () {
+      browserSync.exit();
+      gulpProcess = spawn('gulp', ['default'], {stdio: 'inherit'});
+      gulpProcess.kill();
+
+      gulpProcess.on('exit', function () {
+        plugins.util.log(plugins.util.colors.green('Re-Starting to Gulp: (╯°□°）╯︵ ┻━┻'));
+        gulpProcess = spawn('gulp', ['default'], {stdio: 'inherit'});
+      });
+    }
+  );
 
   // Init Browser Sync
   browserSync.init(config.modules.browsersync);
@@ -228,12 +240,6 @@ function watchChanges() {
       ]),
     2000)
   ).on('change', browserSync.reload);
-
-  // Gulp config
-  gulp.watch(
-    [paths.base.root + 'gulpfile.js/**/*.js'],
-    gulp.series(['default'])
-  );
 }
 
 
@@ -243,7 +249,7 @@ function watchChanges() {
 
 var watchApp = gulp.series(
   notice.watching,
-  firstRun ? watchChanges : utils.noop
+  watchChanges
 );
 
 
