@@ -118,7 +118,7 @@ var bundleApp = gulp.parallel(
  */
 
 module.exports = {
-  process: bundleApp,
+  app: bundleApp,
   css: bundleCSS,
   js: bundleJS
 };

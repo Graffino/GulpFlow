@@ -47,8 +47,11 @@ var modules = {
     modules: 'css/modules/',
     vendor: 'css/vendor/',
 
-    // App main file
-    app: 'css/common/app.css'
+    // App file
+    app: 'css/common/app.css',
+
+    // App file
+    main: 'css/main.css'
   },
 
   // Javascript
@@ -58,8 +61,11 @@ var modules = {
     modules: 'js/modules/',
     vendor: 'js/vendor/',
 
-    // App main file
-    app: 'js/common/app.js'
+    // App file
+    app: 'js/common/app.js',
+
+    // Main file
+    main: 'js/main.js'
   },
 
   // Stylus
@@ -176,7 +182,8 @@ var patterns = {
   // Images
   images: {
     all: modules.images.root + '**/*.+(jpg|jpeg|png|svg|gif|ico)',
-    svgs: modules.images.svgs + '*.svg'
+    svgs: modules.images.svgs + '*.svg',
+    static: '*.+(jpg|jpeg|png|svg|gif|ico)'
   },
 
   // Fonts
@@ -190,6 +197,11 @@ var patterns = {
   // Media
   media: {
     all: modules.media.root + '**/*.+(webm|mp4|mp3|pdf|doc)'
+  },
+
+  // HTML Files
+  html: {
+    all: '**/*.html'
   },
 
   // Nunjucks HTML Templates

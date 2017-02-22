@@ -23,8 +23,10 @@ var copy = require('../tasks/copy');
 var fonts = require('../tasks/fonts');
 var js = require('../tasks/js');
 var lint = require('../tasks/lint');
+var minify = require('../tasks/minify');
 var modernizr = require('../tasks/modernizr');
 var nunjucks = require('../tasks/nunjucks');
+var optimize = require('../tasks/optimize');
 var sprite = require('../tasks/sprite');
 var stylus = require('../tasks/stylus');
 var watch = require('../tasks/watch');
@@ -48,7 +50,7 @@ var buildDevelopment = gulp.series(
     ),
     copy.app
   ),
-  bundle.process,
+  bundle.app,
   wordpress.process,
   lint.app,
   watch.app,
@@ -74,7 +76,7 @@ var buildStaging = gulp.series(
     ),
     copy.app
   ),
-  bundle.process,
+  bundle.app,
   wordpress.process
 );
 
@@ -97,8 +99,9 @@ var buildProduction = gulp.series(
     ),
     copy.app
   ),
-  bundle.process,
-//  minify.app,
+  optimize.app,
+  bundle.app,
+  minify.app,
 //  critical.process,
 //  clean.postproduction,
   wordpress.process

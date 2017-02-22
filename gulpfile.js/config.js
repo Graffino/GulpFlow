@@ -10,6 +10,11 @@
  * Imports
  */
 
+// Node requires
+var imageminMozjpeg = require('imagemin-mozjpeg');
+var imageminPngquant = require('imagemin-pngquant');
+var imageminSvgo = require('imagemin-svgo');
+
 // Gulp requires
 var paths = require('./modules/paths');
 
@@ -169,6 +174,26 @@ var modules = {
       'es2015',
       'stage-0'
     ]
+  },
+
+  // Imagemin
+  imagemin: {
+    optimizationLevel: 7,
+    progressive: true,
+    interlaced: true,
+    plugins: [
+      imageminSvgo({
+        removeViewBox: false
+      }),
+      imageminPngquant({
+        quality: '65-80',
+        speed: 4
+      }),
+      imageminMozjpeg({
+        quality: '80',
+        progressive: true
+      }
+    )]
   },
 
   // Critical
