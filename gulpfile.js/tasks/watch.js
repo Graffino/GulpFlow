@@ -14,6 +14,7 @@
  */
 
 // Use to watch gulp itself
+var fs = require('fs');
 var spawn = require('child_process').spawn;
 
 // Node requires
@@ -43,6 +44,7 @@ var sprite = require('../tasks/sprite');
 var stylus = require('../tasks/stylus');
 var wordpress = require('../tasks/wordpress');
 
+var gulpProcess;
 
 /**
  * Watch for changes
@@ -52,20 +54,42 @@ function watchChanges() {
   // Gulp watch issue, must use debounce with gulp.series to work around it:
   // https://github.com/gulpjs/gulp/issues/1304
 
-  var gulpProcess;
+  // Autowatch Gulp
+  if (config.enabled.gulpReload) {
+    gulp.watch(
+      [paths.base.root + 'gulpfile.js/**/*.js'], function () {
+        var pid;
+        // Quit all BrowserSync processes
+        browserSync.exit();
 
-  gulp.watch(
-    [paths.base.root + 'gulpfile.js/**/*.js'], function () {
-      browserSync.exit();
-      gulpProcess = spawn('gulp', ['default'], {stdio: 'inherit'});
-      gulpProcess.kill();
+        // Read current PID & kill it
+        if (fs.existsSync('gulpfile.js/gulp.pid')) {
+          pid = fs.readFileSync('gulpfile.js/gulp.pid');
+          try {
+            process.kill(pid, 0);
+            // console.log('Killed: ' + pid);
+          } catch (err) {
+            // console.log(err);
+          }
+          // Delete PID file
+          fs.unlinkSync('gulpfile.js/gulp.pid');
+        }
 
-      gulpProcess.on('exit', function () {
-        plugins.util.log(plugins.util.colors.green('Re-Starting to Gulp: (╯°□°）╯︵ ┻━┻'));
-        gulpProcess = spawn('gulp', ['default'], {stdio: 'inherit'});
-      });
-    }
-  );
+        // Spawn new detached process
+        gulpProcess = spawn('gulp', ['watch'], {stdio: 'inherit', detached: true});
+        // Write process PID to file
+        fs.writeFileSync('gulpfile.js/gulp.pid', gulpProcess.pid);
+
+        plugins.util.log(plugins.util.colors.green('Re-Starting Gulp: (╯°□°）╯︵ ┻━┻'));
+
+        // Detach child process
+        gulpProcess.unref();
+
+        // Kill main process
+        process.kill(0);
+      }
+    );
+  }
 
   // Init Browser Sync
   browserSync.init(config.modules.browsersync);

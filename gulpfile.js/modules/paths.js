@@ -73,7 +73,7 @@ var modules = {
 
     // Icons sprite
     sprite: 'stylus/vendor/sprite.styl',
-    mustache: 'stylus/vendor/sprite.hbs'
+    mustache: 'stylus/vendor/sprite-template.hbs'
   },
 
   // Sprite icons

@@ -12,16 +12,16 @@
  */
 
 {{mixinName}}() {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
   background-image: url("../icons/{{{sprite}}}");
   background-size: rem({{spriteWidth}}) rem({{spriteHeight}});
   background-repeat: no-repeat;
 }
 
 .icon {
-  display: inline-block;
-  vertical-align: middle;
   {{mixinName}}();
-
   {{#shapes}}
   {{#selector.shape}}{{#escape}}
   &.-{{expression}} {

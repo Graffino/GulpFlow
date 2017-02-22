@@ -19,6 +19,9 @@
  * Module imports
  */
 
+// Node requires
+var fs = require('fs');
+
 // Gulp & plugins
 var gulp = require('gulp');
 var util = require('gulp-util');
@@ -36,5 +39,12 @@ gulp.registry(hub);
 // Kill Gulp on CTRL+C
 process.on('SIGINT', function () {
   util.log(util.colors.green('Terminating Gulp: (╯°□°）╯︵ ┻━┻'));
+
+  // Remove PID file
+  try {
+    fs.unlinkSync('gulpfile.js/gulp.pid');
+  } catch (err) { }
+
+  // Kill process
   process.kill(process.pid, 'SIGKILL');
 });
