@@ -10,9 +10,6 @@
  * Module imports
  */
 
-// Node requires
-var critical = require('critical').stream;
-
 // Gulp & plugins
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
@@ -23,24 +20,26 @@ var paths = require('../modules/paths');
 var utils = require('../modules/utils');
 var error = require('../modules/error');
 
-var stream;
+var returnStream;
 
 /**
  * Generate Critical CSS
  */
 
 function criticalCSSSingle(criticalPath) {
-  stream = gulp.src(criticalPath + paths.patterns.html.all)
+  // Node requires
+  var critical = require('critical').stream;
+
+  returnStream = gulp.src(criticalPath + paths.patterns.html.all)
     // Convert assets path to absolute path
+    .pipe(plugins.plumber({errorHandler: error.notice}))
     .pipe(plugins.replace('../assets', '/assets/'))
-    .pipe(critical(config.modules.critical).on('error', function (err) {
-      error.handle(err);
-    }))
+    .pipe(critical(config.modules.critical))
     // Correct assets path
     .pipe(plugins.replace('../', '/assets/'))
     .pipe(gulp.dest(criticalPath));
 
-  return stream;
+  return returnStream;
 }
 
 
@@ -57,7 +56,7 @@ function criticalCSS() {
   } else {
     criticalCSSSingle(paths.base.www);
   }
-  return stream;
+  return returnStream;
 }
 
 

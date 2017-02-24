@@ -145,8 +145,6 @@ var copyApp = gulp.parallel(
   //  js: copyJS,
   // Skipped -> Sprite copies these
   //  icons: copyIcons,
-
-  copyIcons,
   copyImages,
 
   // Skip Fonts according to config
