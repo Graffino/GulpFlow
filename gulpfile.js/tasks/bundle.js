@@ -29,7 +29,7 @@ var error = require('../modules/error');
  */
 
 function bundleJS() {
-  var exclude = path.normalize('!**/' + paths.patterns.js.exclude.join(','));
+  var exclude = path.normalize('!**/{' + paths.patterns.js.exclude.join(',') + '}');
 
   return gulp.src([
     paths.base.www + paths.patterns.js.all,
@@ -69,7 +69,7 @@ function bundleJS() {
  */
 
 function bundleCSS() {
-  var exclude = path.normalize('!**/' + paths.patterns.css.exclude.join(','));
+  var exclude = path.normalize('!**/{' + paths.patterns.css.exclude.join(',') + '}');
 
   return gulp.src([
     paths.base.www + paths.patterns.css.all,

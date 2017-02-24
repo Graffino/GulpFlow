@@ -49,7 +49,7 @@ var enabled = {
   // Critical CSS generation
   critical: true,
   // Wordpress
-  wordpress: true,
+  wordpress: false,
 
   // Nunjucks templates
   nunjucks: {

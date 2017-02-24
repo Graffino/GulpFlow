@@ -130,7 +130,7 @@ function watchChanges() {
   gulp.watch(
     [
       paths.base.src + paths.patterns.stylus.all,
-      path.normalize('!**/' + paths.patterns.stylus.exclude.join(','))
+      path.normalize('!**/{' + paths.patterns.stylus.exclude.join(',') + '}')
     ],
     debounce(
       gulp.series([

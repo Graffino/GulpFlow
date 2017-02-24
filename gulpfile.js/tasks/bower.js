@@ -42,8 +42,8 @@ function fetchBower() {
  */
 
 function compileBower() {
-  var excludeCSS = path.normalize('!**/' + paths.patterns.css.exclude.join(','));
-  var excludeJS = path.normalize('!**/' + paths.patterns.js.exclude.join(','));
+  var excludeCSS = path.normalize('!**/{' + paths.patterns.css.exclude.join(',') + '}');
+  var excludeJS = path.normalize('!**/{' + paths.patterns.js.exclude.join(',') + '}');
 
   var jsFiles = plugins.filter([
     '**/*.js',

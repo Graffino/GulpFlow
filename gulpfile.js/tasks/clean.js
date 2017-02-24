@@ -189,8 +189,8 @@ function cleanPostProduction() {
   var toClean;
 
   // Excludes
-  var excludeCSS = path.normalize('!' + paths.base.www + paths.modules.css.root + paths.patterns.css.exclude.join(','));
-  var excludeJS = path.normalize('!' + paths.base.www + paths.modules.js.root + paths.patterns.js.exclude.join(','));
+  var excludeCSS = path.normalize('!**/{' + paths.patterns.css.exclude.join(',') + '}');
+  var excludeJS = path.normalize('!**/{' + paths.patterns.js.exclude.join(',') + '}');
 
   // HTML
   var html = [paths.base.www + '*.html'];
