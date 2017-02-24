@@ -23,13 +23,14 @@ var paths = require('../modules/paths');
 var utils = require('../modules/utils');
 var error = require('../modules/error');
 
+var stream;
 
 /**
  * Generate Critical CSS
  */
 
 function criticalCSSSingle(criticalPath) {
-  return gulp.src(criticalPath + paths.patterns.html.all)
+  stream = gulp.src(criticalPath + paths.patterns.html.all)
     // Convert assets path to absolute path
     .pipe(plugins.replace('../assets', '/assets/'))
     .pipe(critical(config.modules.critical).on('error', function (err) {
@@ -38,6 +39,8 @@ function criticalCSSSingle(criticalPath) {
     // Correct assets path
     .pipe(plugins.replace('../', '/assets/'))
     .pipe(gulp.dest(criticalPath));
+
+  return stream;
 }
 
 
@@ -49,11 +52,12 @@ function criticalCSS() {
   var languages = paths.languages;
   if (languages.length > 0) {
     languages.forEach(function (language) {
-      return criticalCSSSingle(language);
+      criticalCSSSingle(language);
     });
   } else {
-    return criticalCSSSingle(paths.base.www);
+    criticalCSSSingle(paths.base.www);
   }
+  return stream;
 }
 
 
