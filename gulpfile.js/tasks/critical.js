@@ -28,24 +28,32 @@ var error = require('../modules/error');
  * Generate Critical CSS
  */
 
-function criticalCSS() {
-  return gulp.src(paths.base.www + paths.patterns.html)
+function criticalCSSSingle(criticalPath) {
+  return gulp.src(criticalPath + paths.patterns.html.all)
     // Convert assets path to absolute path
     .pipe(plugins.replace('../assets', '/assets/'))
-    .pipe(critical({
-      base: paths.base.www,
-      inline: false,
-      minify: true,
-      width: 2000,
-      height: 2000,
-      css: paths.base.www + paths.modules.css.main,
-      timeout: 1000 * 60 * 10
-    }).on('error', function (err) {
+    .pipe(critical(config.modules.critical).on('error', function (err) {
       error.handle(err);
     }))
     // Correct assets path
     .pipe(plugins.replace('../', '/assets/'))
-    .pipe(gulp.dest(paths.base.www));
+    .pipe(gulp.dest(criticalPath));
+}
+
+
+/**
+ * Generate Critical CSS
+ */
+
+function criticalCSS() {
+  var languages = paths.languages;
+  if (languages.length > 0) {
+    languages.forEach(function (language) {
+      return criticalCSSSingle(language);
+    });
+  } else {
+    return criticalCSSSingle(paths.base.www);
+  }
 }
 
 

@@ -198,14 +198,13 @@ var modules = {
 
   // Critical
   critical: {
-    base: paths.www,
-    // If false -> generates filename.css next to filename.html
-    inline: true,
-    pathPrefix: '/',
-    css: paths.www + paths.css + 'main.css',
+    inline: false,
     minify: true,
     width: 2000,
     height: 2000,
+    extract: true,
+    pathPrefix: '/',
+    css: paths.base.www + paths.modules.css.main,
     timeout: 1000 * 60 * 10
   }
 };
