@@ -11,6 +11,7 @@
  */
 
 // Node requires
+var path = require('path');
 var del = require('del');
 
 // Gulp & plugins
@@ -186,27 +187,30 @@ function cleanWordpress() {
 // Postproduction
 function cleanPostProduction() {
   var toClean;
+
+  // Excludes
+  var excludeCSS = path.normalize('!' + paths.base.www + paths.modules.css.root + paths.patterns.css.exclude.join(','));
+  var excludeJS = path.normalize('!' + paths.base.www + paths.modules.js.root + paths.patterns.js.exclude.join(','));
+
+  // HTML
+  var html = [paths.base.www + '*.html'];
+  // Language folders
+  var languages = paths.languages;
+  // CleanupHTML
+  var htmlFiles = html.concat(languages);
+
   // Remove HTML files on production if Wordpress is enabled
+  toClean = [
+    // Leave only CSS mainfiles
+    paths.base.www + paths.modules.css.root + '**/*',
+    excludeCSS,
+    // Leave only JS mainfiles
+    paths.base.www + paths.modules.js.root + '**/*',
+    excludeJS
+  ];
+
   if (config.enabled.wordpress) {
-    toClean = [
-      // Leave only CSS mainfiles
-      paths.base.www + paths.modules.css.root + '**/*',
-      paths.ignore.css.main,
-      // Leave only JS mainfiles
-      paths.base.www + paths.modules.js.root + '**/*',
-      paths.ignore.js.main,
-      // Delete HTML files
-      paths.base.www + '*.html'
-    ];
-  } else {
-    toClean = [
-      // Leave only CSS mainfiles
-      paths.base.www + paths.modules.css.root + '**/*',
-      paths.ignore.css.main,
-      // Leave only JS mainfiles
-      paths.base.www + paths.modules.js.root + '**/*',
-      paths.ignore.js.main
-    ];
+    toClean = toClean.concat(htmlFiles);
   }
 
   return clean(toClean);

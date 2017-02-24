@@ -36,15 +36,12 @@ var hub = new HubRegistry(['tasks/*.js']);
 // Tell gulp to use the loaded tasks
 gulp.registry(hub);
 
-// Kill Gulp on CTRL+C
-process.on('SIGINT', function () {
-  util.log(util.colors.green('Terminating Gulp: (╯°□°）╯︵ ┻━┻'));
+// Remove PID file on exit
+process.on('exit', function () {
+  util.log(util.colors.green('Finishing Gulp: (╯°□°）╯︵ ┻━┻ dןnb'));
 
   // Remove PID file
   try {
     fs.unlinkSync('gulpfile.js/gulp.pid');
   } catch (err) { }
-
-  // Kill process
-  process.kill(process.pid, 'SIGKILL');
 });
