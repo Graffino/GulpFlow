@@ -3,6 +3,7 @@ node_modules
 src/stylus/vendor/sprite.styl
 src/js/vendor/
 www
-tests/regression/bitmaps_test/compare.json
+tests/backstop/bitmaps_test/compare.json
 .DS_Store
 /tests/lighthouse/report
+/tests/regression

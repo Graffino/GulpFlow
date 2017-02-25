@@ -16,8 +16,8 @@
     }
   ],
   "scenarios": [{
-    "label": "http://graffino.com",
-    "url": "http://graffino.com",
+    "label": "http://gulpflow.dev",
+    "url": "http://gulpflow.dev",
     "hideSelectors": [],
     "removeSelectors": [
       "#carbonads-container"
@@ -33,17 +33,13 @@
     "onReadyScript": "onReady.js"
   }],
   "paths": {
-    "bitmaps_reference": "tests/regression/bitmaps_reference",
-    "bitmaps_test": "tests/regression/bitmaps_test",
-    "compare_data": "tests/regression/bitmaps_test/compare.json",
-    "casper_scripts": "tests/regression/casper_scripts"
+    "bitmaps_reference": "tests/backstop/bitmaps_reference",
+    "bitmaps_test": "tests/backstop/bitmaps_test",
+    "compare_data": "tests/backstop/bitmaps_test/compare.json",
+    "casper_scripts": "tests/backstop/casper_scripts"
   },
   "report": ["CLI", "browser"],
   "cliExitOnFail": false,
-  "engine": "slimerjs",
   "debug": false,
-  "port": 3001,
-  "casperFlags": [
-    "--engine=slimerjs"
-  ]
+  "port": 3001
 }

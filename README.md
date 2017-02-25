@@ -133,19 +133,24 @@ Run:
 2. Install casper: `yarn global add casperjs`
 3. Install backstopjs: `yarn global add backstopjs`
 4. Regression initial config:
-    - `yarn run regression-config`
+    - `gulp backstop:config`
     - Edit/Insert required scenarios in `backstop.json`.
 
 #### To test for regressions ####
 1. Create Regression reference:
-    - `yarn run regression-reference`
+    - `gulp backstop:reference`
 2. Run a regression test:
-    - `yarn run regression-test`
+    - `gulp backstop`
 3. Bless files (if we have older reference files):
-    - `yarn run regression-bless`
+    - `gulp backstop:bless`
 4. Open regression report:
-    - `yarn run regression-report`
+    - `gulp backstop:report`
 
+
+## Google Lighthouse report ##
+
+1. Configure `url` in `gulpfile.js/common/paths.js`.
+2. Run `gulp lighthouse`
 
 ## Bump Project Version ##
 
