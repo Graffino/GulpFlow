@@ -6,4 +6,3 @@ www
 tests/backstop/bitmaps_test/compare.json
 .DS_Store
 /tests/lighthouse/report
-/tests/regression

@@ -18,8 +18,9 @@ var plugins = require('gulp-load-plugins')();
 // Gulp requires
 var paths = require('../modules/paths');
 
+
 /**
- * Fetch Bower packages
+ * Run lighthouse
  */
 
 function lighthouseRun() {
@@ -31,7 +32,7 @@ function lighthouseRun() {
 
 
 /**
- * Process Bower
+ * Generate report
  */
 
 var generateReport = gulp.series(
@@ -49,7 +50,7 @@ module.exports = {
 
 
 /**
- * Gulp Bower task
+ * Gulp lighthouse task
  */
 
 generateReport.displayName = 'lighthouse';
