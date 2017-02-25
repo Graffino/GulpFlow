@@ -290,4 +290,6 @@ module.exports = {
  * Gulp watch tasks
  */
 
-gulp.task('watch', watchApp);
+watchApp.displayName = 'watch';
+watchApp.description = 'Enters watch mode. This watches for changes in the assets, CSS, JS, etc. If a file changes, a series of tasks are ran to reflect the changes in the `/www` build folder. CSS is also injected automatically in the page.';
+gulp.task(watchApp);

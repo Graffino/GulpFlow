@@ -109,4 +109,6 @@ module.exports = {
  * Gulp lint task
  */
 
-gulp.task('lint', lintApp);
+lintApp.displayName = 'lint';
+lintApp.description = 'Lints Stylus, JS, Nunjucks files for errors.';
+gulp.task(lintApp);

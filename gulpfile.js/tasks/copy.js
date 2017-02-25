@@ -114,8 +114,10 @@ function copyData() {
  */
 
 function copyStatic() {
+  var exclude = path.normalize('!**/{' + paths.patterns.static.exclude.join(',') + '}');
   return gulp.src([
-    paths.base.src + paths.patterns.static.all
+    paths.base.src + paths.patterns.static.all,
+    exclude
   ], {
     base: paths.base.src + paths.modules.static.root,
     dot: true
@@ -129,8 +131,10 @@ function copyStatic() {
  */
 
 function copyVendor() {
+  var exclude = path.normalize('!**/{' + paths.patterns.vendor.exclude.join(',') + '}');
   return gulp.src([
-    paths.base.root + paths.patterns.vendor.all
+    paths.base.root + paths.patterns.vendor.all,
+    exclude
   ])
   .pipe(gulp.dest(paths.base.www));
 }
@@ -198,4 +202,6 @@ module.exports = {
  * Gulp copy task
  */
 
-gulp.task('copy', copyApp);
+copyApp.displayName = 'copy';
+copyApp.description = 'Copies all files and assets to the `/www` build folder.';
+gulp.task(copyApp);

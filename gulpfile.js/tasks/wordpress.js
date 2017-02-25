@@ -10,6 +10,9 @@
  * Module imports
  */
 
+// Node requires
+var path = require('path');
+
 // Gulp & plugins
 var gulp = require('gulp');
 
@@ -24,8 +27,10 @@ var utils = require('../modules/utils');
  */
 
 function copyWordpress() {
+  var exclude = path.normalize('!**/{' + paths.patterns.wordpress.exclude.join(',') + '}');
   return gulp.src(
-    paths.base.root + paths.patterns.wordpress.all
+    paths.base.root + paths.patterns.wordpress.all,
+    exclude
   )
   .pipe(gulp.dest(paths.base.www));
 }
@@ -54,4 +59,6 @@ module.exports = {
  * Gulp wordpress task
  */
 
-gulp.task('wordpress', processWordpress);
+processWordpress.displayName = 'wordpress';
+processWordpress.description = 'Copies all Wordpress theme files into the build folder.';
+gulp.task(processWordpress);

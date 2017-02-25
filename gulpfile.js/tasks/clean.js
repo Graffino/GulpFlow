@@ -276,4 +276,6 @@ module.exports = {
  * Gulp clean task
  */
 
-gulp.task('clean', cleanApp);
+cleanApp.displayName = 'clean';
+cleanApp.description = 'Cleans `/www` build folder from all generated files. Some manually inserted files and folders might remain';
+gulp.task(cleanApp);

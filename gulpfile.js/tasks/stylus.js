@@ -81,4 +81,11 @@ module.exports = {
  * Gulp Stylus task
  */
 
-gulp.task('stylus', processStylus);
+processStylus.displayName = 'stylus';
+processStylus.description = 'Compiles stylus files into `/css/common/app.css`.';
+processStylus.flags = {
+  '--development': 'Builds CSS sourcemaps.',
+  '--staging': 'Doesn\'t build CSS sourcemaps.',
+  '--production': 'Doesn\'t build CSS sourcemaps.'
+};
+gulp.task(processStylus);

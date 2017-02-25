@@ -69,4 +69,6 @@ module.exports = {
  * Gulp Optimize task
  */
 
-gulp.task('optimize', optimizeApp);
+optimizeApp.displayName = 'optimize';
+optimizeApp.description = 'Compresses images via Imagemin and optimizes JS files via OptimizeJS for production. These can be configured in `config.js`.';
+gulp.task(optimizeApp);

@@ -82,4 +82,6 @@ module.exports = {
  * Gulp Critical task
  */
 
-gulp.task('critical', processCritical);
+processCritical.displayName = 'critical';
+processCritical.description = 'Generates and inserts (or writes [filename].css files) into the HTML templates. Can be configured via `config.js`.';
+gulp.task(processCritical);

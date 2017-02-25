@@ -53,4 +53,6 @@ module.exports = {
  * Gulp Sprite task
  */
 
-gulp.task('sprite', processSprite);
+processSprite.displayName = 'sprite';
+processSprite.description = 'Generates SVG sprite `/icons/sprite.svg` and `/stylus/vendor/sprite.styl` files. Configuration options are available in `config.js`.';
+gulp.task(processSprite);

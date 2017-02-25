@@ -1,12 +1,12 @@
 # Font Assets
 
-Drop application fonts in `ttf` format here. The fonts task will create `woff` and `woff2` variants and copy them over to the destination specified in `config.js`.
+Drop application fonts in `ttf` format here. The fonts task will create `woff` and `woff2` variants and copy them over to the build folder specified in `config.js`.
 
 ## Tasks and Files
 ```
 gulpfile.js/tasks/fonts
 ```
-This task converts `ttf` to `woff` and `woff2` and placess everything in `./www/fonts`. 
+1. `gulp fonts` - Converts `ttf` to `woff` and `woff2` and placess everything in `./www/fonts/`. 
 
 A sass `webfont` mixin is included in `./src/stylus/common/mixins`.
 

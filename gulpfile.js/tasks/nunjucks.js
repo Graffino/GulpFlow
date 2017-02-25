@@ -105,4 +105,11 @@ module.exports = {
  * Gulp nunjucks task
  */
 
-gulp.task('nunjucks', processAppTemplates);
+processAppTemplates.displayName = 'nunjucks';
+processAppTemplates.description = 'Compiles and generate Nunjucks JS and HTML templates. JS templates are precompiled into `/js/vendor/templates.js`.';
+processAppTemplates.flags = {
+  '--development': 'Builds CSS and JS sourcemaps.',
+  '--staging': 'Doesn\'t build CSS and JS sourcemaps.',
+  '--production': 'Doesn\'t build CSS and JS sourcemaps.'
+};
+gulp.task(processAppTemplates);

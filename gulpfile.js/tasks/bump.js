@@ -59,7 +59,15 @@ module.exports = {
  * Gulp bump tasks
  */
 
+bumpPatch.displayName = 'bump:patch';
+bumpPatch.description = 'Bumps `package.json` and `bower.json` patch version number (x.x.+1.)';
+gulp.task(bumpPatch);
 gulp.task('bump', bumpPatch);
-gulp.task('bump:patch', bumpPatch);
-gulp.task('bump:minor', bumpMinor);
-gulp.task('bump:major', bumpMajor);
+
+bumpMinor.displayName = 'bump:minor';
+bumpMinor.description = 'Bumps `package.json` and `bower.json` minor version number (x.+1.0.)';
+gulp.task(bumpMinor);
+
+bumpMajor.displayName = 'bump:major';
+bumpMajor.description = 'Bumps `package.json` and `bower.json` major version number (x.+1.0.)';
+gulp.task(bumpMajor);

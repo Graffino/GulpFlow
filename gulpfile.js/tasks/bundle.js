@@ -128,4 +128,11 @@ module.exports = {
  * Gulp Bundle task
  */
 
-gulp.task('bundle', bundleApp);
+bundleApp.displayName = 'bundle';
+bundleApp.description = 'Concatenates all CSS and JS files except `main*.js` and `main*.css` into `/css/main.css` and `/js/main.js`.';
+bundleApp.flags = {
+  '--development': 'Builds CSS and JS sourcemaps.',
+  '--staging': 'Doesn\'t build CSS and JS sourcemaps.',
+  '--production': 'Doesn\'t build CSS and JS sourcemaps.'
+};
+gulp.task(bundleApp);

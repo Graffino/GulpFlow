@@ -240,12 +240,18 @@ var patterns = {
       base.www + 'robots.txt',
       base.www + 'social.png',
       base.www + 'touch-icon*.png'
+    ],
+    exclude: [
+      '_readme.md'
     ]
   },
 
   // Vendor
   vendor: {
-    all: modules.vendor.root + '**/*'
+    all: modules.vendor.root + '**/*',
+    exclude: [
+      '_readme.md'
+    ]
   },
 
   // Theme
@@ -258,6 +264,9 @@ var patterns = {
       base.www + '*.php',
       base.www + 'screenshot.png',
       base.www + 'style.css'
+    ],
+    exclude: [
+      '_readme.md'
     ]
   }
 };

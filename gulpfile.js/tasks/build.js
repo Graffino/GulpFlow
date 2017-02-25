@@ -113,16 +113,15 @@ var buildProduction = gulp.series(
  * Build according to environment
  */
 
-var buildApp = function (cb) {
-  var buildType;
+var buildApp = function (done) {
   if (env.isProduction()) {
-    buildType = buildProduction(cb);
+    buildProduction();
   } else if (env.isDevelopment()) {
-    buildType = buildDevelopment(cb);
+    buildDevelopment();
   } else {
-    buildType = buildStaging(cb);
+    buildStaging();
   }
-  return buildType;
+  done();
 };
 
 
@@ -135,8 +134,15 @@ module.exports = {
 };
 
 /**
- * Gulp build task
+ * Gulp build tasks
  */
 
+buildApp.displayName = 'build';
+buildApp.description = 'Builds the project.';
+buildApp.flags = {
+  '--development': 'Compliles project and enters watch mode. No optimisations or minifications takes place.',
+  '--staging': 'Compliles project, in the same way as development, without entering watch mode.',
+  '--production': 'Builds in production mode (minification, image optimisation, cleanup).'
+};
+gulp.task(buildApp);
 gulp.task('default', buildApp);
-gulp.task('build', buildApp);

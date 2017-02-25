@@ -65,4 +65,6 @@ module.exports = {
  * Gulp modernizr task
  */
 
-gulp.task('modernizr', processModernizr);
+processModernizr.displayName = 'modernizr';
+processModernizr.description = 'Generates Modernizr library file based on `config.js` settings.';
+gulp.task(processModernizr);

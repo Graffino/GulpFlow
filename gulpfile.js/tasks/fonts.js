@@ -67,4 +67,6 @@ module.exports = {
  * Gulp fonts task
  */
 
-gulp.task('fonts', processFonts);
+processFonts.displayName = 'fonts';
+processFonts.description = 'Generates WOFF and WOFF2 files from the available TTF font files.';
+gulp.task(processFonts);

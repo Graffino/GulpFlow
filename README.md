@@ -1,7 +1,12 @@
-# GulpFlow 2
-Gulp basic flow we use at Graffino. This site uses *Stylus* and it's deployed with *Gulp.*
+# GulpFlow 3
+Gulp basic flow we use at Graffino. This site uses *Stylus* and it's deployed with *Gulp*.
 
 ## Before you start ##
+
+1. Explore `/gulpfile.js/config.js` and `/gulpfile.js/modules/paths.js`
+2. Read `_readme.md` files in project's main folders to better understand what's going on in the background.
+
+## Install Node ##
 
 ### 1 (macOS). Make sure you have the latest node version
 
@@ -84,13 +89,13 @@ tests/regression    -> Regression testing files
 1. Stylus -> compilation to CSS
 2. Javascript with jQuery
 3. Handlebars (helpers, partials and templates) -> compilation to JS
-4. SVG Sprites -> automatic stylus icon file generation
+4. SVG Sprites -> automatic stylus icon and stylus files generation
 5. Image optimization -> automatic optimization without significant loss of quality
 6. Font generation from TTF -> WOFF, WOFF2
 7. Dependencies management via bower -> automatic injection of CSS and JS dependencies into the project
 8. Concatenation & minification (CSS, JS, HTML)
-9. Critical CSS -> computation and injection into HTML
-10. Development mode -> Complete with JS, HTML, stylus linters, watch and live reload server
+9. Critical CSS -> generation and injection into HTML
+10. Development mode -> Complete with JS, HTML, Stylus linters, Watch and BrowserSync integration
 11. Production mode -> Includes optimizations, minifications and critical CSS
 12. Regression testing with BackstopJS
 13. Git version bumping
@@ -101,24 +106,23 @@ tests/regression    -> Regression testing files
 
 #### 1. Run Production Flow ####
 By default the flow runs in development mode and starts to watch for changes.
-Run `gulp build --env production` to enable production flow. This runs minfier and image optimisation plugins.
+Run `gulp --env production` to enable production flow. This runs minfier and image optimization plugins.
 
 #### 2. Run Development Flow Without Watch ####
-Run `gulp build --env development` to run the development flow once, without entering watch mode.
+Run `gulp --env development` to run the development flow once, without entering watch mode.
 
 #### 3. Gulp Clean Flow ####
 Run `gulp clean` to clean out any dynamically generated files.
 
 #### 4. Run In Debug Mode ####
-Run `gulp build --debug true` to enable certain debug flags. Note that just some plugins have debug flags.
+Run `gulp --debug true` to enable certain debug flags. Note that just some plugins have debug flags.
 
 ## Inject Critical CSS ##
-*This is still WIP. Note: injecting happens in the `--env production` task automatically*
+*Note: injecting happens in the `--env production` task automatically*
 
 Run:
 
-1. `gulp build --env production`
-2. `gulp critical`
+1. `gulp --env production`
 
 ## Regression testing ##
 
