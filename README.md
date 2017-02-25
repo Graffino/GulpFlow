@@ -5,6 +5,7 @@ Gulp basic flow we use at Graffino. This site uses *Stylus* and it's deployed wi
 
 1. Explore `/gulpfile.js/config.js` and `/gulpfile.js/modules/paths.js`
 2. Read `_readme.md` files in project's main folders to better understand what's going on in the background.
+3. Run `gulp --tasks` to see all available tasks.
 
 ## Install Node ##
 
