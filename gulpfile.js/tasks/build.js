@@ -20,6 +20,7 @@ var bower = require('../tasks/bower');
 var bundle = require('../tasks/bundle');
 var clean = require('../tasks/clean');
 var critical = require('../tasks/critical');
+var compress = require('../tasks/compress');
 var copy = require('../tasks/copy');
 var fonts = require('../tasks/fonts');
 var js = require('../tasks/js');
@@ -100,12 +101,17 @@ var buildProduction = gulp.series(
     ),
     copy.app
   ),
-  optimize.app,
-  bundle.app,
-  minify.app,
-  critical.process,
-  clean.postproduction,
-  wordpress.process
+  gulp.parallel(
+    compress.app,
+    gulp.series(
+      bundle.app,
+      optimize.app,
+      minify.app,
+      critical.process,
+      clean.postproduction,
+      wordpress.process
+    )
+  )
 );
 
 

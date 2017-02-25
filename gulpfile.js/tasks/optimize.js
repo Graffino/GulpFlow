@@ -16,43 +16,29 @@ var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 
 // Gulp requires
-var config = require('../config');
 var paths = require('../modules/paths');
 var error = require('../modules/error');
 
 
 /**
- * Compile Images files
+ * Optimize JS files
  */
 
-function optimizeImages() {
-  return gulp.src(paths.base.www + paths.modules.images.root)
+function optimizeJS() {
+  return gulp.src(paths.base.www + paths.modules.js.main)
     // Fix pipe on error
     .pipe(plugins.plumber({errorHandler: error.handle}))
-    .pipe(plugins.imagemin(config))
-    .pipe(gulp.dest(paths.base.www + paths.modules.images.root));
-}
-
-/**
- * Compile Images files
- */
-
-function optimizeStatic() {
-  return gulp.src(paths.base.www + paths.patterns.images.static)
-    // Fix pipe on error
-    .pipe(plugins.plumber({errorHandler: error.handle}))
-    .pipe(plugins.imagemin(config))
-    .pipe(gulp.dest(paths.base.www));
+    .pipe(plugins.optimizeJs())
+    .pipe(gulp.dest(paths.base.www + paths.modules.js.root));
 }
 
 
 /**
- * Process Images
+ * Optimize App
  */
 
 var optimizeApp = gulp.parallel(
-  optimizeImages,
-  optimizeStatic
+  optimizeJS
 );
 
 
@@ -70,5 +56,5 @@ module.exports = {
  */
 
 optimizeApp.displayName = 'optimize';
-optimizeApp.description = 'Compresses images via Imagemin and optimizes JS files via OptimizeJS for production. These can be configured in `config.js`.';
+optimizeApp.description = 'Optimizes JS files via OptimizeJS for production.';
 gulp.task(optimizeApp);
