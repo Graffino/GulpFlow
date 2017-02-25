@@ -20,8 +20,12 @@ var base = {
 
   // Vendor
   vendor: 'vendor/',
+
   // Wordpress
-  wordpress: 'wordpress/'
+  wordpress: 'wordpress/',
+
+  // URL
+  url: 'http://gulpflow.dev'
 };
 
 

@@ -5,3 +5,4 @@ src/js/vendor/
 www
 tests/regression/bitmaps_test/compare.json
 .DS_Store
+/tests/lighthouse/report
