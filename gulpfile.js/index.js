@@ -38,7 +38,7 @@ gulp.registry(hub);
 
 // Kill Gulp on CTRL+C
 process.on('SIGINT', function () {
-  util.log(util.colors.green('Terminating Gulp: (╯°□°）╯︵ ┻━┻'));
+  util.log(util.colors.green('Terminating Gulp: (╯°□°）╯︵ ┻━┻  dlnƃ'));
 
   // Remove PID file
   try {
