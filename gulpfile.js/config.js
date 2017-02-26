@@ -26,12 +26,12 @@ var paths = require('./modules/paths');
 var enabled = {
   // Enable system notices
   notice: true,
-  // Enable Gulp reload (Bug: CTRL+C doesn't stop Gulp)
+  // Enable Gulp watch iself and reload (BUG: CTRL+C doesn't stop Gulp)
   gulpReload: false,
   // Enable bower
   bower: true,
   // Enable modernizr
-  modernizr: true,
+  modernizr: false,
   // Stylus compile
   stylus: true,
   // Sprite generation,
