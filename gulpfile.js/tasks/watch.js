@@ -243,7 +243,7 @@ function watchChanges() {
 
   // Wordpress
   gulp.watch(
-    [paths.base.src + paths.patterns.wordpress.all],
+    [paths.patterns.wordpress.all],
     debounce(
       gulp.series([
         wordpress.process,
