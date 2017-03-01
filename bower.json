@@ -27,7 +27,7 @@
   ],
   "devDependencies": {
     "browser-update": "~2.0.1",
-    "fontfaceobserver": "~2.0.8",
+    "fontfaceobserver": "~2.0.9",
     "h5Validate": "~0.9.0",
     "jquery": "~3.1.1",
     "jquery-migrate": "^3.0.0",
@@ -37,7 +37,7 @@
     "pointer-events-poly": "*",
     "select2": "~4.0.3",
     "slick.js": "~1.6.0",
-    "velocity": "~1.4.2",
+    "velocity": "~1.4.3",
     "svg4everybody": "^2.1.4"
   },
   "overrides": {
