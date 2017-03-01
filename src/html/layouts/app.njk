@@ -1,0 +1,69 @@
+{#
+  Template: Layout
+  Author: Graffino (http://www.graffino.com)
+#}
+<!DOCTYPE html>
+<html class="no-js no-fonts">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Accept-CH" content="DPR,Width,Viewport-Width">
+
+    <!-- Icon Names -->
+    <meta name="apple-mobile-web-app-title" content="Gulp Flow">
+    <meta name="application-name" content="Gulp Flow">
+    <!-- /Icon Names -->
+
+    <!-- Windows Phone Tile -->
+    <meta name="msapplication-TileColor" content="#000">
+    <meta name="msapplication-TileImage" content="../images/touch-icon-transparent.png">
+    <!-- /Windows Phone Tile -->
+
+    <title>Gulp Flow</title>
+
+    <!-- Author Information -->
+    <link type="text/plain" rel="author" href="../humans.txt">
+    <!-- /Author Information -->
+
+    <!-- Touch Icons -->
+    <link rel="mask-icon" href="../images/pin-icon.svg" color="#000">
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="icon" type="image/png" href="../images/touch-icon.png">
+    <link rel="apple-touch-icon" href="../images/touch-icon.png">
+    <!-- /Touch Icons -->
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="//domainname.tld">
+
+    <!-- Load CSS -->
+    <script>
+      function loadCSS(e,n,o,t){"use strict";var d=window.document.createElement("link"),i=n||window.document.getElementsByTagName("script")[0],r=window.document.styleSheets;return d.rel="stylesheet",d.href=e,d.media="only x",t&&(d.onload=t),i.parentNode.insertBefore(d,i),d.onloadcssdefined=function(e){for(var n,o=0;o<r.length;o++)r[o].href&&r[o].href===d.href&&(n=!0);n?e():setTimeout(function(){d.onloadcssdefined(e)})},d.onloadcssdefined(function(){d.media=o||"all"}),d}
+      loadCSS( "../css/main.css" );
+    </script>
+    <noscript>
+      <link rel="stylesheet" href="../css/main.css">
+    </noscript>
+    <!-- /Load CSS -->
+  </head>
+  <body class="home">
+    <!-- Partial: header -->
+    {% include "../partials/_language_/header.njk" | replace("_language_", language) %}
+    <!-- /Partial: header -->
+
+    <!-- Block: content -->
+    {% block content %}{% endblock %}
+    <!-- /Block: content -->
+
+    <!-- Partial: footer -->
+    {% include "../partials/_language_/footer.njk" | replace("_language_", language) %}
+    <!-- /Partial: footer -->
+
+    <!-- Javascript -->
+    <script src="../js/main.js" async></script>
+    <!-- /Javascript -->
+    <script id="__bs_script__">//<![CDATA[
+      document.write("<script async src='http://HOST:8888/browser-sync/browser-sync-client.js?v=2.18.8'><\/script>".replace("HOST", location.hostname));
+  </script>
+  </body>
+</html>

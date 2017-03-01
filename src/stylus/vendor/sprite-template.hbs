@@ -1,0 +1,35 @@
+{{!
+  SVG sprite handlebars template
+  Author: Graffino (http://www.graffino.com)
+}}
+/**
+ * Icon sprite
+ * Author: Graffino (http://www.graffino.com)
+ * [This file has been automatically generated]
+ * Use <symbol> directly in your HTML
+ * Use https://github.com/jonathantneal/svg4everybody for remote svg sprites
+ * HowTo: https://css-tricks.com/svg-symbol-good-choice-icons/,
+ *        https://cloudfour.com/thinks/our-svg-icon-process/
+ * Remote: https://github.com/Keyamoon/svgxuse
+ */
+
+{{mixinName}}() {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  background-image: url("../icons/{{{sprite}}}");
+  background-size: rem({{spriteWidth}}) rem({{spriteHeight}});
+  background-repeat: no-repeat;
+}
+
+.icon {
+  {{mixinName}}();
+  {{#shapes}}
+  {{#selector.shape}}{{#escape}}
+  &.-{{expression}} {
+    {{/escape}}{{^last}},{{/last}}{{/selector.shape}}width: rem({{width.outer}});
+    height: rem({{height.outer}});
+    background-position: rem({{position.absolute.x}}) rem({{position.absolute.y}});
+  }
+  {{/shapes}}
+}

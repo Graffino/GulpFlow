@@ -1,0 +1,128 @@
+/**
+ * Fonts and sizes
+ * Author: Graffino (http://www.graffino.com)
+ */
+
+/*
+  // Font weights
+  Extra Light, Ultra Light = 100
+  Light, Thin = 200
+  Book, Demi = 300
+  Normal, Regular = 400
+  Medium = 500
+  SemiBold, Demibold = 600
+  Bold = 700
+  Black, ExtraBold, Heavy = 800
+  Extra Black, Fat, Poster, UltraBlack = 900
+*/
+
+
+/**
+ * FontName
+ */
+
+// Regular - 400
+webfont("FontName", "font-name", 400, normal, "U+0000-007F");  // @stylint ignore
+
+/**
+ * Fontfaces
+ */
+
+$sans-fontface               = "FontName";
+$serif-fontface              = "FontName";
+$cursive-fontface            = "FontName";
+
+// Font-families stack
+$sans-fontface-stack         = $sans-fontface, Helvetica, Arial, sans-serif;
+$serif-fontface-stack        = $serif-fontface, Georgia, "Times New Roman", Times, serif;
+$cursive-fontface-stack      = $cursive-fontface, cursive, sans-serif;
+
+// System fontface stacks used when webfonts are not loaded
+$system-sans-fontface-stack  = "Helvetica", "Helvetica Neue", "Arial", sans-serif;
+$system-serif-fontface-stack = "Georgia", "Times New Roman", Times, serif;
+
+
+/**
+ * Font sizes
+ */
+
+$font-size-1   = rem(40);
+$line-height-1 = 1.3;
+
+$font-size-2   = rem(30);
+$line-height-2 = 1.3;
+
+$font-size-3   = rem(20);
+$line-height-3 = 1.3;
+
+$font-size-4   = rem(18);
+$line-height-4 = 1.3;
+
+$font-size-5   = rem(16); // body copy
+$line-height-5 = 1.5;
+
+$font-size-6   = rem(14);
+$line-height-6 = 1.2;
+
+$font-size-7   = rem(12);
+$line-height-7 = 1.2;
+
+$font-size-8   = rem(10);
+$line-height-8 = 1;
+
+
+/**
+ * H1-H6 headings
+ */
+
+// H1
+$heading-1-font-family   = $sans-fontface-stack;
+$heading-1-font-weight   = 100;
+$heading-1-font-size     = rem(60);
+$heading-1-line-height   = 1.2;
+$heading-1-default-stack = $system-sans-fontface-stack;
+
+// H2
+$heading-2-font-family   = $sans-fontface-stack;
+$heading-2-font-weight   = 100;
+$heading-2-font-size     = rem(40);
+$heading-2-line-height   = 1.3;
+$heading-2-default-stack = $system-sans-fontface-stack;
+
+// H3
+$heading-3-font-family   = $sans-fontface-stack;
+$heading-3-font-weight   = 100;
+$heading-3-font-size     = rem(30);
+$heading-3-line-height   = 1.3;
+$heading-3-default-stack = $system-sans-fontface-stack;
+
+// H4
+$heading-4-font-family   = $sans-fontface-stack;
+$heading-4-font-weight   = 100;
+$heading-4-font-size     = rem(20);
+$heading-4-line-height   = 1.4;
+$heading-4-default-stack = $system-sans-fontface-stack;
+
+// H5
+$heading-5-font-family   = $sans-fontface-stack;
+$heading-5-font-weight   = 100;
+$heading-5-font-size     = rem(18);
+$heading-5-line-height   = 1;
+$heading-5-default-stack = $system-sans-fontface-stack;
+
+// H6
+$heading-6-font-family   = $sans-fontface-stack;
+$heading-6-font-weight   = 100;
+$heading-6-font-size     = rem(16);
+$heading-6-line-height   = 1;
+$heading-6-default-stack = $system-sans-fontface-stack;
+
+
+/**
+ * Defaults
+ */
+
+$default-font-size      = $font-size-5;
+$default-line-height    = $line-height-5;
+$default-fontface-stack = $sans-fontface-stack;
+$default-system-stack   = $system-sans-fontface-stack;
