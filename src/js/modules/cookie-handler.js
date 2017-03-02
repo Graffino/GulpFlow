@@ -5,16 +5,6 @@
  */
 
 
-/* global $graffino, Cookies */
-
-/* eslint
-  block-scoped-var: 0,
-  no-return-assign: 0,
-  no-else-return: 0,
-  no-negated-condition: 0,
-  no-lonely-if: 0
-*/
-
 $.extend($graffino, {
   cookieHandler: {
     name: 'cookie-handler',

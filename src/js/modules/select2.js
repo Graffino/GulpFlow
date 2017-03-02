@@ -5,16 +5,6 @@
  */
 
 
-/* global $graffino */
-
-/* eslint
-  block-scoped-var: 0,
-  no-return-assign: 0,
-  no-else-return: 0,
-  no-negated-condition: 0,
-  no-lonely-if: 0
-*/
-
 $.extend($graffino, {
   select2: {
     name: 'select2',
@@ -27,7 +17,9 @@ $.extend($graffino, {
 
     // Scoped variables
     vars: {
-      $formFields: $('.js-select')
+      $formFields: undefined,
+      select2Class: '.js-select',
+      parentClass: 'select2-parent'
     },
 
     // Init method
@@ -36,8 +28,43 @@ $.extend($graffino, {
         _this = this,
         vars = this.vars;
 
+      vars.$formFields = $(vars.select2Class);
+
       if (_that.isOnPage(vars.$formFields)) {
-        vars.$formFields.select2();
+        vars.$formFields.each(function () {
+          var $el = $(this),
+            options = {
+              dropdownParent: $el.parent()
+            };
+
+          // Make sure parent has position relative by adding class
+          $el.parent().addClass(vars.parentClass);
+
+          // Check if search is enabled
+          if ($el.attr('data-search') === 'false') {
+            $.extend(options, {
+              minimumResultsForSearch: -1
+            });
+          }
+
+          // Check if we have a placeholder
+          if ($el.attr('data-placeholder') === 'false') {
+            $.extend(options, {
+              placeholder: {
+                id: -1,
+                text: $el.attr('data-placeholder')
+              }
+            });
+          }
+
+          // Initialize select2 plugin with options object
+          $el.select2(options);
+
+          if ($el.attr('data-extra-class') !== undefined) {
+            $el.next(vars.select2Class).addClass($el.attr('data-extra-class'));
+          }
+        });
+
         _this.log('Initialized.');
       } else {
         _this.log('No elements found in DOM.');

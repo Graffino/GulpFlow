@@ -1,18 +1,9 @@
 /**
  * Name: Popup
  * Author: Graffino (http://www.graffino.com)
+ * Plugin: https://github.com/dimsemenov/Magnific-Popup
  */
 
-
-/* global $graffino */
-
-/* eslint
-  block-scoped-var: 0,
-  no-return-assign: 0,
-  no-else-return: 0,
-  no-negated-condition: 0,
-  no-lonely-if: 0
-*/
 
 $.extend($graffino, {
   popup: {
@@ -21,7 +12,7 @@ $.extend($graffino, {
     // Plugin options
     options: {
       autoInit: true,
-      debug: false
+      debug: true
     },
 
     // Scoped variables
@@ -40,16 +31,23 @@ $.extend($graffino, {
       _this.log('Initialized');
 
       // Check if element is in DOM
-      if (_that.isOnPage(vars.$popup)) {
-        vars.$anchor.magnificPopup({
-          type: 'inline',
-          modal: true,
-          mainClass: 'mfp-fade'
-        });
+      if (_that.isOnPage(vars.$popup) || _that.isOnPage(vars.$anchor)) {
+        vars.$anchor.each(function () {
+          var $el = $(this),
+            $inlineContainer = $($el.attr('href')),
+            options = {
+              type: $el.attr('data-popup-type'),
+              midClick: true,
+              closeOnBgClick: true,
+              mainClass: 'mfp-fade',
+              closeBtnInside: true
+            };
 
-        vars.$close.on('click', function (e) {
-          e.preventDefault();
-          $.magnificPopup.close();
+          if (_that.isOnPage($inlineContainer)) {
+            $el.magnificPopup(options);
+          } else {
+            _this.log('\t\u2514 Inline content container not found in DOM (' + $el.attr('href') + ').');
+          }
         });
       } else {
         _this.log('\t\u2514 Element(s) not found in DOM.');
