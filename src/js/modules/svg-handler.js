@@ -5,8 +5,6 @@
  */
 
 
-/* global $graffino, svg4everybody */
-
 $.extend($graffino, {
   svgHandler: {
     name: 'svg-handler',

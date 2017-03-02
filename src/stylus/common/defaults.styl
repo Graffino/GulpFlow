@@ -3,18 +3,31 @@
  * Author: Graffino (http://www.graffino.com)
  */
 
+// Variables
+focus-outline = @block {
+  outline: none;
+  box-shadow: 0 0 0 rem(3) rgba($color-primary, 0.12);
+}
+
 
 /**
  * Globals
  */
 
-// Border-box
 * {
+  // Border-box
   box-sizing: border-box;
+
+  // Custom focus state for DOM elements
+  &:focus {
+    {focus-outline}; // @stylint ignore
+  }
 }
 
 // Font rendering
 html {
+  position: relative;
+
   text-rendering: optimizeLegibility;
   font-variant-ligatures: common-ligatures;
   font-kerning: normal;
@@ -36,12 +49,20 @@ body {
   }
 }
 
+html,
+body {
+  overflow-y: scroll;
+  // Enable scroll momentum on iPhone Safari (webkit)
+  -webkit-overflow-scrolling: touch;
+}
+
 
 /**
  * Default headings
  */
 
-h1 {
+h1,
+.h1 {
   font-family: $heading-1-font-family;
   font-size: $heading-1-font-size;
   font-weight: $heading-1-font-weight;
@@ -55,7 +76,8 @@ h1 {
   }
 }
 
-h2 {
+h2,
+.h2 {
   font-family: $heading-2-font-family;
   font-size: $heading-2-font-size;
   font-weight: $heading-2-font-weight;
@@ -68,7 +90,8 @@ h2 {
   }
 }
 
-h3 {
+h3,
+.h3 {
   font-family: $heading-3-font-family;
   font-size: $heading-3-font-size;
   font-weight: $heading-3-font-weight;
@@ -81,7 +104,8 @@ h3 {
   }
 }
 
-h4 {
+h4,
+.h4 {
   font-family: $heading-4-font-family;
   font-size: $heading-4-font-size;
   font-weight: $heading-4-font-weight;
@@ -94,7 +118,8 @@ h4 {
   }
 }
 
-h5 {
+h5,
+.h5 {
   font-family: $heading-5-font-family;
   font-size: $heading-5-font-size;
   font-weight: $heading-5-font-weight;
@@ -107,7 +132,8 @@ h5 {
   }
 }
 
-h6 {
+h6,
+.h6 {
   font-family: $heading-6-font-family;
   font-size: $heading-6-font-size;
   font-weight: $heading-6-font-weight;

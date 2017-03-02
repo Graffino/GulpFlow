@@ -1,0 +1,33 @@
+/**
+ * Animations
+ * Author: Graffino (http://www.graffino.com)
+ */
+
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translate3d(rem(-6), 0, 0);
+  }
+
+  25% {
+    transform: translate3d(rem(6), 0, 0);
+  }
+
+  75% {
+    transform: translate3d(rem(-6), 0, 0);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}

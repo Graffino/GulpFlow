@@ -3,19 +3,11 @@
  * Author: Graffino (http://www.graffino.com)
  */
 
+
+/* eslint array-callback-return: 0, no-mixed-operators: 0 */
+
 // Mute jQuery migrate
 $.migrateMute = true;
-
-
-/* eslint
-  block-scoped-var: 0,
-  no-return-assign: 0,
-  no-else-return: 0,
-  no-negated-condition: 0,
-  no-lonely-if: 0,
-  array-callback-return: 0,
-  no-mixed-operators: 0
-*/
 
 var $graffino = {
   project: 'Graffino',

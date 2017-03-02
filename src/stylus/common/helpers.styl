@@ -35,18 +35,6 @@
       }
     }
 
-    &-small-up {
-      +below($small) {
-        display: none !important;
-      }
-    }
-
-    &-small-down {
-      +above($small + 1) {
-        display: none !important;
-      }
-    }
-
     &-mobile-up {
       +below($mobile) {
         display: none !important;
@@ -92,29 +80,9 @@
       }
     }
 
-    &-small-down {
-      +below($small) {
-        display: none !important;
-      }
-    }
-
     &-mobile-down {
       +below($mobile) {
         display: none !important;
-      }
-    }
-  }
-
-  &-float {
-    &-none {
-      float: none !important;
-    }
-
-    &-none-for {
-      &-tablet-down {
-        +below($tablet) {
-          float: none !important;
-        }
       }
     }
   }
@@ -261,13 +229,20 @@
   }
 
   // Display table
-  &-display-table {
-    display: table;
+  &-display {
+    &-table {
+      display: table;
+    }
+
+    &-inline-block {
+      display: inline-block;
+    }
+
+    &-block {
+      display: block;
+    }
   }
 
-  &-display-block {
-    display: block;
-  }
 
   // Align vertically via table method
   &-vertical-align {
@@ -275,26 +250,9 @@
     vertical-align: middle;
   }
 
-  // Set viewport width / height
-  &-viewport-height {
-    min-height: 100vh;
-  }
-
-  &-viewport-width {
-    min-width: 100vh;
-  }
-
   // Height 100%
   &-full-height {
     min-height: 100%;
-  }
-
-  // Equal height
-  &-equal-height {
-    display: flex;
-    &-child {
-      display: flex;
-    }
   }
 
   // Disable pointer events
@@ -326,6 +284,9 @@
 
   // Z Indexes
   &-z-index {
+    &-negative {
+      z-index: -1 !important;
+    }
     &-0 {
       z-index: 0 !important;
     }

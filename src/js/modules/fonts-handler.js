@@ -4,17 +4,6 @@
  */
 
 
-/* global $graffino, FontFaceObserver */
-
-
-/* eslint
-  block-scoped-var: 0,
-  no-return-assign: 0,
-  no-else-return: 0,
-  no-negated-condition: 0,
-  no-lonely-if: 0
-*/
-
 $.extend($graffino, {
   fontsHandler: {
     name: 'fonts-handler',
@@ -28,7 +17,7 @@ $.extend($graffino, {
     // Scoped variables
     vars: {
       // Check if webfonts are loaded. Type in main font-family name. Set to false to prevent detection.
-      fontFaceObserverName: 'Avenir'
+      fontFaceObserverName: 'FiraSans'
     },
 
     // Init method
