@@ -1,6 +1,6 @@
 {
   "name": "gulp-flow",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "title": "Gulp Flow",
   "description": "Gulp Flow we use at Graffino.",
   "homepage": "http://gulp-flow.dev",
@@ -20,7 +20,7 @@
   "private": false,
   "engines": {},
   "xo": {
-    "space": 2,
+  "space": 2,
     "globals": [
       "$",
       "window",
@@ -29,7 +29,11 @@
       "console",
       "FontFaceObserver",
       "PointerEventsPolyfill",
-      "nunjucks"
+      "nunjucks",
+      "$graffino",
+      "Cookies",
+      "iScroll",
+      "svg4everybody"
     ],
     "rules": {
       "no-multiple-empty-lines": [
@@ -38,10 +42,13 @@
           "max": 2
         }
       ],
+      "no-negated-condition": 0,
       "max-lines": 0,
       "one-var": 0,
+      "new-cap": 0,
       "no-warning-comments": 0,
       "max-params": 0,
+      "no-warning-comments": 0,
       "quote-props": [
         0,
         "consistent-as-needed",
