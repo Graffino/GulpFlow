@@ -49,7 +49,7 @@ var enabled = {
   // Critical CSS generation
   critical: true,
   // Wordpress
-  wordpress: false,
+  wordpress: true,
 
   // Nunjucks templates
   nunjucks: {
@@ -144,12 +144,12 @@ var modules = {
       spacing: {
         padding: 2
       },
-      transform: ['svgo']
+      transform: ['svgo'],
+      dest: '../' + paths.modules.icons.root
     },
     // 'info' | 'debug' | 'false'
     log: false,
     mode: {
-      symbol: true,
       css: {
         bust: false,
         prefix: '',
@@ -164,6 +164,13 @@ var modules = {
             dest: '../../' + paths.base.src + paths.modules.stylus.sprite
           }
         }
+      },
+      symbol: {
+        bust: false,
+        prefix: '',
+        dest: '',
+        common: '',
+        sprite: 'sprite-symbols.svg'
       }
     }
   },
