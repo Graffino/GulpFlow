@@ -101,16 +101,16 @@ function watchChanges() {
       paths.base.src + paths.patterns.js.modules
     ],
     debounce(
-      gulp.parallel([
+      gulp.parallel(
         clean.js.common,
-        clean.js.modules
-      ]),
-      gulp.series([
-        js.process,
-        bundle.js,
-        lint.js,
-        notice.rebuilt
-      ]),
+        clean.js.modules,
+        gulp.series(
+          js.process,
+          bundle.js,
+          lint.js,
+          notice.rebuilt
+        )
+      ),
     500)
   ).on('change', browserSync.reload);
 
@@ -118,11 +118,11 @@ function watchChanges() {
   gulp.watch(
     [paths.base.src + paths.patterns.nunjucks.js.all],
     debounce(
-      gulp.series([
+      gulp.series(
         nunjucks.js,
         bundle.js,
         notice.rebuilt
-      ]),
+      ),
     500)
   ).on('change', browserSync.reload);
 
@@ -133,12 +133,12 @@ function watchChanges() {
       path.normalize('!**/{' + paths.patterns.stylus.exclude.join(',') + '}')
     ],
     debounce(
-      gulp.series([
+      gulp.series(
         stylus.process,
         bundle.css,
         lint.stylus,
         notice.rebuilt
-      ]),
+      ),
     500)
   );
 
@@ -146,12 +146,12 @@ function watchChanges() {
   gulp.watch(
     [paths.base.src + paths.patterns.nunjucks.html.all],
     debounce(
-      gulp.series([
+      gulp.series(
         clean.html,
         nunjucks.html,
         lint.html,
         notice.rebuilt
-      ]),
+      ),
     500)
   ).on('change', browserSync.reload);
 
@@ -219,13 +219,13 @@ function watchChanges() {
   gulp.watch(
     [paths.base.src + paths.patterns.icons.all],
     debounce(
-      gulp.series([
+      gulp.series(
         clean.icons,
         sprite.process,
         stylus.process,
         bundle.css,
         notice.rebuilt
-      ]),
+      ),
     2000)
   ).on('change', browserSync.reload);
 
@@ -233,11 +233,11 @@ function watchChanges() {
   gulp.watch(
     [paths.base.src + paths.patterns.vendor.all],
     debounce(
-      gulp.series([
+      gulp.series(
         clean.vendor,
         copy.vendor,
         notice.rebuilt
-      ]),
+      ),
     2000)
   ).on('change', browserSync.reload);
 
@@ -245,10 +245,10 @@ function watchChanges() {
   gulp.watch(
     [paths.patterns.wordpress.all],
     debounce(
-      gulp.series([
+      gulp.series(
         wordpress.process,
         notice.rebuilt
-      ]),
+      ),
     2000)
   ).on('change', browserSync.reload);
 
@@ -256,12 +256,12 @@ function watchChanges() {
   gulp.watch(
     [paths.base.root + 'bower.json'],
     debounce(
-      gulp.series([
+      gulp.series(
         bower.process,
         bundle.js,
         bundle.css,
         notice.rebuilt
-      ]),
+      ),
     2000)
   ).on('change', browserSync.reload);
 }
