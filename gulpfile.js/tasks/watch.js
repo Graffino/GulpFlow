@@ -217,7 +217,10 @@ function watchChanges() {
 
   // Sprite icons
   gulp.watch(
-    [paths.base.src + paths.patterns.icons.all],
+    [
+      paths.base.src + paths.patterns.icons.all,
+      paths.base.src + paths.modules.stylus.mustache
+    ],
     debounce(
       gulp.series(
         clean.icons,
