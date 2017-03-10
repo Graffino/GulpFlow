@@ -1,6 +1,7 @@
 /**
- * Name: Nunjuckjs JS Templates
+ * Name: Nunjucks JS Template
  * Author: Graffino (http://www.graffino.com)
+ * Plugin: https://github.com/mozilla/nunjucks
  */
 
 

@@ -101,15 +101,15 @@ function watchChanges() {
       paths.base.src + paths.patterns.js.modules
     ],
     debounce(
-      gulp.parallel(
-        clean.js.common,
-        clean.js.modules,
-        gulp.series(
-          js.process,
-          bundle.js,
-          lint.js,
-          notice.rebuilt
-        )
+      gulp.series(
+        gulp.paralell(
+          clean.js.common,
+          clean.js.modules
+        ),
+        js.process,
+        bundle.js,
+        lint.js,
+        notice.rebuilt
       ),
     500)
   ).on('change', browserSync.reload);
