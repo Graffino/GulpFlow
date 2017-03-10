@@ -10,7 +10,7 @@ $.extend($graffino, {
 
     // Plugin options
     options: {
-      autoInit: false,
+      autoInit: true,
       debug: false
     },
 

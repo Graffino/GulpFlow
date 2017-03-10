@@ -1,5 +1,5 @@
 /**
- * Name: Method Template
+ * Name: Nunjuckjs JS Templates
  * Author: Graffino (http://www.graffino.com)
  */
 
@@ -16,7 +16,7 @@ $.extend($graffino, {
 
     // Scoped variables
     vars: {
-      dataJSONPath: '/data/data.json',
+      dataJSONPath: '/data/common.json',
       templateEnv: null,
       templateName: {
         module: 'moduleName.njk'
@@ -24,7 +24,7 @@ $.extend($graffino, {
       templatePlaceholder: {
         module: '.js-template-module'
       },
-      templatePath: '/assets/js/templates/views',
+      templatePath: '/js/templates/views',
       templateRendered: null,
       moduleData: {}
     },

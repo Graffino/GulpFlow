@@ -31,12 +31,42 @@ var $graffino = {
     $body: $('body'),
     // State Classes
     stateClass: {
+      open: 'is-open',
       active: 'is-active',
+      current: 'is-current',
+      disabled: 'is-disabled',
+      expanded: 'is-expanded',
       hidden: 'is-hidden',
       visible: 'is-visible',
+      focused: 'is-focused',
+      touched: 'is-touched',
+      empty: 'is-empty',
       overlay: 'has-overlay',
       loading: 'is-loading',
-      animated: 'is-animated'
+      animated: 'is-animated',
+      submitted: 'is-submitted',
+      minimized: 'is-minimized',
+      sticky: 'is-sticky',
+      scrollable: 'is-scrollable',
+      noResults: 'has-no-results',
+      notInitialized: 'not-initialized',
+      notValid: 'not-valid',
+      slicked: 'slick-initialized',
+      isMasonry: 'is-masonry-initialized',
+      h5error: 'ui-state-error'
+    },
+    // Responsive breakpoints
+    breakpoints: {
+      large: 1050,
+      medium: 940,
+      tablet: 768,
+      small: 640,
+      xsmall: 480
+    },
+    // Easing
+    ease: {
+      easeOutQuad: [0.250, 0.460, 0.450, 0.940],
+      easeOutBack: [0.175, 0.885, 0.320, 1.275]
     }
   },
 
@@ -195,6 +225,19 @@ var $graffino = {
 
   randomFromRange: function (max, min) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+  },
+
+  // We extend native classes at init with this method
+  loadExtends: function () {
+    // Extend the String class to support formatting
+    String.prototype.format = function () {
+      var formatted = this;
+      for (var i = 0; i < arguments.length; i++) {
+        var regexp = new RegExp('\\{' + i + '\\}', 'gi');
+        formatted = formatted.replace(regexp, arguments[i]);
+      }
+      return formatted;
+    };
   }
 };
 

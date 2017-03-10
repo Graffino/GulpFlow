@@ -17,7 +17,8 @@ $.extend($graffino, {
 
     // Scoped variables
     vars: {
-      $forms: $('.js-validate')
+      $forms: undefined,
+      formsClass: '.js-validate'
     },
 
     // Init method
@@ -28,10 +29,13 @@ $.extend($graffino, {
 
       _this.log('Initialized.');
 
+      vars.$forms = $(vars.formsClass);
+
       if (_that.isOnPage(vars.$forms)) {
         vars.$forms.each(function (index) {
           var $form = $(this),
-            isValid = false;
+            isValid = false,
+            $fields = $form.find('input');
           // Init h5-validate
           $form
             .h5Validate()
@@ -39,6 +43,15 @@ $.extend($graffino, {
             .on('submit change', function () {
               isValid = $form.get(0).checkValidity();
               $form.attr('data-h5-valid', isValid);
+
+              $fields.each(function () {
+                var $el = $(this);
+                if ($el.hasClass('ui-state-error')) {
+                  $el.parent('[class*="-wrapper"]').addClass(_that.vars.stateClass.h5error);
+                } else {
+                  $el.parent('[class*="-wrapper"]').removeClass(_that.vars.stateClass.h5error);
+                }
+              });
             });
 
           // Outputting the form information to console
