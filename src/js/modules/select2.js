@@ -58,7 +58,10 @@ $.extend($graffino, {
           }
 
           // Initialize select2 plugin with options object
-          $el.select2(options);
+          $el.select2(options)
+          // Append a span with the "icon" class
+          .next('.select2').find('.select2-selection__arrow')
+          .append('<span class="icon"></span>');
 
           if ($el.attr('data-extra-class') !== undefined) {
             $el.next(vars.select2Class).addClass($el.attr('data-extra-class'));
