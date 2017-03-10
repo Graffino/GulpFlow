@@ -1,7 +1,6 @@
 /**
- * Name: Placeholder
+ * Name: Textarea
  * Author: Graffino (http://www.graffino.com)
- * Plugin: https://github.com/mathiasbynens/jquery-placeholder
  */
 
 
@@ -12,7 +11,7 @@ $.extend($graffino, {
     // Plugin options
     options: {
       autoInit: true,
-      debug: false
+      debug: true
     },
 
     // Scoped variables
@@ -29,18 +28,18 @@ $.extend($graffino, {
       if (_that.isOnPage(vars.$formFields)) {
         vars.$formFields.each(function () {
           $(this)
-            .height(this.scrollHeight)
             .css({
               'height': 'auto',
               'overflow-y': 'hidden'
-            });
+            })
+            .height(this.scrollHeight);
         }).on('input', function () {
           $(this)
-            .height(this.scrollHeight)
             .css({
               'height': 'auto',
               'overflow-y': 'hidden'
-            });
+            })
+            .height(this.scrollHeight);
         });
         _this.log('Initialized.');
       } else {
