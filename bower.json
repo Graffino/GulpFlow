@@ -3,8 +3,8 @@
   "version": "3.0.5",
   "description": "Gulp Flow we use at Graffino.",
   "main": [
-    "www/assets/css/main.css",
-    "www/assets/js/main.js"
+    "www/css/main.css",
+    "www/js/main.js"
   ],
   "keywords": [
     "gulp",

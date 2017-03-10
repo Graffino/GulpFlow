@@ -1,7 +1,7 @@
 /**
- * Name: Placeholder
+ * Name: Select2
  * Author: Graffino (http://www.graffino.com)
- * Plugin: https://github.com/mathiasbynens/jquery-placeholder
+ * Plugin: https://github.com/select2/select2
  */
 
 
