@@ -28,9 +28,10 @@ var utils = require('../modules/utils');
 
 function copyWordpress() {
   var exclude = path.normalize('!**/{' + paths.patterns.wordpress.exclude.join(',') + '}');
-  return gulp.src(
+  return gulp.src([
     paths.base.root + paths.patterns.wordpress.all,
     exclude
+  ]
   )
   .pipe(gulp.dest(paths.base.www));
 }

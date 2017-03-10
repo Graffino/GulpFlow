@@ -102,7 +102,7 @@ function watchChanges() {
     ],
     debounce(
       gulp.series(
-        gulp.paralell(
+        gulp.parallel(
           clean.js.common,
           clean.js.modules
         ),
@@ -249,6 +249,7 @@ function watchChanges() {
     [paths.patterns.wordpress.all],
     debounce(
       gulp.series(
+        clean.wordpress,
         wordpress.process,
         notice.rebuilt
       ),
