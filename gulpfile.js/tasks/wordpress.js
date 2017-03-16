@@ -38,11 +38,29 @@ function copyWordpress() {
 
 
 /**
+ * Link Wordpress Admin
+ */
+
+function linkAdmin() {
+  var options = {
+    cwd: '../../../../../'
+  };
+
+  return gulp.src(
+    paths.modules.wordpress.theme + 'inc/admin/theme/www',
+    options
+  )
+  .pipe(gulp.symlink('../../../../../' + paths.base.www + 'inc/admin/theme'));
+}
+
+
+/**
  * Process Wordpress function
  */
 
-var processWordpress = gulp.parallel(
-  config.enabled.wordpress ? copyWordpress : utils.noop
+var processWordpress = gulp.series(
+  config.enabled.wordpress.theme ? copyWordpress : utils.noop,
+  config.enabled.wordpress.admin ? linkAdmin : utils.noop
 );
 
 
@@ -52,7 +70,9 @@ var processWordpress = gulp.parallel(
 
 module.exports = {
   // Copy Wordpress according to config
-  process: config.enabled.wordpress ? copyWordpress : utils.noop
+  process: processWordpress,
+  copy: config.enabled.wordpress.theme ? copyWordpress : utils.noop,
+  admin: config.enabled.wordpress.admin ? linkAdmin : utils.noop
 };
 
 

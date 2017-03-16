@@ -264,13 +264,20 @@ var patterns = {
     clean: [
       base.www + 'includes',
       base.www + 'partials',
-      base.www + 'admin',
+      base.www + 'inc/theme',
+      base.www + 'inc/admin/*.*',
+      base.www + 'inc/admin/classes',
+      base.www + 'inc/admin/config',
+      base.www + 'inc/admin/template-parts',
+      base.www + 'inc/admin/vendor',
       base.www + '*.php',
       base.www + 'screenshot.png',
       base.www + 'style.css'
     ],
     exclude: [
-      '_readme.md'
+      '_readme.md',
+      'admin/theme',
+      'admin/theme/**'
     ]
   }
 };

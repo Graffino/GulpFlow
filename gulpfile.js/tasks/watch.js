@@ -42,6 +42,7 @@ var lint = require('../tasks/lint');
 var nunjucks = require('../tasks/nunjucks');
 var sprite = require('../tasks/sprite');
 var stylus = require('../tasks/stylus');
+var utils = require('../modules/utils');
 var wordpress = require('../tasks/wordpress');
 
 var gulpProcess;
@@ -103,8 +104,8 @@ function watchChanges() {
     debounce(
       gulp.series(
         gulp.parallel(
-          clean.js.common,
-          clean.js.modules
+          config.clean.watch.js ? clean.js.common : utils.noop,
+          config.clean.watch.js ? clean.js.modules : utils.noop
         ),
         js.process,
         bundle.js,
@@ -147,7 +148,7 @@ function watchChanges() {
     [paths.base.src + paths.patterns.nunjucks.html.all],
     debounce(
       gulp.series(
-        clean.html,
+        config.clean.watch.html ? clean.html : utils.noop,
         nunjucks.html,
         lint.html,
         notice.rebuilt
@@ -160,7 +161,7 @@ function watchChanges() {
     [paths.base.src + paths.patterns.fonts.all],
     debounce(
       gulp.series(
-        clean.fonts,
+        config.clean.watch.fonts ? clean.fonts : utils.noop,
         copy.fonts,
         fonts.process,
         notice.rebuilt
@@ -173,6 +174,7 @@ function watchChanges() {
     [paths.base.src + paths.patterns.media.all],
     debounce(
       gulp.series(
+        config.clean.watch.media ? clean.media : utils.noop,
         copy.media,
         notice.rebuilt
       ),
@@ -184,7 +186,7 @@ function watchChanges() {
     [paths.base.src + paths.patterns.data.all],
     debounce(
       gulp.series(
-        clean.data,
+        config.clean.watch.data ? clean.data : utils.noop,
         copy.data,
         notice.rebuilt
       ),
@@ -196,7 +198,7 @@ function watchChanges() {
     [paths.base.src + paths.patterns.static.all],
     debounce(
       gulp.series(
-        clean.static,
+        config.clean.watch.static ? clean.static : utils.noop,
         copy.static,
         notice.rebuilt
       ),
@@ -208,7 +210,7 @@ function watchChanges() {
     [paths.base.src + paths.patterns.images.all],
     debounce(
       gulp.series(
-        clean.images,
+        config.clean.watch.images ? clean.images : utils.noop,
         copy.images,
         notice.rebuilt
       ),
@@ -223,7 +225,7 @@ function watchChanges() {
     ],
     debounce(
       gulp.series(
-        clean.icons,
+        config.clean.watch.icons ? clean.icons : utils.noop,
         sprite.process,
         stylus.process,
         bundle.css,
@@ -237,7 +239,7 @@ function watchChanges() {
     [paths.base.src + paths.patterns.vendor.all],
     debounce(
       gulp.series(
-        clean.vendor,
+        config.clean.watch.vendor ? clean.vendor : utils.noop,
         copy.vendor,
         notice.rebuilt
       ),
@@ -245,11 +247,15 @@ function watchChanges() {
   ).on('change', browserSync.reload);
 
   // Wordpress
+  var excludeWP = path.normalize('!**/{' + paths.patterns.wordpress.exclude.join(',') + '}');
   gulp.watch(
-    [paths.patterns.wordpress.all],
+    [
+      paths.patterns.wordpress.all,
+      excludeWP
+    ],
     debounce(
       gulp.series(
-        clean.wordpress,
+        config.clean.watch.wordpress ? clean.wordpress : utils.noop,
         wordpress.process,
         notice.rebuilt
       ),
