@@ -11,19 +11,19 @@
  */
 
 // Node requires
-var fs = require('fs');
-var path = require('path');
+const fs = require('fs');
+const path = require('path');
 
 // Gulp & plugins
-var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
+const gulp = require('gulp');
+const plugins = require('gulp-load-plugins')();
 
 // Gulp requires
-var config = require('../config');
-var paths = require('../modules/paths');
-var env = require('../modules/env');
-var error = require('../modules/error');
-var utils = require('../modules/utils');
+const config = require('../config');
+const paths = require('../modules/paths');
+const env = require('../modules/env');
+const error = require('../modules/error');
+const utils = require('../modules/utils');
 
 
 /**
@@ -31,13 +31,13 @@ var utils = require('../modules/utils');
  */
 
 function compileHTMLTemplates() {
-  var exclude = path.normalize('!**/{' + paths.patterns.nunjucks.html.exclude.join(',') + '}');
+  const exclude = path.normalize('!**/{' + paths.patterns.nunjucks.html.exclude.join(',') + '}');
 
   return gulp.src([paths.base.src + paths.patterns.nunjucks.html.views, exclude])
   // Fix pipe on error
   .pipe(plugins.plumber({errorHandler: error.handle}))
   // Adding data to Nunjucks
-  .pipe(plugins.data(function () {
+  .pipe(plugins.data(() => {
     return JSON.parse(fs.readFileSync(paths.base.src + paths.patterns.data.common));
   }))
   .pipe(plugins.nunjucksRender({
@@ -52,7 +52,7 @@ function compileHTMLTemplates() {
  */
 
 function compileJSTemplates() {
-  var exclude = path.normalize('!**/{' + paths.patterns.nunjucks.js.exclude.join(',') + '}');
+  const exclude = path.normalize('!**/{' + paths.patterns.nunjucks.js.exclude.join(',') + '}');
 
   return gulp.src([paths.base.src + paths.patterns.nunjucks.js.all, exclude])
     // Fix pipe on error
@@ -80,7 +80,7 @@ function compileJSTemplates() {
  * Compile function
  */
 
-var processAppTemplates = gulp.parallel(
+const processAppTemplates = gulp.parallel(
   // Skip HTML Nunjucks according to config
   config.enabled.nunjucks.html ? compileHTMLTemplates : utils.noop,
   // Skip JS Nunjucks according to config

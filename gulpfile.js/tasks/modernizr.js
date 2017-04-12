@@ -11,21 +11,21 @@
  */
 
 // Gulp & plugins
-var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
+const gulp = require('gulp');
+const plugins = require('gulp-load-plugins')();
 
 // Gulp requires
-var paths = require('../modules/paths');
-var config = require('../config');
-var error = require('../modules/error');
-var utils = require('../modules/utils');
+const paths = require('../modules/paths');
+const config = require('../config');
+const error = require('../modules/error');
+const utils = require('../modules/utils');
 
 /**
  * Compile modernizr files
  */
 
 function buildModernizr() {
-  var configModernizr = {
+  const configModernizr = {
     cache: true,
     crawl: false,
     uglify: false,
@@ -47,7 +47,7 @@ function buildModernizr() {
  * Build modernizr function
  */
 
-var processModernizr = gulp.parallel(
+const processModernizr = gulp.parallel(
   config.enabled.modernizr ? buildModernizr : utils.noop
 );
 

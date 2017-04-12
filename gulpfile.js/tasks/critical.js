@@ -11,16 +11,16 @@
  */
 
 // Gulp & plugins
-var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
+const gulp = require('gulp');
+const plugins = require('gulp-load-plugins')();
 
 // Gulp requires
-var config = require('../config');
-var paths = require('../modules/paths');
-var utils = require('../modules/utils');
-var error = require('../modules/error');
+const config = require('../config');
+const paths = require('../modules/paths');
+const utils = require('../modules/utils');
+const error = require('../modules/error');
 
-var returnStream;
+let returnStream;
 
 /**
  * Generate Critical CSS
@@ -28,7 +28,7 @@ var returnStream;
 
 function criticalCSSSingle(criticalPath) {
   // Node requires
-  var critical = require('critical').stream;
+  const critical = require('critical').stream;
 
   returnStream = gulp.src(criticalPath + paths.patterns.html.all)
     // Convert assets path to absolute path
@@ -48,9 +48,9 @@ function criticalCSSSingle(criticalPath) {
  */
 
 function criticalCSS() {
-  var languages = paths.languages;
+  const languages = paths.languages;
   if (languages.length > 0) {
-    languages.forEach(function (language) {
+    languages.forEach(language => {
       criticalCSSSingle(language);
     });
   } else {
@@ -64,7 +64,7 @@ function criticalCSS() {
  * Process Critical CSS
  */
 
-var processCritical = gulp.parallel(
+const processCritical = gulp.parallel(
   config.enabled.critical ? criticalCSS : utils.noop
 );
 

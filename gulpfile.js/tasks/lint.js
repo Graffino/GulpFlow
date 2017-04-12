@@ -11,21 +11,33 @@
  */
 
 // Node requires
-var path = require('path');
+const path = require('path');
 
 // Gulp & plugins
-var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
+const gulp = require('gulp');
+const plugins = require('gulp-load-plugins')();
 
 // Gulp requires
-var config = require('../config');
-var error = require('../modules/error');
-var paths = require('../modules/paths');
-var utils = require('../modules/utils');
+const config = require('../config');
+const error = require('../modules/error');
+const paths = require('../modules/paths');
+const utils = require('../modules/utils');
 
 
 /**
- * Lint javascript files
+ * Lint Gulp files
+ */
+
+function lintGulp() {
+  return gulp.src(paths.base.root + 'gulpfile.js/**/*.js')
+    // Fix pipe on error
+    .pipe(plugins.plumber({errorHandler: error.notice}))
+    .pipe(plugins.xo({quiet: false}));
+}
+
+
+/**
+ * Lint Javascript files
  */
 
 function lintJS() {
@@ -37,11 +49,11 @@ function lintJS() {
 
 
 /**
- * Lint stylus files
+ * Lint Stylus files
  */
 
 function lintStylus() {
-  var configStylus = {
+  const configStylus = {
     config: '.stylintrc',
     reporter: 'stylint-stylish',
     reporterOptions: {
@@ -61,7 +73,7 @@ function lintStylus() {
  */
 
 function lintHTML() {
-  var exclude = path.normalize('!**/{' + paths.patterns.nunjucks.html.exclude.join(',') + '}');
+  const exclude = path.normalize('!**/{' + paths.patterns.nunjucks.html.exclude.join(',') + '}');
 
   return gulp.src([paths.base.src + paths.patterns.nunjucks.html.all, exclude])
     // Fix pipe on error
@@ -75,7 +87,9 @@ function lintHTML() {
  * Lint function
  */
 
-var lintApp = gulp.parallel(
+const lintApp = gulp.parallel(
+  lintGulp,
+
   // Lint JS according to config
   config.enabled.lint.js ? lintJS : utils.noop,
 
@@ -92,6 +106,8 @@ var lintApp = gulp.parallel(
  */
 
 module.exports = {
+  gulp: lintGulp,
+
   // Lint JS according to config
   js: config.enabled.lint.js ? lintJS : utils.noop,
 
@@ -110,5 +126,5 @@ module.exports = {
  */
 
 lintApp.displayName = 'lint';
-lintApp.description = 'Lints Stylus, JS, Nunjucks files for errors.';
+lintApp.description = 'Lints Stylus, Gulp, JS, Nunjucks files for errors.';
 gulp.task(lintApp);

@@ -12,12 +12,12 @@
 
 
 // Gulp & plugins
-var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
+const gulp = require('gulp');
+const plugins = require('gulp-load-plugins')();
 
 // Gulp requires
-var paths = require('../modules/paths');
-var error = require('../modules/error');
+const paths = require('../modules/paths');
+const error = require('../modules/error');
 
 
 /**
@@ -37,7 +37,7 @@ function optimizeJS() {
  * Optimize App
  */
 
-var optimizeApp = gulp.parallel(
+const optimizeApp = gulp.parallel(
   optimizeJS
 );
 

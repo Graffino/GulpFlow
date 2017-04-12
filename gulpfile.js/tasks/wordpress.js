@@ -11,15 +11,15 @@
  */
 
 // Node requires
-var path = require('path');
+const path = require('path');
 
 // Gulp & plugins
-var gulp = require('gulp');
+const gulp = require('gulp');
 
 // Gulp requires
-var config = require('../config');
-var paths = require('../modules/paths');
-var utils = require('../modules/utils');
+const config = require('../config');
+const paths = require('../modules/paths');
+const utils = require('../modules/utils');
 
 
 /**
@@ -27,7 +27,7 @@ var utils = require('../modules/utils');
  */
 
 function copyWordpress() {
-  var exclude = path.normalize('!**/{' + paths.patterns.wordpress.exclude.join(',') + '}');
+  const exclude = path.normalize('!**/{' + paths.patterns.wordpress.exclude.join(',') + '}');
   return gulp.src([
     paths.base.root + paths.patterns.wordpress.all,
     exclude
@@ -42,7 +42,7 @@ function copyWordpress() {
  */
 
 function linkAdmin() {
-  var options = {
+  const options = {
     cwd: '../../../../../'
   };
 
@@ -58,7 +58,7 @@ function linkAdmin() {
  * Process Wordpress function
  */
 
-var processWordpress = gulp.series(
+const processWordpress = gulp.series(
   config.enabled.wordpress.theme ? copyWordpress : utils.noop,
   config.enabled.wordpress.admin ? linkAdmin : utils.noop
 );

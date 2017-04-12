@@ -9,37 +9,37 @@
  */
 
 // Gulp & plugins
-var gulp = require('gulp');
+const gulp = require('gulp');
 
 // Gulp requires
-var env = require('../modules/env');
-var notice = require('../modules/notice');
+const env = require('../modules/env');
+const notice = require('../modules/notice');
 
 // Gulp tasks
-var bower = require('../tasks/bower');
-var bundle = require('../tasks/bundle');
-var clean = require('../tasks/clean');
-var critical = require('../tasks/critical');
-var compress = require('../tasks/compress');
-var copy = require('../tasks/copy');
-var fonts = require('../tasks/fonts');
-var js = require('../tasks/js');
-var lint = require('../tasks/lint');
-var minify = require('../tasks/minify');
-var modernizr = require('../tasks/modernizr');
-var nunjucks = require('../tasks/nunjucks');
-var optimize = require('../tasks/optimize');
-var sprite = require('../tasks/sprite');
-var stylus = require('../tasks/stylus');
-var watch = require('../tasks/watch');
-var wordpress = require('../tasks/wordpress');
+const bower = require('../tasks/bower');
+const bundle = require('../tasks/bundle');
+const clean = require('../tasks/clean');
+const critical = require('../tasks/critical');
+const compress = require('../tasks/compress');
+const copy = require('../tasks/copy');
+const fonts = require('../tasks/fonts');
+const js = require('../tasks/js');
+const lint = require('../tasks/lint');
+const minify = require('../tasks/minify');
+const modernizr = require('../tasks/modernizr');
+const nunjucks = require('../tasks/nunjucks');
+const optimize = require('../tasks/optimize');
+const sprite = require('../tasks/sprite');
+const stylus = require('../tasks/stylus');
+const watch = require('../tasks/watch');
+const wordpress = require('../tasks/wordpress');
 
 
 /**
  * Build for development
  */
 
-var buildDevelopment = gulp.series(
+const buildDevelopment = gulp.series(
   gulp.parallel(
     bower.process,
     modernizr.process,
@@ -64,7 +64,7 @@ var buildDevelopment = gulp.series(
  * Build for staging
  */
 
-var buildStaging = gulp.series(
+const buildStaging = gulp.series(
   clean.app,
   gulp.parallel(
     bower.process,
@@ -87,7 +87,7 @@ var buildStaging = gulp.series(
  * Build for production
  */
 
-var buildProduction = gulp.series(
+const buildProduction = gulp.series(
   clean.app,
   gulp.parallel(
     bower.process,
@@ -119,7 +119,7 @@ var buildProduction = gulp.series(
  * Build according to environment
  */
 
-var buildApp = function (done) {
+const buildApp = function (done) {
   if (env.isProduction()) {
     buildProduction();
   } else if (env.isDevelopment()) {

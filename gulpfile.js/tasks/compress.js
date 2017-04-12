@@ -12,13 +12,13 @@
 
 
 // Gulp & plugins
-var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
+const gulp = require('gulp');
+const plugins = require('gulp-load-plugins')();
 
 // Gulp requires
-var config = require('../config');
-var paths = require('../modules/paths');
-var error = require('../modules/error');
+const config = require('../config');
+const paths = require('../modules/paths');
+const error = require('../modules/error');
 
 
 /**
@@ -50,7 +50,7 @@ function compressStatic() {
  * Process App
  */
 
-var compressApp = gulp.parallel(
+const compressApp = gulp.parallel(
   compressImages,
   compressStatic
 );
