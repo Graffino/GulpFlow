@@ -12,29 +12,27 @@ $.extend($graffino, {
     // Plugin options
     options: {
       autoInit: true,
-      debug: true
+      debug: false
     },
 
     // Scoped variables
     vars: {
-      $popup: $('.js-popup'),
       $anchor: $('.js-popup-anchor'),
       $close: $('.js-popup-close')
     },
 
     // Init method
-    init: function () {
-      var _that = $graffino,
+    init() {
+      const _that = $graffino,
         _this = this,
         vars = this.vars;
 
       _this.log('Initialized');
 
       // Check if element is in DOM
-      if (_that.isOnPage(vars.$popup) || _that.isOnPage(vars.$anchor)) {
-        vars.$anchor.each(function () {
-          var $el = $(this),
-            $inlineContainer = $($el.attr('href')),
+      if (_that.isOnPage(vars.$anchor)) {
+        vars.$anchor.each((index, el) => {
+          const $el = $(el),
             options = {
               type: $el.attr('data-popup-type'),
               midClick: true,
@@ -42,11 +40,26 @@ $.extend($graffino, {
               mainClass: 'mfp-fade',
               closeBtnInside: true
             };
+          let $inlineContainer;
 
-          if (_that.isOnPage($inlineContainer)) {
-            $el.magnificPopup(options);
+          // Popup type: inline
+          if (options.type === 'inline') {
+            $inlineContainer = $($el.attr('href'));
+            if (_that.isOnPage($inlineContainer)) {
+              $el.magnificPopup(options);
+            }
           } else {
             _this.log('\t\u2514 Inline content container not found in DOM (' + $el.attr('href') + ').');
+          }
+
+          // Popup type: iframe (W.I.P)
+          if (options.type === 'iframe') {
+            $el.magnificPopup(options);
+          }
+
+          // Popup type: image (W.I.P)
+          if (options.type === 'image') {
+            $el.magnificPopup(options);
           }
         });
       } else {

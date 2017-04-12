@@ -9,14 +9,15 @@
 // Mute jQuery migrate
 $.migrateMute = true;
 
-var $graffino = {
+const $graffino = {
   project: 'Graffino',
   name: 'god-object',
 
   // Global options
   options: {
     debug: true,
-    forceDebug: false
+    forceDebug: false,
+    clearConsole: false
   },
 
   // Global object variables
@@ -33,27 +34,23 @@ var $graffino = {
     stateClass: {
       open: 'is-open',
       active: 'is-active',
-      current: 'is-current',
-      disabled: 'is-disabled',
-      expanded: 'is-expanded',
       hidden: 'is-hidden',
+      sticky: 'is-sticky',
+      notValid: 'not-valid',
+      current: 'is-current',
       visible: 'is-visible',
       focused: 'is-focused',
       touched: 'is-touched',
-      empty: 'is-empty',
-      overlay: 'has-overlay',
       loading: 'is-loading',
+      overlay: 'has-overlay',
       animated: 'is-animated',
       submitted: 'is-submitted',
       minimized: 'is-minimized',
-      sticky: 'is-sticky',
       scrollable: 'is-scrollable',
       noResults: 'has-no-results',
-      notInitialized: 'not-initialized',
-      notValid: 'not-valid',
       slicked: 'slick-initialized',
-      isMasonry: 'is-masonry-initialized',
-      h5error: 'ui-state-error'
+      notInitialized: 'not-initialized',
+      isMasonry: 'is-masonry-initialized'
     },
     // Responsive breakpoints
     breakpoints: {
@@ -71,11 +68,11 @@ var $graffino = {
   },
 
   // Initialize methods
-  init: function () {
-    var _this = this;
+  init() {
+    const _this = this;
 
     // Clearing the console
-    if (_this.options.debug) {
+    if (_this.options.debug && _this.options.clearConsole) {
       console.clear();
     }
 
@@ -87,15 +84,15 @@ var $graffino = {
      * Call the auto-init methods
      */
 
-    Object.keys(_this).filter(function (key) {
+    Object.keys(_this).filter(key => {
+      // Assign and bind the log method for every inner method
+      $.extend(_this[key], {log: _this.log.bind(_this[key])});
       if ({}.hasOwnProperty.call(_this[key], 'init') && _this[key].options.autoInit) {
         return _this[key];
       }
-    }).forEach(function (key, index, arr) {
-      var loadMsg = '';
+    }).forEach((key, index, arr) => {
+      let loadMsg = '';
       try {
-        // Assign and bind the log method for every auto-init method
-        $.extend(_this[key], {log: _this.log.bind(_this[key])});
         // Check if force debug mode option is enabled
         if (_this.options.forceDebug) {
           // If it is, change the debug option to true in all methods
@@ -125,26 +122,24 @@ var $graffino = {
    * Reusable generic methods
    */
 
-  log: function () {
-    var newMsg = [];
+  log() {
+    let newMsg = [];
     if (this.options.debug && $graffino.options.debug) {
-      newMsg = Array.prototype.slice.call(arguments).reduce(function (accum, item) {
-        return accum + ' ' + item;
-      }, '');
+      newMsg = Array.prototype.slice.call(arguments).reduce((accum, item) => accum + ' ' + item, '');
       console.log($graffino.project + '/' + this.name + ' ▶', newMsg);
     }
   },
 
-  searchWord: function (str, word) {
+  searchWord(str, word) {
     return (str.indexOf(word) >= 0) ? str.substr(str.indexOf(word) + word.length) : false;
   },
 
-  lastChar: function (str) {
+  lastChar(str) {
     return str.charAt(str.length - 1);
   },
 
-  isOnPage: function (el) {
-    var condition;
+  isOnPage(el) {
+    let condition;
 
     if (typeof el === 'string') {
       condition = $(el).size() > 0;
@@ -157,16 +152,16 @@ var $graffino = {
     return condition ? 1 : 0;
   },
 
-  remove: function (item, obj) {
+  remove(item, obj) {
     if (typeof obj === 'object') {
       return obj.splice(obj.indexOf(item), 1);
     }
   },
 
-  searchKey: function (key, obj) {
-    var result = false;
+  searchKey(key, obj) {
+    let result = false;
 
-    // called with every property and it's value
+    // Called with every property and it's value
     function process(k) {
       if (k === key) {
         result = true;
@@ -175,7 +170,7 @@ var $graffino = {
 
     // Traverse function that iterates over the objects tree
     function traverse(o, func) {
-      for (var i in o) {
+      for (const i in o) {
         if ({}.hasOwnProperty.call(o, i)) {
           func.apply(this, [i, o[i]], i);
           if (o[i] !== null && typeof o[i] === 'object') {
@@ -189,9 +184,9 @@ var $graffino = {
     return result;
   },
 
-  hasStorage: function () {
-    var _this = this,
-      result;
+  hasStorage() {
+    const _this = this;
+    let result;
 
     // Try accessing localStorage
     try {
@@ -205,43 +200,28 @@ var $graffino = {
     return result;
   },
 
-  callFuncArray: function (arr) {
+  callFuncArray(arr) {
     // Firing each function found in the array if it passes minimum validation
     if (typeof arr === 'object' && arr.length > 0) {
-      arr.map(function (func) {
-        return typeof func === 'function' ? func() : false;
-      });
+      arr.map(func => typeof func === 'function' ? func() : false);
     }
   },
 
   // Add leading zeros to a number
-  pad: function (num, size) {
-    var s = num.toString();
+  pad(num, size) {
+    let s = num.toString();
     while (s.length < size) {
       s = '0' + s;
     }
     return s;
   },
 
-  randomFromRange: function (max, min) {
+  randomFromRange(max, min) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
-  },
-
-  // We extend native classes at init with this method
-  loadExtends: function () {
-    // Extend the String class to support formatting
-    String.prototype.format = function () {
-      var formatted = this;
-      for (var i = 0; i < arguments.length; i++) {
-        var regexp = new RegExp('\\{' + i + '\\}', 'gi');
-        formatted = formatted.replace(regexp, arguments[i]);
-      }
-      return formatted;
-    };
   }
 };
 
-$(document).ready(function () {
+$(document).ready(() => {
   try {
     $graffino.init();
   } catch (err) {

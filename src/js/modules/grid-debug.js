@@ -10,7 +10,7 @@ $.extend($graffino, {
 
     // Plugin options
     options: {
-      autoInit: true,
+      autoInit: false,
       debug: false
     },
 
@@ -22,37 +22,37 @@ $.extend($graffino, {
     },
 
     // Init method
-    init: function () {
-      var _that = $graffino,
+    init() {
+      const _that = $graffino,
         _this = this,
         vars = this.vars,
         hasLocalStorage = _that.hasStorage();
 
       _this.log('Initialized. Press keys F2 and F3 to interact.');
 
-      // check localStorage if element was left active last time
+      // Check localStorage if element was left active last time
       if (hasLocalStorage) {
-        // if yes turn the grid on
+        // If yes turn the grid on
         if (localStorage.isGridActive === 'true') {
           vars.$grid.addClass(vars.gridDebugStateClass);
-        // if not then make sure it's off
+        // If not then make sure it's off
         } else {
           vars.$grid.removeClass(vars.gridDebugStateClass);
         }
 
-        // if yes turn the console on
+        // If yes turn the console on
         if (localStorage.isConsoleActive === 'true') {
           _that.vars.$body.addClass(vars.consoleStateClass);
-        // if not then make sure it's off
+        // If not then make sure it's off
         } else {
           _that.vars.$body.removeClass(vars.consoleStateClass);
         }
-      } // end if
+      } // End if
 
       // Adding key press event for On/Off function
-      _that.vars.$document.keydown(function (e) {
+      _that.vars.$document.keydown(event => {
         // If F2 key is pressed
-        if (e.which === 113) {
+        if (event.which === 113) {
           // Hide/show the grid
           vars.$grid.toggleClass(vars.gridDebugStateClass);
           // Store current state in LocalStorage
@@ -64,10 +64,10 @@ $.extend($graffino, {
             }
           }
           return false;
-        } // end if
+        } // End if
 
         // If F3 key is pressed
-        if (e.which === 114) {
+        if (event.which === 114) {
           // Hide/show the grid
           _that.vars.$body.toggleClass(vars.consoleStateClass);
           // Store current state in LocalStorage
@@ -79,8 +79,8 @@ $.extend($graffino, {
             }
           }
           return false;
-        } // end if
-      }); // end of keydown();
+        } // End if
+      }); // End of keydown();
     }
   }
 });

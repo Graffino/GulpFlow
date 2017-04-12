@@ -22,15 +22,15 @@ $.extend($graffino, {
     },
 
     // Init method
-    init: function () {
-      var _this = this;
+    init() {
+      const _this = this;
       _this.log('Initialized.');
       _this.checkCookie();
       _this.setCookie();
     },
 
-    checkCookie: function () {
-      var _this = this,
+    checkCookie() {
+      const _this = this,
         vars = this.vars,
         cookie = Cookies.get('eu-cookie-notice');
 
@@ -42,12 +42,12 @@ $.extend($graffino, {
       }
     },
 
-    setCookie: function () {
-      var _that = $graffino,
+    setCookie() {
+      const _that = $graffino,
         _this = this,
         vars = this.vars;
       if (_that.isOnPage(vars.$cookieAction)) {
-        vars.$cookieAction.on('click', function () {
+        vars.$cookieAction.on('click', () => {
           vars.$cookieContent.velocity('slideUp');
           Cookies.set('eu-cookie-notice', '1', {expires: 7});
           _this.log('Cookie has been set.');

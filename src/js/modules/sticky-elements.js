@@ -25,8 +25,8 @@ $.extend($graffino, {
     },
 
     // Init method
-    init: function () {
-      var _that = $graffino,
+    init() {
+      const _that = $graffino,
         _this = this,
         vars = this.vars;
 
@@ -37,9 +37,9 @@ $.extend($graffino, {
 
       // Check if element is in DOM
       if (_that.isOnPage(vars.$element)) {
-        vars.$element.each(function () {
-          var $el = $(this),
-            elHeight,
+        vars.$element.each((index, el) => {
+          const $el = $(el);
+          let elHeight,
             parentHeight,
             parentOffset,
             windowHeight,
@@ -47,7 +47,7 @@ $.extend($graffino, {
 
           // Add custom function to resizeHandler
           // Fetch values for height, offsets, scrollLimit, etc.
-          _that.resizeHandler.vars.throttled.push(function () {
+          _that.resizeHandler.vars.throttled.push(() => {
             // Update parent element and filter by 'is-current' class
             vars.$parent = $(vars.parentClass).filter($('.' + _that.vars.stateClass.current));
             // Get the element height
@@ -66,10 +66,10 @@ $.extend($graffino, {
 
           // Add custom function to scrollHandler
           // Reposition element when user is scrolling
-          _that.scrollHandler.vars.instant.push(function () {
-            var newPos = 0,
-              // Get the new scroll position
-              scrollTop = _that.vars.$window.scrollTop();
+          _that.scrollHandler.vars.instant.push(() => {
+            let newPos = 0;
+            // Get the new scroll position
+            const scrollTop = _that.vars.$window.scrollTop();
 
             // If the scroll position is less the the scroll limit
             if (scrollTop <= scrollLimit && parentHeight > windowHeight) {

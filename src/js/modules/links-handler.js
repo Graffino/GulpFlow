@@ -18,13 +18,13 @@ $.extend($graffino, {
     vars: {},
 
     // Init method
-    init: function () {
+    init() {
       // Open in new window links with rel=external code
       $('a[rel="external"]').attr('target', '_blank');
       // Prevent default action on # (hash) links
-      $('a[href="#"]').on('click', function (e) {
+      $('a[href="#"]').on('click', event => {
         // Prevent the default "go-to" action
-        e.preventDefault();
+        event.preventDefault();
       });
 
       this.log('Initialized.');

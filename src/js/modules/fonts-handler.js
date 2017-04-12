@@ -21,25 +21,23 @@ $.extend($graffino, {
     },
 
     // Init method
-    init: function () {
-      var _that = $graffino,
+    init() {
+      const _that = $graffino,
         _this = this,
-        vars = this.vars,
-        observer;
+        vars = this.vars;
+      let observer;
 
       _this.log('Initialized. Waiting for fonts to load...');
 
       if (vars.fontFaceObserverName) {
         observer = new FontFaceObserver(vars.fontFaceObserverName);
         // Add fonts-class when fonts are loaded
-        observer.load().then(function () {
+        observer.load().then(() => {
           _this.log('Fonts loaded, replacing [no-fonts] class with [fonts] on the [html] object.');
           _that.vars.$html
             .removeClass('no-fonts')
             .addClass('fonts');
-        }, function () {
-          _this.log('Fonts not available.');
-        });
+        }, () => _this.log('Fonts not available.'));
       } else {
         _this.log('Custom font-face name not specified, replacing [no-fonts] class with [fonts] on the [html] object.');
         _that.vars.$html

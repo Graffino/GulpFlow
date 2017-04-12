@@ -23,16 +23,16 @@ $.extend($graffino, {
     },
 
     // Init method
-    init: function () {
-      var _that = $graffino,
+    init() {
+      const _that = $graffino,
         _this = this,
         vars = this.vars;
 
       vars.$formFields = $(vars.select2Class);
 
       if (_that.isOnPage(vars.$formFields)) {
-        vars.$formFields.each(function () {
-          var $el = $(this),
+        vars.$formFields.each((index, el) => {
+          const $el = $(el),
             options = {
               dropdownParent: $el.parent()
             };
@@ -58,10 +58,7 @@ $.extend($graffino, {
           }
 
           // Initialize select2 plugin with options object
-          $el.select2(options)
-          // Append a span with the "icon" class
-          .next('.select2').find('.select2-selection__arrow')
-          .append('<span class="icon"></span>');
+          $el.select2(options);
 
           if ($el.attr('data-extra-class') !== undefined) {
             $el.next(vars.select2Class).addClass($el.attr('data-extra-class'));

@@ -1,5 +1,5 @@
 /**
- * Name: Method Template
+ * Name: Method template
  * Author: Graffino (http://www.graffino.com)
  */
 
@@ -20,8 +20,8 @@ $.extend($graffino, {
     },
 
     // Init method
-    init: function () {
-      var _that = $graffino,
+    init() {
+      const _that = $graffino,
         _this = this,
         vars = this.vars;
 
@@ -45,8 +45,8 @@ $.extend($graffino, {
       _this.privateMethod();
     },
 
-    privateMethod: function () {
-      var _this = this;
+    privateMethod() {
+      const _this = this;
 
       _this.log('Method [privateMethod] has been called.');
     }

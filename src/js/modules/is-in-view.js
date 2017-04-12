@@ -18,16 +18,15 @@ $.extend($graffino, {
     vars: {},
 
     // Init method
-    init: function () {
-      var _this = this;
-      _this.log('Initialized.');
+    init() {
+      this.log('Initialized.');
     },
 
-    check: function (element, topActivationOffset, bottomActivationOffset) {
+    check(element, topActivationOffset, bottomActivationOffset) {
       topActivationOffset = topActivationOffset || 0.5;
       bottomActivationOffset = bottomActivationOffset || 0.5;
 
-      var _that = $graffino,
+      const _that = $graffino,
         _this = this,
         el = $(element),
         windowHeight = _that.vars.$window.height(),

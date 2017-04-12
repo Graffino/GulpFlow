@@ -21,11 +21,11 @@ $.extend($graffino, {
     },
 
     // Init method
-    init: function () {
-      var _that = $graffino,
+    init() {
+      const _that = $graffino,
         _this = this,
-        vars = this.vars,
-        fieldData = {};
+        vars = this.vars;
+      let fieldData = {};
 
       _this.log('Initialized.');
 
@@ -33,7 +33,7 @@ $.extend($graffino, {
 
       // Function that returns the beautified JSON object
       function beautifyJSONHandler(data) {
-        var parsedJSON = false;
+        let parsedJSON = false;
 
         // Try to parse the data as a JSON object
         try {
@@ -45,8 +45,8 @@ $.extend($graffino, {
 
         // If the data was successfully parsed as JSON
         if (parsedJSON !== false) {
-          // Return the stringified version with formatting (indentation set to 4)
-          return JSON.stringify(parsedJSON, null, 4);
+          // Return the stringified version with formatting (indentation set to 2)
+          return JSON.stringify(parsedJSON, null, 2);
         }
         // If data could not be parsed, return the original data
         return data;
@@ -61,7 +61,7 @@ $.extend($graffino, {
         vars.$element.val(beautifyJSONHandler(fieldData));
 
         // Binding a "change" event to the field, when it updates, to beautify the JSON again
-        vars.$element.on('change', function () {
+        vars.$element.on('change', () => {
           // Getting the input field value
           fieldData = vars.$element.val();
           // Setting the field value to the following...

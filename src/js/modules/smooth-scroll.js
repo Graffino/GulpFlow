@@ -23,25 +23,25 @@ $.extend($graffino, {
     },
 
     // Init method
-    init: function () {
-      var _that = $graffino,
+    init() {
+      const _that = $graffino,
         _this = this,
         vars = this.vars;
 
       _this.log('Initialized.');
 
-      $(vars.smoothScrollClass).each(function (index, el) {
-        var offset = ($(el).data('scroll-offset') === undefined) ? 0 : parseInt($(el).data('scroll-offset'), 10);
+      $(vars.smoothScrollClass).each((index, el) => {
+        const offset = ($(el).data('scroll-offset') === undefined) ? 0 : parseInt($(el).data('scroll-offset'), 10);
         // Make sure smoothScroll doesn't initialize more than once per page element
         // Check for 'initialized' class
         if (!$(el).hasClass(vars.smoothScrollInitClass)) {
           // Adding click evens to all anchors with smooth scroll class
-          $(el).addClass(vars.smoothScrollInitClass).on('click', function (e) {
-            e.preventDefault();
+          $(el).addClass(vars.smoothScrollInitClass).on('click', event => {
+            event.preventDefault();
             // Add a timeout to avoid targeting a non-existent item (display: none/block issues)
-            setTimeout(function () {
+            setTimeout(() => {
               // Getting the HREF attribute from the anchor
-              var href = $(el).attr('href'),
+              const href = $(el).attr('href'),
                 // Truncate and extract the ID of the element
                 target = href.substring(href.indexOf('#'));
               // Call the goTo function and point to the target element
@@ -52,13 +52,13 @@ $.extend($graffino, {
       });
     },
 
-    onRefresh: function () {
-      var _that = $graffino,
+    onRefresh() {
+      const _that = $graffino,
         _this = this,
         vars = this.vars,
         href = window.location.href,
-        offset = vars.offset === undefined ? -96 : vars.offset,
-        target;
+        offset = vars.offset === undefined ? -96 : vars.offset;
+      let target;
 
       _this.log('[onRefresh] method has been called.');
 
@@ -75,11 +75,11 @@ $.extend($graffino, {
       }
     },
 
-    goTo: function (target, offset) {
-      var _this = this,
+    goTo(target, offset) {
+      const _this = this,
         vars = this.vars,
         $target = $(target),
-        easing = [0.455, 0.030, 0.515, 0.955]; // easeInOutQuad
+        easing = [0.455, 0.030, 0.515, 0.955]; // Ease: easeInOutQuad
 
       // Setting default offset value
       offset = offset === undefined ? vars.offset : offset;
@@ -92,8 +92,8 @@ $.extend($graffino, {
         $target
           .velocity('stop')
           .velocity('scroll', {
-            easing: easing,
-            offset: offset,
+            easing,
+            offset,
             duration: vars.scrollDuration
           });
       }

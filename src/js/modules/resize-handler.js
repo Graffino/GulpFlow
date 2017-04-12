@@ -26,19 +26,19 @@ $.extend($graffino, {
     },
 
     // Init method
-    init: function () {
-      var _that = $graffino,
+    init() {
+      const _that = $graffino,
         _this = this,
         vars = this.vars;
 
       _this.log('Initialized. Resize event added to the [window] object.');
 
       // Check for resize function
-      _that.vars.$window.resize(function () {
+      _that.vars.$window.resize(() => {
         vars.resizeEvent = true;
         // Clear Timeout
         clearTimeout(vars.timeoutID);
-        vars.timeoutID = setTimeout(function () {
+        vars.timeoutID = setTimeout(() => {
           // Fire after resize stopped for 250ms
           _this.onstopResize();
         }, vars.delay);
@@ -47,7 +47,7 @@ $.extend($graffino, {
       });
 
       // Fire on resize in 250ms intervals
-      vars.intervalID = setInterval(function () {
+      vars.intervalID = setInterval(() => {
         if (vars.resizeEvent) {
           _this.throttledResize();
           // Reset resize count
@@ -57,17 +57,17 @@ $.extend($graffino, {
     },
 
     // Fire instantly (performance issue)
-    instantResize: function () {
+    instantResize() {
       $graffino.callFuncArray(this.vars.instant);
     },
 
     // Fire after resize stopped for 250ms
-    onstopResize: function () {
+    onstopResize() {
       $graffino.callFuncArray(this.vars.onstop);
     },
 
     // Fire on resize in 250ms intervals
-    throttledResize: function () {
+    throttledResize() {
       $graffino.callFuncArray(this.vars.throttled);
     }
   }

@@ -18,50 +18,34 @@ $.extend($graffino, {
     vars: {},
 
     // Init method
-    init: function () {
-      var _that = $graffino,
+    init() {
+      const _that = $graffino,
         _this = this;
 
       _this.log('Pointer events polyfill initialized.');
 
       // Initialize polyfill for links
-      PointerEventsPolyfill.initialize({
-        selector: 'a'
-      });
+      PointerEventsPolyfill.initialize({selector: 'a'});
       // Initialize polyfill for spans
-      PointerEventsPolyfill.initialize({
-        selector: 'span'
-      });
+      PointerEventsPolyfill.initialize({selector: 'span'});
       // Initialize polyfill for divs
-      PointerEventsPolyfill.initialize({
-        selector: 'div'
-      });
+      PointerEventsPolyfill.initialize({selector: 'div'});
 
       // Disable pointer events on iOS drag to prevent scroll stopping when
       // dragging on form elements (iOS workaround)
       if ($.browser.mobile) {
         _this.setPointerEvents('none');
 
-        _that.vars.$document.on('touchstart', function () {
-          _this.setPointerEvents('auto');
-        });
-
-        _that.vars.$document.on('touchmove', function () {
-          _this.setPointerEvents('none');
-        });
-
-        _that.vars.$document.on('touchend', function () {
-          setTimeout(function () {
-            _this.setPointerEvents('none');
-          }, 1000);
-        });
+        _that.vars.$document.on('touchstart', () => _this.setPointerEvents('auto'));
+        _that.vars.$document.on('touchmove', () => _this.setPointerEvents('none'));
+        _that.vars.$document.on('touchend', () => setTimeout(() => _this.setPointerEvents('none'), 1000));
       }
     },
 
-    setPointerEvents: function (pointerEventsValue) {
-      var $nodes = $('input, textarea');
-      $.each($nodes, function (i, $node) {
-        $($node).css('pointer-events', pointerEventsValue);
+    setPointerEvents(pointerEventsValue) {
+      const $nodes = $('input, textarea');
+      $.each($nodes, (index, node) => {
+        $(node).css('pointer-events', pointerEventsValue);
       });
     }
   }

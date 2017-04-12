@@ -26,19 +26,19 @@ $.extend($graffino, {
     },
 
     // Init method
-    init: function () {
-      var _that = $graffino,
+    init() {
+      const _that = $graffino,
         _this = this,
         vars = this.vars;
 
       _this.log('Initialized. Scroll event added to the [window] object.');
 
       // Check for scroll function
-      _that.vars.$window.scroll(function () {
+      _that.vars.$window.scroll(() => {
         vars.scrollEvent = true;
         // Clear Timeout
         clearTimeout(vars.timeoutID);
-        vars.timeoutID = setTimeout(function () {
+        vars.timeoutID = setTimeout(() => {
           // Fire after scroll stopped for 250ms
           _this.onstopScroll();
         }, vars.delay);
@@ -47,7 +47,7 @@ $.extend($graffino, {
       });
 
       // Fire on scroll in 250ms intervals
-      vars.intervalID = setInterval(function () {
+      vars.intervalID = setInterval(() => {
         if (vars.scrollEvent) {
           _this.throttledScroll();
           // Reset scroll count
@@ -57,17 +57,17 @@ $.extend($graffino, {
     },
 
     // Fire instantly (performance issue)
-    instantScroll: function () {
+    instantScroll() {
       $graffino.callFuncArray(this.vars.instant);
     },
 
     // Fire after scroll stopped for 250ms
-    onstopScroll: function () {
+    onstopScroll() {
       $graffino.callFuncArray(this.vars.onstop);
     },
 
     // Fire on scroll in 250ms intervals
-    throttledScroll: function () {
+    throttledScroll() {
       $graffino.callFuncArray(this.vars.throttled);
     }
   }

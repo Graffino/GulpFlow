@@ -11,7 +11,7 @@ $.extend($graffino, {
     // Plugin options
     options: {
       autoInit: true,
-      debug: true
+      debug: false
     },
 
     // Scoped variables
@@ -20,26 +20,27 @@ $.extend($graffino, {
     },
 
     // Init method
-    init: function () {
-      var _that = $graffino,
+    init() {
+      const _that = $graffino,
         _this = this,
         vars = this.vars;
 
       if (_that.isOnPage(vars.$formFields)) {
-        vars.$formFields.each(function () {
-          $(this)
+        vars.$formFields.each((index, field) => {
+          const $field = $(field);
+          $field
+            .height(this.scrollHeight)
             .css({
               'height': 'auto',
               'overflow-y': 'hidden'
-            })
-            .height(this.scrollHeight);
-        }).on('input', function () {
-          $(this)
+            });
+        }).on('input', event => {
+          $(event.currentTarget)
+            .height(this.scrollHeight)
             .css({
               'height': 'auto',
               'overflow-y': 'hidden'
-            })
-            .height(this.scrollHeight);
+            });
         });
         _this.log('Initialized.');
       } else {

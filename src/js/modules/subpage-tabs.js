@@ -11,7 +11,7 @@ $.extend($graffino, {
     // Plugin options
     options: {
       autoInit: true,
-      debug: false
+      debug: true
     },
 
     // Scoped variables
@@ -23,8 +23,8 @@ $.extend($graffino, {
     },
 
     // Init method
-    init: function () {
-      var _that = $graffino,
+    init() {
+      const _that = $graffino,
         _this = this,
         vars = this.vars;
 
@@ -35,11 +35,11 @@ $.extend($graffino, {
 
       // Check if element is in DOM
       if (_that.isOnPage(vars.$subpages)) {
-        vars.$subpagesTriggers.each(function () {
-          var $trigger = $(this),
+        vars.$subpagesTriggers.each((index, trigger) => {
+          const $trigger = $(trigger),
             subpageID = $trigger.attr('data-subpage-id');
 
-          $trigger.on('click', function () {
+          $trigger.on('click', () => {
             vars.$subpagesTriggers.not($trigger).removeClass(_that.vars.stateClass.current);
             $trigger.addClass(_that.vars.stateClass.current);
 
@@ -49,9 +49,7 @@ $.extend($graffino, {
               .addClass(_that.vars.stateClass.current);
 
             // Trigger resize event
-            setTimeout(function () {
-              _that.vars.$window.trigger('resize');
-            }, 0);
+            setTimeout(() => _that.vars.$window.trigger('resize'), 0);
           });
         });
       } else {
