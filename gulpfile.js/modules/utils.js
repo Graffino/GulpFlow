@@ -6,6 +6,9 @@
  */
 
 
+// Node requires
+const browserSync = require('browser-sync');
+
 /**
  * Notice handling
  */
@@ -17,7 +20,7 @@ function ಠ_ಠ(done) {
 
 // Pumped
 function pumped(achievement) {
-  var exclamations = [
+  const exclamations = [
     'Sweet',
     'Awesome',
     'Epic',
@@ -28,9 +31,15 @@ function pumped(achievement) {
     'Booyah'
   ];
 
-  var randomIndex = Math.floor(Math.random() * exclamations.length);
+  const randomIndex = Math.floor(Math.random() * exclamations.length);
 
   return [exclamations[randomIndex], '! ', achievement].join('');
+}
+
+// Reload
+function reload(done) {
+  browserSync.reload();
+  done();
 }
 
 
@@ -40,5 +49,6 @@ function pumped(achievement) {
 
 module.exports = {
   noop: ಠ_ಠ,
-  pumped: pumped
+  pumped,
+  reload
 };

@@ -176,7 +176,11 @@ function cleanJunk() {
 
 // Wordpress
 function cleanWordpress() {
-  return clean(paths.patterns.wordpress.clean);
+  var exclude = path.normalize('!**/{' + paths.patterns.wordpress.exclude.join(',') + '}');
+  var files = paths.patterns.wordpress.clean;
+  var toClean = files.concat(exclude);
+
+  return clean(toClean);
 }
 
 
@@ -209,7 +213,7 @@ function cleanPostProduction() {
     excludeJS
   ];
 
-  if (config.enabled.wordpress) {
+  if (config.enabled.wordpress.theme) {
     toClean = toClean.concat(htmlFiles);
   }
 

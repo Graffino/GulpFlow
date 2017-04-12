@@ -41,20 +41,24 @@ var enabled = {
   // Fonts conversion
   fonts: true,
   // Data folder
-  data: true,
+  data: false,
   // Media folder
-  media: true,
+  media: false,
   // Library folder
-  vendor: true,
+  vendor: false,
   // Critical CSS generation
-  critical: true,
+  critical: false,
+
   // Wordpress
-  wordpress: true,
+  wordpress: {
+    theme: false,
+    admin: true
+  },
 
   // Nunjucks templates
   nunjucks: {
-    js: true,
-    html: true
+    js: false,
+    html: false
   },
 
   // Sourcemaps
@@ -67,7 +71,7 @@ var enabled = {
   lint: {
     css: true,
     js: true,
-    html: true
+    html: false
   },
 
   // Minify
@@ -75,7 +79,27 @@ var enabled = {
     css: true,
     js: true,
     img: true,
-    html: true
+    html: false
+  }
+};
+
+
+/**
+ * Clean
+ */
+
+var clean = {
+  watch: {
+    js: true,
+    html: true,
+    fonts: true,
+    media: true,
+    data: true,
+    static: true,
+    images: true,
+    icons: true,
+    vendor: true,
+    wordpress: false
   }
 };
 
@@ -223,5 +247,6 @@ var modules = {
 
 module.exports = {
   enabled: enabled,
+  clean: clean,
   modules: modules
 };
