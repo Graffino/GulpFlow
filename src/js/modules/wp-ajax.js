@@ -22,8 +22,8 @@ $.extend($graffino, {
     },
 
     // Init method
-    init: function () {
-      var _that = $graffino,
+    init() {
+      const _that = $graffino,
         _this = this,
         vars = this.vars;
 
@@ -33,26 +33,25 @@ $.extend($graffino, {
 
       // Check if element is in DOM
       if (_that.isOnPage(vars.$ajaxForm)) {
-        vars.$ajaxForm.each(function () {
-          var $form = $(this),
+        vars.$ajaxForm.each((index, form) => {
+          const $form = $(form),
             $ajaxSubmit = $form.find(vars.ajaxSubmitClass);
 
-          $ajaxSubmit.on('click', function (e) {
-            e.preventDefault();
+          $ajaxSubmit.on('click', event => {
+            event.preventDefault();
             $.ajax({
               url: ajaxurl,
               type: $form.attr('method'),
               data: $form.serialize(),
               dataType: 'json',
               cache: false,
-              success: function (response) {
-                console.log(response.settings_export);
+              success(response) {
                 _that.notifications.display(response.message, response.type);
                 if (response.settings !== null) {
                   _this.updateFields(response.settings, response.settings_export);
                 }
               },
-              error: function (response) {
+              error(response) {
                 _that.notifications.display(response.message, response.type);
               }
             });
@@ -65,14 +64,14 @@ $.extend($graffino, {
     },
 
     // Method that updates the form fields after save/import
-    updateFields: function (importedSettings, exportedSettings) {
-      var _this = this,
+    updateFields(importedSettings, exportedSettings) {
+      const _this = this,
         parsedSettings = JSON.parse(importedSettings),
         $exportField = $('[data-field-type=settings_export]');
       exportedSettings = exportedSettings !== null ? exportedSettings : false;
       // Go through each returned value
-      Object.keys(parsedSettings).map(function (optionName) {
-        var $formField = $('[name*=' + optionName + ']'),
+      Object.keys(parsedSettings).map(optionName => {
+        const $formField = $('[name*=' + optionName + ']'),
           optionType = $formField.attr('data-field-type');
 
         // Check if there are any fields matching the setting id
@@ -87,6 +86,9 @@ $.extend($graffino, {
               $formField.val(parsedSettings[optionName])
               .trigger('change');
               break;
+            case 'secret':
+              _this.updateSecretField($formField, optionName);
+              break;
             case 'upload':
               _this.updateUploadField($formField, parsedSettings, optionName);
               break;
@@ -94,8 +96,8 @@ $.extend($graffino, {
               // Go through each option
               $formField.children('option')
               .attr('selected', false)
-              .each(function () {
-                var $option = $(this);
+              .each((index, option) => {
+                const $option = $(option);
                 // Check for a value match
                 if ($option.attr('value') === parsedSettings[optionName]) {
                   // If the option value matches the setting, set the "selected" attribute to "true"
@@ -107,8 +109,8 @@ $.extend($graffino, {
               break;
             case 'radio':
               $formField.attr('checked', false);
-              $formField.each(function () {
-                var $radio = $(this);
+              $formField.each((index, radio) => {
+                const $radio = $(radio);
                 if ($radio.val() === parsedSettings[optionName]) {
                   $radio.attr('checked', true)
                   .trigger('change');
@@ -146,7 +148,7 @@ $.extend($graffino, {
     },
 
     updateUploadField($formField, parsedSettings, optionName) {
-      var _that = $graffino;
+      const _that = $graffino;
 
       // Get values from parsed JSON
       // Set the URL value
@@ -201,6 +203,39 @@ $.extend($graffino, {
         $formField.siblings()
         .find('.js-upload-size-y').text(parsedSettings[optionName].height);
       }
+    },
+
+    updateSecretField($formField, optionName) {
+      const _that = $graffino,
+        $input = $formField.filter('[name*="encrypt"]'),
+        $checkbox = $formField.filter('[name*="remove_value"]');
+
+      $.ajax({
+        url: ajaxurl,
+        type: 'POST',
+        data: $.param({
+          'action': 'request_ajax_handler',
+          'handler': 'get_masked_secret_field',
+          'field_id': optionName
+        }),
+        dataType: 'json',
+        cache: false,
+        success(response) {
+          // _that.notifications.display(response.message, response.type);
+          // On success, empty the field and change the placeholder's value
+          const parsedSettings = JSON.parse(response.settings);
+          $input
+            .val('')
+            .attr('placeholder', parsedSettings[optionName])
+            .trigger('change');
+          // Uncheck the remove value checkbox
+          $checkbox
+            .prop('checked', false).trigger('change');
+        },
+        error(response) {
+          _that.notifications.display(response.message, response.type);
+        }
+      });
     }
   }
 });

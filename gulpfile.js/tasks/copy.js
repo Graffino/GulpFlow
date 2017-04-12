@@ -11,15 +11,15 @@
  */
 
 // Node requires
-var path = require('path');
+const path = require('path');
 
 // Gulp & plugins
-var gulp = require('gulp');
+const gulp = require('gulp');
 
 // Gulp requires
-var config = require('../config');
-var paths = require('../modules/paths');
-var utils = require('../modules/utils');
+const config = require('../config');
+const paths = require('../modules/paths');
+const utils = require('../modules/utils');
 
 
 /**
@@ -27,7 +27,7 @@ var utils = require('../modules/utils');
  */
 
 function copyJS() {
-  var exclude = path.normalize('!**/{' + paths.patterns.js.exclude.join(',') + '}');
+  const exclude = path.normalize('!**/{' + paths.patterns.js.exclude.join(',') + '}');
 
   return gulp.src([
     paths.base.src + paths.patterns.js.all,
@@ -114,7 +114,7 @@ function copyData() {
  */
 
 function copyStatic() {
-  var exclude = path.normalize('!**/{' + paths.patterns.static.exclude.join(',') + '}');
+  const exclude = path.normalize('!**/{' + paths.patterns.static.exclude.join(',') + '}');
   return gulp.src([
     paths.base.src + paths.patterns.static.all,
     exclude
@@ -131,7 +131,7 @@ function copyStatic() {
  */
 
 function copyVendor() {
-  var exclude = path.normalize('!**/{' + paths.patterns.vendor.exclude.join(',') + '}');
+  const exclude = path.normalize('!**/{' + paths.patterns.vendor.exclude.join(',') + '}');
   return gulp.src([
     paths.base.root + paths.patterns.vendor.all,
     exclude
@@ -144,7 +144,7 @@ function copyVendor() {
  * Copy function
  */
 
-var copyApp = gulp.parallel(
+const copyApp = gulp.parallel(
   // Skipped -> JS task processes these
   //  js: copyJS,
   // Skipped -> Sprite copies these

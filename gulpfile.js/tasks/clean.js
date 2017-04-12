@@ -11,18 +11,18 @@
  */
 
 // Node requires
-var path = require('path');
-var del = require('del');
+const path = require('path');
+const del = require('del');
 
 // Gulp & plugins
-var gulp = require('gulp');
+const gulp = require('gulp');
 
 // Gulp requires
-var config = require('../config');
-var env = require('../modules/env');
-var paths = require('../modules/paths');
-var notice = require('../modules/notice');
-var utils = require('../modules/utils');
+const config = require('../config');
+const env = require('../modules/env');
+const paths = require('../modules/paths');
+const notice = require('../modules/notice');
+const utils = require('../modules/utils');
 
 
 /**
@@ -30,7 +30,7 @@ var utils = require('../modules/utils');
  */
 
 function clean(toClean) {
-  return del(toClean).then(function (paths) {
+  return del(toClean).then(paths => {
     // Send notice according to environment and config
     if (env.isDebug() && config.enabled.notice) {
       notice.send('Deleted:\n', paths.join('\n'));
@@ -131,11 +131,11 @@ function cleanMedia() {
 // HTML
 function cleanHTML() {
   // HTML
-  var html = [paths.base.www + '*.html'];
+  const html = [paths.base.www + '*.html'];
   // Language folders
-  var languages = paths.languages;
+  const languages = paths.languages;
   // Concatenate arrays
-  var toClean = html.concat(languages);
+  const toClean = html.concat(languages);
 
   return clean(toClean);
 }
@@ -167,7 +167,7 @@ function cleanBower() {
 
 // Junk
 function cleanJunk() {
-  var toClean = [
+  const toClean = [
     paths.root + '**/.DS_Store'
   ];
 
@@ -176,9 +176,9 @@ function cleanJunk() {
 
 // Wordpress
 function cleanWordpress() {
-  var exclude = path.normalize('!**/{' + paths.patterns.wordpress.exclude.join(',') + '}');
-  var files = paths.patterns.wordpress.clean;
-  var toClean = files.concat(exclude);
+  const exclude = path.normalize('!**/{' + paths.patterns.wordpress.exclude.join(',') + '}');
+  const files = paths.patterns.wordpress.clean;
+  const toClean = files.concat(exclude);
 
   return clean(toClean);
 }
@@ -190,18 +190,18 @@ function cleanWordpress() {
 
 // Postproduction
 function cleanPostProduction() {
-  var toClean;
+  let toClean;
 
   // Excludes
-  var excludeCSS = path.normalize('!**/{' + paths.patterns.css.exclude.join(',') + '}');
-  var excludeJS = path.normalize('!**/{' + paths.patterns.js.exclude.join(',') + '}');
+  const excludeCSS = path.normalize('!**/{' + paths.patterns.css.exclude.join(',') + '}');
+  const excludeJS = path.normalize('!**/{' + paths.patterns.js.exclude.join(',') + '}');
 
   // HTML
-  var html = [paths.base.www + '*.html'];
+  const html = [paths.base.www + '*.html'];
   // Language folders
-  var languages = paths.languages;
+  const languages = paths.languages;
   // CleanupHTML
-  var htmlFiles = html.concat(languages);
+  const htmlFiles = html.concat(languages);
 
   // Remove HTML files on production if Wordpress is enabled
   toClean = [
@@ -225,7 +225,7 @@ function cleanPostProduction() {
  * Clean function
  */
 
-var cleanApp = gulp.series(
+const cleanApp = gulp.series(
   gulp.parallel(
     cleanCSS,
     cleanSprite,

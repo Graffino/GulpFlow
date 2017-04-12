@@ -11,14 +11,14 @@
  */
 
 // Gulp & plugins
-var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
+const gulp = require('gulp');
+const plugins = require('gulp-load-plugins')();
 
 // Gulp requires
-var paths = require('../modules/paths');
-var config = require('../config');
-var error = require('../modules/error');
-var utils = require('../modules/utils');
+const paths = require('../modules/paths');
+const config = require('../config');
+const error = require('../modules/error');
+const utils = require('../modules/utils');
 
 
 /**
@@ -48,7 +48,7 @@ function convertFontsWOFF2() {
  * Convert fonts function
  */
 
-var processFonts = gulp.parallel(
+const processFonts = gulp.parallel(
   config.enabled.fonts ? convertFontsWOFF : utils.noop,
   config.enabled.fonts ? convertFontsWOFF2 : utils.noop
 );

@@ -10,7 +10,7 @@
  * Base paths
  */
 
-var base = {
+const base = {
   // Root
   root: './',
   // Source
@@ -33,7 +33,7 @@ var base = {
  * Language paths
  */
 
-var languages = [
+const languages = [
   base.www + 'ro/',
   base.www + 'en/'
 ];
@@ -43,7 +43,7 @@ var languages = [
  * Module paths
  */
 
-var modules = {
+const modules = {
   // Cascading Stylesheets
   css: {
     root: 'css/',
@@ -151,7 +151,7 @@ var modules = {
  * File patterns
  */
 
-var patterns = {
+const patterns = {
   // Cascading Stylesheets
   css: {
     all: modules.css.root + '**/*.css',
@@ -288,8 +288,8 @@ var patterns = {
  */
 
 module.exports = {
-  base: base,
-  languages: languages,
-  modules: modules,
-  patterns: patterns
+  base,
+  languages,
+  modules,
+  patterns
 };

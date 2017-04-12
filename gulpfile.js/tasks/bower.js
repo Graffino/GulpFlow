@@ -11,19 +11,19 @@
  */
 
 // Node requires
-var path = require('path');
-var mainBowerFiles = require('main-bower-files');
+const path = require('path');
+const mainBowerFiles = require('main-bower-files');
 
 // Gulp & plugins
-var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
+const gulp = require('gulp');
+const plugins = require('gulp-load-plugins')();
 
 // Gulp requires
-var config = require('../config');
-var env = require('../modules/env');
-var paths = require('../modules/paths');
-var utils = require('../modules/utils');
-var error = require('../modules/error');
+const config = require('../config');
+const env = require('../modules/env');
+const paths = require('../modules/paths');
+const utils = require('../modules/utils');
+const error = require('../modules/error');
 
 
 /**
@@ -42,14 +42,14 @@ function fetchBower() {
  */
 
 function compileBower() {
-  var excludeCSS = path.normalize('!**/{' + paths.patterns.css.exclude.join(',') + '}');
-  var excludeJS = path.normalize('!**/{' + paths.patterns.js.exclude.join(',') + '}');
+  const excludeCSS = path.normalize('!**/{' + paths.patterns.css.exclude.join(',') + '}');
+  const excludeJS = path.normalize('!**/{' + paths.patterns.js.exclude.join(',') + '}');
 
-  var jsFiles = plugins.filter([
+  const jsFiles = plugins.filter([
     '**/*.js',
     excludeJS
   ], {restore: true});
-  var cssFiles = plugins.filter([
+  const cssFiles = plugins.filter([
     '**/*.css',
     excludeCSS
   ], {restore: true});
@@ -105,7 +105,7 @@ function compileBower() {
  * Process Bower
  */
 
-var processBower = gulp.series(
+const processBower = gulp.series(
   config.enabled.bower ? fetchBower : utils.noop,
   config.enabled.bower ? compileBower : utils.noop
 );

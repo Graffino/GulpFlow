@@ -24,19 +24,19 @@ $.extend($graffino, {
     },
 
     // Init method
-    init: function () {
-      var _that = $graffino,
+    init() {
+      const _that = $graffino,
         _this = this,
         vars = this.vars;
 
       _this.log('Initialized.');
 
       if (_that.isOnPage(vars.$forms)) {
-        vars.$forms.each(function (index, form) {
-          var $form = $(form),
-            $element = $form,
+        vars.$forms.each((index, form) => {
+          const $form = $(form),
             $notice = $form.find(vars.formNoticeClass),
-            $content = $form.find(vars.formContentClass),
+            $content = $form.find(vars.formContentClass);
+          let $element = $form,
             customCallback = $form.data('ajax-callback'),
             data,
             dataType,
@@ -128,12 +128,12 @@ $.extend($graffino, {
               // If not, use the form and 'submit' event
               $element = $trigger === false ? $form : $trigger;
               // Adding the event listener
-              $element.on(eventType, function (e) {
+              $element.on(eventType, event => {
                 // Prevent the form for default submit
-                e.preventDefault();
+                event.preventDefault();
                 // AJAX request and form validation is wrapped in a setTimeout to move it to the next stack
                 // This is needed to give time to other event listener handlers to perform their logic
-                setTimeout(function () {
+                setTimeout(() => {
                   // Checking if the form fields contain valid data
                   isValid = $form.attr('data-h5-valid') === 'true';
                   // Check if a request is already in progress
@@ -151,23 +151,23 @@ $.extend($graffino, {
                     $.ajax({
                       url: action,
                       type: method,
-                      data: data,
-                      dataType: dataType,
-                      contentType: contentType,
+                      data,
+                      dataType,
+                      contentType,
                       cache: false,
                       // On success callback
-                      success: function (response) {
+                      success(response) {
                         _this.onSuccess($form, index, data, response, $content, $notice, customCallback);
                       },
                       // On error callback
-                      error: function (response) {
+                      error(response) {
                         // Lowering flag to allow another request to be sent
                         isRequesting = false;
                         // Fire the onError callback function
                         _this.onError($form, index, data, response, $content, $notice);
                       },
                       // On request complete
-                      complete: function () {
+                      complete() {
                         // Lowering flag to allow another request to be sent
                         isRequesting = false;
                         _this.log('\t\u2514 Request completed.');
@@ -178,7 +178,7 @@ $.extend($graffino, {
                     _this.log('Form id ' + index + ' valid: ' + isValid + ', request in progress: ' + isRequesting);
                     _this.log('\t\u2514 AJAX request prevented.');
                   }
-                }, 0); // end of setTimeout()
+                }, 0); // End of setTimeout()
               });
               _this.log('AJAX submit methods bound to given form elements.');
             }
@@ -194,10 +194,10 @@ $.extend($graffino, {
       }
     },
 
-    onSuccess: function ($form, formID, data, response, $content, $notice, customCallback) {
-      var _that = $graffino,
-        _this = this,
-        noticeText;
+    onSuccess($form, formID, data, response, $content, $notice, customCallback) {
+      const _that = $graffino,
+        _this = this;
+      let noticeText;
 
       _this.log('[SENT] Form id ' + formID + ' information was sent successfully!');
       _this.log('\t\u251c Data:', data);
@@ -218,9 +218,7 @@ $.extend($graffino, {
         $content.addClass(_that.vars.stateClass.hidden);
 
         // Show notice
-        setTimeout(function () {
-          $notice.addClass(_that.vars.stateClass.visible);
-        }, 500);
+        setTimeout(() => $notice.addClass(_that.vars.stateClass.visible), 500);
 
         if (response.result === 'error') {
           $notice
@@ -231,7 +229,7 @@ $.extend($graffino, {
             .addClass(_that.vars.stateClass.success);
         }
 
-        setTimeout(function () {
+        setTimeout(() => {
           $notice
             .removeClass(_that.vars.stateClass.visible)
             .removeClass(_that.vars.stateClass.error)
@@ -246,28 +244,24 @@ $.extend($graffino, {
       }
     },
 
-    onError: function ($form, formID, data, response, $content, $notice) {
-      var _that = $graffino,
+    onError($form, formID, data, response, $content, $notice) {
+      const _that = $graffino,
         _this = this,
-        noticeText;
-
-      // Save notice text
-      noticeText = $notice.html();
+        // Save notice text
+        noticeText = $notice.html();
 
       // Hide content
       $content.addClass(_that.vars.stateClass.hidden);
 
       // Show notice
-      setTimeout(function () {
-        $notice.addClass(_that.vars.stateClass.visible);
-      }, 500);
+      setTimeout(() => $notice.addClass(_that.vars.stateClass.visible), 500);
 
       // Adding visible class to the success notice element
       $notice
         .addClass(_that.vars.stateClass.error)
         .html('<p class="text">' + response.msg + '</p>');
 
-      setTimeout(function () {
+      setTimeout(() => {
         $notice
           .removeClass(_that.vars.stateClass.visible)
           .removeClass(_that.vars.stateClass.error)
@@ -286,8 +280,8 @@ $.extend($graffino, {
      * Callbacks for custom forms
      */
 
-    notice: function (response, $notice, notice) {
-      var _this = this;
+    notice(response, $notice, notice) {
+      const _this = this;
       // Making sure response is an AJAX object
       response = typeof response === 'object' ? response : JSON.parse(response);
 

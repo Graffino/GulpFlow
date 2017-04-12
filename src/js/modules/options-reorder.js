@@ -23,8 +23,8 @@ $.extend($graffino, {
     },
 
     // Init method
-    init: function () {
-      var _that = $graffino,
+    init() {
+      const _that = $graffino,
         _this = this,
         vars = this.vars;
 
@@ -33,22 +33,22 @@ $.extend($graffino, {
 
       // Check if element is in DOM
       if (_that.isOnPage(vars.$sortable)) {
-        vars.$sortable.each(function () {
-          var $sortableItem = $(this),
-            $fields = $sortableItem.find(vars.fieldsClass);
+        vars.$sortable.each((index, item) => {
+          const $sortableItem = $(item);
+          let $fields = $sortableItem.find(vars.fieldsClass);
           $sortableItem.sortable({
             item: $fields,
             axis: 'y',
             handle: vars.handleClass,
             containment: $sortableItem,
-            start: function (event, ui) {
+            start(event, ui) {
               ui.item.addClass(_that.vars.stateClass.active);
             },
-            stop: function (event, ui) {
+            stop(event, ui) {
               ui.item.removeClass(_that.vars.stateClass.active)
               .css('left', 'auto');
             },
-            update: function () {
+            update() {
               $fields = $sortableItem.find(vars.fieldsClass);
               $fields.each(function (index) {
                 console.log(index, $(this).attr('data-field-id'));

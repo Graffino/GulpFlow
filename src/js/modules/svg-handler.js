@@ -19,7 +19,7 @@ $.extend($graffino, {
     vars: {},
 
     // Init method
-    init: function () {
+    init() {
       // Polyfill remote SVGs
       svg4everybody();
 

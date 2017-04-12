@@ -16,7 +16,8 @@ $.extend($graffino, {
 
     // Scoped variables
     vars: {
-      $elements: $('.js-upload-media'),
+      $elements: $('.js-upload-media-field'),
+      uploadButtonClass: '.js-upload-media-button',
       inputClass: '.js-upload-media-url',
       inputWrapperClass: '.js-upload-input-wrapper',
       inputThumbnailClass: '.js-upload-media-thumbnail',
@@ -32,8 +33,8 @@ $.extend($graffino, {
     },
 
     // Init method
-    init: function () {
-      var _that = $graffino,
+    init() {
+      const _that = $graffino,
         _this = this,
         vars = this.vars;
 
@@ -41,23 +42,24 @@ $.extend($graffino, {
 
       // Check if element is in DOM
       if (_that.isOnPage(vars.$elements)) {
-        vars.$elements.each(function () {
-          var $el = $(this),
-            $input = $el.parent().find(vars.inputClass),
-            $inputWrapper = $el.parent().find(vars.inputWrapperClass),
-            $inputThumbnail = $el.parent().find(vars.inputThumbnailClass),
-            $inputTitle = $el.parent().find(vars.inputTitleClass),
-            $inputWidth = $el.parent().find(vars.inputWidthClass),
-            $inputHeight = $el.parent().find(vars.inputHeightClass),
-            $preview = $el.parent().find(vars.previewImageClass),
-            $labelTitle = $el.parent().find(vars.previewTitleLabelClass),
-            $labelWidth = $el.parent().find(vars.previewWidthLabelClass),
-            $labelHeight = $el.parent().find(vars.previewHeightLabelClass),
-            $removeButton = $el.parent().find(vars.removeButtonClass),
-            $frame;
+        vars.$elements.each((index, field) => {
+          const $field = $(field),
+            $uploadButton = $field.find(vars.uploadButtonClass),
+            $input = $field.find(vars.inputClass),
+            $inputWrapper = $field.find(vars.inputWrapperClass),
+            $inputThumbnail = $field.find(vars.inputThumbnailClass),
+            $inputTitle = $field.find(vars.inputTitleClass),
+            $inputWidth = $field.find(vars.inputWidthClass),
+            $inputHeight = $field.find(vars.inputHeightClass),
+            $preview = $field.find(vars.previewImageClass),
+            $labelTitle = $field.find(vars.previewTitleLabelClass),
+            $labelWidth = $field.find(vars.previewWidthLabelClass),
+            $labelHeight = $field.find(vars.previewHeightLabelClass),
+            $removeButton = $field.find(vars.removeButtonClass);
+          let $frame;
 
-          $el.on('click', function (e) {
-            e.preventDefault();
+          $uploadButton.on('click', event => {
+            event.preventDefault();
 
             // Check if frame is already initialized
             if ($frame) {
@@ -73,22 +75,42 @@ $.extend($graffino, {
               button: {
                 text: 'Use this media'
               },
-              mime: 'image/jpeg',
+              mime: [
+                'image/jpeg',
+                'image/png',
+                'image/gif',
+                'image/svg+xml',
+                'image/x-icon'
+              ],
               multiple: false
             });
 
             // Binding the 'select' event to the frame
-            $frame.on('select', function () {
+            $frame.on('select', () => {
               // Getting the media file data
-              var attachment = $frame.state().get('selection').first().toJSON(),
-                url = attachment.url,
-                // Check if we have the sizes key
-                sizes = attachment.sizes,
-                // If we have it get the thumbnail url, if not set the thumbURL to an empty string
-                thumbURL = (sizes !== undefined) ? sizes.thumbnail.url : '',
+              const attachment = $frame.state().get('selection').first().toJSON(),
+                mime = attachment.mime,
+                url = attachment.url.replace(/^.*\/\/[^/]+/, ''),
                 title = attachment.title,
-                width = attachment.width,
-                height = attachment.height;
+                sizes = attachment.sizes;
+              let thumbURL,
+                width,
+                height;
+
+              if (sizes !== undefined) {
+                switch (mime) {
+                  case 'image/svg+xml':
+                    thumbURL = sizes.full.url.replace(/^.*\/\/[^/]+/, '');
+                    width = sizes.full.width;
+                    height = sizes.full.height;
+                    break;
+                  default:
+                    // If we have it get the thumbnail url, if not set the thumbURL to an empty string
+                    thumbURL = (sizes !== undefined && sizes.thumbnail !== undefined) ? sizes.thumbnail.url : '';
+                    width = attachment.width;
+                    height = attachment.height;
+                }
+              }
 
               // Place the media URL in the input field
               $input.val(url ? url : '').trigger('change');
@@ -98,8 +120,8 @@ $.extend($graffino, {
               $inputHeight.val(height !== undefined ? height : '').trigger('change');
 
               // If field is empty remove the empty class
-              if ($el.hasClass(_that.vars.stateClass.empty)) {
-                $el.removeClass(_that.vars.stateClass.empty);
+              if ($uploadButton.hasClass(_that.vars.stateClass.empty)) {
+                $uploadButton.removeClass(_that.vars.stateClass.empty);
               }
 
               // If field wrapper is empty remove the empty class
@@ -123,7 +145,7 @@ $.extend($graffino, {
             $frame.open();
           });
 
-          $removeButton.on('click', function () {
+          $removeButton.on('click', () => {
             // Empty the input fields
             $input.val('').trigger('change');
             $inputThumbnail.val('').trigger('change');
@@ -132,8 +154,8 @@ $.extend($graffino, {
             $inputHeight.val('').trigger('change');
 
             // If field is not empty add the empty class
-            if (!$el.hasClass(_that.vars.stateClass.empty)) {
-              $el.addClass(_that.vars.stateClass.empty);
+            if (!$uploadButton.hasClass(_that.vars.stateClass.empty)) {
+              $uploadButton.addClass(_that.vars.stateClass.empty);
             }
 
             // If field wrapper is not empty add the empty class

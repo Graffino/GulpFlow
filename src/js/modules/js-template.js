@@ -1,5 +1,5 @@
 /**
- * Name: Nunjucks JS Template
+ * Name: Nunjucks JS Templates
  * Author: Graffino (http://www.graffino.com)
  * Plugin: https://github.com/mozilla/nunjucks
  */
@@ -31,8 +31,8 @@ $.extend($graffino, {
     },
 
     // Init method
-    init: function () {
-      var _this = this;
+    init() {
+      const _this = this;
 
       _this.log('Initialized.');
 
@@ -42,8 +42,8 @@ $.extend($graffino, {
       _this.moduleName();
     },
 
-    loadTemplates: function () {
-      var _this = this,
+    loadTemplates() {
+      const _this = this,
         vars = this.vars;
       // Load nunjucks WebLoader to detect precompiled templates (Compiled with gulp)
       // IMPORTANT: If templates are not precompiled a path error will be thrown (there is no workaround)
@@ -52,15 +52,15 @@ $.extend($graffino, {
       _this.log('Precompiled JS templates loaded.');
     },
 
-    moduleName: function () {
-      var _that = $graffino,
+    moduleName() {
+      const _that = $graffino,
         _this = this,
         vars = this.vars;
 
       // Check if element is in DOM
       if (_that.isOnPage(vars.templatePlaceholder.module)) {
         // Fetch JSON
-        $.getJSON(vars.dataJSONPath).done(function (data) {
+        $.getJSON(vars.dataJSONPath).done(data => {
           if (data !== undefined && data !== null) {
             vars.moduleData = {
               module: {

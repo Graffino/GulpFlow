@@ -11,8 +11,8 @@
  */
 
 // Gulp & plugins
-var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
+const gulp = require('gulp');
+const plugins = require('gulp-load-plugins')();
 
 
 /**
@@ -21,7 +21,7 @@ var plugins = require('gulp-load-plugins')();
 
 function bump(type) {
   return gulp.src(['./package.json', './bower.json'])
-    .pipe(plugins.bump({type: type}))
+    .pipe(plugins.bump({type}))
     .pipe(gulp.dest('./'))
     .pipe(plugins.git.commit('Bump app to ' + type + ' version.'));
 }

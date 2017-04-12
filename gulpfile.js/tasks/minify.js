@@ -11,17 +11,17 @@
  */
 
 // Node requires
-var browserSync = require('browser-sync');
-var csswring = require('csswring');
+const browserSync = require('browser-sync');
+const csswring = require('csswring');
 
 // Gulp & plugins
-var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
+const gulp = require('gulp');
+const plugins = require('gulp-load-plugins')();
 
 // Gulp requires
-var env = require('../modules/env');
-var paths = require('../modules/paths');
-var error = require('../modules/error');
+const env = require('../modules/env');
+const paths = require('../modules/paths');
+const error = require('../modules/error');
 
 
 /**
@@ -105,7 +105,7 @@ function minifyHTML() {
  * Process Minify
  */
 
-var minifyApp = gulp.parallel(
+const minifyApp = gulp.parallel(
   minifyCSS,
   minifyJS,
   minifyHTML

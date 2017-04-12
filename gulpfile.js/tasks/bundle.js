@@ -11,17 +11,17 @@
  */
 
 // Node requires
-var path = require('path');
-var browserSync = require('browser-sync');
+const path = require('path');
+const browserSync = require('browser-sync');
 
 // Gulp & plugins
-var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
+const gulp = require('gulp');
+const plugins = require('gulp-load-plugins')();
 
 // Gulp requires
-var env = require('../modules/env');
-var paths = require('../modules/paths');
-var error = require('../modules/error');
+const env = require('../modules/env');
+const paths = require('../modules/paths');
+const error = require('../modules/error');
 
 
 /**
@@ -29,7 +29,7 @@ var error = require('../modules/error');
  */
 
 function bundleJS() {
-  var exclude = path.normalize('!**/{' + paths.patterns.js.exclude.join(',') + '}');
+  const exclude = path.normalize('!**/{' + paths.patterns.js.exclude.join(',') + '}');
 
   return gulp.src([
     paths.base.www + paths.patterns.js.all,
@@ -69,7 +69,7 @@ function bundleJS() {
  */
 
 function bundleCSS() {
-  var exclude = path.normalize('!**/{' + paths.patterns.css.exclude.join(',') + '}');
+  const exclude = path.normalize('!**/{' + paths.patterns.css.exclude.join(',') + '}');
 
   return gulp.src([
     paths.base.www + paths.patterns.css.all,
@@ -107,7 +107,7 @@ function bundleCSS() {
  * Bundle App
  */
 
-var bundleApp = gulp.parallel(
+const bundleApp = gulp.parallel(
   bundleJS,
   bundleCSS
 );

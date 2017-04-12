@@ -11,19 +11,19 @@
  */
 
 // Node requires
-var imageminMozjpeg = require('imagemin-mozjpeg');
-var imageminPngquant = require('imagemin-pngquant');
-var imageminSvgo = require('imagemin-svgo');
+const imageminMozjpeg = require('imagemin-mozjpeg');
+const imageminPngquant = require('imagemin-pngquant');
+const imageminSvgo = require('imagemin-svgo');
 
 // Gulp requires
-var paths = require('./modules/paths');
+const paths = require('./modules/paths');
 
 
 /**
  * Enabled
  */
 
-var enabled = {
+const enabled = {
   // Enable system notices
   notice: true,
   // Enable Gulp watch iself and reload (BUG: CTRL+C doesn't stop Gulp)
@@ -45,14 +45,14 @@ var enabled = {
   // Media folder
   media: false,
   // Library folder
-  vendor: false,
+  vendor: true,
   // Critical CSS generation
   critical: false,
 
   // Wordpress
   wordpress: {
-    theme: false,
-    admin: true
+    theme: true,
+    admin: false
   },
 
   // Nunjucks templates
@@ -71,7 +71,7 @@ var enabled = {
   lint: {
     css: true,
     js: true,
-    html: false
+    html: true
   },
 
   // Minify
@@ -88,7 +88,7 @@ var enabled = {
  * Clean
  */
 
-var clean = {
+const clean = {
   watch: {
     js: true,
     html: true,
@@ -103,15 +103,14 @@ var clean = {
   }
 };
 
-
 /**
  * Modules
  */
 
-var modules = {
+const modules = {
   // BrowserSyc
   browsersync: {
-    // Porxy mode
+    // Proxy mode
     /* proxy: {
       target: 'localhost'
     },
@@ -125,12 +124,12 @@ var modules = {
     reloadDebounce: 1000,
     injectChanges: true,
     minify: false,
-    // e.g. '.scroller-mobile', '.scroller'
+    // E.g. '.scroller-mobile', '.scroller'
     scrollElementMapping: [],
     reloadOnRestart: true,
-    // e.g. '["google chrome", "firefox"]'
+    // E.g. '["google chrome", "firefox"]'
     browser: 'google chrome',
-    // false | 'local' | 'external' | 'ui'
+    // False | 'local' | 'external' | 'ui'
     open: false,
     // 'info' | 'debug' | 'warn' | 'silent'
     logLevel: 'silent',
@@ -246,7 +245,7 @@ var modules = {
  */
 
 module.exports = {
-  enabled: enabled,
-  clean: clean,
-  modules: modules
+  enabled,
+  clean,
+  modules
 };

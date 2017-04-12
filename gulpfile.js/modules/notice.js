@@ -11,13 +11,13 @@
  */
 
 // Gulp & plugins
-var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
+const gulp = require('gulp');
+const plugins = require('gulp-load-plugins')();
 
 // Gulp requires
-var config = require('../config');
-var paths = require('../modules/paths');
-var utils = require('../modules/utils');
+const config = require('../config');
+const paths = require('../modules/paths');
+const utils = require('../modules/utils');
 
 
 /**

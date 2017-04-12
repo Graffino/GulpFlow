@@ -11,19 +11,19 @@
  */
 
 // Gulp & plugins
-var plugins = require('gulp-load-plugins')();
+const plugins = require('gulp-load-plugins')();
 
 
 /**
  * Environment vars
  */
 
-var DEVELOPMENT_ENV = 'development';
-var PRODUCTION_ENV = 'production';
-var STAGING_ENV = 'staging';
+const DEVELOPMENT_ENV = 'development';
+const PRODUCTION_ENV = 'production';
+const STAGING_ENV = 'staging';
 
 // Default environment
-var env = {
+const env = {
   DEFAULT_ENV: DEVELOPMENT_ENV,
   DEFAULT_DEBUG: false
 };

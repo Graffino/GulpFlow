@@ -20,8 +20,8 @@ $.extend($graffino, {
     },
 
     // Init method
-    init: function () {
-      var _that = $graffino,
+    init() {
+      const _that = $graffino,
         _this = this,
         vars = this.vars;
 
@@ -37,10 +37,10 @@ $.extend($graffino, {
 
     // Function that checks if the value of an input is empty or not
     // The event is fired on 'keyup' and 'change'
-    initNotEmptyClass: function ($fields) {
-      $fields.each(function (index, el) {
-        $(el).on('keyup change', function (e) {
-          if (e.target.value.replace(/^\s+/g, '').length > 0) {
+    initNotEmptyClass($fields) {
+      $fields.each((index, el) => {
+        $(el).on('keyup change', event => {
+          if (event.target.value.replace(/^\s+/g, '').length > 0) {
             $(el).addClass('is-not-empty');
             $(el).removeClass('is-empty');
           } else {

@@ -22,8 +22,8 @@ $.extend($graffino, {
     },
 
     // Init method
-    init: function () {
-      var _that = $graffino,
+    init() {
+      const _that = $graffino,
         _this = this,
         vars = this.vars;
 
@@ -34,7 +34,7 @@ $.extend($graffino, {
 
       // Check if element is in DOM
       if (_that.isOnPage(vars.$trigger)) {
-        vars.$trigger.on('click', function () {
+        vars.$trigger.on('click', () => {
           vars.$copySourceField.select();
           try {
             document.execCommand('copy');

@@ -24,8 +24,8 @@ $.extend($graffino, {
     },
 
     // Init method
-    init: function () {
-      var _that = $graffino,
+    init() {
+      const _that = $graffino,
         _this = this,
         vars = this.vars;
 
@@ -41,10 +41,10 @@ $.extend($graffino, {
         _this.toggleDownloadButton();
 
         // Bind the click event for the download trigger button
-        vars.$trigger.on('click', function (e) {
+        vars.$trigger.on('click', event => {
           // If data is not valid prevent the file from being downloaded
           if (vars.exportData === false) {
-            e.preventDefault();
+            event.preventDefault();
             _that.notifications.display('Sorry, there is no data to export.', 'error');
           } else {
             _that.notifications.display('Settings JSON file has started downloading...', 'success');
@@ -52,17 +52,15 @@ $.extend($graffino, {
         });
 
         // Bind the 'change' event to the export data source field
-        vars.$source.on('change', function () {
-          _this.toggleDownloadButton();
-        });
+        vars.$source.on('change', () => _this.toggleDownloadButton());
       } else {
         _this.log('\t\u2514 Element(s) not found in DOM.');
       }
     },
 
     // Method to fetch the export data field value
-    getExportData: function () {
-      var _this = this,
+    getExportData() {
+      const _this = this,
         vars = _this.vars;
       // Get the value from the download settings source field
       vars.exportData = vars.$source.val();
@@ -71,8 +69,8 @@ $.extend($graffino, {
     },
 
     // Method that disables/enables the download trigger button
-    toggleDownloadButton: function () {
-      var _that = $graffino,
+    toggleDownloadButton() {
+      const _that = $graffino,
         _this = this,
         vars = _this.vars;
       // Fetch the settings data
@@ -85,13 +83,11 @@ $.extend($graffino, {
         // If it is enable the button
         vars.$trigger.attr('disabled', false)
         // Add the href value
-        .attr('href', function () {
-          // Return the href value with base64 encoded data settings
-          return 'data:application/octet-stream;charset=utf-8;base64,' + btoa(vars.exportData);
-        })
+        // Return the href value with base64 encoded data settings
+        .attr('href', () => 'data:application/octet-stream;charset=utf-8;base64,' + btoa(vars.exportData))
         // Set the name for the file
-        .attr('download', function () {
-          var currentDate = new Date(),
+        .attr('download', () => {
+          const currentDate = new Date(),
             site = vars.$trigger.attr('data-site-name'),
             date = {
               y: currentDate.getFullYear(),

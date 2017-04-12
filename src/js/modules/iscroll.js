@@ -11,8 +11,8 @@ $.extend($graffino, {
 
     // Plugin options
     options: {
-      autoInit: true,
-      debug: true
+      autoInit: false,
+      debug: false
     },
 
     // Scoped variables
@@ -21,8 +21,8 @@ $.extend($graffino, {
     },
 
     // Init method
-    init: function () {
-      var _that = $graffino,
+    init() {
+      const _that = $graffino,
         _this = this,
         vars = this.vars;
 
@@ -30,26 +30,27 @@ $.extend($graffino, {
 
       // Check if element is in DOM
       if (_that.isOnPage(vars.$element)) {
-        vars.$element.each(function () {
-          var $el = $(this),
+        vars.$element.each((index, el) => {
+          const $el = $(el),
             $scrollableChild = $el.children().first(),
-            instance,
             options = {
-              click: true,
+              click: false,
               bounce: true,
-              wheelAction: 'none',
+              momentum: true,
+              mouseWheel: true,
               scrollbars: true,
               useTransform: true,
               useTransition: true,
               bindToWrapper: true,
               scrollbarClass: 'iscroll__bar--',
-              onBeforeScrollStart: function () {
-                // void here
+              onBeforeScrollStart: () => {
+                // Void here
               },
-              onScrollStart: function () {
+              onScrollStart: () => {
                 $el.addClass(_that.vars.stateClass.touched);
               }
             };
+          let instance;
 
           function isScrollableToggle() {
             if ($scrollableChild.outerWidth(true) > $el.outerWidth(true) ||
@@ -85,14 +86,17 @@ $.extend($graffino, {
                 break;
             }
           }
-          setTimeout(function () {
-            instance = new iScroll($el.get(0), options);
+          setTimeout(() => {
+            instance = new IScroll($el.get(0), options);
             isScrollableToggle();
           }, 250);
 
-          _that.resizeHandler.vars.throttled.push(function () {
+          // Bind 'refresh' event to element and refresh iScroll instance
+          $el.on('refresh', () => instance.refresh());
+
+          _that.resizeHandler.vars.throttled.push(() => {
             isScrollableToggle();
-            setTimeout(function () {
+            setTimeout(() => {
               instance.refresh();
             }, 0);
           });

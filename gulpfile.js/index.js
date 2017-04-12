@@ -20,24 +20,24 @@
  */
 
 // Node requires
-var fs = require('fs');
+const fs = require('fs');
 
 // Gulp & plugins
-var gulp = require('gulp');
-var util = require('gulp-util');
-var HubRegistry = require('gulp-hub');
+const gulp = require('gulp');
+const util = require('gulp-util');
+const HubRegistry = require('gulp-hub');
 
 // Gulpfile booting message
 util.log(util.colors.green('Starting to Gulp! Please wait...'));
 
 // Load files into the registry
-var hub = new HubRegistry(['tasks/*.js']);
+const hub = new HubRegistry(['tasks/*.js']);
 
 // Tell gulp to use the loaded tasks
 gulp.registry(hub);
 
 // Kill Gulp on CTRL+C
-process.on('SIGINT', function () {
+process.on('SIGINT', () => {
   util.log(util.colors.green('Terminating Gulp: (╯°□°）╯︵ ┻━┻  dlnƃ'));
 
   // Remove PID file

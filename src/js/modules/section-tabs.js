@@ -1,5 +1,5 @@
 /**
- * Name: Section Tabs
+ * Name: Section tabs
  * Author: Graffino (http://www.graffino.com)
  */
 
@@ -10,7 +10,7 @@ $.extend($graffino, {
 
     // Plugin options
     options: {
-      autoInit: true,
+      autoInit: false,
       debug: false
     },
 
@@ -23,8 +23,8 @@ $.extend($graffino, {
     },
 
     // Init method
-    init: function () {
-      var _that = $graffino,
+    init() {
+      const _that = $graffino,
         _this = this,
         vars = this.vars;
 
@@ -35,14 +35,14 @@ $.extend($graffino, {
       // Check if element is in DOM
       if (_that.isOnPage(vars.$tabs)) {
         // Going through each admin section
-        vars.$tabs.each(function () {
-          var $tabs = $(this),
+        vars.$tabs.each((index, tabs) => {
+          const $tabs = $(tabs),
             $tabNavItems = $tabs.find(vars.tabsNavItemClass),
             $tabContentItems = $tabs.find(vars.tabsContentItemClass);
 
           if (_that.isOnPage($tabNavItems) && _that.isOnPage($tabContentItems)) {
-            $tabNavItems.on('click', function () {
-              var $item = $(this),
+            $tabNavItems.on('click', event => {
+              const $item = $(event.currentTarget),
                 tabID = $item.attr('data-tab-id');
 
               $tabNavItems.not($item).parent().removeClass(_that.vars.stateClass.current);
@@ -54,9 +54,7 @@ $.extend($graffino, {
                 .addClass(_that.vars.stateClass.current);
 
               // Trigger resize event
-              setTimeout(function () {
-                _that.vars.$window.trigger('resize');
-              }, 0);
+              setTimeout(() => _that.vars.$window.trigger('resize'), 0);
             });
           } else {
             _this.log('\t\u2514 Tab items not found in DOM.');

@@ -12,15 +12,15 @@
 
 
 // Gulp & plugins
-var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
+const gulp = require('gulp');
+const plugins = require('gulp-load-plugins')();
 
 // Gulp requires
-var config = require('../config');
-var env = require('../modules/env');
-var paths = require('../modules/paths');
-var utils = require('../modules/utils');
-var error = require('../modules/error');
+const config = require('../config');
+const env = require('../modules/env');
+const paths = require('../modules/paths');
+const utils = require('../modules/utils');
+const error = require('../modules/error');
 
 
 /**
@@ -51,7 +51,7 @@ function compileJS() {
  * Process JS
  */
 
-var processJS = gulp.parallel(
+const processJS = gulp.parallel(
   config.enabled.js ? compileJS : utils.noop
 );
 

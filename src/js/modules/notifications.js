@@ -18,13 +18,13 @@ $.extend($graffino, {
     vars: {
       $parentContainer: undefined,
       parentContainerClass: '.js-notification-container',
-      // time in milliseconds to display the message
+      // Time in milliseconds to display the message
       displayTime: 5000
     },
 
     // Init method
-    init: function () {
-      var _that = $graffino,
+    init() {
+      const _that = $graffino,
         _this = this,
         vars = this.vars;
 
@@ -40,10 +40,10 @@ $.extend($graffino, {
       }
     },
 
-    display: function (content, type) {
-      var _this = this,
-        vars = this.vars,
-        $notification = null;
+    display(content, type) {
+      const _this = this,
+        vars = this.vars;
+      let $notification = null;
 
       // Set a default type for the notification
       type = type === undefined ? 'default' : type;
@@ -62,13 +62,13 @@ $.extend($graffino, {
 
       _this.log('Notification pushed. Message: ' + content);
 
-      setTimeout(function () {
+      setTimeout(() => {
         $notification.velocity('stop')
           .velocity({
             'opacity': [0, 1],
             'translateX': ['100%', '0%']
           }, {
-            complete: function () {
+            complete() {
               $notification.remove();
               $notification = null;
               _this.log('Notification deleted.');
