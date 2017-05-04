@@ -139,7 +139,7 @@
     "stylint-json-reporter": "^0.3.1",
     "stylint-stylish": "^1.4.0",
     "tree-kill": "^1.1.0",
-    "xo": "^0.18.1"
+    "xo": "^0.18.2"
   },
   "scripts": {
     "gulp": "./node_modules/gulp/bin/gulp.js",
