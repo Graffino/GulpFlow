@@ -72,7 +72,7 @@ const enabled = {
     css: true,
     js: true,
     html: true,
-    php: false
+    php: true
   },
 
   // Watch (Only for PHP linting)
@@ -105,7 +105,7 @@ const clean = {
     images: true,
     icons: true,
     vendor: true,
-    wordpress: false
+    wordpress: true
   }
 };
 
