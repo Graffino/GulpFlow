@@ -49,16 +49,16 @@ const enabled = {
   // Critical CSS generation
   critical: false,
 
+  // Nunjucks templates
+  nunjucks: false,
+
+  // PHP Composer
+  composer: true,
+
   // Wordpress
   wordpress: {
     theme: true,
     admin: false
-  },
-
-  // Nunjucks templates
-  nunjucks: {
-    js: false,
-    html: false
   },
 
   // Sourcemaps
@@ -71,7 +71,13 @@ const enabled = {
   lint: {
     css: true,
     js: true,
-    html: true
+    html: true,
+    php: true
+  },
+
+  // Watch (Only for PHP linting)
+  watch: {
+    php: false
   },
 
   // Minify
@@ -99,7 +105,7 @@ const clean = {
     images: true,
     icons: true,
     vendor: true,
-    wordpress: false
+    wordpress: true
   }
 };
 
@@ -140,11 +146,6 @@ const modules = {
     ],
     online: undefined,
     notify: true
-  },
-
-  // Autoprefixer versions
-  autoprefixer: {
-    browsers: 'last 2 versions'
   },
 
   // Modernizr

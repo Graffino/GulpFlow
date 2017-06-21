@@ -109,18 +109,22 @@ const modules = {
 
   // Nunjucks HTML Templates
   nunjucks: {
-    // HTML Templates
-    html: {
-      root: 'html/',
-      views: 'html/views/',
-      partials: 'html/partials/'
-    },
-    // Javascript Templates
-    js: {
-      root: 'js/templates/',
-      views: 'js/templates/views/',
-      partials: 'js/templates/views/partials/'
-    }
+    root: 'html/',
+    views: 'html/views/',
+    partials: 'html/partials/'
+  },
+
+  // PHP
+  php: {
+    root: 'wordpress/theme/'
+  },
+
+  // PHP Composer
+  composer: {
+    root: [
+      'inc/theme/',
+      'inc/admin'
+    ]
   },
 
   // JSON Data
@@ -210,21 +214,33 @@ const patterns = {
 
   // Nunjucks HTML Templates
   nunjucks: {
-    html: {
-      all: modules.nunjucks.html.root + '**/*.+(html|njk|nunjucks)',
-      views: modules.nunjucks.html.views + '**/*.+(html|njk|nunjucks)',
-      partials: modules.nunjucks.html.partials + '**/*.+(html|njk|nunjucks)',
-      exclude: [
-        'macros'
-      ]
-    },
-    js: {
-      all: modules.nunjucks.js.root + '**/*.+(njk|nunjucks)',
-      views: modules.nunjucks.js.views + '**/*.+(njk|nunjucks)',
-      exclude: [
-        'macros'
-      ]
-    }
+    all: modules.nunjucks.root + '**/*.+(html|njk|nunjucks)',
+    views: modules.nunjucks.views + '**/*.+(html|njk|nunjucks)',
+    partials: modules.nunjucks.partials + '**/*.+(html|njk|nunjucks)',
+    exclude: [
+      'macros'
+    ]
+  },
+
+  // PHP Files
+  php: {
+    all: modules.php.root + '**/*.php',
+    exclude: [
+      'vendor/**',
+      'node_modules/**',
+      'bower_components/**',
+      'admin/**'
+    ]
+  },
+
+  // PHP Composer
+  composer: {
+    all: '**/composer.json',
+    clean: [
+      base.www + 'inc/theme/vendor/',
+      base.www + 'inc/admin/vendor/',
+      base.www + '**/composer.lock'
+    ]
   },
 
   // Data
@@ -264,12 +280,13 @@ const patterns = {
     clean: [
       base.www + 'includes',
       base.www + 'partials',
-      base.www + 'inc/theme',
+      base.www + 'inc/theme/*.*',
+      base.www + 'inc/theme/classes',
+      base.www + 'inc/theme/config',
       base.www + 'inc/admin/*.*',
       base.www + 'inc/admin/classes',
       base.www + 'inc/admin/config',
       base.www + 'inc/admin/template-parts',
-      base.www + 'inc/admin/vendor',
       base.www + '*.php',
       base.www + 'screenshot.png',
       base.www + 'style.css'
@@ -277,7 +294,15 @@ const patterns = {
     exclude: [
       '_readme.md',
       'admin/theme',
-      'admin/theme/**'
+      'admin/theme/**',
+      'admin/vendor',
+      'admin/vendor/**',
+      'theme/vendor',
+      'theme/vendor/**'
+    ],
+    excludeSync: [
+      '_readme.md',
+      './wordpress/theme/inc/admin/theme/**'
     ]
   }
 };

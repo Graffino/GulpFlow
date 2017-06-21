@@ -1,4 +1,6 @@
-/**
+'use strict';
+
+/*
  * Gulp watch file
  * Author: Graffino (http://www.graffino.com)
  */
@@ -44,6 +46,7 @@ const sprite = require('../tasks/sprite');
 const stylus = require('../tasks/stylus');
 const utils = require('../modules/utils');
 const wordpress = require('../tasks/wordpress');
+const composer = require('../tasks/composer');
 
 let gulpProcess;
 
@@ -123,19 +126,6 @@ function watchChanges() {
     500)
   );
 
-  // Nunjucks JS Templates
-  gulp.watch(
-    [paths.base.src + paths.patterns.nunjucks.js.all],
-    debounce(
-      gulp.series(
-        nunjucks.js,
-        bundle.js,
-        utils.reload,
-        notice.rebuilt
-      ),
-    500)
-  );
-
   // Stylus
   gulp.watch(
     [
@@ -154,11 +144,11 @@ function watchChanges() {
 
   // Nunjucks HTML Templates
   gulp.watch(
-    [paths.base.src + paths.patterns.nunjucks.html.all],
+    [paths.base.src + paths.patterns.nunjucks.all],
     debounce(
       gulp.series(
         config.clean.watch.html ? clean.html : utils.noop,
-        nunjucks.html,
+        nunjucks.process,
         lint.html,
         utils.reload,
         notice.rebuilt
@@ -271,9 +261,25 @@ function watchChanges() {
       excludeWP
     ],
     debounce(
+      gulp.parallel(
+        config.enabled.watch.php ? lint.php : utils.noop,
+        gulp.series(
+          config.clean.watch.wordpress ? clean.wordpress : utils.noop,
+          wordpress.process,
+          utils.reload,
+          notice.rebuilt
+        )
+      ),
+    500)
+  );
+
+  // Composer
+  gulp.watch(
+    [paths.base.wordpress + paths.patterns.composer.all],
+    debounce(
       gulp.series(
-        config.clean.watch.wordpress ? clean.wordpress : utils.noop,
-        wordpress.process,
+        clean.composer,
+        composer.install,
         utils.reload,
         notice.rebuilt
       ),

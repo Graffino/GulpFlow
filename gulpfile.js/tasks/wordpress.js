@@ -11,7 +11,7 @@
  */
 
 // Node requires
-const path = require('path');
+const syncy = require('syncy');
 
 // Gulp & plugins
 const gulp = require('gulp');
@@ -26,14 +26,24 @@ const utils = require('../modules/utils');
  * Copy Wordpress
  */
 
-function copyWordpress() {
-  const exclude = path.normalize('!**/{' + paths.patterns.wordpress.exclude.join(',') + '}');
-  return gulp.src([
-    paths.base.root + paths.patterns.wordpress.all,
-    exclude
-  ]
+function copyWordpress(done) {
+  const excludeSync = paths.patterns.wordpress.excludeSync.map(item => '!' + item);
+  const pathsToCopy = [paths.patterns.wordpress.all].concat(excludeSync);
+  syncy(
+    pathsToCopy,
+    paths.base.www,
+    {
+      verbose: false,
+      base: paths.modules.wordpress.theme,
+      updateAndDelete: false
+    }
   )
-  .pipe(gulp.dest(paths.base.www));
+  .then(() => {
+    done();
+  })
+  .catch(err => {
+    done(err);
+  });
 }
 
 
