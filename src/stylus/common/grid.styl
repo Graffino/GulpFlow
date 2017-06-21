@@ -59,6 +59,7 @@ $columns-gutter  = 16px; // Default column gutter width
   // Column
   &__column {
     clearfix();
+    min-height: 1px;
     padding: 0 rem($columns-gutter / 2);
     transition: transition-custom();
     transition-property: left, right, width, margin, padding;
@@ -176,6 +177,7 @@ $columns-gutter  = 16px; // Default column gutter width
       }
     }
 
+    &.-clear,
     & &.-clear {
       &-both {
         clear: both;

@@ -1,5 +1,5 @@
 /**
- * Main stylesheet (stylus) file
+ * Main stylus file
  * Author: Graffino (http://www.graffino.com)
  */
 
@@ -15,7 +15,7 @@
 
 
 /**
- * Common
+ * Base
  */
 
 // Stylus CSS Console
@@ -24,26 +24,27 @@
 @import "common/mixins";
 // Breakpoints
 @import "common/breakpoints";
-// Colors
+// Color variables
 @import "common/colors";
-// Fonts & sizes
+// Fonts and sizes variables
 @import "common/fonts";
 // Animations
 @import "common/animations";
 // Helpers
 @import "common/helpers";
-// Custom grid
+// Grid — custom 12 column grid
 @import "common/grid";
-// Default styles
+// Common styles and extends
 @import "common/defaults";
 
 
 /**
- * Vendor
+ * Vendor styling
  */
 
 // Generated SVG icon sprite
 @import "vendor/sprite";
+// Plugins
 
 
 /**
@@ -55,14 +56,14 @@
 // Header — styles and modules
 @import "modules/header";
 // Page sections — project specific areas
-@import "modules/sections";
-// Menus — desktop & mobile
-@import "modules/menus";
+@import "modules/section";
+// Navigation — desktop & mobile
+@import "modules/nav";
 // Form elements - styles
-@import "modules/forms";
+@import "modules/form";
 // Button — styles and sizes
-@import "modules/buttons";
+@import "modules/button";
 // Page - inner page
-@import "modules/pages";
+@import "modules/page";
 // Footer — styles
 @import "modules/footer";
