@@ -6,3 +6,7 @@ www
 tests/backstop/bitmaps_test/compare.json
 .DS_Store
 /tests/lighthouse/report
+/wordpress/theme/inc/admin/theme/src/stylus/vendor/sprite.styl
+/wordpress/wp-config.php
+/wordpress/uploads/gwp_cache
+/wordpress/uploads/gwp_upload
