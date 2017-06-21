@@ -35,7 +35,10 @@
       "iScroll",
       "IScroll",
       "svg4everybody",
-      "Vue"
+      "Vue",
+      "btoa",
+      "wp",
+      "ajaxurl"
     ],
     "plugins": [
       "compat"
@@ -48,6 +51,8 @@
           "max": 2
         }
       ],
+      "no-extend-native": 0,
+      "no-use-extend-native/no-use-extend-native": 0,
       "no-negated-condition": 0,
       "max-lines": 0,
       "one-var": 0,

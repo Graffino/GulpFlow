@@ -181,6 +181,7 @@ function cleanWordpress() {
   );
   const files = paths.patterns.wordpress.clean;
   const toClean = files.concat(exclude);
+
   return clean(toClean);
 }
 
@@ -202,28 +203,34 @@ function cleanComposer() {
 function cleanPostProduction() {
   let toClean;
 
-  // Excludes
-  const excludeCSS = path.normalize('!**/{' + paths.patterns.css.exclude.join(',') + '}');
-  const excludeJS = path.normalize('!**/{' + paths.patterns.js.exclude.join(',') + '}');
+  // Clean CSS
+  const excludeCSS = paths.patterns.css.exclude.map(
+    item => path.normalize('!' + paths.base.www + '**/' + item)
+  );
+  const filesCSS = [paths.base.www + paths.modules.css.root + '**/*'];
+  const toCleanCSS = filesCSS.concat(excludeCSS);
 
-  // HTML
-  const html = [paths.base.www + '*.html'];
-  // Language folders
-  const languages = paths.languages;
-  // CleanupHTML
-  const htmlFiles = html.concat(languages);
+  // Clean JS
+  const excludeJS = paths.patterns.js.exclude.map(
+    item => path.normalize('!' + paths.base.www + '**/' + item)
+  );
+  const filesJS = [paths.base.www + paths.modules.js.root + '**/*'];
+  const toCleanJS = filesJS.concat(excludeJS);
+
+  // Leave only CSS and JS mainfiles
+  toClean = toCleanCSS.concat(toCleanJS);
 
   // Remove HTML files on production if Wordpress is enabled
-  toClean = [
-    // Leave only CSS mainfiles
-    paths.base.www + paths.modules.css.root + '**/*',
-    excludeCSS,
-    // Leave only JS mainfiles
-    paths.base.www + paths.modules.js.root + '**/*',
-    excludeJS
-  ];
-
   if (config.enabled.wordpress.theme) {
+    // HTML
+    const html = [paths.base.www + '*.html'];
+
+    // Language folders
+    const languages = paths.languages;
+
+    // Cleanup HTML
+    const htmlFiles = html.concat(languages);
+
     toClean = toClean.concat(htmlFiles);
   }
 
