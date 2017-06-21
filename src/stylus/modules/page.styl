@@ -1,0 +1,39 @@
+/**
+ * Page
+ * Author: Graffino (http://www.graffino.com)
+ */
+
+
+/**
+ * Inner page
+ */
+
+.page {
+  .wysiwyg {
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      @extend .heading;
+    }
+
+    a {
+      @extend .link;
+    }
+
+    p {
+      @extend .text;
+      line-height: $line-height-medium;
+    }
+
+    ul,
+    li {
+      @extend .list;
+      margin-left: rem(20);
+      line-height: $line-height-medium;
+    }
+  }
+}

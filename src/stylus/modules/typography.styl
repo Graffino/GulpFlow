@@ -164,3 +164,30 @@
 
   }
 }
+
+
+/**
+ * Lists
+ */
+
+.list {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+
+  &.-style {
+    &-none {
+      list-style: none;
+    }
+
+    &-roman {
+      list-style-type: upper-roman;
+
+      .list__item {
+        &::before {
+          text-align: left;
+        }
+      }
+    }
+  }
+}
