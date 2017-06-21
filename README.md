@@ -1,4 +1,4 @@
-# GulpFlow 3
+# GulpFlow 4
 Gulp basic flow we use at Graffino. This site uses *Stylus* and it's deployed with *Gulp*.
 
 ## Before you start ##
@@ -29,7 +29,7 @@ $ sudo n stable
 
 ### 1 (Windows). Make sure you have the latest node version
 ```
-# Get & Install NodeJS 6.x.x
+# Get & Install NodeJS 8.x.x
 https://nodejs.org/download/release/v6.x.x/
 ```
 
@@ -41,9 +41,7 @@ https://www.python.org/downloads/release/python-2711/
 
 ### 3. Install Yarn for node packet management
 
-```
-$ npm install yarn -g
-```
+See the install option for your OS: https://yarnpkg.com/en/docs/install
 
 ### 4. Make sure you have Gulp 4 beta
 
