@@ -29,7 +29,7 @@ const utils = require('../modules/utils');
  */
 
 function lintGulp() {
-  return gulp.src(paths.base.root + 'gulpfile.js/**/*.js')
+  return gulp.src(paths.base.root + 'gulpfile.js/**/*.js', {since: gulp.lastRun(lintGulp)})
     // Fix pipe on error
     .pipe(plugins.plumber({errorHandler: error.notice}))
     .pipe(plugins.xo({quiet: false}));
@@ -41,7 +41,7 @@ function lintGulp() {
  */
 
 function lintJS() {
-  return gulp.src(paths.base.src + paths.patterns.js.all)
+  return gulp.src(paths.base.src + paths.patterns.js.all, {since: gulp.lastRun(lintJS)})
     // Fix pipe on error
     .pipe(plugins.plumber({errorHandler: error.notice}))
     .pipe(plugins.xo({quiet: false}));
@@ -60,7 +60,7 @@ function lintStylus() {
       verbose: true
     }
   };
-  return gulp.src(paths.base.src + paths.patterns.stylus.all)
+  return gulp.src(paths.base.src + paths.patterns.stylus.all, {since: gulp.lastRun(lintStylus)})
     // Fix pipe on error
     .pipe(plugins.plumber({errorHandler: error.notice}))
     .pipe(plugins.stylint(configStylus))
@@ -73,13 +73,27 @@ function lintStylus() {
  */
 
 function lintHTML() {
-  const exclude = path.normalize('!**/{' + paths.patterns.nunjucks.html.exclude.join(',') + '}');
+  const exclude = path.normalize('!**/{' + paths.patterns.nunjucks.exclude.join(',') + '}');
 
-  return gulp.src([paths.base.src + paths.patterns.nunjucks.html.all, exclude])
+  return gulp.src([paths.base.src + paths.patterns.nunjucks.all, exclude], {base: '.', since: gulp.lastRun(lintHTML)})
     // Fix pipe on error
     .pipe(plugins.plumber({errorHandler: error.notice}))
     .pipe(plugins.htmlhint('.htmlhintrc'))
     .pipe(plugins.htmlhint.reporter('htmlhint-stylish'));
+}
+
+
+/**
+ * Lint PHP files
+ */
+
+function lintPHP() {
+  const exclude = path.normalize('!**/{' + paths.patterns.php.exclude.join(',') + '}');
+  return gulp.src([paths.base.root + paths.patterns.php.all, exclude], {base: '.', since: gulp.lastRun(lintPHP)})
+    // Fix pipe on error
+    .pipe(plugins.plumber({errorHandler: error.notice}))
+    .pipe(plugins.phplint('', {skipPassedFiles: true, useCache: true}))
+    .pipe(plugins.phplint.reporter('fail'));
 }
 
 
@@ -97,7 +111,10 @@ const lintApp = gulp.parallel(
   config.enabled.lint.js ? lintStylus : utils.noop,
 
   // Lint HTML according to config
-  config.enabled.lint.html ? lintHTML : utils.noop
+  config.enabled.lint.html ? lintHTML : utils.noop,
+
+  // Lint PHP according to config
+  config.enabled.lint.php ? lintPHP : utils.noop
 );
 
 
@@ -117,6 +134,9 @@ module.exports = {
   // Lint HTML according to config
   html: config.enabled.lint.html ? lintHTML : utils.noop,
 
+  // Lint PHP according to config
+  php: config.enabled.lint.php ? lintPHP : utils.noop,
+
   app: lintApp
 };
 
@@ -126,5 +146,5 @@ module.exports = {
  */
 
 lintApp.displayName = 'lint';
-lintApp.description = 'Lints Stylus, Gulp, JS, Nunjucks files for errors.';
+lintApp.description = 'Lints Stylus, Gulp, JS, Nunjucks, PHP files for errors.';
 gulp.task(lintApp);

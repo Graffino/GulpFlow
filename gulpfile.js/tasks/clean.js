@@ -176,9 +176,19 @@ function cleanJunk() {
 
 // Wordpress
 function cleanWordpress() {
-  const exclude = path.normalize('!**/{' + paths.patterns.wordpress.exclude.join(',') + '}');
+  const exclude = paths.patterns.wordpress.exclude.map(
+    item => path.normalize('!' + paths.base.www + '**/' + item)
+  );
   const files = paths.patterns.wordpress.clean;
   const toClean = files.concat(exclude);
+  return clean(toClean);
+}
+
+// Composer
+function cleanComposer() {
+  const toClean = paths.patterns.composer.clean.map(
+    item => path.normalize(item)
+  );
 
   return clean(toClean);
 }
@@ -239,6 +249,7 @@ const cleanApp = gulp.series(
     cleanVendor,
     cleanStatic,
     cleanWordpress,
+    cleanComposer,
     cleanBower,
     cleanJunk
   ),
@@ -269,6 +280,7 @@ module.exports = {
   vendor: cleanVendor,
   static: cleanStatic,
   wordpress: cleanWordpress,
+  composer: cleanComposer,
   bower: cleanBower,
   junk: cleanJunk,
   app: cleanApp,

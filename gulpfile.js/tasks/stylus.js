@@ -32,7 +32,7 @@ const error = require('../modules/error');
 
 function compileStylus() {
   const processors = [
-    autoprefixer(config.modules.autoprefixer),
+    autoprefixer(),
     plugins.combineMq,
     postcssQuantityQueries
   ];

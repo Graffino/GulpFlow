@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Gulp build file
  * Author: Graffino (http://www.graffino.com)
@@ -33,7 +35,7 @@ const sprite = require('../tasks/sprite');
 const stylus = require('../tasks/stylus');
 const watch = require('../tasks/watch');
 const wordpress = require('../tasks/wordpress');
-
+const composer = require('../tasks/composer');
 
 /**
  * Build for development
@@ -54,6 +56,7 @@ const buildDevelopment = gulp.series(
   ),
   bundle.app,
   wordpress.process,
+  composer.install,
   lint.app,
   watch.app,
   notice.finished
@@ -79,7 +82,8 @@ const buildStaging = gulp.series(
     copy.app
   ),
   bundle.app,
-  wordpress.process
+  wordpress.process,
+  composer.install
 );
 
 
@@ -109,7 +113,8 @@ const buildProduction = gulp.series(
       minify.app,
       critical.process,
       clean.postproduction,
-      wordpress.process
+      wordpress.process,
+      composer.install
     )
   )
 );
