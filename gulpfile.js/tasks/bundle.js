@@ -29,12 +29,14 @@ const error = require('../modules/error');
  */
 
 function bundleJS() {
-  const exclude = path.normalize('!**/{' + paths.patterns.js.exclude.join(',') + '}');
+  // JS SRC
+  const excludeJS = paths.patterns.js.exclude.map(
+    item => '!' + path.normalize(paths.base.www + '**/' + item)
+  );
+  const filesJS = [ path.normalize(paths.base.www + paths.modules.js.root + '**/*.js') ];
+  const src = filesJS.concat(excludeJS);
 
-  return gulp.src([
-    paths.base.www + paths.patterns.js.all,
-    exclude
-  ])
+  return gulp.src(src)
   // Fix pipe on error
   .pipe(plugins.plumber({errorHandler: error.handle}))
   .pipe(
@@ -49,10 +51,7 @@ function bundleJS() {
     '**/*.js'
   ]))
   .pipe(plugins.groupConcat({
-    'main.js': [
-      '**/*.js',
-      exclude
-    ]
+    'main.js': src
   }))
   .pipe(
     plugins.if(
@@ -69,12 +68,14 @@ function bundleJS() {
  */
 
 function bundleCSS() {
-  const exclude = path.normalize('!**/{' + paths.patterns.css.exclude.join(',') + '}');
+  // JS SRC
+  const excludeCSS = paths.patterns.css.exclude.map(
+    item => '!' + path.normalize(paths.base.www + '**/' + item)
+  );
+  const filesCSS = [ path.normalize(paths.base.www + paths.modules.css.root + '**/*.css') ];
+  const src = filesCSS.concat(excludeCSS);
 
-  return gulp.src([
-    paths.base.www + paths.patterns.css.all,
-    exclude
-  ])
+  return gulp.src(src)
   // Fix pipe on error
   .pipe(plugins.plumber({errorHandler: error.handle}))
   .pipe(
@@ -88,10 +89,9 @@ function bundleCSS() {
     '**/app.css',
     '**/*.css'
   ]))
-  .pipe(plugins.groupConcat({'main.css': [
-    '**/*.css',
-    exclude
-  ]}))
+  .pipe(plugins.groupConcat({
+    'main.css': src
+  }))
   .pipe(
     plugins.if(
       env.isDevelopment(),
