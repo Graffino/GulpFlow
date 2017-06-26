@@ -14,6 +14,8 @@
   gulpfile.js/tasks/default.js is run when you calling `gulp`.
 */
 
+// TODO: Normalize all paths (GLOBAL - Major)
+// TODO: Update all excludes (GLOBAL - Major)
 
 /**
  * Module imports
