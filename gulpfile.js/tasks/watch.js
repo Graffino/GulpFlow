@@ -180,7 +180,7 @@ function watchChanges() {
         utils.reload,
         notice.rebuilt
       ),
-    200)
+    2000)
   );
 
   // Data
@@ -193,7 +193,7 @@ function watchChanges() {
         utils.reload,
         notice.rebuilt
       ),
-    200)
+    2000)
   );
 
   // Static
@@ -206,7 +206,7 @@ function watchChanges() {
         utils.reload,
         notice.rebuilt
       ),
-    200)
+    2000)
   );
 
   // Images
@@ -254,11 +254,10 @@ function watchChanges() {
   );
 
   // Wordpress
-  const excludeWP = path.normalize('!**/{' + paths.patterns.wordpress.exclude.join(',') + '}');
   gulp.watch(
     [
       paths.patterns.wordpress.all,
-      excludeWP
+      path.normalize('!**/{' + paths.patterns.wordpress.exclude.join(',') + '}')
     ],
     debounce(
       gulp.parallel(
@@ -275,7 +274,10 @@ function watchChanges() {
 
   // Composer
   gulp.watch(
-    [paths.base.wordpress + paths.patterns.composer.all],
+    [
+      paths.base.wordpress + paths.patterns.composer.all,
+      path.normalize('!**/{' + paths.patterns.composer.exclude.join(',') + '}')
+    ],
     debounce(
       gulp.series(
         clean.composer,

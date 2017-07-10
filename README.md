@@ -30,13 +30,20 @@ $ sudo n stable
 ### 1 (Windows). Make sure you have the latest node version
 ```
 # Get & Install NodeJS 8.x.x
-https://nodejs.org/download/release/v6.x.x/
+https://nodejs.org/download/release/v8.x.x/
 ```
 
-### 2. Install Python (Windows)
+### 2. Install Node Build Tools (Windows)
 ```
-# Get & Install Python 2.7.11  
-https://www.python.org/downloads/release/python-2711/
+# Start Console with Administrator privileges
+$ npm install --global --production windows-build-tools
+$ npm config set msvs_version 2015
+$ npm config set python %USERPROFILE%\.windows-build-tools\python27\python.exe
+```
+
+#### It may help to have these packages globally installed (because Windows :/):
+```
+npm install -g babel-cli backstopjs bower browser-sync critical eslint gulp-cli htmlhint lighthouse npm-check-updates nunjucks phantomjs phplint slimerjs stylint stylint-json-reporter stylus ttf2woff xo
 ```
 
 ### 3. Install Yarn for node packet management
@@ -85,21 +92,22 @@ tests/regression    -> Regression testing files
 ```
 
 ## What's included ##
-1. Stylus -> compilation to CSS
-2. Javascript with jQuery
-3. Handlebars (helpers, partials and templates) -> compilation to JS
-4. SVG Sprites -> automatic stylus icon and stylus files generation
-5. Image optimization -> automatic optimization without significant loss of quality
-6. Font generation from TTF -> WOFF, WOFF2
-7. Dependencies management via bower -> automatic injection of CSS and JS dependencies into the project
-8. Concatenation & minification (CSS, JS, HTML)
-9. Critical CSS -> generation and injection into HTML
-10. Development mode -> Complete with JS, HTML, Stylus linters, Watch and BrowserSync integration
-11. Production mode -> Includes optimizations, minifications and critical CSS
-12. Regression testing with BackstopJS
-13. Git version bumping
-14. Notifications -> via native OS notification system
-15. Separate build folder -> 1 command creates a ready for deployment build
+* Stylus -> compilation to CSS
+* Javascript with jQuery
+* Handlebars (helpers, partials and templates) -> compilation to JS
+* SVG Sprites -> automatic stylus icon and stylus files generation
+* Image optimization -> automatic optimization without significant loss of quality
+* Font generation from TTF -> WOFF, WOFF2
+* Dependencies management via bower -> automatic injection of CSS and JS dependencies into the project
+* Concatenation & minification (CSS, JS, HTML)
+* Critical CSS -> generation and injection into HTML
+* Composer install -> automatic install of composer dependencies
+* Development mode -> Complete with JS, HTML, PHP, Stylus linters, Watch and BrowserSync integration
+* Production mode -> Includes optimizations, minifications and critical CSS
+* Regression testing with BackstopJS
+* Git version bumping
+* Notifications -> via native OS notification system
+* Separate build folder -> 1 command creates a ready for deployment build
 
 ## What can it do? ##
 

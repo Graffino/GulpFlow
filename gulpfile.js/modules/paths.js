@@ -240,6 +240,11 @@ const patterns = {
       base.www + 'inc/theme/vendor/',
       base.www + 'inc/admin/vendor/',
       base.www + '**/composer.lock'
+    ],
+    exclude: [
+      'vendor/**',
+      'node_modules/**',
+      'bower_components/**'
     ]
   },
 
