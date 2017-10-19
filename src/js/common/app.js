@@ -3,7 +3,7 @@
  * Author: Graffino (http://www.graffino.com)
  */
 
-
+/* global Vue */
 /* eslint array-callback-return: 0, no-mixed-operators: 0 */
 
 // Mute jQuery migrate
@@ -12,6 +12,13 @@ $.migrateMute = true;
 const $graffino = {
   project: 'Graffino',
   name: 'god-object',
+
+  // Vue related objects (bus, components, etc)
+  Vue: {
+    bus: new Vue(),
+    Components: {},
+    Mixins: {}
+  },
 
   // Global options
   options: {
@@ -42,6 +49,7 @@ const $graffino = {
       focused: 'is-focused',
       touched: 'is-touched',
       loading: 'is-loading',
+      hasArrow: 'has-arrow',
       overlay: 'has-overlay',
       animated: 'is-animated',
       submitted: 'is-submitted',
@@ -49,6 +57,7 @@ const $graffino = {
       scrollable: 'is-scrollable',
       noResults: 'has-no-results',
       slicked: 'slick-initialized',
+      selectified: 'select2-initialized',
       notInitialized: 'not-initialized',
       isMasonry: 'is-masonry-initialized'
     },
@@ -65,6 +74,11 @@ const $graffino = {
       easeOutQuad: [0.250, 0.460, 0.450, 0.940],
       easeOutBack: [0.175, 0.885, 0.320, 1.275]
     }
+  },
+
+  // Resources
+  resources: {
+    data: {}
   },
 
   // Initialize methods
@@ -205,6 +219,18 @@ const $graffino = {
     if (typeof arr === 'object' && arr.length > 0) {
       arr.map(func => typeof func === 'function' ? func() : false);
     }
+  },
+
+  // Replace object keys' value recursively
+  replaceObjectValuesRecursively(object, value) {
+    const _this = this;
+    return Object.keys(object).map(key => {
+      if (typeof object[key] === 'object') {
+        return _this.replaceObjectValuesRecursively(object[key], value);
+      } else {
+        return object[key] = value;
+      }
+    }, {});
   },
 
   // Add leading zeros to a number

@@ -32,7 +32,7 @@ const error = require('../modules/error');
 
 function fetchBower() {
   return gulp.src(paths.base.root, {read: false})
-    .pipe(plugins.exec('bower install && bower prune'))
+    .pipe(plugins.exec('bower install --allow-root && bower prune --allow-root'))
     .pipe(plugins.exec.reporter());
 }
 

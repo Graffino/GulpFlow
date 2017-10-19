@@ -1,5 +1,5 @@
 /**
- * Name: WordPress AJAX
+ * Name: WordPress AJAX Request Handler
  * Author: Graffino (http://www.graffino.com)
  */
 
@@ -16,9 +16,7 @@ $.extend($graffino, {
 
     // Scoped variables
     vars: {
-      $ajaxForm: undefined,
-      ajaxFormClass: '.js-wp-ajax-form',
-      ajaxSubmitClass: '.js-wp-ajax-submit'
+      $element: $('.js-wp-ajax-submit')
     },
 
     // Init method
@@ -29,213 +27,179 @@ $.extend($graffino, {
 
       _this.log('Initialized.');
 
-      vars.$ajaxForm = $(vars.ajaxFormClass);
-
       // Check if element is in DOM
-      if (_that.isOnPage(vars.$ajaxForm)) {
-        vars.$ajaxForm.each((index, form) => {
-          const $form = $(form),
-            $ajaxSubmit = $form.find(vars.ajaxSubmitClass);
+      if (_that.isOnPage(vars.$element)) {
+        vars.$element.each((index, el) => {
+          const $el = $(el);
+          let isValid = false;
 
-          $ajaxSubmit.on('click', event => {
-            event.preventDefault();
-            $.ajax({
-              url: ajaxurl,
-              type: $form.attr('method'),
-              data: $form.serialize(),
-              dataType: 'json',
-              cache: false,
-              success(response) {
-                _that.notifications.display(response.message, response.type);
-                if (response.settings !== null) {
-                  _this.updateFields(response.settings, response.settings_export);
+          if ($el.is('form')) {
+            $el.on('submit', event => {
+              event.preventDefault();
+              setTimeout(() => {
+                // Checking if the form fields contain valid data
+                isValid = $el.attr('data-h5-valid') === 'true';
+                if (isValid) {
+                  $el.find('[type="submit"]').addClass(_that.vars.stateClass.loading);
+                  _this.ajaxRequest(
+                    $el.serialize(),
+                    $el.attr('method'),
+                    $el.attr('data-ajax-before'),
+                    $el.attr('data-ajax-success'),
+                    $el.attr('data-ajax-error'),
+                    $el.attr('data-ajax-complete'),
+                    $el.find('[type="submit"]')
+                  );
                 }
-              },
-              error(response) {
-                _that.notifications.display(response.message, response.type);
-              }
+              }, 0);
             });
-          });
+          } else if ($el.is('a')) {
+            $el.on('click', event => {
+              event.preventDefault();
+              setTimeout(() => {
+                const data = $el.attr('data-ajax-data');
+                let parsedJSON = false;
+                try {
+                  parsedJSON = JSON.parse(data);
+                } catch (err) {
+                  _this.log('There was an error trying to get JSON data from element attribute.');
+                }
+
+                if (parsedJSON !== false) {
+                  $el.addClass(_that.vars.stateClass.loading);
+                  _this.ajaxRequest(
+                    $.param(parsedJSON),
+                    $el.attr('data-ajax-method'),
+                    $el.attr('data-ajax-before'),
+                    $el.attr('data-ajax-success'),
+                    $el.attr('data-ajax-error'),
+                    $el.attr('data-ajax-complete'),
+                    $el
+                  );
+                }
+              }, 0);
+            });
+          } // End if
         });
-        _this.log('\t\u2514', vars.$ajaxForm);
       } else {
         _this.log('\t\u2514 Element(s) not found in DOM.');
       }
     },
 
-    // Method that updates the form fields after save/import
-    updateFields(importedSettings, exportedSettings) {
+    ajaxRequest(data, type, beforeSendCallback, successCallback, errorCallback, completeCallback, element) {
       const _this = this,
-        parsedSettings = JSON.parse(importedSettings),
-        $exportField = $('[data-field-type=settings_export]');
-      exportedSettings = exportedSettings !== null ? exportedSettings : false;
-      // Go through each returned value
-      Object.keys(parsedSettings).map(optionName => {
-        const $formField = $('[name*=' + optionName + ']'),
-          optionType = $formField.attr('data-field-type');
-
-        // Check if there are any fields matching the setting id
-        // and if the optionType is defined
-        if ($formField.size() > 0 && optionType !== undefined) {
-          // Switch by form field type
-          switch (optionType) {
-            case 'text':
-            case 'hidden':
-            case 'textarea':
-              // Set the value with the new setting
-              $formField.val(parsedSettings[optionName])
-              .trigger('change');
-              break;
-            case 'secret':
-              _this.updateSecretField($formField, optionName);
-              break;
-            case 'upload':
-              _this.updateUploadField($formField, parsedSettings, optionName);
-              break;
-            case 'dropdown':
-              // Go through each option
-              $formField.children('option')
-              .attr('selected', false)
-              .each((index, option) => {
-                const $option = $(option);
-                // Check for a value match
-                if ($option.attr('value') === parsedSettings[optionName]) {
-                  // If the option value matches the setting, set the "selected" attribute to "true"
-                  $option.attr('selected', true);
-                }
-              })
-              .end()
-              .trigger('change');
-              break;
-            case 'radio':
-              $formField.attr('checked', false);
-              $formField.each((index, radio) => {
-                const $radio = $(radio);
-                if ($radio.val() === parsedSettings[optionName]) {
-                  $radio.attr('checked', true)
-                  .trigger('change');
-                }
-              });
-              break;
-            case 'toggle':
-            case 'checkbox':
-              if (parsedSettings[optionName] === '0') {
-                $formField.filter('[type="checkbox"]')
-                .attr('checked', false)
-                .trigger('change');
-              } else if (parsedSettings[optionName] === '1') {
-                $formField.filter('[type="checkbox"]')
-                .attr('checked', true)
-                .trigger('change');
+        options = {
+          url: window.location.origin + '/wp-admin/admin-ajax.php',
+          type,
+          data,
+          dataType: 'json',
+          cache: false,
+          beforeSend(xhr) {
+            if (beforeSendCallback !== undefined) {
+              _this.log('Before submit callback function: ');
+              const returnValue = _this.fireCallback(beforeSendCallback);
+              if (returnValue === false) {
+                xhr.abort();
               }
-              break;
-            default:
-              // If none of the above match, return false and exit function
-              return false;
+            }
+          },
+          success(response) {
+            if (successCallback !== undefined) {
+              _this.log('Success callback function: ');
+              response.element = element;
+              _this.fireCallback(successCallback, response);
+            }
+          },
+          error(response) {
+            if (errorCallback !== undefined) {
+              _this.log('AJAX request failed: ');
+              if (_this.vars.debug) {
+                console.log(response);
+              }
+              _this.log('Error callback function: ');
+              _this.fireCallback(errorCallback);
+            }
+          },
+          complete(xhr, status) {
+            _this.log('AJAX request complete.', status);
+            if (completeCallback !== undefined) {
+              _this.log('Complete callback function: ');
+              _this.fireCallback(completeCallback);
+            }
           }
-          // Return true if there's a match
-          return true;
-        }
-        // Return false if there aren't input fields with given field id
-        return false;
-      });
-
-      // Update the export settings field with all the new settings
-      if ($exportField.size() > 0 && exportedSettings !== false) {
-        $exportField.val(exportedSettings)
-        .trigger('change');
+        };
+      if (_this.options.debug) {
+        console.log(options);
       }
+      $.ajax(options);
     },
 
-    updateUploadField($formField, parsedSettings, optionName) {
-      const _that = $graffino;
-
-      // Get values from parsed JSON
-      // Set the URL value
-      if (parsedSettings[optionName].url !== undefined &&
-        parsedSettings[optionName].url !== '') {
-        $formField.val(parsedSettings[optionName].url).trigger('change');
-
-        // Check if the thumbnail is set, if it's not, use the same value as the main url
-        if (parsedSettings[optionName].thumbnail !== undefined ||
-          parsedSettings[optionName].thumbnail !== '') {
-          parsedSettings[optionName].thumbnail = parsedSettings[optionName].url;
-        }
-
-        $formField.parent().removeClass(_that.vars.stateClass.empty);
-        $formField.parent().siblings('.js-upload-media').removeClass(_that.vars.stateClass.empty);
+    fireCallback(functionName, response) {
+      const _this = this;
+      if (typeof functionName === 'string' && typeof _this[functionName] === 'function') {
+        return response !== undefined ? _this[functionName](response) : _this[functionName]();
+      } else if (typeof functionName === 'function') {
+        return response !== undefined ? functionName(response) : functionName();
       } else {
-        $formField.parent().addClass(_that.vars.stateClass.empty);
-        $formField.parent().siblings('.js-upload-media').addClass(_that.vars.stateClass.empty);
-        parsedSettings[optionName].thumbnail = '';
-      }
-
-      // Set the thumbnail URL value
-      if (parsedSettings[optionName].thumbnail !== undefined &&
-        parsedSettings[optionName].thumbnail !== '') {
-        $formField.siblings('[name*=thumbnail]')
-        .val(parsedSettings[optionName].thumbnail).trigger('change');
-        // Set the thumbnail background-image url to the preview element
-        $formField.siblings().find('.js-upload-preview-image')
-        .css('background-image', 'url("' + parsedSettings[optionName].thumbnail + '")');
-      }
-      // Set the title value
-      if (parsedSettings[optionName].title !== undefined &&
-        parsedSettings[optionName].title !== '') {
-        $formField.siblings('[name*=title]')
-        .val(parsedSettings[optionName].title).trigger('change');
-        $formField.siblings()
-        .find('.js-upload-preview-title').text(parsedSettings[optionName].title);
-      }
-      // Set the width value
-      if (parsedSettings[optionName].width !== undefined &&
-        parsedSettings[optionName].width !== '') {
-        $formField.siblings('[name*=width]')
-        .val(parsedSettings[optionName].width).trigger('change');
-        $formField.siblings()
-        .find('.js-upload-size-x').text(parsedSettings[optionName].width);
-      }
-      // Set the height value
-      if (parsedSettings[optionName].height !== undefined &&
-        parsedSettings[optionName].height !== '') {
-        $formField.siblings('[name*=height]')
-        .val(parsedSettings[optionName].height).trigger('change');
-        $formField.siblings()
-        .find('.js-upload-size-y').text(parsedSettings[optionName].height);
+        _this.log('\t\u2514 Callback function with name [', functionName, '] not found.');
+        if (_this.options.debug && response !== undefined) {
+          console.log(response);
+        }
       }
     },
 
-    updateSecretField($formField, optionName) {
+    callbackSearchResults(response) {
       const _that = $graffino,
-        $input = $formField.filter('[name*="encrypt"]'),
-        $checkbox = $formField.filter('[name*="remove_value"]');
+        _this = this,
+        resultsListClass = '.js-search-results-list',
+        containerClass = '.js-iscroll',
+        searchNoticeClass = '.js-search-notice';
 
-      $.ajax({
-        url: ajaxurl,
-        type: 'POST',
-        data: $.param({
-          'action': 'request_ajax_handler',
-          'handler': 'get_masked_secret_field',
-          'field_id': optionName
-        }),
-        dataType: 'json',
-        cache: false,
-        success(response) {
-          // _that.notifications.display(response.message, response.type);
-          // On success, empty the field and change the placeholder's value
-          const parsedSettings = JSON.parse(response.settings);
-          $input
-            .val('')
-            .attr('placeholder', parsedSettings[optionName])
-            .trigger('change');
-          // Uncheck the remove value checkbox
-          $checkbox
-            .prop('checked', false).trigger('change');
-        },
-        error(response) {
-          _that.notifications.display(response.message, response.type);
+      // Check if the request was successful
+      if (response.success) {
+        _this.log('\t\u2514 Handler response was successful.');
+        _this.log('\t\u2514 Response message:', response.message);
+        if (_this.options.debug) {
+          console.log(response);
         }
-      });
+
+        // If we don't have the DOM needed elemnts in the vars object
+        if (_this.vars.$searchResultsList === undefined) {
+          // Add the list element to the vars object
+          _this.vars.$searchResultsList = $(resultsListClass);
+        }
+
+        if (_this.vars.$searchResultsContainer === undefined) {
+          // Add the container element to the vars object
+          _this.vars.$searchResultContainer = $(containerClass);
+        }
+
+        if (_this.vars.$searchNotice === undefined) {
+          // Add the form notice element to the vars object
+          _this.vars.$searchNotice = $(searchNoticeClass);
+        }
+
+        if (response.output === false) {
+          _this.vars.$searchNotice.html(response.message)
+            .removeClass(_that.vars.stateClass.hidden);
+        } else {
+          _this.vars.$searchNotice.addClass(_that.vars.stateClass.hidden);
+        }
+
+        if (response.element !== undefined && _that.isOnPage($(response.element))) {
+          $(response.element).removeClass(_that.vars.stateClass.loading);
+        }
+
+        // Replace the content of the list with the response output
+        _this.vars.$searchResultsList.html(response.output);
+        // Refresh iScroll element
+        _this.vars.$searchResultContainer.trigger('refresh');
+      } else {
+        _this.log('\t\u2514 Handler request failed:');
+        if (_this.options.debug) {
+          console.log(response);
+        }
+      }
     }
   }
 });
