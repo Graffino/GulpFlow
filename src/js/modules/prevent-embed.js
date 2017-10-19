@@ -7,7 +7,7 @@
 
 $.extend($graffino, {
   preventEmbed: {
-    name: 'preent-embed',
+    name: 'prevent-embed',
 
     // Plugin options
     options: {
@@ -31,7 +31,7 @@ $.extend($graffino, {
       // Check if element is in DOM
       if (_that.isOnPage(vars.$element)) {
         if (window.self !== window.top) {
-          window.top.location.href = window.location.href;
+          window.top.location.href = window.location.href + '?expired';
         }
       }
     }
