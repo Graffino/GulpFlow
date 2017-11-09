@@ -202,8 +202,7 @@ const modules = {
   // Babel
   babel: {
     presets: [
-      'es2015',
-      'stage-0'
+      'env'
     ]
   },
 
