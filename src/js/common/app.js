@@ -244,6 +244,13 @@ const $graffino = {
 
   randomFromRange(max, min) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+  },
+
+  removePipeChar(string) {
+    if (string === undefined || string === null) {
+      return string;
+    }
+    return string.toString().replace(/\|/g, '');
   }
 };
 

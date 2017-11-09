@@ -1,6 +1,6 @@
 {
   "name": "gulp-flow",
-  "version": "4.0.6",
+  "version": "4.0.7",
   "description": "Gulp Flow we use at Graffino.",
   "main": [
     "www/assets/css/main.css",
@@ -39,8 +39,13 @@
     "select2": "~4.0.5",
     "velocity": "~1.5.0",
     "svg4everybody": "^2.1.9",
+    "farbtastic": "^2.0.0-alpha.1",
+    "ui-sortable": "*",
     "number-is-integer": "*",
-    "csv": "^1.0.3"
+    "csv": "^1.0.3",
+    "simple-jquery-datepicker": "^0.6.3",
+    "ramda": "^0.25.0",
+    "Babel-Polyfill-Standalone": "babel-polyfill-standalone#^6.26.0"
   },
   "overrides": {
     "browser-update": {
@@ -48,6 +53,9 @@
         "jquery": "~3.2.1",
         "normalize-css": "^7.0.0"
       }
+    },
+    "Babel-Polyfill-Standalone": {
+      "main": "babel-polyfill.js"
     },
     "pointer-events-poly": {
       "main": "pointer_events_polyfill.js"
@@ -64,6 +72,12 @@
         "dist/js/select2.js"
       ]
     },
+    "simple-jquery-datepicker": {
+      "main": [
+        "dist/datepicker.css",
+        "dist/datepicker.js"
+      ]
+    },
     "vue": {
       "main": "dist/vue.js"
     },
@@ -72,6 +86,6 @@
     }
   },
   "dependencies": {
-    "vue": "^2.5.2"
+    "vue": "^2.5.3"
   }
 }
