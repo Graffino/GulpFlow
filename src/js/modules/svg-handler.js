@@ -5,12 +5,13 @@
  */
 
 
-$.extend($graffino, {
+Object.assign($graffino, {
   svgHandler: {
     name: 'svg-handler',
 
     // Plugin options
     options: {
+      hook: 'PLUGINS',
       autoInit: true,
       debug: false
     },

@@ -5,12 +5,13 @@
  */
 
 
-$.extend($graffino, {
+Object.assign($graffino, {
   popup: {
     name: 'popup',
 
     // Plugin options
     options: {
+      hook: 'PLUGINS',
       autoInit: true,
       debug: false
     },
@@ -59,7 +60,7 @@ $.extend($graffino, {
 
           // Popup type: iframe (W.I.P)
           if (options.type === 'iframe') {
-            $el.magnificPopup($.extend(options, {
+            $el.magnificPopup(Object.assign(options, {
               callbacks: {
                 beforeAppend() {
                   const $content = this.contentContainer;

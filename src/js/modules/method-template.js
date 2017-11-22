@@ -4,12 +4,13 @@
  */
 
 
-$.extend($graffino, {
+Object.assign($graffino, {
   method: {
     name: 'method-template',
 
     // Plugin options
     options: {
+      hook: 'PLUGINS',
       autoInit: false,
       debug: false
     },

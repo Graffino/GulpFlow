@@ -4,12 +4,13 @@
  */
 
 
-$.extend($graffino, {
+Object.assign($graffino, {
   fontsHandler: {
     name: 'fonts-handler',
 
     // Plugin options
     options: {
+      hook: 'PLUGINS',
       autoInit: true,
       debug: false
     },

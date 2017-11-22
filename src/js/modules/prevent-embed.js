@@ -5,12 +5,13 @@
  */
 
 
-$.extend($graffino, {
+Object.assign($graffino, {
   preventEmbed: {
     name: 'prevent-embed',
 
     // Plugin options
     options: {
+      hook: 'HELPERS',
       autoInit: true,
       debug: false
     },

@@ -4,13 +4,13 @@
  * Plugin: Plugin: https://github.com/ericelliott/h5Validate
  */
 
-
-$.extend($graffino, {
+Object.assign($graffino, {
   validate: {
     name: 'validate',
 
     // Plugin options
     options: {
+      hook: 'AFTER_INIT',
       autoInit: true,
       debug: false
     },
@@ -34,7 +34,8 @@ $.extend($graffino, {
 
       // Adding custom validation paterns
       $.h5Validate.addPatterns({
-        'nonzero-decimal': /^(?!0*(\.0+)?$)(\d+|\d*\.\d+)$/
+        'nonzero-decimal': /^(?!0*(\.0+)?$)(\d+|\d*\.\d+)$/,
+        'dateDE': /\d{1,2}[.]\d{1,2}[.]\d{4}/
       });
 
       if (_that.isOnPage(vars.$forms)) {

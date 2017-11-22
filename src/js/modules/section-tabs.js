@@ -4,12 +4,13 @@
  */
 
 
-$.extend($graffino, {
+Object.assign($graffino, {
   sectionTabs: {
     name: 'section-tabs',
 
     // Plugin options
     options: {
+      hook: 'HELPERS',
       autoInit: false,
       debug: false
     },

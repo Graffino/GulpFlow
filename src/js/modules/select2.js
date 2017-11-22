@@ -5,12 +5,13 @@
  */
 
 
-$.extend($graffino, {
+Object.assign($graffino, {
   select2: {
     name: 'select2',
 
     // Plugin options
     options: {
+      hook: 'AFTER_INIT',
       autoInit: true,
       debug: false
     },
@@ -38,23 +39,23 @@ $.extend($graffino, {
             };
 
           // Emit Vue events when selecting options
-          function emitVueEvent() {
-            let vueEvents = $el.attr('data-vue-emit');
-            const selectName = $el.attr('name');
+          const emitVueEvent = $element => {
+            let vueEvents = $element.attr('data-vue-emit');
+            const selectName = $element.attr('name');
             // Splitting the events string or setting a default
             vueEvents = vueEvents !== undefined ? vueEvents.split(',') : ['dropdown.select'];
             // Firing each custom event
-            vueEvents.forEach(item => {
+            return vueEvents.forEach(item => {
               const event = item.trim();
               _this.log(`Dropdown with name [${selectName}] emmited Vue event [${event}].`);
-              _that.Vue.bus.$emit(event, {
-                el: $el,
-                parent: $el.attr('data-parent-parameter'),
-                name: $el.attr('data-parameter-name') || selectName,
-                value: $el.select2('val')
+              _that.Vue.Bus.$emit(event, {
+                el: $element,
+                parent: $element.attr('data-parent-parameter'),
+                name: $element.attr('data-parameter-name') || selectName,
+                value: $element.select2('val')
               });
             });
-          }
+          };
 
           if (!$el.hasClass(_that.vars.stateClass.selectified)) {
             // Make sure parent has position relative by adding class
@@ -62,14 +63,14 @@ $.extend($graffino, {
 
             // Check if search is enabled
             if ($el.attr('data-search') === 'false') {
-              $.extend(options, {
+              Object.assign(options, {
                 minimumResultsForSearch: -1
               });
             }
 
             // Check if we have a placeholder
             if ($el.attr('data-placeholder') === 'false') {
-              $.extend(options, {
+              Object.assign(options, {
                 placeholder: {
                   id: -1,
                   text: $el.attr('data-placeholder')
@@ -82,7 +83,7 @@ $.extend($graffino, {
             // Adding initialized class
             $el.addClass(_that.vars.stateClass.selectified);
 
-            $el.on('select2:select', () => emitVueEvent());
+            $el.on('select2:select', () => emitVueEvent($el));
             if ($el.attr('data-vue-autoemit') === 'true') {
               setTimeout(() => $el.trigger('select2:select'), 0);
             }

@@ -4,12 +4,13 @@
  */
 
 
-$.extend($graffino, {
+Object.assign($graffino, {
   pointerEvents: {
     name: 'pointer-events',
 
     // Plugin options
     options: {
+      hook: 'HANDLERS',
       autoInit: false,
       debug: false
     },
