@@ -4,12 +4,13 @@
  */
 
 
-$.extend($graffino, {
+Object.assign($graffino, {
   gridDebug: {
     name: 'grid-debug',
 
     // Plugin options
     options: {
+      hook: 'HELPERS',
       autoInit: false,
       debug: false
     },

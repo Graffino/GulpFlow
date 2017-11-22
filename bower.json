@@ -1,6 +1,6 @@
 {
   "name": "gulp-flow",
-  "version": "4.0.7",
+  "version": "4.1.0",
   "description": "Gulp Flow we use at Graffino.",
   "main": [
     "www/assets/css/main.css",
@@ -41,11 +41,12 @@
     "svg4everybody": "^2.1.9",
     "farbtastic": "^2.0.0-alpha.1",
     "ui-sortable": "*",
-    "number-is-integer": "*",
     "csv": "^1.0.3",
     "simple-jquery-datepicker": "^0.6.3",
     "ramda": "^0.25.0",
-    "Babel-Polyfill-Standalone": "babel-polyfill-standalone#^6.26.0"
+    "Babel-Polyfill-Standalone": "babel-polyfill-standalone#^6.26.0",
+    "lodash": "^4.17.4",
+    "vue": "^2.5.6"
   },
   "overrides": {
     "browser-update": {
@@ -56,6 +57,9 @@
     },
     "Babel-Polyfill-Standalone": {
       "main": "babel-polyfill.js"
+    },
+    "lodash": {
+      "main": "dist/lodash.js"
     },
     "pointer-events-poly": {
       "main": "pointer_events_polyfill.js"
@@ -79,13 +83,13 @@
       ]
     },
     "vue": {
-      "main": "dist/vue.js"
+      "main": "dist/vue.min.js"
     },
     "csv": {
       "main": "lib/csv.js"
     }
   },
   "dependencies": {
-    "vue": "^2.5.3"
+    "vue": "^2.5.6"
   }
 }

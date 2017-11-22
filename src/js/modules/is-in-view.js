@@ -4,12 +4,13 @@
  */
 
 
-$.extend($graffino, {
+Object.assign($graffino, {
   isInView: {
     name: 'is-in-view',
 
     // Plugin options
     options: {
+      hook: 'HANDLERS',
       autoInit: true,
       debug: false
     },

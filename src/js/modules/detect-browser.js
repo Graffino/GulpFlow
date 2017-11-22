@@ -4,19 +4,20 @@
  */
 
 
-$.extend($graffino, {
+Object.assign($graffino, {
   detectBrowser: {
     name: 'detect-browser',
 
     // Plugin options
     options: {
+      hook: 'PLUGINS',
       autoInit: true,
       debug: false
     },
 
     // Scoped variables
     vars: {
-      variable: 'value'
+      isIE: false
     },
 
     // Init method
@@ -42,6 +43,10 @@ $.extend($graffino, {
 
       // Adding the classes to the html element
       _that.vars.$html.addClass(classes);
+
+      // Set local variables for IE detection
+      _this.vars.isIE = $.browser.msie || $.browser.msedge || false;
+
       _this.log('Initialized. Class(es) [' + classes + '] added to the [html] object.');
     }
   }

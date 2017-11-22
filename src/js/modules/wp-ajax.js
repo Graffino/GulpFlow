@@ -4,12 +4,13 @@
  */
 
 
-$.extend($graffino, {
+Object.assign($graffino, {
   wpAjax: {
     name: 'wp-ajax',
 
     // Plugin options
     options: {
+      hook: 'HANDLERS',
       autoInit: true,
       debug: false
     },

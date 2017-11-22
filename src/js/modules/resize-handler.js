@@ -4,12 +4,13 @@
  */
 
 
-$.extend($graffino, {
+Object.assign($graffino, {
   resizeHandler: {
     name: 'resize-handler',
 
     // Plugin options
     options: {
+      hook: 'HANDLERS',
       autoInit: true,
       debug: false
     },

@@ -4,12 +4,13 @@
  */
 
 
-$.extend($graffino, {
+Object.assign($graffino, {
   scrollHandler: {
     name: 'scroll-handler',
 
     // Plugin options
     options: {
+      hook: 'HANDLERS',
       autoInit: true,
       debug: false
     },

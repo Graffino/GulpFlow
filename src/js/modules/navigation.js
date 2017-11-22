@@ -4,12 +4,13 @@
  */
 
 
-$.extend($graffino, {
+Object.assign($graffino, {
   navigation: {
     name: 'navigation',
 
     // Plugin options
     options: {
+      hook: 'HANDLERS',
       autoInit: true,
       debug: false
     },

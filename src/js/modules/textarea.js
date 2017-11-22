@@ -4,12 +4,13 @@
  */
 
 
-$.extend($graffino, {
+Object.assign($graffino, {
   textarea: {
     name: 'textarea',
 
     // Plugin options
     options: {
+      hook: 'HELPERS',
       autoInit: true,
       debug: false
     },
