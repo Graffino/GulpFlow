@@ -41,12 +41,12 @@
     "svg4everybody": "^2.1.9",
     "farbtastic": "^2.0.0-alpha.1",
     "ui-sortable": "*",
-    "csv": "^1.0.3",
-    "simple-jquery-datepicker": "^0.6.3",
+    "csv": "^1.0.4",
+    "simple-jquery-datepicker": "^0.6.4",
     "ramda": "^0.25.0",
     "Babel-Polyfill-Standalone": "babel-polyfill-standalone#^6.26.0",
     "lodash": "^4.17.4",
-    "vue": "^2.5.6"
+    "vue": "^2.5.13"
   },
   "overrides": {
     "browser-update": {
@@ -90,6 +90,6 @@
     }
   },
   "dependencies": {
-    "vue": "^2.5.6"
+    "vue": "^2.5.13"
   }
 }
