@@ -1,0 +1,13 @@
+/*
+ * YOUR STYLES HERE
+ */
+
+body {
+  color: red;
+}
+
+body::after {
+  content: "cucu!";
+}
+
+/*@import '../www/css/main.css';*/

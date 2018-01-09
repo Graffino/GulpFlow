@@ -86,7 +86,10 @@ const enabled = {
     js: true,
     img: true,
     html: false
-  }
+  },
+
+  // Patternlab
+  patternlab: true
 };
 
 
@@ -236,6 +239,83 @@ const modules = {
     pathPrefix: '/',
     css: paths.base.www + paths.modules.css.main,
     timeout: 1000 * 60 * 10
+  },
+
+  // Patternlab-Node
+  patternlab: {
+    paths: {
+      source: {
+        root: paths.modules.patternlab.source.root,
+        patterns: paths.modules.patternlab.source.patterns,
+        data: paths.modules.patternlab.source.root.data,
+        meta: paths.modules.patternlab.source.meta,
+        annotations: paths.modules.patternlab.source.annotations,
+        styleguide: './node_modules/@pattern-lab/styleguidekit-assets-default/dist/',
+        patternlabFiles: {
+          'general-header': './node_modules/@pattern-lab/styleguidekit-mustache-default/views/partials/general-header.mustache',
+          'general-footer': './node_modules/@pattern-lab/styleguidekit-mustache-default/views/partials/general-footer.mustache',
+          patternSection: './node_modules/@pattern-lab/styleguidekit-mustache-default/views/partials/patternSection.mustache',
+          patternSectionSubtype: './node_modules/@pattern-lab/styleguidekit-mustache-default/views/partials/patternSectionSubtype.mustache',
+          viewall: './node_modules/@pattern-lab/styleguidekit-mustache-default/views/viewall.mustache'
+        },
+        js: paths.modules.patternlab.source.js,
+        images: paths.modules.patternlab.source.images,
+        fonts: paths.modules.patternlab.source.fonts,
+        css: paths.modules.patternlab.source.css
+      },
+      public: {
+        root: './public/',
+        patterns: './public/patterns/',
+        data: './public/styleguide/data/',
+        annotations: './public/annotations/',
+        styleguide: './public/styleguide/',
+        js: './public/js',
+        images: './public/images',
+        fonts: './public/fonts',
+        css: './public/css'
+      }
+    },
+    styleGuideExcludes: [
+    ],
+    defaultPattern: 'all',
+    defaultShowPatternInfo: false,
+    cleanPublic: true,
+    patternExtension: 'mustache',
+    'ignored-extensions': ['scss', 'DS_Store', 'less'],
+    'ignored-directories': ['scss'],
+    logLevel: 'debug', // ['debug', 'info', 'warning', 'error', 'quiet']
+    ishControlsHide: {
+      s: false,
+      m: false,
+      l: false,
+      full: false,
+      random: false,
+      disco: false,
+      hay: true,
+      mqs: false,
+      find: false,
+      'views-all': false,
+      'views-annotations': false,
+      'views-code': false,
+      'views-new': false,
+      'tools-all': false,
+      'tools-docs': false
+    },
+    ishMinimum: '240',
+    ishMaximum: '2600',
+    patternStateCascade: ['inprogress', 'inreview', 'complete'],
+    patternStates: {
+    },
+    patternExportPatternPartials: [],
+    patternExportDirectory: './pattern_exports/',
+    cacheBust: true,
+    starterkitSubDir: 'dist',
+    outputFileSuffixes: {
+      rendered: '.rendered',
+      rawTemplate: '',
+      markupOnly: '.markup-only'
+    },
+    cleanOutputHtml: true
   }
 };
 

@@ -24,6 +24,12 @@ const base = {
   // Wordpress
   wordpress: 'wordpress/',
 
+  // Patternlab
+  patternlab: {
+    source: './src/patternlab/',
+    public: './www/patternlab'
+  },
+
   // URL
   url: 'http://gulpflow.dev'
 };
@@ -147,6 +153,21 @@ const modules = {
   wordpress: {
     root: base.root + base.wordpress,
     theme: base.root + base.wordpress + 'theme/'
+  },
+
+  // Patternlab
+  patternlab: {
+    source: {
+      root: base.patternlab.source,
+      patterns: base.patternlab.source + '_patterns',
+      data: base.patternlab.source + '_data',
+      meta: base.patternlab.source + '_meta',
+      annotations: base.patternlab.source + '_annotations',
+      js: base.patternlab.source + 'js',
+      images: base.patternlab.source + 'images',
+      fonts: base.patternlab.source + 'fonts',
+      css: base.patternlab.source + 'css'
+    }
   }
 };
 
