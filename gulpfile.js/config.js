@@ -258,26 +258,25 @@ const modules = {
         css: paths.modules.patternlab.source.css
       },
       public: {
-        root: './public/',
-        patterns: './public/patterns/',
-        data: './public/styleguide/data/',
-        annotations: './public/annotations/',
-        styleguide: './public/styleguide/',
-        js: './public/js',
-        images: './public/images',
-        fonts: './public/fonts',
-        css: './public/css'
+        root: paths.modules.patternlab.public.root,
+        patterns: paths.modules.patternlab.public.patterns,
+        data: paths.modules.patternlab.public.data,
+        annotations: paths.modules.patternlab.public.annotations,
+        styleguide: paths.modules.patternlab.public.styleguide,
+        js: paths.modules.patternlab.public.js,
+        images: paths.modules.patternlab.public.images,
+        fonts: paths.modules.patternlab.public.fonts,
+        css: paths.modules.patternlab.public.css
       }
     },
-    styleGuideExcludes: [
-    ],
+    styleGuideExcludes: [],
     defaultPattern: 'all',
     defaultShowPatternInfo: false,
     cleanPublic: true,
     patternExtension: 'mustache',
     'ignored-extensions': ['scss', 'DS_Store', 'less'],
     'ignored-directories': ['scss'],
-    debug: true,
+    debug: false,
     ishControlsHide: {
       s: false,
       m: false,
@@ -298,8 +297,7 @@ const modules = {
     ishMinimum: '240',
     ishMaximum: '2600',
     patternStateCascade: ['inprogress', 'inreview', 'complete'],
-    patternStates: {
-    },
+    patternStates: {},
     patternExportPatternPartials: [],
     patternExportDirectory: './pattern_exports/',
     cacheBust: true,

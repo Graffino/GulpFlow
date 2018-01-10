@@ -167,6 +167,17 @@ const modules = {
       images: base.patternlab.source + 'images',
       fonts: base.patternlab.source + 'fonts',
       css: base.patternlab.source + 'css/'
+    },
+    public: {
+      root: base.patternlab.public,
+      patterns: base.patternlab.public + 'patterns/',
+      data: base.patternlab.public + 'styleguide/data/',
+      annotations: base.patternlab.public + 'annotations/',
+      styleguide: base.patternlab.public + 'styleguide/',
+      js: base.patternlab.public + '/js',
+      images: base.patternlab.public + 'images',
+      fonts: base.patternlab.public + 'fonts',
+      css: base.patternlab.public + 'css'
     }
   }
 };
