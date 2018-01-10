@@ -250,14 +250,8 @@ const modules = {
         data: paths.modules.patternlab.source.root.data,
         meta: paths.modules.patternlab.source.meta,
         annotations: paths.modules.patternlab.source.annotations,
-        styleguide: './node_modules/@pattern-lab/styleguidekit-assets-default/dist/',
-        patternlabFiles: {
-          'general-header': './node_modules/@pattern-lab/styleguidekit-mustache-default/views/partials/general-header.mustache',
-          'general-footer': './node_modules/@pattern-lab/styleguidekit-mustache-default/views/partials/general-footer.mustache',
-          patternSection: './node_modules/@pattern-lab/styleguidekit-mustache-default/views/partials/patternSection.mustache',
-          patternSectionSubtype: './node_modules/@pattern-lab/styleguidekit-mustache-default/views/partials/patternSectionSubtype.mustache',
-          viewall: './node_modules/@pattern-lab/styleguidekit-mustache-default/views/viewall.mustache'
-        },
+        styleguide: './node_modules/styleguidekit-assets-default/dist/',
+        patternlabFiles: './node_modules/styleguidekit-mustache-default/views/',
         js: paths.modules.patternlab.source.js,
         images: paths.modules.patternlab.source.images,
         fonts: paths.modules.patternlab.source.fonts,
@@ -283,7 +277,7 @@ const modules = {
     patternExtension: 'mustache',
     'ignored-extensions': ['scss', 'DS_Store', 'less'],
     'ignored-directories': ['scss'],
-    logLevel: 'debug', // ['debug', 'info', 'warning', 'error', 'quiet']
+    debug: true,
     ishControlsHide: {
       s: false,
       m: false,
