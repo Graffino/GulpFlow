@@ -47,6 +47,7 @@ const stylus = require('../tasks/stylus');
 const utils = require('../modules/utils');
 const wordpress = require('../tasks/wordpress');
 const composer = require('../tasks/composer');
+const patternlab = require('../tasks/patternlab');
 
 let gulpProcess;
 
@@ -137,6 +138,7 @@ function watchChanges() {
         stylus.process,
         bundle.css,
         lint.stylus,
+        patternlab.process,
         notice.rebuilt
       ),
     500)
@@ -286,6 +288,16 @@ function watchChanges() {
         notice.rebuilt
       ),
     2000)
+  );
+
+  // Patternlab
+  gulp.watch(
+    paths.patterns.patternlab.all,
+    debounce(gulp.series(
+      patternlab.process,
+      utils.reload,
+      notice.rebuilt
+    ), 2000)
   );
 
   // Bower
