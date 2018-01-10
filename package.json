@@ -89,10 +89,9 @@
     "last 2 versions"
   ],
   "devDependencies": {
-    "@pattern-lab/patternengine-node-mustache": "^2.0.0-alpha.2",
-    "@pattern-lab/patternlab-node": "^3.0.0-alpha.5",
-    "@pattern-lab/styleguidekit-assets-default": "^4.0.0-alpha.2",
-    "@pattern-lab/styleguidekit-mustache-default": "^4.0.0-alpha.1",
+    "patternlab-node": "^2.0.0",
+    "styleguidekit-assets-default": "^3.0.0",
+    "styleguidekit-mustache-default": "^3.0.0",
     "autoprefixer": "^7.2.4",
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
