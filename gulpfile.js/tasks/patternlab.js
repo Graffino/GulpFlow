@@ -21,15 +21,33 @@ const paths = require('../modules/paths');
 const utils = require('../modules/utils');
 
 
-// Copying dependency files
-const copyCssFiles = function () {
-  return gulp.src([
-    path.normalize(paths.base.www + paths.modules.css.root + '/main.css'),
-    path.normalize(config.modules.patternlab.paths.source.css) + '/**/*.css'
-  ])
-    .pipe(gulp.dest(path.normalize(config.modules.patternlab.paths.public.css)));
+/**
+ * Copying dependency files
+ */
+
+// Font files
+const copyFontFiles = function () {
+  return gulp.src(
+    [
+      // Gulpflow processed font files
+      path.normalize(paths.base.www + paths.modules.fonts.root + '/**/*')
+    ]
+  ).pipe(gulp.dest(path.normalize(config.modules.patternlab.paths.public.fonts)));
 };
 
+// CSS files
+const copyCssFiles = function () {
+  return gulp.src(
+    [
+      // Stylus bundle
+      path.normalize(paths.base.www + paths.modules.css.root + '/main.css'),
+      // Patternlab custom css files
+      path.normalize(config.modules.patternlab.paths.source.css) + '/**/*.css'
+    ]
+  ).pipe(gulp.dest(path.normalize(config.modules.patternlab.paths.public.css)));
+};
+
+// Patternlab Styleguide
 const copyStyleguide = function () {
   return gulp.src(path.normalize(config.modules.patternlab.paths.source.styleguide) + '/**/*')
     .pipe(gulp.dest(path.normalize(config.modules.patternlab.paths.public.root)));
@@ -53,6 +71,7 @@ const buildPatternlab = function (done) {
  */
 
 const processPatternlab = gulp.series(
+  config.enabled.patternlab ? copyFontFiles : utils.noop,
   config.enabled.patternlab ? copyCssFiles : utils.noop,
   config.enabled.patternlab ? copyStyleguide : utils.noop,
   config.enabled.patternlab ? buildPatternlab : utils.noop
