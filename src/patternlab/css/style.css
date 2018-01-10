@@ -2,12 +2,5 @@
  * YOUR STYLES HERE
  */
 
-body {
-  color: red;
-}
-
-body::after {
-  content: "cucu!";
-}
-
-/*@import '../www/css/main.css';*/
+/* Importing main css file from Stylus build */
+@import './main.css';
