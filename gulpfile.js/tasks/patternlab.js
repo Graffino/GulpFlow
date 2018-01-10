@@ -11,15 +11,29 @@
  */
 
 // Gulp & plugins
+const path = require('path');
 const gulp = require('gulp');
-const plugins = require('gulp-load-plugins')();
-const patternlab = require('@pattern-lab/patternlab-node');
+const patternlab = require('patternlab-node');
 
 // Gulp requires
-const paths = require('../modules/paths');
 const config = require('../config');
-const error = require('../modules/error');
+const paths = require('../modules/paths');
 const utils = require('../modules/utils');
+
+
+// Copying dependency files
+const copyCssFiles = function () {
+  return gulp.src([
+    path.normalize(paths.base.www + paths.modules.css.root + '/main.css'),
+    path.normalize(config.modules.patternlab.paths.source.css) + '/**/*.css'
+  ])
+    .pipe(gulp.dest(path.normalize(config.modules.patternlab.paths.public.css)));
+};
+
+const copyStyleguide = function () {
+  return gulp.src(path.normalize(config.modules.patternlab.paths.source.styleguide) + '/**/*')
+    .pipe(gulp.dest(path.normalize(config.modules.patternlab.paths.public.root)));
+};
 
 
 // Start patternlab build task
@@ -29,7 +43,6 @@ const buildPatternlab = function (done) {
   try {
     return paternlabInstance.build(done, {});
   } catch (err) {
-    console.log(err);
     return done();
   }
 };
@@ -39,7 +52,9 @@ const buildPatternlab = function (done) {
  * Convert fonts function
  */
 
-const processPatternlab = gulp.parallel(
+const processPatternlab = gulp.series(
+  config.enabled.patternlab ? copyCssFiles : utils.noop,
+  config.enabled.patternlab ? copyStyleguide : utils.noop,
   config.enabled.patternlab ? buildPatternlab : utils.noop
 );
 
