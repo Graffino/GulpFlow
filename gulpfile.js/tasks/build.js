@@ -43,7 +43,6 @@ const patternlab = require('../tasks/patternlab');
  */
 
 const buildDevelopment = gulp.series(
-  patternlab.process,
   gulp.parallel(
     bower.process,
     modernizr.process,
@@ -57,6 +56,7 @@ const buildDevelopment = gulp.series(
     copy.app
   ),
   bundle.app,
+  patternlab.process,
   wordpress.process,
   composer.install,
   lint.app,
@@ -84,6 +84,7 @@ const buildStaging = gulp.series(
     copy.app
   ),
   bundle.app,
+  patternlab.process,
   wordpress.process,
   composer.install
 );
@@ -115,6 +116,7 @@ const buildProduction = gulp.series(
       minify.app,
       critical.process,
       clean.postproduction,
+      patternlab.process,
       wordpress.process,
       composer.install
     )
