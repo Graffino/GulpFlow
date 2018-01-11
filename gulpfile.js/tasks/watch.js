@@ -121,6 +121,7 @@ function watchChanges() {
         js.process,
         bundle.js,
         lint.js,
+        patternlab.process,
         utils.reload,
         notice.rebuilt
       ),
@@ -166,6 +167,7 @@ function watchChanges() {
         config.clean.watch.fonts ? clean.fonts : utils.noop,
         copy.fonts,
         fonts.process,
+        patternlab.process,
         utils.reload,
         notice.rebuilt
       ),
@@ -218,6 +220,7 @@ function watchChanges() {
       gulp.series(
         config.clean.watch.images ? clean.images : utils.noop,
         copy.images,
+        patternlab.process,
         utils.reload,
         notice.rebuilt
       ),
@@ -236,6 +239,7 @@ function watchChanges() {
         sprite.process,
         stylus.process,
         bundle.css,
+        patternlab.process,
         utils.reload,
         notice.rebuilt
       ),
