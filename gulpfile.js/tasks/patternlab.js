@@ -25,6 +25,15 @@ const utils = require('../modules/utils');
  * Copying dependency files
  */
 
+// Patternlab Styleguide
+const copyStyleguide = function () {
+  return gulp.src(
+    path.normalize(config.modules.patternlab.paths.source.styleguide + '/**/*'),
+    {since: gulp.lastRun(copyStyleguide)}
+  )
+    .pipe(gulp.dest(path.normalize(config.modules.patternlab.paths.public.root)));
+};
+
 // Font files
 const copyFontFiles = function () {
   return gulp.src(
@@ -49,10 +58,6 @@ const copyCssFiles = function () {
   ).pipe(gulp.dest(path.normalize(config.modules.patternlab.paths.public.css)));
 };
 
-// Patternlab Styleguide
-const copyStyleguide = function () {
-  return gulp.src(path.normalize(config.modules.patternlab.paths.source.styleguide) + '/**/*')
-    .pipe(gulp.dest(path.normalize(config.modules.patternlab.paths.public.root)));
 };
 
 
@@ -69,7 +74,7 @@ const buildPatternlab = function (done) {
 
 
 /**
- * Convert fonts function
+ * Gulp sequence for pattern-lab task
  */
 
 const processPatternlab = gulp.series(
@@ -90,7 +95,7 @@ module.exports = {
 
 
 /**
- * Gulp fonts task
+ * Gulp task
  */
 
 processPatternlab.displayName = 'patternlab';
