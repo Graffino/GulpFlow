@@ -31,7 +31,8 @@ const copyFontFiles = function () {
     [
       // Gulpflow processed font files
       path.normalize(paths.base.www + paths.modules.fonts.root + '/**/*')
-    ]
+    ],
+    {since: gulp.lastRun(copyFontFiles)}
   ).pipe(gulp.dest(path.normalize(config.modules.patternlab.paths.public.fonts)));
 };
 
@@ -42,8 +43,9 @@ const copyCssFiles = function () {
       // Stylus bundle
       path.normalize(paths.base.www + paths.modules.css.root + '/main.css'),
       // Patternlab custom css files
-      path.normalize(config.modules.patternlab.paths.source.css) + '/**/*.css'
-    ]
+      path.normalize(config.modules.patternlab.paths.source.css + '/**/*.css')
+    ],
+    {since: gulp.lastRun(copyCssFiles)}
   ).pipe(gulp.dest(path.normalize(config.modules.patternlab.paths.public.css)));
 };
 
