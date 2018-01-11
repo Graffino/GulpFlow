@@ -265,6 +265,7 @@ const modules = {
         styleguide: paths.modules.patternlab.public.styleguide,
         js: paths.modules.patternlab.public.js,
         images: paths.modules.patternlab.public.images,
+        icons: paths.modules.patternlab.public.icons,
         fonts: paths.modules.patternlab.public.fonts,
         css: paths.modules.patternlab.public.css
       }

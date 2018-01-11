@@ -176,6 +176,7 @@ const modules = {
       styleguide: base.patternlab.public + 'styleguide/',
       js: base.patternlab.public + '/js',
       images: base.patternlab.public + 'images',
+      icons: base.patternlab.public + 'icons',
       fonts: base.patternlab.public + 'fonts',
       css: base.patternlab.public + 'css'
     }
@@ -345,7 +346,7 @@ const patterns = {
 
   // Patternlab
   patternlab: {
-    all: modules.patternlab.source.root + '**/*.(mustache|json|css)'
+    all: modules.patternlab.source.root + '**/*.(mustache|json|js|css)'
   }
 };
 

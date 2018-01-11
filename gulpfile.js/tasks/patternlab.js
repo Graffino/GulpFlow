@@ -58,8 +58,42 @@ const copyCssFiles = function () {
   ).pipe(gulp.dest(path.normalize(config.modules.patternlab.paths.public.css)));
 };
 
+// Copy Javascript files
+const copyJsFiles = function () {
+  return gulp.src(
+    [
+      // Gulpflow JS bundle
+      path.normalize(paths.base.www + paths.modules.js.root + '/main.js'),
+      // Patternlab custom js files
+      path.normalize(config.modules.patternlab.paths.source.js + '/**/*.js')
+    ],
+    {since: gulp.lastRun(copyJsFiles)}
+  ).pipe(gulp.dest(path.normalize(config.modules.patternlab.paths.public.js)));
 };
 
+// Copy images
+const copyImageFiles = function () {
+  return gulp.src(
+    [
+      // Gulpflow processed image files
+      path.normalize(paths.base.www + paths.modules.images.root + '/**/*'),
+      // Patternlab custom image files
+      path.normalize(config.modules.patternlab.paths.source.images + '/**/*')
+    ],
+    {since: gulp.lastRun(copyImageFiles)}
+  ).pipe(gulp.dest(path.normalize(config.modules.patternlab.paths.public.images)));
+};
+
+// Copy icon sprite file
+const copyIconsSpriteFile = function () {
+  return gulp.src(
+    [
+      // Gulpflow processed sprite and icon files
+      path.normalize(paths.base.www + paths.modules.icons.root + '/**/*')
+    ],
+    {since: gulp.lastRun(copyIconsSpriteFile)}
+  ).pipe(gulp.dest(path.normalize(config.modules.patternlab.paths.public.icons)));
+};
 
 // Start patternlab build task
 const buildPatternlab = function (done) {
@@ -78,9 +112,12 @@ const buildPatternlab = function (done) {
  */
 
 const processPatternlab = gulp.series(
-  config.enabled.patternlab ? copyFontFiles : utils.noop,
-  config.enabled.patternlab ? copyCssFiles : utils.noop,
   config.enabled.patternlab ? copyStyleguide : utils.noop,
+  config.enabled.patternlab ? copyJsFiles : utils.noop,
+  config.enabled.patternlab ? copyCssFiles : utils.noop,
+  config.enabled.patternlab ? copyFontFiles : utils.noop,
+  config.enabled.patternlab ? copyImageFiles : utils.noop,
+  config.enabled.patternlab ? copyIconsSpriteFile : utils.noop,
   config.enabled.patternlab ? buildPatternlab : utils.noop
 );
 
