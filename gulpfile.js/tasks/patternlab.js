@@ -95,7 +95,11 @@ const copyIconsSpriteFile = function () {
   ).pipe(gulp.dest(path.normalize(config.modules.patternlab.paths.public.icons)));
 };
 
-// Start patternlab build task
+
+/**
+ * Start patternlab build task
+ */
+
 const buildPatternlab = function (done) {
   const paternlabInstance = patternlab(config.modules.patternlab);
 
