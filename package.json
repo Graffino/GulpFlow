@@ -89,6 +89,9 @@
     "last 2 versions"
   ],
   "devDependencies": {
+    "patternlab-node": "^2.0.0",
+    "styleguidekit-assets-default": "^3.0.0",
+    "styleguidekit-mustache-default": "^3.0.0",
     "autoprefixer": "^7.2.4",
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
