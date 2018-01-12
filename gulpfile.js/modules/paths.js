@@ -13,8 +13,10 @@
 const base = {
   // Root
   root: './',
+
   // Source
   src: './src/',
+
   // Build
   www: './www/',
 
@@ -25,10 +27,7 @@ const base = {
   wordpress: 'wordpress/',
 
   // Patternlab
-  patternlab: {
-    source: './src/patternlab/',
-    public: './www/patternlab/'
-  },
+  patternlab: 'patternlab/',
 
   // URL
   url: 'http://gulpflow.dev'
@@ -48,6 +47,10 @@ const languages = [
 /**
  * Module paths
  */
+
+const node = {
+  modules: './node_modules/'
+};
 
 const modules = {
   // Cascading Stylesheets
@@ -158,28 +161,29 @@ const modules = {
   // Patternlab
   patternlab: {
     source: {
-      root: base.patternlab.source,
-      patterns: base.patternlab.source + '_patterns/',
-      data: base.patternlab.source + '_data/',
-      meta: base.patternlab.source + '_meta/',
-      annotations: base.patternlab.source + '_annotations/',
-      js: base.patternlab.source + 'js',
-      images: base.patternlab.source + 'images',
-      fonts: base.patternlab.source + 'fonts',
-      css: base.patternlab.source + 'css/'
+      root: base.src + base.patternlab,
+      patterns: base.src + base.patternlab + '_patterns/',
+      data: base.src + base.patternlab + '_data/',
+      meta: base.src + base.patternlab + '_meta/',
+      annotations: base.src + base.patternlab + '_annotations/',
+      js: base.src + base.patternlab + 'js',
+      images: base.src + base.patternlab + 'images',
+      fonts: base.src + base.patternlab + 'fonts',
+      css: base.src + base.patternlab + 'css/'
     },
     public: {
-      root: base.patternlab.public,
-      patterns: base.patternlab.public + 'patterns/',
-      data: base.patternlab.public + 'styleguide/data/',
-      annotations: base.patternlab.public + 'annotations/',
-      styleguide: base.patternlab.public + 'styleguide/',
-      js: base.patternlab.public + '/js',
-      images: base.patternlab.public + 'images',
-      icons: base.patternlab.public + 'icons',
-      fonts: base.patternlab.public + 'fonts',
-      css: base.patternlab.public + 'css'
-    }
+      root: base.www + base.patternlab,
+      patterns: base.www + base.patternlab + 'patterns/',
+      data: base.www + base.patternlab + 'styleguide/data/',
+      annotations: base.www + base.patternlab + 'annotations/',
+      styleguide: base.www + base.patternlab + 'styleguide/',
+      js: base.www + base.patternlab + '/js',
+      images: base.www + base.patternlab + 'images',
+      icons: base.www + base.patternlab + 'icons',
+      fonts: base.www + base.patternlab + 'fonts',
+      css: base.www + base.patternlab + 'css'
+    },
+    patternExports: base.www + base.patternlab + 'pattern_exports'
   }
 };
 
@@ -358,6 +362,7 @@ const patterns = {
 module.exports = {
   base,
   languages,
+  node,
   modules,
   patterns
 };
