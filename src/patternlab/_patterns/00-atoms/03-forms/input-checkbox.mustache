@@ -1,1 +1,11 @@
-<input id="myCheckbox" class="form__checkbox" type="checkbox" name="myCheckbox" value="checkbox-a" checked/><label for="myCheckbox"><span></span></label>
+<input
+  id="field-{{name}}"
+  class="form__checkbox"
+  type="checkbox"
+  name="{{name}}"
+  value="{{value}}"
+  {{checked=(iftrue checked "checked")}}
+/>
+<label
+  for="field-{{name}}"
+><span></span></label>
