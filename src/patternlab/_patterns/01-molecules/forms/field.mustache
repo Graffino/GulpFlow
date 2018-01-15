@@ -1,4 +1,9 @@
 <div class="form__field">
-  <label class="form__label" for="myField">Form field</label>
-  {{> atoms-input-text("name": "input-field") }}
+  {{#label}}
+    <label class="form__label" for="field-{{name}}">{{label}}</label>
+  {{/label}}
+  {{> atoms-input-text }}
+  {{#hint}}
+    <span class="form__hint">{{{hint}}}</span>
+  {{/hint}}
 </div>
