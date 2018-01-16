@@ -5,6 +5,9 @@
     type="checkbox"
     name="{{name}}"
     value="{{value}}"
+    {{#checked}} checked="checked" {{/checked}}
+    {{#disabled}} disabled="disabled" {{/disabled}}
+    {{#required}} required {{/required}}
   />
   <label
     for="field-{{name}}-{{value}}"

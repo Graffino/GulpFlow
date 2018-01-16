@@ -1,6 +1,11 @@
 <div class="form__field">
   {{#label}}
-    <label class="form__label" for="field-{{name}}">{{label}}</label>
+    <label class="form__label" for="field-{{name}}">
+      {{label}}
+      {{#required}}
+        <span class="form__required-mark"></span>
+      {{/required}}
+    </label>
   {{/label}}
   {{#items}}
     {{> atoms-input-radio }}

@@ -2,6 +2,7 @@
   "name": "payment-method",
   "label": "Payment method",
   "hint": "Select one of the available payment methods.",
+  "required": "true",
   "items": [
     {
       "name": "payment-method",
@@ -11,7 +12,8 @@
     {
       "name": "payment-method",
       "value": "card",
-      "label": "Credit Card"
+      "label": "Credit Card",
+      "checked": true
     },
     {
       "name": "payment-method",

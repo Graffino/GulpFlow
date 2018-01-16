@@ -1,4 +1,6 @@
 {
   "name": "full-name",
-  "placeholder": "e.g. Michael Smith"
+  "placeholder": "e.g. Michael Smith",
+  "required": true,
+  "disabled": false
 }

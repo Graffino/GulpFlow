@@ -11,12 +11,14 @@
     {
       "name": "services-requested",
       "value": "staging",
-      "label": "Staging"
+      "label": "Staging",
+      "checked": true
     },
     {
       "name": "services-requested",
       "value": "auto-deployment",
-      "label": "Auto-deployment"
+      "label": "Auto-deployment",
+      "checked": true
     }
   ]
 }
