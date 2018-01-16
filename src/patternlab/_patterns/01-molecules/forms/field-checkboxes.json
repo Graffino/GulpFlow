@@ -1,0 +1,22 @@
+{
+  "name": "services-requested",
+  "label": "Request services",
+  "hint": "Select one or more of the provided services.",
+  "items": [
+    {
+      "name": "services-requested",
+      "value": "automation",
+      "label": "Automation"
+    },
+    {
+      "name": "services-requested",
+      "value": "staging",
+      "label": "Staging"
+    },
+    {
+      "name": "services-requested",
+      "value": "auto-deployment",
+      "label": "Auto-deployment"
+    }
+  ]
+}

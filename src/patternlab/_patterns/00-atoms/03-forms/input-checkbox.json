@@ -1,5 +1,5 @@
 {
   "name": "my-checkbox",
   "value": "my-checkbox-value",
-  "checked": true
+  "label": "Tick this checkbox for nothing at all."
 }

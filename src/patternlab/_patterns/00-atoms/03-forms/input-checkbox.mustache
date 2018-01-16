@@ -1,11 +1,16 @@
-<input
-  id="field-{{name}}"
-  class="form__checkbox"
-  type="checkbox"
-  name="{{name}}"
-  value="{{value}}"
-  {{checked=(iftrue checked "checked")}}
-/>
-<label
-  for="field-{{name}}"
-><span></span></label>
+<div class="form__checkbox-wrapper">
+  <input
+    id="field-{{name}}-{{value}}"
+    class="form__checkbox"
+    type="checkbox"
+    name="{{name}}"
+    value="{{value}}"
+  />
+  <label
+    for="field-{{name}}-{{value}}"
+  ><span></span></label>
+  <label
+    class="form__label -type-checkbox"
+    for="field-{{name}}-{{value}}"
+  >{{{label}}}</label>
+</div>

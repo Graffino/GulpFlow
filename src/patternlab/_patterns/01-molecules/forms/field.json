@@ -1,6 +1,6 @@
 {
-  "name": "my-field",
-  "label": "Custom label",
-  "placeholder": "Custom placeholder text...",
-  "hint": "Custom hint message can go here."
+  "name": "full-name",
+  "label": "Full name",
+  "placeholder": "e.g. Michael Smith",
+  "hint": "Enter your full name here"
 }

@@ -1,4 +1,4 @@
 {
-  "name": "myInput",
-  "placeholder": "Type something..."
+  "name": "full-name",
+  "placeholder": "e.g. Michael Smith"
 }

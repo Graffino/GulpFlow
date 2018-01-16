@@ -1,0 +1,11 @@
+<div class="form__field">
+  {{#label}}
+    <label class="form__label" for="field-{{name}}">{{label}}</label>
+  {{/label}}
+  {{#items}}
+    {{> atoms-input-radio }}
+  {{/items}}
+  {{#hint}}
+    <span class="form__hint">{{{hint}}}</span>
+  {{/hint}}
+</div>

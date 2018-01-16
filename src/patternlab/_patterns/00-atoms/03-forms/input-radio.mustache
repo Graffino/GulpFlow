@@ -1,1 +1,15 @@
-<input id="myRadio" class="form__radio" type="radio" name="myRadio" value="radio-a" checked/><label for="myRadio"><span></span></label>
+<div class="form__radio-wrapper">
+  <input
+    id="field-{{name}}-{{value}}"
+    class="form__radio"
+    type="radio"
+    name="{{name}}"
+    value="{{value}}"
+  /><label
+    for="field-{{name}}-{{value}}"
+  ><span></span></label>
+  <label
+    class="form__label -type-checkbox"
+    for="field-{{name}}-{{value}}"
+  >{{{label}}}</label>
+</div>

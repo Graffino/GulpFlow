@@ -1,0 +1,22 @@
+{
+  "name": "payment-method",
+  "label": "Payment method",
+  "hint": "Select one of the available payment methods.",
+  "items": [
+    {
+      "name": "payment-method",
+      "value": "paypal",
+      "label": "PayPal"
+    },
+    {
+      "name": "payment-method",
+      "value": "card",
+      "label": "Credit Card"
+    },
+    {
+      "name": "payment-method",
+      "value": "transfer",
+      "label": "Bank Transfer"
+    }
+  ]
+}
