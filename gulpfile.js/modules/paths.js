@@ -13,8 +13,10 @@
 const base = {
   // Root
   root: './',
+
   // Source
   src: './src/',
+
   // Build
   www: './www/',
 
@@ -23,6 +25,9 @@ const base = {
 
   // Wordpress
   wordpress: 'wordpress/',
+
+  // Patternlab
+  patternlab: 'patternlab/',
 
   // URL
   url: 'http://gulpflow.dev'
@@ -42,6 +47,11 @@ const languages = [
 /**
  * Module paths
  */
+
+const node = {
+  modules: './node_modules/',
+  bower: './node_modules/bower/bin/'
+};
 
 const modules = {
   // Cascading Stylesheets
@@ -69,7 +79,10 @@ const modules = {
     app: 'js/common/app.js',
 
     // Main file
-    main: 'js/main.js'
+    main: 'js/main.js',
+
+    // Main minified file
+    min: 'js/main.min.js'
   },
 
   // Stylus
@@ -147,6 +160,34 @@ const modules = {
   wordpress: {
     root: base.root + base.wordpress,
     theme: base.root + base.wordpress + 'theme/'
+  },
+
+  // Patternlab
+  patternlab: {
+    source: {
+      root: base.src + base.patternlab,
+      patterns: base.src + base.patternlab + '_patterns/',
+      data: base.src + base.patternlab + '_data/',
+      meta: base.src + base.patternlab + '_meta/',
+      annotations: base.src + base.patternlab + '_annotations/',
+      js: base.src + base.patternlab + 'js',
+      images: base.src + base.patternlab + 'images',
+      fonts: base.src + base.patternlab + 'fonts',
+      css: base.src + base.patternlab + 'css/'
+    },
+    public: {
+      root: base.www + base.patternlab,
+      patterns: base.www + base.patternlab + 'patterns/',
+      data: base.www + base.patternlab + 'styleguide/data/',
+      annotations: base.www + base.patternlab + 'annotations/',
+      styleguide: base.www + base.patternlab + 'styleguide/',
+      js: base.www + base.patternlab + '/js',
+      images: base.www + base.patternlab + 'images',
+      icons: base.www + base.patternlab + 'icons',
+      fonts: base.www + base.patternlab + 'fonts',
+      css: base.www + base.patternlab + 'css'
+    },
+    patternExports: base.www + base.patternlab + 'pattern_exports'
   }
 };
 
@@ -309,6 +350,11 @@ const patterns = {
       '_readme.md',
       './wordpress/theme/inc/admin/theme/**'
     ]
+  },
+
+  // Patternlab
+  patternlab: {
+    all: modules.patternlab.source.root + '**/*.(mustache|json|js|css)'
   }
 };
 
@@ -320,6 +366,7 @@ const patterns = {
 module.exports = {
   base,
   languages,
+  node,
   modules,
   patterns
 };

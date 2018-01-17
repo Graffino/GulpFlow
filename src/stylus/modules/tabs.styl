@@ -1,0 +1,143 @@
+/**
+ * Tabs
+ * Author: Graffino (http://www.graffino.com)
+ */
+
+.tabs {
+  &__nav {
+    clearfix();
+    margin: 0 0 rem(24);
+  }
+
+  &__nav-list {
+    user-select: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+
+    &::after {
+      content: "";
+      display: inline-block;
+      width: 100%;
+    }
+  }
+
+  &__nav-item {
+    clearfix();
+    display: inline-block;
+    margin-left: rem(10);
+    padding: 0 rem(6);
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    +below($large) {
+      padding: 0 rem(4);
+    }
+
+    &.is-current {
+      & ^[0]__nav-link {
+        color: $color-primary;
+        box-shadow: none;
+
+        &::before {
+          opacity: 1;
+          // Offset the element to the left by 50% of its width
+          transform: translate3d(-50%, 0, 0) scale3d(1, 1, 1);
+        }
+
+        &:focus {
+          &::before {
+            {focus-outline}; // @stylint ignore
+          }
+        }
+      }
+    }
+  }
+
+  // Element for splitting tab links on mobile devices
+  &__nav-splitter {
+    display: none;
+
+    +below($medium) {
+      display: inline-block;
+      width: 100%;
+    }
+  }
+
+  &__nav-link {
+    @extend .h-z-index-10;
+    position: relative;
+    display: inline-block;
+    padding: rem(13) 0;
+    color: rgba($color-primary, 0.48);
+    font-size: $heading-6-font-size;
+    font-weight: 700;
+    line-height: $heading-6-line-height;
+    text-decoration: none;
+    transition: transition-custom();
+    transition-property: color, font-size, line-height;
+
+    +below($large) {
+      padding: 0;
+      font-size: $default-font-size;
+      line-height: $default-line-height;
+    }
+
+    &:hover {
+      color: $color-primary;
+    }
+
+    &::before {
+      @extend .h-z-index-negative;
+      content: "";
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: 0 rem(18);
+      background-color: $color-background;
+      transform: translate3d(-50%, 0, 0) scale3d(0, 1, 1);
+      transition: transition-custom();
+      transition-property: opacity, transform;
+      animation: fade-in 0.4s forwards;
+
+      +below($large) {
+        padding: 0 rem(12);
+      }
+    }
+  }
+
+  &__container {
+    clearfix();
+  }
+
+  &__content {
+    display: none;
+    animation: fade-in 0.4s forwards;
+
+    &.is-current {
+      display: block;
+    }
+  }
+}
+
+.tabs--compact {
+  @extend .tabs;
+
+  .tabs {
+    &__nav-list {
+      text-align: left;
+    }
+
+    &__nav-item {
+      padding-right: rem(18);
+      padding-left: rem(18);
+    }
+  }
+}

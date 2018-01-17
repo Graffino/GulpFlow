@@ -4,6 +4,7 @@
  */
 
 
+
 /**
  * Headings
  */
@@ -14,11 +15,10 @@ h1,
   font-size: $heading-1-font-size;
   font-weight: $heading-1-font-weight;
   line-height: $heading-1-line-height;
-  letter-spacing: $heading-1-letter-spacing;
 
   // Default font-family until webfonts are loaded
   .no-fonts & {
-    font-family: $heading-1-default-stack;
+    font-family: $system-sans-fontface-stack;
   }
 }
 
@@ -28,11 +28,10 @@ h2,
   font-size: $heading-2-font-size;
   font-weight: $heading-2-font-weight;
   line-height: $heading-2-line-height;
-  letter-spacing: $heading-2-letter-spacing;
 
   // Default font-family until webfonts are loaded
   .no-fonts & {
-    font-family: $heading-2-default-stack;
+    font-family: $system-sans-fontface-stack;
   }
 }
 
@@ -42,11 +41,10 @@ h3,
   font-size: $heading-3-font-size;
   font-weight: $heading-3-font-weight;
   line-height: $heading-3-line-height;
-  letter-spacing: $heading-3-letter-spacing;
 
   // Default font-family until webfonts are loaded
   .no-fonts & {
-    font-family: $heading-3-default-stack;
+    font-family: $system-sans-fontface-stack;
   }
 }
 
@@ -56,11 +54,10 @@ h4,
   font-size: $heading-4-font-size;
   font-weight: $heading-4-font-weight;
   line-height: $heading-4-line-height;
-  letter-spacing: $heading-4-letter-spacing;
 
   // Default font-family until webfonts are loaded
   .no-fonts & {
-    font-family: $heading-4-default-stack;
+    font-family: $system-sans-fontface-stack;
   }
 }
 
@@ -70,11 +67,10 @@ h5,
   font-size: $heading-5-font-size;
   font-weight: $heading-5-font-weight;
   line-height: $heading-5-line-height;
-  letter-spacing: $heading-5-letter-spacing;
 
   // Default font-family until webfonts are loaded
   .no-fonts & {
-    font-family: $heading-5-default-stack;
+    font-family: $system-sans-fontface-stack;
   }
 }
 
@@ -84,11 +80,10 @@ h6,
   font-size: $heading-6-font-size;
   font-weight: $heading-6-font-weight;
   line-height: $heading-6-line-height;
-  letter-spacing: $heading-6-letter-spacing;
 
   // Default font-family until webfonts are loaded
   .no-fonts & {
-    font-family: $heading-6-default-stack;
+    font-family: $system-sans-fontface-stack;
   }
 }
 
@@ -99,78 +94,144 @@ h6,
 
 .heading {
   position: relative;
+  margin: 0;
+  padding: 0;
   color: $color-heading;
+  word-break: break-word;
+  hyphens: auto;
 
   // Colors
-  &.-color-white {
-    color: white;
+  &.-color {
+    &-text {
+      color: $color-text;
+    }
+
+    &-text-light {
+      color: rgba($color-text, 0.7);
+    }
+
+    &-text-lighter {
+      color: rgba($color-text, 0.5);
+    }
+
+    &-error {
+      color: $color-form-required-mark;
+    }
+
+    &-white {
+      color: white;
+    }
   }
 
   // Weights
-  &.-weight-normal {
-    font-weight: 400;
-  }
-  &.-weight-bold {
-    font-weight: 700;
-  }
-  &.-weight-black {
-    font-weight: 800;
-  }
-  &.-weight-extra-black {
-    font-weight: 800;
+  &.-font-weight {
+    &-200 {
+      font-weight: 200;
+    }
+
+    &-300 {
+      font-weight: 300;
+    }
+
+    &-400 {
+      font-weight: 400;
+    }
+
+    &-500 {
+      font-weight: 500;
+    }
+
+    &-700 {
+      font-weight: 700;
+    }
   }
 
   // Margins
-  &.-no-margin {
-    margin: 0;
-  }
-  &.-no-margin-top {
-    margin-top: 0;
-  }
-  &.-no-margin-bottom {
-    margin-bottom: 0;
+  &.-margin {
+    &-top {
+      &-one {
+        margin-top: $default-line-height;
+      }
+
+      &-two {
+        margin-top: $default-line-height * 2;
+      }
+
+      &-three {
+        margin-top: $default-line-height * 3;
+      }
+    }
+
+    &-bottom {
+      &-one {
+        margin-bottom: $default-line-height;
+      }
+
+      &-two {
+        margin-bottom: $default-line-height * 2;
+      }
+
+      &-three {
+        margin-bottom: $default-line-height * 3;
+      }
+    }
   }
 
-  // Sizes
-  &.-size-1 {
-    font-size: $heading-1-font-size;
-    line-height: $heading-1-line-height;
-  }
-  &.-size-2 {
-    font-size: $heading-2-font-size;
-    line-height: $heading-2-line-height;
-  }
-  &.-size-3 {
-    font-size: $heading-3-font-size;
-    line-height: $heading-3-line-height;
-  }
-  &.-size-4 {
-    font-size: $heading-4-font-size;
-    line-height: $heading-4-line-height;
-  }
-  &.-size-5 {
-    font-size: $heading-5-font-size;
-    line-height: $heading-5-line-height;
-  }
-  &.-size-6 {
-    font-size: $heading-6-font-size;
-    line-height: $heading-6-line-height;
-  }
-  &.-size-7 {
-    font-size: $heading-7-font-size;
-    line-height: $heading-7-line-height;
+  &.-size {
+    &-h1 {
+      $heading-1-font-size   = rem(36);
+      $heading-1-line-height = rem(41);
+    }
+
+    &-h2 {
+      $heading-2-font-size   = rem(32);
+      $heading-2-line-height = rem(36);
+    }
+
+    &-h3 {
+      $heading-3-font-size   = rem(28);
+      $heading-3-line-height = rem(32);
+    }
+
+    &-h4 {
+      $heading-4-font-size   = rem(24);
+      $heading-4-line-height = rem(28);
+    }
+
+    &-h5 {
+      $heading-5-font-size   = rem(22);
+      $heading-5-line-height = rem(24);
+    }
+
+    &-h6 {
+      $heading-6-font-size   = rem(20);
+      $heading-6-line-height = rem(22);
+    }
+
+    &-small {
+      font-size: rem(14);
+      line-height: rem(16);
+    }
+
+    &-xsmall {
+      font-size: rem(12);
+      line-height: rem(14);
+    }
   }
 
   // Other
   &.-display-block {
     display: block;
   }
+
   &.-align-center {
     text-align: center;
   }
+
   &.-case-upper {
     text-transform: uppercase;
   }
+
   &.-no-break {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -183,60 +244,45 @@ h6,
  * Text
  */
 
+p,
 .text {
-  color: $default-color;
+  color: $color-text;
   font-size: $default-font-size;
 
-  // Colors
-  &.-color-white {
-    color: white;
-  }
-
-  // Sizes
-  &.-size-huge {
-    font-size: $font-size-huge;
-    line-height: $line-height-huge;
-  }
-  &.-size-1 {
-    font-size: $font-size-1;
-    line-height: $line-height-1;
-  }
-  &.-size-2 {
-    font-size: $font-size-2;
-    line-height: $line-height-2;
-  }
-  &.-size-3 {
-    font-size: $font-size-3;
-    line-height: $line-height-3;
-  }
-  &.-size-4 {
-    font-size: $font-size-4;
-    line-height: $line-height-4;
-  }
-  &.-size-5 {
-    font-size: $font-size-5;
-    line-height: $line-height-5;
-  }
-  &.-size-6 {
-    font-size: $font-size-6;
-    line-height: $line-height-6;
-  }
-
   // Weights
-  &.-weight-normal {
-    font-weight: 400;
-  }
-  &.-weight-bold {
-    font-weight: 700;
-  }
-  &.-weight-black {
-    font-weight: 800;
+  &.-font-weight {
+    &-200 {
+      font-weight: 200;
+    }
+
+    &-300 {
+      font-weight: 300;
+    }
+
+    &-400 {
+      font-weight: 400;
+    }
+
+    &-500 {
+      font-weight: 500;
+    }
+
+    &-700 {
+      font-weight: 700;
+    }
   }
 
   // Others
-  &.-align-center {
-    display: block;
-    text-align: center;
+  &.-align {
+    &-center {
+      display: block;
+      text-align: center;
+    }
+
+    &-right {
+      display: block;
+      text-align: right;
+    }
   }
 }
 
@@ -248,9 +294,14 @@ h6,
 .link {
   position: relative;
   display: inline-block;
+  color: $default-link-color;
+  font-weight: 200;
+  text-decoration: none;
+  transition: transition-custom();
+  transition-property: color;
 
   &:hover {
-
+    color: $default-link-hover;
   }
 }
 

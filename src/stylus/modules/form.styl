@@ -3,44 +3,495 @@
  * Author: Graffino (http://www.graffino.com)
  */
 
-
-/**
- *  Standard form
- */
+.form-wrapper {
+  clearfix();
+  position: relative;
+}
 
 .form {
   clearfix();
 
-  &__label {
+  &__screen {
+    display: none;
+    margin: 0;
+    animation: fade-in 0.4s forwards;
 
+    &.is-visible {
+      display: block;
+    }
   }
 
-  &__input,
-  &__textarea,
-  &__select {
+  &__pagination {
+    position: relative;
+    margin-top: $default-line-height;
 
-    &:hover {
+    &::before {
+      content: "";
+      box-sizing: content-box;
+      position: relative;
+      display: block;
+      height: rem(3);
+      margin: 0 rem(8) $default-line-height;
+      background-color: $color-form-input-background;
+    }
+  }
 
+  &__title {
+    @extend .h3;
+    margin: rem(24) 0 rem(16);
+    color: $color-text;
+    font-weight: 300;
+
+    &.-margin-bottom {
+      &-two {
+        margin-bottom: rem(32);
+      }
     }
 
+    +below($large) {
+      font-size: $default-font-size;
+      line-height: $default-line-height;
+    }
+  }
+
+  // Form field wrapper
+  &__field {
+    clearfix();
+    position: relative;
+    margin: 0 0 rem(32) 0;
+    padding: 0 rem(16) 0 0;
+    transition: transition-custom();
+    transition-property: margin, padding;
+
+    &.-no-padding {
+      &-right {
+        padding-right: 0;
+      }
+    }
+
+    &.-inline {
+      float: left;
+      padding-right: rem(32);
+
+      +below($large) {
+        padding: 0;
+      }
+    }
+
+    +below($large) {
+      margin-bottom: rem(32);
+      padding: 0;
+    }
+
+    &.-labelless {
+      padding-top: rem(36);
+
+      +below($large) {
+        padding-top: 0;
+      }
+    }
+
+    &.-labelless-for-checkbox {
+      padding-top: rem(36);
+
+      +below($iphone6) {
+        padding-top: 0;
+      }
+    }
+  }
+
+  &__field-clear {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    display: block;
+    padding: rem(6);
+    transform: translate3d(-50%, -50%, 0);
+    cursor: pointer;
+  }
+
+  // Field label
+  &__label {
+    clear: both;
+    display: block;
+    padding: rem(4) 0 rem(12);
+    font-size: $font-size-4;
+    font-weight: 200;
+    line-height: $line-height-4;
+    cursor: pointer;
+    transition: transition-custom();
+    transition-property: padding, color, font-size, line-height;
+    animation: fade-in 0.25s forwards;
+
+    +below($large) {
+      display: none;
+      font-size: $default-font-size;
+    }
+
+    &.is-disabled {
+      user-select: none;
+      color: rgba($color-text, 0.25);
+      cursor: default;
+    }
+
+    &.-always-visible {
+      display: block;
+    }
+
+    &.-text-size-large {
+      font-size: $heading-3-font-size;
+      line-height: $heading-3-line-height;
+
+      +below($large) {
+        font-size: $default-font-size;
+        line-height: $line-height-4;
+      }
+    }
+
+    &.-type-radio,
+    &.-type-checkbox {
+      padding: 0;
+
+      +below($large) {
+        display: inline-block;
+      }
+    }
+  }
+
+  &__required-mark {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: rem(3);
+    color: $color-form-required-mark;
+    font-size: inherit;
+    line-height: inherit;
+    animation: fade-in 0.15s forwards;
+
+    &::before {
+      content: "*";
+      display: inline-block;
+      color: inherit;
+      font-size: inherit;
+      line-height: inherit;
+    }
+
+    &.-position-right {
+      position: absolute;
+      top: 50%;
+      right: rem(-12);
+      display: none;
+      margin: rem(4) 0 0;
+      font-weight: 200;
+      transform: translate3d(0, -50%, 0);
+
+      +below($large) {
+        display: inline-block;
+      }
+    }
+  }
+
+  // Input and Textarea
+  &__input,
+  &__textarea {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    border: 0;
+    padding: rem(14) rem(16);
+    background-color: $color-form-input-background;
+    color: $color-text;
+    font-size: $font-size-4;
+    font-weight: 200;
+    line-height: $line-height-4;
+    outline: 0;
+    transition: transition-custom();
+    transition-property: background-color;
+
+    +below($large) {
+      font-size: $default-font-size;
+    }
+
+    &:hover,
     &:focus,
     &:active {
+      background-color: rgba($color-form-input-background, 0.75);
+    }
 
+    &:focus {
+      &::placeholder {
+        color: transparent;
+      }
     }
 
     &::placeholder {
+      font-size: inherit;
+      line-height: $line-height-4;
+      transition: transition-custom($property = color);
 
+      +below($large) {
+        color: rgba($color-text, 0.5);
+      }
+    }
+
+    &:disabled {
+      user-select: none;
+      background-color: rgba($color-form-input-background, 0.25);
+      color: rgba($color-text, 0.50);
+    }
+
+    // File input fix Firefox & IE
+    &[type="file"] {
+      padding: 0;
+      font-size: $font-size-6;
+
+      &::-ms-value {
+        border: 0;
+        background-color: transparent;
+      }
+
+      &::-ms-browse {
+        border: 0;
+        background-color: transparent;
+        font-size: $font-size-6;
+      }
+
+      &::-webkit-file-upload-button {
+        border: 0;
+        padding-top: rem(15);
+        background-color: transparent;
+        font-size: $font-size-6;
+      }
+    }
+
+    &.-text-size-large {
+      padding: rem(8) rem(32);
+      font-size: $heading-3-font-size;
+      line-height: $heading-3-line-height;
+
+      +below($large) {
+        padding: rem(14) rem(16);
+        font-size: $default-font-size;
+        line-height: $line-height-4;
+      }
+    }
+
+    .is-being-edited & {
+      background-color: rgba($color-palette-4, 0.40);
+    }
+
+    // h5Validate error state class
+    &.ui-state-error {
+      background-color: rgba($color-form-required-mark, 0.15);
+      animation: shake 0.15s 2;
     }
   }
 
-  &__input { }
-  &__textarea {}
-
-  &__field {
-    clearfix();
+  &__input {
+    height: rem(48);
   }
 
+  &__textarea {
+    vertical-align: top;
+    padding: rem(22) rem(16);
+    line-height: $default-line-height;
+
+    +below($large) {
+      padding: rem(16);
+    }
+  }
+
+  // Checkbox
+  &__checkbox-wrapper {
+    clearfix();
+    user-select: none;
+    transition: transition-custom();
+    transition-property: padding;
+
+    +below($large) {
+      padding-top: rem(6);
+      padding-bottom: rem(6);
+    }
+
+    &.-inline {
+      float: left;
+      padding-right: rem(32);
+
+      +below($large) {
+        padding-right: rem(16);
+      }
+    }
+  }
+
+  &__checkbox {
+    // display: none;
+    @extend .h-visually-hidden;
+
+    & ~ label {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    & + label span {
+      display: block;
+      width: rem(32);
+      height: rem(32);
+      margin: rem(8) rem(10) rem(8) 0;
+      border: solid rem(3) $color-primary;
+      background-color: white;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: transition-custom();
+      transition-property: width, height, margin, border-width, background-color, box-shadow;
+      transition-duration: 0.15s;
+
+      +below($large) {
+        width: rem(16);
+        height: rem(16);
+        margin: rem(4) rem(2) rem(4) 0;
+        border-width: rem(2);
+      }
+    }
+
+    .is-being-edited & + label span {
+      background-color: rgba($color-palette-4, 0.40);
+    }
+
+    &:focus + label span {
+      {focus-outline}; // @stylint ignore
+    }
+
+    &:checked + label span {
+      background-color: $color-primary;
+      background-image: url("../icons/checkbox-checkmark.svg");
+
+      +below($large) {
+        background-image: url("../icons/checkbox-checkmark-small.svg");
+      }
+    }
+
+    &.is-loading {
+      &:checked + label span {
+        background-image: url("../images/svg/svg-loader-small.svg");
+        background-size: rem(18);
+
+        +below($large) {
+          background-size: rem(10);
+        }
+      }
+    }
+  }
+
+  // Radio buttons
+  &__radio-wrapper {
+    @extend .form__checkbox-wrapper;
+  }
+
+  &__radio {
+    @extend .form__checkbox;
+
+    & + label span {
+      position: relative;
+      width: rem(24);
+      height: rem(24);
+      margin: rem(12) rem(10) rem(12) 0;
+      border-radius: 50%;
+
+      +below($large) {
+        width: rem(14);
+        height: rem(14);
+        margin: rem(5) rem(2) rem(5) 0;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: none;
+        width: rem(10);
+        height: rem(10);
+        margin: rem(-5) 0 0 rem(-5);
+        border-radius: 50%;
+        background-color: $color-primary;
+        transition: transition-custom();
+        transition-property: width, height, margin;
+        animation: fade-in 0.15s forwards;
+
+        +below($large) {
+          width: rem(6);
+          height: rem(6);
+          margin: rem(-3) 0 0 rem(-3);
+        }
+      }
+    }
+
+    &:checked + label span {
+      background: none;
+
+      &::before {
+        display: block;
+      }
+    }
+  }
+
+  &__dropdown {
+    @extend .h-visually-hidden;
+  }
+
+  // Form notice/message
   &__notice {
     display: none;
+    width: 100%;
+    padding: rem(15);
+    background-color: $color-form-notice-background;
+    color: $color-form-notice-text;
+    text-align: center;
+    animation: fade-in 0.4s forwards;
+
+    &.-type {
+      &-success {
+        background-color: $color-primary;
+      }
+    }
+
+    &.is-visible {
+      display: block;
+    }
+
+    &.has-loader {
+      .notice {
+        &__loader {
+          display: inline-block;
+          vertical-align: top;
+          width: rem(16);
+          height: rem(16);
+          margin: 0 rem(4) 0 0;
+          background-image: url("../images/svg/svg-loader-small.svg");
+          background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
+      }
+    }
+  }
+
+  &__hint {
+    display: block;
+    padding: rem(3) 0;
+    font-size: $font-size-6;
+    font-weight: 200;
+    line-height: $line-height-6;
+  }
+}
+
+.form--claim {
+  display: none;
+  animation: fade-in 0.4s forwards;
+
+  &.is-visible {
+    display: block;
   }
 }

@@ -1,0 +1,29 @@
+<div class="table-wrapper">
+  <table class="table">
+    <thead class="table__head">
+      <tr class="table__row">
+        {{#columns}}
+          <td class="table__cell">{{text}}</td>
+        {{/columns}}
+      </tr>
+    </thead>
+    <tbody class="table__body">
+      {{#rows}}
+        <tr class="table__row">
+          {{#values}}
+            <td class="table__cell">{{value}}</td>
+          {{/values}}
+        </tr>
+      {{/rows}}
+    </tbody>
+    <tfoot class="table__footer">
+      {{#summary}}
+      <tr class="table__row">
+        {{#values}}
+          <td class="table__cell">{{value}}</td>
+        {{/values}}
+      </tr>
+      {{/summary}}
+    </tfoot>
+  </table>
+</div>

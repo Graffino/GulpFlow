@@ -1,315 +1,173 @@
 /**
- * Custom grid
+ * Name: grid.styl
  * Author: Graffino (http://www.graffino.com)
  */
 
 
-// Variables
-$width-container = 1200px; // Maximum width of non-fullwidth content
-$columns-gutter  = 16px; // Default column gutter width
-
-
 /**
- * Grid
+ * Grid rows and columns
  */
 
-// Container
-.grid {
+// Maximum numbers of columns in the grid
+$max-columns       = 12;
+// Default column gutter width
+$columns-gutter    = 24px;
+$columns-gutter-small = 10px;
+// Default container horizontal padding
+$container-padding = 28px;
+$container-padding-small = 20px;
+// Default container width
+$container-width = 1185px;
+
+// Column names and sizes
+$columns = { "size": 1, "name": one },
+  { "size": 2, "name": two },
+  { "size": 3, "name": three },
+  { "size": 4, "name": four },
+  { "size": 5, "name": five },
+  { "size": 6, "name": six },
+  { "size": 7, "name": seven },
+  { "size": 8, "name": eight },
+  { "size": 9, "name": nine },
+  { "size": 10, "name": ten },
+  { "size": 11, "name": eleven },
+  { "size": 12, "name": twelve };
+
+// Breakpoint names and sizes
+$responsive-breakpoints = { "size": $xlarge, "name": xlarge },
+  { "size": $desktop, "name": desktop },
+  { "size": $large, "name": large },
+  { "size": $medium, "name": medium },
+  { "size": $tablet, "name": tablet },
+  { "size": $small, "name": small },
+  { "size": $xsmall, "name": xsmall },
+  { "size": $iphone6p, "name": iphone6p },
+  { "size": $iphone6, "name": iphone6 },
+  { "size": $mobile, "name": mobile };
+
+// Grid container
+.container {
   clearfix();
-  width: auto;
-  margin: 0 auto;
-  padding: 0 rem(48);
+  center($container-width, pad = $container-padding);
 
-  &.-fixed-width {
-    center(rem($width-container), pad = rem(48));
+  +below($xsmall) {
+    padding-right: $container-padding-small;
+    padding-left: $container-padding-small;
   }
 
-  &.is-debug {
-    edit();
-    * {
-      transition: transition-custom($property = background);
+  &.-no-padding-from {
+    &-tablet-down {
+      +below($tablet) {
+        padding-right: 0;
+        padding-left: 0;
+      }
     }
-  }
 
-  // Row
-  &__row {
-    clearfix();
-    margin-right: rem(-($columns-gutter / 2));
-    margin-left: rem(-($columns-gutter / 2));
-
-    &.-margin-bottom {
-      &-one {
-        margin-bottom: $default-line-height;
-      }
-
-      &-two {
-        margin-bottom: $default-line-height * 2;
-      }
-
-      &-three {
-        margin-bottom: $default-line-height * 3;
-      }
-
-      &-four {
-        margin-bottom: $default-line-height * 4;
+    &-small-down {
+      +below($small) {
+        padding-right: 0;
+        padding-left: 0;
       }
     }
   }
+}
 
-  // Column
-  &__column {
-    clearfix();
-    min-height: 1px;
-    padding: 0 rem($columns-gutter / 2);
-    transition: transition-custom();
-    transition-property: left, right, width, margin, padding;
+.container--fluid {
+  @extend .container;
+  max-width: 100%;
+}
 
-    &.-one {
-      span(1/12);
+// Columns row element
+.columns {
+  clearfix();
+  margin-right: rem(-($columns-gutter / 2));
+  margin-left: rem(-($columns-gutter / 2));
+
+  &.-no-gutter {
+    margin-right: 0;
+    margin-left: 0;
+
+    & > .column {
+      padding-right: 0;
+      padding-left: 0;
     }
-    &.-two {
-      span(2/12);
+  }
+
+  &.-gutter-small {
+    margin-right: rem(-($columns-gutter-small / 2));
+    margin-left: rem(-($columns-gutter-small / 2));
+
+    & > .column {
+      padding-right: rem($columns-gutter-small / 2);
+      padding-left: rem($columns-gutter-small / 2);
     }
-    &.-three {
-      span(3/12);
+  }
+
+  &.-align {
+    &-vertical {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
-    &.-four {
-      span(4/12);
-    }
-    &.-five {
-      span(5/12);
-    }
-    &.-six {
-      span(6/12);
-    }
-    &.-seven {
-      span(7/12);
-    }
-    &.-eight {
-      span(8/12);
-    }
-    &.-nine {
-      span(9/12);
-    }
-    &.-ten {
-      span(10/12);
-    }
-    &.-eleven {
-      span(11/12);
-    }
-    &.-twelve {
-      span(12/12);
-    }
-    &.-offset-right {
-      &-one {
-        move(1/12);
-      }
-      &-two {
-        move(2/12);
-      }
-      &-three {
-        move(3/12);
-      }
-      &-four {
-        move(4/12);
-      }
-      &-five {
-        move(5/12);
-      }
-      &-six {
-        move(6/12);
-      }
-      &-seven {
-        move(7/12);
-      }
-      &-eight {
-        move(8/12);
-      }
-      &-nine {
-        move(9/12);
-      }
-      &-ten {
-        move(10/12);
-      }
-      &-eleven {
-        move(11/12);
-      }
-      &-twelve {
-        move(12/12);
-      }
-    }
-    &.-offset-left {
-      &-one {
-        move(-1/12);
-      }
-      &-two {
-        move(-2/12);
-      }
-      &-three {
-        move(-3/12);
-      }
-      &-four {
-        move(-4/12);
-      }
-      &-five {
-        move(-5/12);
-      }
-      &-six {
-        move(-6/12);
-      }
-      &-seven {
-        move(-7/12);
-      }
-      &-eight {
-        move(-8/12);
-      }
-      &-nine {
-        move(-9/12);
-      }
-      &-ten {
-        move(-10/12);
-      }
-      &-eleven {
-        move(-11/12);
-      }
-      &-twelve {
-        move(-12/12);
-      }
+  }
+}
+
+// Individual column element
+.column {
+  padding-right: rem($columns-gutter / 2);
+  padding-left: rem($columns-gutter / 2);
+  transition: transition-custom($property = width);
+
+  // Classes for column sizing
+  for $column in $columns {
+    &.is-{$column.name},
+    &.is-{$column.size} {
+      span($column.size / $max-columns);
     }
 
-    &.-clear,
-    & &.-clear {
-      &-both {
-        clear: both;
-      }
+    // Offsets (e.g. ".is-offset-six" or ".is-offset-6")
+    &.is-offset-{$column.name},
+    &.is-offset-{$column.size} {
+      move($column.size / $max-columns);
     }
+  }
 
-    &.-twelve-from {
-      &-large-down {
-        +below($large) {
-          span(12/12);
-          unmove();
+  // For breakpoint classes, we require a new loop to override previous classes
+  for $column in $columns {
+    // Breakpoint classes (e.g. ".is-six-tablet" or ".is-6-tablet");
+    for $breakpoint in $responsive-breakpoints {
+      &.is-{$column.name}-{$breakpoint.name},
+      &.is-{$column.size}-{$breakpoint.name} {
+        +below($breakpoint.size) {
+          span($column.size / $max-columns);
         }
       }
 
-      &-tablet-down {
-        +below($tablet) {
-          span(12/12);
-          unmove();
+      // Offsets for breakpoints (e.g. ".is-offset-six-large" or ".is-offset-6-large")
+      &.is-offset-{$column.name}-{$breakpoint.name},
+      &.is-offset-{$column.size}-{$breakpoint.name} {
+        +below($breakpoint.size) {
+          move($column.size / $max-columns);
         }
       }
-
-      &-small-down {
-        +below($small) {
-          span(12/12);
+      &.no-offset-{$breakpoint.name} {
+        +below($breakpoint.size) {
           unmove();
         }
       }
     }
+  }
 
-    &.-six-from {
-      &-large-down {
-        +below($large) {
-          span(6/12);
-          unmove();
-        }
-      }
-
-      &-tablet-down {
-        +below($tablet) {
-          span(6/12);
-          unmove();
-        }
-      }
-
-      &-small-down {
-        +below($small) {
-          span(6/12);
-          unmove();
-        }
+  &.-no-padding-from {
+    &-tablet-down {
+      +below($tablet) {
+        padding-right: 0;
+        padding-left: 0;
       }
     }
+  }
 
-    & &.-margin-bottom {
-      &-one {
-        &-from-large-down {
-          +below($large) {
-            margin-bottom: $default-line-height;
-          }
-        }
-
-        &-from-tablet-down {
-          +below($tablet) {
-            margin-bottom: $default-line-height;
-          }
-        }
-
-        &-from-small-down {
-          +below($small) {
-            margin-bottom: $default-line-height;
-          }
-        }
-      }
-
-      &-two {
-        &-from-large-down {
-          +below($large) {
-            margin-bottom: $default-line-height * 2;
-          }
-        }
-
-        &-from-tablet-down {
-          +below($tablet) {
-            margin-bottom: $default-line-height * 2;
-          }
-        }
-
-        &-from-small-down {
-          +below($small) {
-            margin-bottom: $default-line-height * 2;
-          }
-        }
-      }
-
-      &-three {
-        &-from-large-down {
-          +below($large) {
-            margin-bottom: $default-line-height * 3;
-          }
-        }
-
-        &-from-tablet-down {
-          +below($tablet) {
-            margin-bottom: $default-line-height * 3;
-          }
-        }
-
-        &-from-small-down {
-          +below($small) {
-            margin-bottom: $default-line-height * 3;
-          }
-        }
-      }
-
-      &-four {
-        &-from-large-down {
-          +below($large) {
-            margin-bottom: $default-line-height * 4;
-          }
-        }
-
-        &-from-tablet-down {
-          +below($tablet) {
-            margin-bottom: $default-line-height * 4;
-          }
-        }
-
-        &-from-small-down {
-          +below($small) {
-            margin-bottom: $default-line-height * 4;
-          }
-        }
-      }
-    }
+  &.-clear {
+    clear: both;
   }
 }

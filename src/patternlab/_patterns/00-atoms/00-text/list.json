@@ -1,0 +1,14 @@
+{
+  "style": "default",
+  "items": [
+    {
+      "text": "List item A (first)"
+    },
+    {
+      "text": "List item B (second)"
+    },
+    {
+      "text": "List item C (third)"
+    }
+  ]
+}
