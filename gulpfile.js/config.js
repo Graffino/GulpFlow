@@ -89,7 +89,7 @@ const enabled = {
   },
 
   // Patternlab
-  patternlab: false
+  patternlab: true
 };
 
 

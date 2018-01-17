@@ -49,7 +49,8 @@ const languages = [
  */
 
 const node = {
-  modules: './node_modules/'
+  modules: './node_modules/',
+  bower: './node_modules/bower/bin/'
 };
 
 const modules = {

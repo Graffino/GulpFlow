@@ -123,46 +123,12 @@ const buildProduction = gulp.series(
   )
 );
 
-
-/**
- * Build for bamboo
- */
-
-const buildBamboo = gulp.series(
-  clean.app,
-  gulp.parallel(
-    js.process,
-    fonts.process,
-    nunjucks.process,
-    gulp.series(
-      sprite.process,
-      stylus.process
-    ),
-    copy.app
-  ),
-  gulp.parallel(
-    compress.app,
-    gulp.series(
-      bundle.app,
-      optimize.app,
-      minify.app,
-      critical.process,
-      clean.postproduction,
-      patternlab.process,
-      wordpress.process,
-    )
-  )
-);
-
-
 /**
  * Build according to environment
  */
 
 const buildApp = function (done) {
-  if (env.isBamboo()) {
-    buildBamboo();
-  } else if (env.isProduction()) {
+  if (env.isProduction()) {
     buildProduction();
   } else if (env.isDevelopment()) {
     buildDevelopment();
