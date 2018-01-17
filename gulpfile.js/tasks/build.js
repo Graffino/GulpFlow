@@ -144,13 +144,17 @@ const buildApp = function (done) {
  */
 
 module.exports = {
-  app: buildApp
+  app: buildApp,
+  development: buildDevelopment,
+  staging: buildStaging,
+  production: buildProduction
 };
 
 /**
  * Gulp build tasks
  */
 
+// Auto
 buildApp.displayName = 'build';
 buildApp.description = 'Builds the project.';
 buildApp.flags = {
@@ -159,4 +163,21 @@ buildApp.flags = {
   '--production': 'Builds in production mode (minification, image optimisation, cleanup).'
 };
 gulp.task(buildApp);
+
+// Development
+buildDevelopment.displayName = 'build:development';
+buildDevelopment.description = 'Compliles project and enters watch mode. No optimisations or minifications takes place.';
+gulp.task('build:development', buildDevelopment);
+
+// Staging
+buildStaging.displayName = 'build:staging';
+buildStaging.description = 'Compliles project, in the same way as development, without entering watch mode.';
+gulp.task('build:staging', buildStaging);
+
+// Production
+buildProduction.displayName = 'build:production';
+buildProduction.description = 'Builds in production mode (minification, image optimisation, cleanup).';
+gulp.task('build:production', buildProduction);
+
+// Default task
 gulp.task('default', buildApp);
