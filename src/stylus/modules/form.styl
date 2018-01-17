@@ -115,9 +115,9 @@
     clear: both;
     display: block;
     padding: rem(4) 0 rem(12);
-    font-size: $font-size-medium;
+    font-size: $font-size-4;
     font-weight: 200;
-    line-height: $line-height-medium;
+    line-height: $line-height-4;
     cursor: pointer;
     transition: transition-custom();
     transition-property: padding, color, font-size, line-height;
@@ -144,7 +144,7 @@
 
       +below($large) {
         font-size: $default-font-size;
-        line-height: $line-height-medium;
+        line-height: $line-height-4;
       }
     }
 
@@ -200,9 +200,9 @@
     padding: rem(14) rem(16);
     background-color: $color-form-input-background;
     color: $color-text;
-    font-size: $font-size-medium;
+    font-size: $font-size-4;
     font-weight: 200;
-    line-height: $line-height-medium;
+    line-height: $line-height-4;
     outline: 0;
     transition: transition-custom();
     transition-property: background-color;
@@ -225,7 +225,7 @@
 
     &::placeholder {
       font-size: inherit;
-      line-height: $line-height-medium;
+      line-height: $line-height-4;
       transition: transition-custom($property = color);
 
       +below($large) {
@@ -242,7 +242,7 @@
     // File input fix Firefox & IE
     &[type="file"] {
       padding: 0;
-      font-size: $font-size-small;
+      font-size: $font-size-6;
 
       &::-ms-value {
         border: 0;
@@ -252,14 +252,14 @@
       &::-ms-browse {
         border: 0;
         background-color: transparent;
-        font-size: $font-size-small;
+        font-size: $font-size-6;
       }
 
       &::-webkit-file-upload-button {
         border: 0;
         padding-top: rem(15);
         background-color: transparent;
-        font-size: $font-size-small;
+        font-size: $font-size-6;
       }
     }
 
@@ -271,7 +271,7 @@
       +below($large) {
         padding: rem(14) rem(16);
         font-size: $default-font-size;
-        line-height: $line-height-medium;
+        line-height: $line-height-4;
       }
     }
 
@@ -481,9 +481,9 @@
   &__hint {
     display: block;
     padding: rem(3) 0;
-    font-size: $font-size-small;
+    font-size: $font-size-6;
     font-weight: 200;
-    line-height: $line-height-small;
+    line-height: $line-height-6;
   }
 }
 
