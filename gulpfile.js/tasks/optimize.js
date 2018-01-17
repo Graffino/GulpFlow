@@ -25,7 +25,7 @@ const error = require('../modules/error');
  */
 
 function optimizeJS() {
-  return gulp.src(paths.base.www + paths.modules.js.main)
+  return gulp.src(paths.base.www + paths.modules.js.min)
     // Fix pipe on error
     .pipe(plugins.plumber({errorHandler: error.handle}))
     .pipe(plugins.optimizeJs())

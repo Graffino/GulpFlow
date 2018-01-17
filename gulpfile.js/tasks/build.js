@@ -112,8 +112,8 @@ const buildProduction = gulp.series(
     compress.app,
     gulp.series(
       bundle.app,
-      optimize.app,
       minify.app,
+      optimize.app,
       critical.process,
       clean.postproduction,
       patternlab.process,

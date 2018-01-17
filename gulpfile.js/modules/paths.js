@@ -79,7 +79,10 @@ const modules = {
     app: 'js/common/app.js',
 
     // Main file
-    main: 'js/main.js'
+    main: 'js/main.js',
+
+    // Main minified file
+    min: 'js/main.min.js'
   },
 
   // Stylus
