@@ -176,7 +176,7 @@ function cleanJunk() {
 
 // Patternlab
 function cleanPatternlab() {
-  return clean(paths.base.www + base.patternlab);
+  return clean(paths.base.www + paths.base.patternlab);
 }
 
 // Wordpress
