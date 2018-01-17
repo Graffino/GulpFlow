@@ -1,6 +1,10 @@
-<ul class="list -style-{{style}}">
+<ul class="{{cssClass}} list -style-{{style}}">
   {{#items}}
-    <li class="list__item">{{{text}}}</li>
+    <li class="list__item">
+      {{#linkURL}}<a class="list__link" href="{{linkURL}}">{{/linkURL}}
+        {{{text}}}
+      {{#linkURL}}</a>{{/linkURL}}
+    </li>
   {{/items}}
   {{^items}}
     <span>(Sorry, no list items available.)</span>
