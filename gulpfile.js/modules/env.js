@@ -21,6 +21,7 @@ const plugins = require('gulp-load-plugins')();
 const DEVELOPMENT_ENV = 'development';
 const PRODUCTION_ENV = 'production';
 const STAGING_ENV = 'staging';
+const BAMBOO_ENV = 'bamboo';
 
 // Default environment
 const env = {
@@ -60,6 +61,11 @@ env.isProduction = function () {
 // Staging
 env.isStaging = function () {
   return env.NODE_ENV === STAGING_ENV;
+};
+
+// Bamboo
+env.isBamboo = function () {
+  return env.NODE_ENV === BAMBOO_ENV;
 };
 
 // Debug
