@@ -1,0 +1,21 @@
+{
+  "name": "my-select2",
+  "disabled": false,
+  "required": true,
+  "options": [
+    {
+      "value": false,
+      "label": "— Choose option",
+      "disabledOption": true,
+      "selected": true
+    },
+    {
+      "value": "option-a",
+      "label": "Choice A"
+    },
+    {
+      "value": "option-b",
+      "label": "Choice B"
+    }
+  ]
+}
