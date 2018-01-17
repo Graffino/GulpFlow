@@ -1,0 +1,38 @@
+{
+  "formTitle": "Form title goes here",
+  "action": "/",
+  "method": "POST",
+  "fields": [
+    {
+      "size": 4,
+      "name": "first-name",
+      "label": "First name",
+      "required": true,
+      "placeholder": "e.g. Michael"
+    },
+    {
+      "size": 4,
+      "name": "last-name",
+      "label": "Last name",
+      "required": true,
+      "placeholder": "e.g. Smith"
+    },
+    {
+      "size": 8,
+      "name": "email",
+      "label": "E-mail address",
+      "placeholder": "e.g. michael.smith@google.com"
+    },
+    {
+      "size": 8,
+      "name": "address-1",
+      "label": "Address",
+      "placeholder": "221B Baker Street"
+    },
+    {
+      "size": 8,
+      "name": "address-2",
+      "label": "Address"
+    }
+  ]
+}

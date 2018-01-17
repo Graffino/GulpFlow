@@ -1,0 +1,19 @@
+<div class="form__checkbox-wrapper">
+  <input
+    id="field-{{name}}-{{value}}"
+    class="form__checkbox"
+    type="checkbox"
+    name="{{name}}"
+    value="{{value}}"
+    {{#checked}} checked="checked" {{/checked}}
+    {{#disabled}} disabled="disabled" {{/disabled}}
+    {{#required}} required {{/required}}
+  />
+  <label
+    for="field-{{name}}-{{value}}"
+  ><span></span></label>
+  <label
+    class="form__label -type-checkbox"
+    for="field-{{name}}-{{value}}"
+  >{{{label}}}</label>
+</div>

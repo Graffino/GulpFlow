@@ -1,0 +1,8 @@
+{
+  "name": "my-checkbox",
+  "value": "my-checkbox-value",
+  "label": "Tick this checkbox for nothing at all.",
+  "checked": true,
+  "required": true,
+  "disabled": false
+}

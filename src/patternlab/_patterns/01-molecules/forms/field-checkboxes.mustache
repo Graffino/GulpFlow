@@ -1,0 +1,16 @@
+<div class="form__field">
+  {{#label}}
+    <label class="form__label" for="field-{{name}}">
+      {{label}}
+      {{#required}}
+        <span class="form__required-mark"></span>
+      {{/required}}
+    </label>
+  {{/label}}
+  {{#items}}
+    {{> atoms-input-checkbox }}
+  {{/items}}
+  {{#hint}}
+    <span class="form__hint">{{{hint}}}</span>
+  {{/hint}}
+</div>

@@ -1,0 +1,167 @@
+/**
+ * Tables
+ * Author: Graffino (http://www.graffino.com)
+ */
+
+.table-wrapper {
+  position: relative;
+  margin: 0 0 rem(48);
+
+  &.iscroll {
+    padding: 0 0 rem(36);
+  }
+}
+
+.table {
+  width: 100%;
+  min-width: rem(1104);
+  border-spacing: 0;
+  font-size: $default-font-size;
+  font-weight: 200;
+  line-height: $default-line-height;
+
+  &.-highlight-vertical {
+    // Parent class reference: .table
+    & ^[0]__row {
+      background-color: transparent;
+      color: inherit;
+    }
+
+    // Parent class reference: .table
+    & ^[0]__cell {
+      padding: rem(18) rem(12);
+
+      &:nth-child(even) {
+        background-color: rgba($color-background, 0.5);
+      }
+    }
+
+    // Parent class reference: .table
+    & ^[0]__head {
+      // Parent class reference: .table
+      & ^[0]__cell {
+        background-color: transparent;
+      }
+    }
+  }
+
+  &.-horizontal-padding {
+    &-small {
+      // Parent class reference: .table
+      & ^[0]__cell {
+        padding-right: rem(5);
+        padding-left: rem(5);
+      }
+    }
+  }
+
+  &.-align {
+    &-center {
+      text-align: center;
+    }
+
+    &-right {
+      text-align: right;
+    }
+  }
+
+  &.-text-size {
+    &-small {
+      font-size: $font-size-6;
+      line-height: $line-height-6;
+    }
+
+    &-xsmall {
+      font-size: $font-size-7;
+      line-height: $line-height-7;
+    }
+  }
+
+  &__head {
+    // Parent class reference: .table
+    & ^[0]__cell {
+      vertical-align: bottom;
+      padding: rem(12) rem(24);
+      color: $color-primary-darker;
+      font-size: $font-size-6;
+      font-weight: 400;
+      line-height: $line-height-6;
+    }
+
+    &.-text-size {
+      &-xsmall {
+        // Parent class reference: .table
+        & ^[0]__cell {
+          font-size: $font-size-7;
+          line-height: $line-height-7;
+        }
+      }
+    }
+  }
+
+  &__row {
+    vertical-align: top;
+
+    &:nth-child(even) {
+      background-color: rgba($color-background, 0.5);
+    }
+
+    &.-no-highlighting {
+      background-color: transparent;
+    }
+
+    &.-text-align {
+      &-left {
+        text-align: left;
+      }
+
+      &-center {
+        text-align: center;
+      }
+
+      &-right {
+        text-align: right;
+      }
+    }
+  }
+
+  &__cell {
+    padding: rem(6) rem(24);
+
+    &.-no-horizontal-padding {
+      padding-right: 0;
+      padding-left: 0;
+    }
+
+    &.-text-align {
+      &-left {
+        text-align: left;
+      }
+
+      &-center {
+        text-align: center;
+      }
+
+      &-right {
+        text-align: right;
+      }
+    }
+  }
+
+  &__footer {
+    font-size: $font-size-4;
+    line-height: $line-height-4;
+
+    // Parent class reference: .table
+    & ^[0]__row {
+      background-color: $color-primary;
+      color: white;
+    }
+
+    // Parent class reference: .table
+    & ^[0]__cell {
+      padding: rem(14) rem(24);
+      font-weight: 200;
+    }
+  }
+}
