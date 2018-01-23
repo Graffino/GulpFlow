@@ -54,6 +54,7 @@ const enabled = {
 
   // PHP Composer
   composer: false,
+  composer: true,
 
   // Wordpress
   wordpress: {
@@ -124,8 +125,8 @@ const modules = {
       target: 'localhost'
     },
     */
-    port: 8888,
-    // 'false' | '{port:3000}'
+    port: 8888, // 'false' | '{port:3000}'
+    https: true, // 'false'
     ui: {
       port: 8881
     },

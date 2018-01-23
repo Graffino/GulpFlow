@@ -13,7 +13,6 @@
 // Gulp & plugins
 const path = require('path');
 const gulp = require('gulp');
-const patternlab = require('patternlab-node');
 
 // Gulp requires
 const config = require('../config');
@@ -101,6 +100,7 @@ const copyIconsSpriteFile = function () {
  */
 
 const buildPatternlab = function (done) {
+  const patternlab = require('patternlab-node');
   const paternlabInstance = patternlab(config.modules.patternlab);
 
   try {
