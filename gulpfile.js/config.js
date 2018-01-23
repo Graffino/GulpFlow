@@ -53,7 +53,6 @@ const enabled = {
   nunjucks: false,
 
   // PHP Composer
-  composer: false,
   composer: true,
 
   // Wordpress
