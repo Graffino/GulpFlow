@@ -30,7 +30,7 @@
     "browser-update": "~2.0.2",
     "fontfaceobserver": "~2.0.13",
     "h5Validate": "~0.9.0",
-    "jquery": "~3.2.1",
+    "jquery": "~3.3.1",
     "jquery.browser": "^0.1.0",
     "jquery-migrate": "^3.0.0",
     "js-cookie": "^2.2.0",
@@ -51,7 +51,7 @@
   "overrides": {
     "browser-update": {
       "dependencies": {
-        "jquery": "~3.2.1",
+        "jquery": "~3.3.1",
         "normalize-css": "^7.0.0"
       }
     },
