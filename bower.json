@@ -26,7 +26,7 @@
     "tests"
   ],
   "devDependencies": {
-    "normalize-css": "^7.0.0",
+    "normalize-css": "^8.0.0",
     "browser-update": "~2.0.2",
     "fontfaceobserver": "~2.0.13",
     "h5Validate": "~0.9.0",
@@ -37,7 +37,7 @@
     "magnific-popup": "~1.1.0",
     "pointer-events-poly": "*",
     "select2": "~4.0.5",
-    "velocity": "~1.5.1",
+    "velocity": "~2.0.1",
     "svg4everybody": "^2.1.9",
     "farbtastic": "^2.0.0-alpha.1",
     "ui-sortable": "*",
@@ -45,14 +45,14 @@
     "simple-jquery-datepicker": "^0.6.4",
     "ramda": "^0.25.0",
     "Babel-Polyfill-Standalone": "babel-polyfill-standalone#^6.26.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.5",
     "vue": "^2.5.13"
   },
   "overrides": {
     "browser-update": {
       "dependencies": {
         "jquery": "~3.3.1",
-        "normalize-css": "^7.0.0"
+        "normalize-css": "^8.0.0"
       }
     },
     "Babel-Polyfill-Standalone": {
