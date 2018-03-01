@@ -110,12 +110,16 @@ async function generateIconTemplates() {
   }
   files.forEach(file => {
     const filename = path.win32.basename(file, '.svg');
-    fs.writeFileSync(
-      paths.modules.patternlab.source.patterns + '03-icons/' + filename + '.mustache',
-      `<img src="../icons/flyeralarm-icons/${filename}.svg" alt="${filename}">`);
-    fs.writeFileSync(
-      paths.modules.patternlab.source.patterns + '03-icons/' + filename + '.md',
-      `title: ${filename}\ndescription:`);
+    if (!fs.existsSync(paths.modules.patternlab.source.patterns + '03-icons/' + filename + '.mustache')) {
+      fs.writeFileSync(
+        paths.modules.patternlab.source.patterns + '03-icons/' + filename + '.mustache',
+        `<img src="../icons/flyeralarm-icons/${filename}.svg" alt="${filename}">`);
+    }
+    if (!fs.existsSync(paths.modules.patternlab.source.patterns + '03-icons/' + filename + '.md')) {
+      fs.writeFileSync(
+        paths.modules.patternlab.source.patterns + '03-icons/' + filename + '.md',
+        `title: ${filename}\ndescription:`);
+    }
   });
 }
 
@@ -146,13 +150,9 @@ const processPatternlab = gulp.series(
   config.enabled.patternlab.generateStyleguide ? copyFontFiles : utils.noop,
   config.enabled.patternlab.generateStyleguide ? copyImageFiles : utils.noop,
   config.enabled.patternlab.generateStyleguide ? copyIconsSpriteFile : utils.noop,
+  config.enabled.patternlab.generateIconTemplates ? generateIconTemplates : utils.noop,
   config.enabled.patternlab.generateStyleguide ? buildPatternlab : utils.noop
 );
-
-const processIconTemplates = gulp.series(
-  config.enabled.patternlab.generateIconTemplates ? generateIconTemplates : utils.noop,
-);
-
 
 /**
  * Export module functions
@@ -170,7 +170,3 @@ module.exports = {
 processPatternlab.displayName = 'patternlab';
 processPatternlab.description = 'Runs the build script for patternlab-node module.';
 gulp.task(processPatternlab);
-
-processIconTemplates.displayName = 'patternlab-icon-templates';
-processIconTemplates.description = 'Runs the icon templates generation script for patternlab-node module.';
-gulp.task(processIconTemplates);
