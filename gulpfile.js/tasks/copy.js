@@ -12,6 +12,7 @@
 
 // Node requires
 const path = require('path');
+const syncy = require('syncy');
 
 // Gulp & plugins
 const gulp = require('gulp');
@@ -42,14 +43,24 @@ function copyJS() {
 /**
  * Copy icons
  */
-
-function copyIcons() {
-  return gulp.src([
-    paths.base.src + paths.patterns.icons.all
-  ], {
-    base: paths.base.src
+function copyIcons(done) {
+  const excludeSync = paths.patterns.icons.excludeSync.map(item => '!' + paths.base.src + item);
+  const pathsToCopy = [paths.base.src + paths.patterns.icons.noSprite].concat(excludeSync);
+  syncy(
+    pathsToCopy,
+    paths.base.www + paths.modules.icons.root,
+    {
+      verbose: false,
+      base: paths.base.src + paths.modules.icons.root,
+      updateAndDelete: false
+    }
+  )
+  .then(() => {
+    done();
   })
-  .pipe(gulp.dest(paths.base.www));
+  .catch(err => {
+    done(err);
+  });
 }
 
 
@@ -146,9 +157,8 @@ function copyVendor() {
 
 const copyApp = gulp.parallel(
   // Skipped -> JS task processes these
-  //  js: copyJS,
-  // Skipped -> Sprite copies these
-  //  icons: copyIcons,
+  // copyJS,
+  copyIcons,
   copyImages,
 
   // Skip Fonts according to config
@@ -174,7 +184,7 @@ const copyApp = gulp.parallel(
 module.exports = {
   // Not needed but available -> JS task processes these
   js: copyJS,
-  // Not needed, but available -> Sprite copies these
+
   icons: copyIcons,
 
   images: copyImages,

@@ -101,7 +101,8 @@ const modules = {
 
   // Sprite icons
   icons: {
-    root: 'icons/'
+    root: 'icons/',
+    noSprite: 'icons/no-sprite/'
   },
 
   // Images
@@ -172,6 +173,7 @@ const modules = {
       annotations: base.src + base.patternlab + '_annotations/',
       js: base.src + base.patternlab + 'js',
       images: base.src + base.patternlab + 'images',
+      icons: base.src + 'icons/no-sprite',
       fonts: base.src + base.patternlab + 'fonts',
       css: base.src + base.patternlab + 'css/'
     },
@@ -225,7 +227,15 @@ const patterns = {
 
   // Icons
   icons: {
-    all: modules.icons.root + '**/*.svg'
+    all: modules.icons.root + '**/*.svg',
+    noSprite: modules.icons.noSprite + '**/*.svg',
+    exclude: [
+      'no-sprite',
+      'no-sprite/**'
+    ],
+    excludeSync: [
+      ''
+    ]
   },
 
   // Images
