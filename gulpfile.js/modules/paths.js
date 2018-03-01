@@ -309,6 +309,8 @@ const patterns = {
   static: {
     all: modules.static.root + '**/*',
     clean: [
+      base.www + 'deployment',
+      base.www + '_readme.md',
       base.www + '.htaccess',
       base.www + 'favicon.ico',
       base.www + 'humans.txt',
