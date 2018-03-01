@@ -4,6 +4,8 @@
  * Plugin: Plugin: https://github.com/ericelliott/h5Validate
  */
 
+// To use
+// bower install h5Validate
 Object.assign($graffino, {
   validate: {
     name: 'validate',
@@ -11,7 +13,7 @@ Object.assign($graffino, {
     // Plugin options
     options: {
       hook: 'AFTER_INIT',
-      autoInit: true,
+      autoInit: false,
       debug: false
     },
 

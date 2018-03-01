@@ -3,7 +3,8 @@
  * Author: Graffino (http://www.graffino.com)
  */
 
-
+// To use
+// bower install pointer-events-poly
 Object.assign($graffino, {
   pointerEvents: {
     name: 'pointer-events',

@@ -11,7 +11,7 @@ Object.assign($graffino, {
     // Plugin options
     options: {
       hook: 'HELPERS',
-      autoInit: false,
+      autoInit: true,
       debug: false
     },
 

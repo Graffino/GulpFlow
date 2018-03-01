@@ -3,7 +3,8 @@
  * Author: Graffino (http://www.graffino.com)
  */
 
-
+// To use
+// bower install fontfaceobserver
 Object.assign($graffino, {
   fontsHandler: {
     name: 'fonts-handler',
@@ -18,7 +19,7 @@ Object.assign($graffino, {
     // Scoped variables
     vars: {
       // Check if webfonts are loaded. Type in main font-family name. Set to false to prevent detection.
-      fontFaceObserverName: 'FiraSans'
+      fontFaceObserverName: 'EuclidFlex'
     },
 
     // Init method

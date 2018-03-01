@@ -4,7 +4,8 @@
  * Plugin: https://github.com/mathiasbynens/jquery-placeholder
  */
 
-
+// To use
+// bower install js-cookie
 Object.assign($graffino, {
   cookieHandler: {
     name: 'cookie-handler',
@@ -12,7 +13,7 @@ Object.assign($graffino, {
     // Plugin options
     options: {
       hook: 'PLUGINS',
-      autoInit: true,
+      autoInit: false,
       debug: false
     },
 
