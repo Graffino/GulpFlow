@@ -101,25 +101,61 @@ const copyIconsSpriteFile = function () {
  */
 
 async function generateIconTemplates() {
-  const files = fs.readdirSync(paths.modules.patternlab.source.icons)
+  const files = fs.readdirSync(path.normalize(paths.modules.patternlab.source.icons))
     .filter(file => {
       return path.extname(file) === '.svg';
     });
-  if (!fs.existsSync(paths.modules.patternlab.source.patterns + '03-icons/')) {
-    fs.mkdirSync(paths.modules.patternlab.source.patterns + '03-icons/');
+  if (!fs.existsSync(path.normalize(paths.modules.patternlab.source.patterns + '03-icons/'))) {
+    fs.mkdirSync(path.normalize(paths.modules.patternlab.source.patterns + '03-icons/'));
   }
   files.forEach(file => {
     const filename = path.win32.basename(file, '.svg');
-    if (!fs.existsSync(paths.modules.patternlab.source.patterns + '03-icons/' + filename + '.mustache')) {
-      fs.writeFileSync(
-        paths.modules.patternlab.source.patterns + '03-icons/' + filename + '.mustache',
+    if (!fs.existsSync(path.normalize(paths.modules.patternlab.source.patterns + '03-icons/' + filename + '.mustache'))) {
+      fs.writeFileSync(path.normalize(
+        paths.modules.patternlab.source.patterns + '03-icons/' + filename + '.mustache'),
         `<img src="../icons/flyeralarm-icons/${filename}.svg" alt="${filename}">`);
     }
-    if (!fs.existsSync(paths.modules.patternlab.source.patterns + '03-icons/' + filename + '.md')) {
-      fs.writeFileSync(
-        paths.modules.patternlab.source.patterns + '03-icons/' + filename + '.md',
+    if (!fs.existsSync(path.normalize(paths.modules.patternlab.source.patterns + '03-icons/' + filename + '.md'))) {
+      fs.writeFileSync(path.normalize(
+        paths.modules.patternlab.source.patterns + '03-icons/' + filename + '.md'),
         `title: ${filename}\ndescription:`);
     }
+  });
+}
+
+/**
+ * Generate .md files for each atom
+ */
+
+function hyphenToNormalText(str) {
+  return str.replace(/(\d+-)/g, '').replace(/-/g, ' ').replace(/_/g, '');
+}
+
+function findMustacheFile(startPath) {
+  if (!fs.existsSync(startPath)) {
+    return;
+  }
+
+  const files = fs.readdirSync(startPath);
+  files.forEach(file => {
+    const filename = path.join(startPath, file);
+    const stat = fs.lstatSync(filename);
+    if (stat.isDirectory()) {
+      findMustacheFile(filename);
+    } else if (filename.indexOf('.mustache') >= 0) {
+      if (!fs.existsSync(startPath + '/' + path.win32.basename(filename, '.mustache') + '.md')) {
+        fs.writeFileSync(
+          path.normalize(startPath + '/' + path.win32.basename(filename, '.mustache') + '.md'),
+          `---\ntitle: ${hyphenToNormalText(path.win32.basename(filename, '.mustache'))}\n---\ndescription:`);
+      }
+    }
+  });
+}
+
+async function generateDescriptions() {
+  const files = fs.readdirSync(path.normalize(paths.modules.patternlab.source.patterns + '00-atoms/'));
+  files.forEach(folder => {
+    findMustacheFile(paths.modules.patternlab.source.patterns + '00-atoms/' + folder);
   });
 }
 
@@ -151,6 +187,7 @@ const processPatternlab = gulp.series(
   config.enabled.patternlab.generateStyleguide ? copyImageFiles : utils.noop,
   config.enabled.patternlab.generateStyleguide ? copyIconsSpriteFile : utils.noop,
   config.enabled.patternlab.generateIconTemplates ? generateIconTemplates : utils.noop,
+  config.enabled.patternlab.generateDescription ? generateDescriptions : utils.noop,
   config.enabled.patternlab.generateStyleguide ? buildPatternlab : utils.noop
 );
 
