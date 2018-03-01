@@ -53,11 +53,11 @@ const enabled = {
   nunjucks: false,
 
   // PHP Composer
-  composer: true,
+  composer: false,
 
   // Wordpress
   wordpress: {
-    theme: true,
+    theme: false,
     admin: false
   },
 
@@ -72,7 +72,7 @@ const enabled = {
     css: true,
     js: true,
     html: true,
-    php: true
+    php: false
   },
 
   // Watch (Only for PHP linting)
@@ -113,7 +113,7 @@ const clean = {
     images: true,
     icons: true,
     vendor: true,
-    wordpress: true
+    wordpress: false
   }
 };
 
@@ -129,8 +129,8 @@ const modules = {
       target: 'localhost'
     },
     */
-    port: 8888, // 'false' | '{port:3000}'
-    https: true, // 'false'
+    port: 8888,
+    // 'false' | '{port:3000}'
     ui: {
       port: 8881
     },
