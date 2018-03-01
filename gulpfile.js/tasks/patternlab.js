@@ -12,6 +12,7 @@
 
 // Gulp & plugins
 const path = require('path');
+const fs = require('fs');
 const gulp = require('gulp');
 
 // Gulp requires
@@ -96,6 +97,30 @@ const copyIconsSpriteFile = function () {
 
 
 /**
+ * Generate a mustache file and a markdown template for each icon
+ */
+
+async function generateIconTemplates() {
+  const files = fs.readdirSync(paths.modules.patternlab.source.icons)
+    .filter(file => {
+      return path.extname(file) === '.svg';
+    });
+  if (!fs.existsSync(paths.modules.patternlab.source.patterns + '03-icons/')) {
+    fs.mkdirSync(paths.modules.patternlab.source.patterns + '03-icons/');
+  }
+  files.forEach(file => {
+    const filename = path.win32.basename(file, '.svg');
+    fs.writeFileSync(
+      paths.modules.patternlab.source.patterns + '03-icons/' + filename + '.mustache',
+      `<img src="../icons/flyeralarm-icons/${filename}.svg" alt="${filename}">`);
+    fs.writeFileSync(
+      paths.modules.patternlab.source.patterns + '03-icons/' + filename + '.md',
+      `title: ${filename}\ndescription:`);
+  });
+}
+
+
+/**
  * Start patternlab build task
  */
 
@@ -110,19 +135,22 @@ const buildPatternlab = function (done) {
   }
 };
 
-
 /**
- * Gulp sequence for pattern-lab task
+ * Gulp sequences for pattern-lab task
  */
 
 const processPatternlab = gulp.series(
-  config.enabled.patternlab ? copyStyleguide : utils.noop,
-  config.enabled.patternlab ? copyJsFiles : utils.noop,
-  config.enabled.patternlab ? copyCssFiles : utils.noop,
-  config.enabled.patternlab ? copyFontFiles : utils.noop,
-  config.enabled.patternlab ? copyImageFiles : utils.noop,
-  config.enabled.patternlab ? copyIconsSpriteFile : utils.noop,
-  config.enabled.patternlab ? buildPatternlab : utils.noop
+  config.enabled.patternlab.generateStyleguide ? copyStyleguide : utils.noop,
+  config.enabled.patternlab.generateStyleguide ? copyJsFiles : utils.noop,
+  config.enabled.patternlab.generateStyleguide ? copyCssFiles : utils.noop,
+  config.enabled.patternlab.generateStyleguide ? copyFontFiles : utils.noop,
+  config.enabled.patternlab.generateStyleguide ? copyImageFiles : utils.noop,
+  config.enabled.patternlab.generateStyleguide ? copyIconsSpriteFile : utils.noop,
+  config.enabled.patternlab.generateStyleguide ? buildPatternlab : utils.noop
+);
+
+const processIconTemplates = gulp.series(
+  config.enabled.patternlab.generateIconTemplates ? generateIconTemplates : utils.noop,
 );
 
 
@@ -131,14 +159,18 @@ const processPatternlab = gulp.series(
  */
 
 module.exports = {
-  process: config.enabled.patternlab ? processPatternlab : utils.noop
+  process: config.enabled.patternlab.generateStyleguide ? processPatternlab : utils.noop
 };
 
 
 /**
- * Gulp task
+ * Gulp tasks
  */
 
 processPatternlab.displayName = 'patternlab';
 processPatternlab.description = 'Runs the build script for patternlab-node module.';
 gulp.task(processPatternlab);
+
+processIconTemplates.displayName = 'patternlab-icon-templates';
+processIconTemplates.description = 'Runs the icon templates generation script for patternlab-node module.';
+gulp.task(processIconTemplates);

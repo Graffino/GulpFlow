@@ -3,7 +3,8 @@
  * Author: Graffino (http://www.graffino.com)
  */
 
-
+// To use
+// bower install jquery.browser
 Object.assign($graffino, {
   detectBrowser: {
     name: 'detect-browser',
@@ -11,7 +12,7 @@ Object.assign($graffino, {
     // Plugin options
     options: {
       hook: 'PLUGINS',
-      autoInit: true,
+      autoInit: false,
       debug: false
     },
 

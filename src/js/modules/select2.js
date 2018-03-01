@@ -4,7 +4,8 @@
  * Plugin: https://github.com/select2/select2
  */
 
-
+// To use
+// bower install select2
 Object.assign($graffino, {
   select2: {
     name: 'select2',
@@ -12,7 +13,7 @@ Object.assign($graffino, {
     // Plugin options
     options: {
       hook: 'AFTER_INIT',
-      autoInit: true,
+      autoInit: false,
       debug: false
     },
 

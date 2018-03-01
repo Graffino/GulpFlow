@@ -10,8 +10,8 @@ $.extend($graffino, {
 
     // Plugin options
     options: {
-      autoInit: true,
-      debug: true
+      autoInit: false,
+      debug: false
     },
 
     // Scoped variables

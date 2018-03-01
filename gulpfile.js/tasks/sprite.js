@@ -10,6 +10,9 @@
  * Module imports
  */
 
+// Node requires
+const path = require('path');
+
 // Gulp & plugins
 const gulp = require('gulp');
 const plugins = require('gulp-load-plugins')();
@@ -25,7 +28,14 @@ const utils = require('../modules/utils');
  */
 
 function compileSprite() {
-  return gulp.src(paths.base.src + paths.patterns.icons.all)
+  // JS SRC
+  const excludeIcons = paths.patterns.icons.exclude.map(
+   item => '!' + path.normalize(paths.base.src + paths.modules.icons.root + '**/' + item)
+  );
+  const filesIcons = [path.normalize(paths.base.src + paths.patterns.icons.all)];
+  const src = filesIcons.concat(excludeIcons);
+
+  return gulp.src(src)
     .pipe(plugins.svgSprite(config.modules.sprite))
     .pipe(gulp.dest(paths.base.www + paths.modules.icons.root));
 }

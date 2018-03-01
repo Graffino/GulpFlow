@@ -53,11 +53,11 @@ const enabled = {
   nunjucks: false,
 
   // PHP Composer
-  composer: true,
+  composer: false,
 
   // Wordpress
   wordpress: {
-    theme: true,
+    theme: false,
     admin: false
   },
 
@@ -72,7 +72,7 @@ const enabled = {
     css: true,
     js: true,
     html: true,
-    php: true
+    php: false
   },
 
   // Watch (Only for PHP linting)
@@ -89,7 +89,12 @@ const enabled = {
   },
 
   // Patternlab
-  patternlab: true
+  patternlab: {
+    // Enable node module
+    generateStyleguide: false,
+    // Generate mustache and .md files for each icon
+    generateIconTemplates: false
+  }
 };
 
 
@@ -108,7 +113,7 @@ const clean = {
     images: true,
     icons: true,
     vendor: true,
-    wordpress: true
+    wordpress: false
   }
 };
 
@@ -124,8 +129,8 @@ const modules = {
       target: 'localhost'
     },
     */
-    port: 8888, // 'false' | '{port:3000}'
-    https: true, // 'false'
+    port: 8888,
+    // 'false' | '{port:3000}'
     ui: {
       port: 8881
     },
@@ -272,7 +277,7 @@ const modules = {
     },
     styleGuideExcludes: [],
     defaultPattern: 'all',
-    defaultShowPatternInfo: false,
+    defaultShowPatternInfo: true,
     cleanPublic: true,
     patternExtension: 'mustache',
     'ignored-extensions': ['scss', 'DS_Store', 'less'],

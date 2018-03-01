@@ -4,7 +4,8 @@
  * Plugin: https://github.com/dimsemenov/Magnific-Popup
  */
 
-
+// To use
+// bower install magnific-popup
 Object.assign($graffino, {
   popup: {
     name: 'popup',
@@ -12,7 +13,7 @@ Object.assign($graffino, {
     // Plugin options
     options: {
       hook: 'PLUGINS',
-      autoInit: true,
+      autoInit: false,
       debug: false
     },
 
