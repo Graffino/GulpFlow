@@ -89,7 +89,12 @@ const enabled = {
   },
 
   // Patternlab
-  patternlab: true
+  patternlab: {
+    // Enable node module
+    generateStyleguide: false,
+    // Generate mustache and .md files for each icon
+    generateIconTemplates: false
+  }
 };
 
 
@@ -272,7 +277,7 @@ const modules = {
     },
     styleGuideExcludes: [],
     defaultPattern: 'all',
-    defaultShowPatternInfo: false,
+    defaultShowPatternInfo: true,
     cleanPublic: true,
     patternExtension: 'mustache',
     'ignored-extensions': ['scss', 'DS_Store', 'less'],
