@@ -47,12 +47,12 @@ Object.assign($graffino, {
             let isValid = false;
             // Init h5-validate
             $form
-            .h5Validate()
-            .attr('data-h5-valid', $form.get(0).checkValidity())
-            .on('submit change', () => {
-              isValid = $form.get(0).checkValidity();
-              $form.attr('data-h5-valid', isValid);
-            });
+              .h5Validate()
+              .attr('data-h5-valid', $form.get(0).checkValidity())
+              .on('submit change', () => {
+                isValid = $form.get(0).checkValidity();
+                $form.attr('data-h5-valid', isValid);
+              });
 
             // Outputting the form information to console
             _this.log('\n\t\u251c h5-Validate was enabled for form id ' + index + '.');

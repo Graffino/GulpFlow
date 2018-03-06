@@ -45,7 +45,7 @@ function lintJS() {
     // Fix pipe on error
     .pipe(plugins.plumber({errorHandler: error.notice}))
     .pipe(plugins.xo({quiet: false}))
-    .pipe(plugins.xo.format())
+    .pipe(plugins.xo.format());
 }
 
 

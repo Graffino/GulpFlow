@@ -81,7 +81,23 @@
       "no-return-assign": 0,
       "no-else-return": 0,
       "babel/new-cap": 0,
-      "import/no-unresolved": 0
+      "import/no-unresolved": 0,
+      "unicorn/escape-case": 0,
+      "no-unused-vars": [
+        "error",
+        {
+          "vars": "all",
+          "args": "after-used",
+          "varsIgnorePattern": "^_",
+          "argsIgnorePattern": "^_"
+        }
+      ],
+      "complexity": [
+        "error",
+        {
+          "max": 30
+        }
+      ]
     }
   },
   "browserslist": [
@@ -89,7 +105,7 @@
     "last 2 versions"
   ],
   "devDependencies": {
-    "autoprefixer": "^8.0.0",
+    "autoprefixer": "^8.1.0",
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "backstopjs": "^3.1.19",
