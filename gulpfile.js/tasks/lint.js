@@ -44,7 +44,8 @@ function lintJS() {
   return gulp.src(paths.base.src + paths.patterns.js.all, {since: gulp.lastRun(lintJS)})
     // Fix pipe on error
     .pipe(plugins.plumber({errorHandler: error.notice}))
-    .pipe(plugins.xo({quiet: false}));
+    .pipe(plugins.xo({quiet: false}))
+    .pipe(plugins.xo.format())
 }
 
 
