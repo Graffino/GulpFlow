@@ -105,7 +105,7 @@
     "last 2 versions"
   ],
   "devDependencies": {
-    "autoprefixer": "^8.0.0",
+    "autoprefixer": "^8.1.0",
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "backstopjs": "^3.1.19",
