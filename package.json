@@ -81,7 +81,23 @@
       "no-return-assign": 0,
       "no-else-return": 0,
       "babel/new-cap": 0,
-      "import/no-unresolved": 0
+      "import/no-unresolved": 0,
+      "unicorn/escape-case": 0,
+      "no-unused-vars": [
+        "error",
+        {
+          "vars": "all",
+          "args": "after-used",
+          "varsIgnorePattern": "^_",
+          "argsIgnorePattern": "^_"
+        }
+      ],
+      "complexity": [
+        "error",
+        {
+          "max": 30
+        }
+      ]
     }
   },
   "browserslist": [
