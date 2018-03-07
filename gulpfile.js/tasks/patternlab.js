@@ -14,6 +14,7 @@
 const path = require('path');
 const fs = require('fs');
 const gulp = require('gulp');
+const plugins = require('gulp-load-plugins')();
 
 // Gulp requires
 const config = require('../config');
@@ -112,13 +113,11 @@ async function generateIconTemplates() {
     const filename = path.win32.basename(file, '.svg');
     if (!fs.existsSync(path.normalize(paths.modules.patternlab.source.patterns + '03-icons/' + filename + '.mustache'))) {
       fs.writeFileSync(path.normalize(
-        paths.modules.patternlab.source.patterns + '03-icons/' + filename + '.mustache'),
-        `<img src="../icons/flyeralarm-icons/${filename}.svg" alt="${filename}">`);
+        paths.modules.patternlab.source.patterns + '03-icons/' + filename + '.mustache'), `<img src="../icons/flyeralarm-icons/${filename}.svg" alt="${filename}">`);
     }
     if (!fs.existsSync(path.normalize(paths.modules.patternlab.source.patterns + '03-icons/' + filename + '.md'))) {
       fs.writeFileSync(path.normalize(
-        paths.modules.patternlab.source.patterns + '03-icons/' + filename + '.md'),
-        `title: ${filename}\ndescription:`);
+        paths.modules.patternlab.source.patterns + '03-icons/' + filename + '.md'), `title: ${filename}\ndescription:`);
     }
   });
 }
@@ -159,6 +158,42 @@ async function generateDescriptions() {
   });
 }
 
+function injectSvgInHtml() {
+  const excludeIcons = paths.patterns.icons.exclude.map(
+    item => '!' + path.normalize(paths.base.src + paths.modules.icons.root + '**/' + item)
+  );
+  const filesIcons = [path.normalize(paths.base.src + paths.patterns.icons.all)];
+  const src = filesIcons.concat(excludeIcons);
+
+  const spriteConfig = {
+    shape: {
+      // Set a default padding between elements
+      spacing: {
+        padding: 2
+      },
+      transform: ['svgo']
+    },
+    // 'info' | 'debug' | 'false'
+    log: false,
+    mode: {
+      css: false,
+      symbol: {
+        bust: false,
+        prefix: '',
+        dest: '',
+        common: '',
+        sprite: 'sprite-symbols.svg'
+      }
+    }
+  };
+
+
+  return gulp.src(src)
+    .pipe(plugins.svgSprite(spriteConfig))
+    .pipe(plugins.rename('_sprite-symbols.mustache'))
+    .pipe(gulp.dest(paths.modules.patternlab.source.patterns));
+}
+
 
 /**
  * Start patternlab build task
@@ -188,6 +223,7 @@ const processPatternlab = gulp.series(
   config.enabled.patternlab.generateStyleguide ? copyIconsSpriteFile : utils.noop,
   config.enabled.patternlab.generateIconTemplates ? generateIconTemplates : utils.noop,
   config.enabled.patternlab.generateDescription ? generateDescriptions : utils.noop,
+  config.enabled.patternlab.injectSvgInHtml ? injectSvgInHtml : utils.noop,
   config.enabled.patternlab.generateStyleguide ? buildPatternlab : utils.noop
 );
 

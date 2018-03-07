@@ -91,10 +91,13 @@ const enabled = {
   // Patternlab
   patternlab: {
     // Enable node module
-    generateStyleguide: false,
+    generateStyleguide: true,
     // Generate mustache and .md files for each icon
-    generateIconTemplates: false
-  }
+    generateIconTemplates: true,
+    // Generate .md files for each atom
+    generateDescription: true,
+    // Inject svg sprite in html
+    injectSvgInHtml: true
 };
 
 
@@ -230,8 +233,8 @@ const modules = {
       imageminMozjpeg({
         quality: '80',
         progressive: true
-      }
-    )]
+      })
+    ]
   },
 
   // Critical
