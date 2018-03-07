@@ -98,6 +98,7 @@ const enabled = {
     generateDescription: false,
     // Inject svg sprite in html
     injectSvgInHtml: false
+  }
 };
 
 
