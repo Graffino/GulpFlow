@@ -7,6 +7,13 @@
 
 
 /**
+ * Module imports
+ */
+
+// Node requires
+const path = require('path');
+
+/**
  * Base paths
  */
 
@@ -39,7 +46,7 @@ const base = {
  */
 
 const languages = [
-  base.www + 'ro/',
+  base.www + 'de/',
   base.www + 'en/'
 ];
 
@@ -49,8 +56,8 @@ const languages = [
  */
 
 const node = {
-  modules: './node_modules/',
-  bower: './node_modules/bower/bin/'
+  modules: path.resolve(__dirname, '../../node_modules/'),
+  bower: path.resolve(__dirname, '../../node_modules/bower/bin/')
 };
 
 const modules = {
@@ -309,6 +316,7 @@ const patterns = {
   static: {
     all: modules.static.root + '**/*',
     clean: [
+      base.www + 'admin',
       base.www + 'deployment',
       base.www + '_readme.md',
       base.www + '.htaccess',
