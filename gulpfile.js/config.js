@@ -91,13 +91,13 @@ const enabled = {
   // Patternlab
   patternlab: {
     // Enable node module
-    generateStyleguide: true,
+    generateStyleguide: false,
     // Generate mustache and .md files for each icon
-    generateIconTemplates: true,
+    generateIconTemplates: false,
     // Generate .md files for each atom
-    generateDescription: true,
+    generateDescription: false,
     // Inject svg sprite in html
-    injectSvgInHtml: true
+    injectSvgInHtml: false
 };
 
 
