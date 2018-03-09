@@ -38,12 +38,12 @@ function copyWordpress(done) {
       updateAndDelete: false
     }
   )
-  .then(() => {
-    done();
-  })
-  .catch(err => {
-    done(err);
-  });
+    .then(() => {
+      done();
+    })
+    .catch(err => {
+      done(err);
+    });
 }
 
 
@@ -60,7 +60,7 @@ function linkAdmin() {
     paths.modules.wordpress.theme + 'inc/admin/theme/www',
     options
   )
-  .pipe(gulp.symlink('../../../../../' + paths.base.www + 'inc/admin/theme'));
+    .pipe(gulp.symlink('../../../../../' + paths.base.www + 'inc/admin/theme'));
 }
 
 

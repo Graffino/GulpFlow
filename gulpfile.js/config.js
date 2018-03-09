@@ -93,7 +93,11 @@ const enabled = {
     // Enable node module
     generateStyleguide: false,
     // Generate mustache and .md files for each icon
-    generateIconTemplates: false
+    generateIconTemplates: false,
+    // Generate .md files for each atom
+    generateDescription: false,
+    // Inject svg sprite in html
+    injectSvgInHtml: false
   }
 };
 
@@ -230,8 +234,8 @@ const modules = {
       imageminMozjpeg({
         quality: '80',
         progressive: true
-      }
-    )]
+      })
+    ]
   },
 
   // Critical
@@ -255,8 +259,8 @@ const modules = {
         data: paths.modules.patternlab.source.root.data,
         meta: paths.modules.patternlab.source.meta,
         annotations: paths.modules.patternlab.source.annotations,
-        styleguide: paths.node.modules + 'styleguidekit-assets-default/dist',
-        patternlabFiles: paths.node.modules + 'styleguidekit-mustache-default/views/',
+        styleguide: paths.node.modules + '/styleguidekit-assets-default/dist',
+        patternlabFiles: paths.node.modules + '/styleguidekit-mustache-default/views/',
         js: paths.modules.patternlab.source.js,
         images: paths.modules.patternlab.source.images,
         fonts: paths.modules.patternlab.source.fonts,
