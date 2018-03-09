@@ -30,7 +30,7 @@ const utils = require('../modules/utils');
 function compileSprite() {
   // JS SRC
   const excludeIcons = paths.patterns.icons.exclude.map(
-   item => '!' + path.normalize(paths.base.src + paths.modules.icons.root + '**/' + item)
+    item => '!' + path.normalize(paths.base.src + paths.modules.icons.root + '**/' + item)
   );
   const filesIcons = [path.normalize(paths.base.src + paths.patterns.icons.all)];
   const src = filesIcons.concat(excludeIcons);

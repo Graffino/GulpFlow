@@ -87,7 +87,7 @@ function minifyJS() {
 
 function minifyHTML() {
   return gulp.src(paths.base.www + paths.patterns.html.all)
-     // Fix pipe on error
+    // Fix pipe on error
     .pipe(plugins.plumber({errorHandler: error.handle}))
     .pipe(plugins.htmlmin({
       removeComments: true,

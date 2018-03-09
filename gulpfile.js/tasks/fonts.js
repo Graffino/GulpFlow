@@ -25,7 +25,7 @@ const utils = require('../modules/utils');
  * ConvertFonts
  */
 
- // WOFF
+// WOFF
 function convertFontsWOFF() {
   return gulp.src(paths.base.src + paths.patterns.fonts.ttf)
     // Fix pipe on error

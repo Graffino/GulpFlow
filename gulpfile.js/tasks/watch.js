@@ -78,7 +78,10 @@ function watchChanges() {
         }
 
         // Spawn new detached process
-        gulpProcess = spawn('gulp', ['watch'], {stdio: 'inherit', detached: true});
+        gulpProcess = spawn('gulp', ['watch'], {
+          stdio: 'inherit',
+          detached: true
+        });
         // Write process PID to file
         fs.writeFileSync('gulpfile.js/gulp.pid', gulpProcess.pid);
 
@@ -103,7 +106,8 @@ function watchChanges() {
       gulp.parallel(
         lint.gulp
       ),
-    500)
+      500
+    )
   );
 
   // JS Common, Modules
@@ -125,7 +129,8 @@ function watchChanges() {
         utils.reload,
         notice.rebuilt
       ),
-    500)
+      500
+    )
   );
 
   // Stylus
@@ -142,7 +147,8 @@ function watchChanges() {
         patternlab.process,
         notice.rebuilt
       ),
-    500)
+      500
+    )
   );
 
   // Nunjucks HTML Templates
@@ -156,7 +162,8 @@ function watchChanges() {
         utils.reload,
         notice.rebuilt
       ),
-    500)
+      500
+    )
   );
 
   // Fonts
@@ -171,7 +178,8 @@ function watchChanges() {
         utils.reload,
         notice.rebuilt
       ),
-    2000)
+      2000
+    )
   );
 
   // Media
@@ -184,7 +192,8 @@ function watchChanges() {
         utils.reload,
         notice.rebuilt
       ),
-    2000)
+      2000
+    )
   );
 
   // Data
@@ -197,7 +206,8 @@ function watchChanges() {
         utils.reload,
         notice.rebuilt
       ),
-    2000)
+      2000
+    )
   );
 
   // Static
@@ -210,7 +220,8 @@ function watchChanges() {
         utils.reload,
         notice.rebuilt
       ),
-    2000)
+      2000
+    )
   );
 
   // Images
@@ -224,7 +235,8 @@ function watchChanges() {
         utils.reload,
         notice.rebuilt
       ),
-    2000)
+      2000
+    )
   );
 
   // Sprite icons
@@ -243,7 +255,8 @@ function watchChanges() {
         utils.reload,
         notice.rebuilt
       ),
-    2000)
+      2000
+    )
   );
 
   // Vendor
@@ -256,7 +269,8 @@ function watchChanges() {
         utils.reload,
         notice.rebuilt
       ),
-    2000)
+      2000
+    )
   );
 
   // Wordpress
@@ -275,7 +289,8 @@ function watchChanges() {
           notice.rebuilt
         )
       ),
-    500)
+      500
+    )
   );
 
   // Composer
@@ -291,7 +306,8 @@ function watchChanges() {
         utils.reload,
         notice.rebuilt
       ),
-    2000)
+      2000
+    )
   );
 
   // Patternlab
@@ -315,7 +331,8 @@ function watchChanges() {
         utils.reload,
         notice.rebuilt
       ),
-    2000)
+      2000
+    )
   );
 }
 

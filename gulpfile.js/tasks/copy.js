@@ -36,7 +36,7 @@ function copyJS() {
   ], {
     base: paths.base.src
   })
-  .pipe(gulp.dest(paths.base.www));
+    .pipe(gulp.dest(paths.base.www));
 }
 
 
@@ -55,12 +55,12 @@ function copyIcons(done) {
       updateAndDelete: false
     }
   )
-  .then(() => {
-    done();
-  })
-  .catch(err => {
-    done(err);
-  });
+    .then(() => {
+      done();
+    })
+    .catch(err => {
+      done(err);
+    });
 }
 
 
@@ -74,7 +74,7 @@ function copyImages() {
   ], {
     base: paths.base.src
   })
-  .pipe(gulp.dest(paths.base.www));
+    .pipe(gulp.dest(paths.base.www));
 }
 
 
@@ -88,7 +88,7 @@ function copyFonts() {
   ], {
     base: paths.base.src
   })
-  .pipe(gulp.dest(paths.base.www));
+    .pipe(gulp.dest(paths.base.www));
 }
 
 
@@ -102,7 +102,7 @@ function copyMedia() {
   ], {
     base: paths.base.src
   })
-  .pipe(gulp.dest(paths.base.www));
+    .pipe(gulp.dest(paths.base.www));
 }
 
 
@@ -116,7 +116,7 @@ function copyData() {
   ], {
     base: paths.base.src
   })
-  .pipe(gulp.dest(paths.base.www));
+    .pipe(gulp.dest(paths.base.www));
 }
 
 
@@ -133,7 +133,7 @@ function copyStatic() {
     base: paths.base.src + paths.modules.static.root,
     dot: true
   })
-  .pipe(gulp.dest(paths.base.www));
+    .pipe(gulp.dest(paths.base.www));
 }
 
 
@@ -147,7 +147,7 @@ function copyVendor() {
     paths.base.root + paths.patterns.vendor.all,
     exclude
   ])
-  .pipe(gulp.dest(paths.base.www));
+    .pipe(gulp.dest(paths.base.www));
 }
 
 

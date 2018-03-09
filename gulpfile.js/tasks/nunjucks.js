@@ -33,16 +33,16 @@ function compileHTMLTemplates() {
   const exclude = path.normalize('!**/{' + paths.patterns.nunjucks.exclude.join(',') + '}');
 
   return gulp.src([paths.base.src + paths.patterns.nunjucks.views, exclude])
-  // Fix pipe on error
-  .pipe(plugins.plumber({errorHandler: error.handle}))
-  // Adding data to Nunjucks
-  .pipe(plugins.data(() => {
-    return JSON.parse(fs.readFileSync(paths.base.src + paths.patterns.data.common));
-  }))
-  .pipe(plugins.nunjucksRender({
-    path: [paths.base.src + paths.modules.nunjucks.root]
-  }))
-  .pipe(gulp.dest(paths.base.www));
+    // Fix pipe on error
+    .pipe(plugins.plumber({errorHandler: error.handle}))
+    // Adding data to Nunjucks
+    .pipe(plugins.data(() => {
+      return JSON.parse(fs.readFileSync(paths.base.src + paths.patterns.data.common));
+    }))
+    .pipe(plugins.nunjucksRender({
+      path: [paths.base.src + paths.modules.nunjucks.root]
+    }))
+    .pipe(gulp.dest(paths.base.www));
 }
 
 
