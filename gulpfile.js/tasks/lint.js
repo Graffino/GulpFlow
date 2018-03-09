@@ -32,7 +32,8 @@ function lintGulp() {
   return gulp.src(paths.base.root + 'gulpfile.js/**/*.js', {since: gulp.lastRun(lintGulp)})
     // Fix pipe on error
     .pipe(plugins.plumber({errorHandler: error.notice}))
-    .pipe(plugins.xo({quiet: false}));
+    .pipe(plugins.xo({quiet: false}))
+    .pipe(plugins.xo.format());
 }
 
 
