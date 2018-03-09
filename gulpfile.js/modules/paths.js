@@ -374,7 +374,10 @@ const patterns = {
 
   // Patternlab
   patternlab: {
-    all: modules.patternlab.source.root + '**/*.(mustache|json|js|css)'
+    all: modules.patternlab.source.root + '**/*.(mustache|json|js|css)',
+    exclude: [
+      '_sprite-symbols.mustache'
+    ]
   }
 };
 

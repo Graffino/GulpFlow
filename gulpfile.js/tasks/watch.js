@@ -311,13 +311,22 @@ function watchChanges() {
   );
 
   // Patternlab
+  // JS SRC
+  const excludePatternlab = paths.patterns.patternlab.exclude.map(
+    item => '!' + path.normalize(paths.modules.patternlab.source.root + '**/' + item)
+  );
+  const filesPatternlab = [path.normalize(paths.patterns.patternlab.all)];
+  const srcPatternlab = filesPatternlab.concat(excludePatternlab);
   gulp.watch(
-    paths.patterns.patternlab.all,
-    debounce(gulp.series(
-      patternlab.process,
-      utils.reload,
-      notice.rebuilt
-    ), 2000)
+    [srcPatternlab],
+    debounce(
+      gulp.series(
+        patternlab.process,
+        utils.reload,
+        notice.rebuilt
+      ),
+      2000
+    )
   );
 
   // Bower
