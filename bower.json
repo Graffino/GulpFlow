@@ -34,7 +34,7 @@
     "svg4everybody": "^2.1.9",
     "ramda": "^0.25.0",
     "Babel-Polyfill-Standalone": "babel-polyfill-standalone#^6.26.0",
-    "lodash": "^4.17.5"
+    "lodash": "^4.17.10"
   },
   "overrides": {
     "browser-update": {
@@ -54,6 +54,6 @@
     }
   },
   "dependencies": {
-    "vue": "^2.5.13"
+    "vue": "^2.5.16"
   }
 }
