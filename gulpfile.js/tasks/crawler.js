@@ -26,11 +26,17 @@ const utils = require('../modules/utils');
 function crawlSites() {
   const crawler = config.modules.crawler;
 
-  crawler.sites.forEach(site => {
-    spider({
-      url: site
+  if (Array.isArray(crawler.sites)) {
+    crawler.sites.forEach(site => {
+      spider({
+        url: site
+      });
     });
-  });
+  } else {
+    spider({
+      url: crawler.sites
+    });
+  }
 }
 
 
