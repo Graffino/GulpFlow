@@ -28,6 +28,8 @@ const enabled = {
   notice: true,
   // Enable Gulp watch iself and reload (BUG: CTRL+C doesn't stop Gulp)
   gulpReload: false,
+  // Enable log crawler
+  crawler: true,
   // Enable bower
   bower: true,
   // Enable modernizr
@@ -158,6 +160,14 @@ const modules = {
     ],
     online: undefined,
     notify: true
+  },
+
+  // Log crawler
+  crawler: {
+    sites: [
+      'http://localhost:8087',
+      'http://blog.flyeralarm.com'
+    ]
   },
 
   // Modernizr
