@@ -141,13 +141,23 @@ function copyStatic() {
  * Copy Vendor
  */
 
-function copyVendor() {
-  const exclude = path.normalize('!**/{' + paths.patterns.vendor.exclude.join(',') + '}');
-  return gulp.src([
-    paths.base.root + paths.patterns.vendor.all,
-    exclude
-  ])
-    .pipe(gulp.dest(paths.base.www));
+function copyVendor(done) {
+  const excludeSync = paths.patterns.vendor.excludeSync.map(item => '!' + paths.base.root + item);
+  const pathsToCopy = [paths.base.root + paths.patterns.vendor.all].concat(excludeSync);
+  syncy(
+      pathsToCopy,
+      paths.base.www + paths.modules.vendor.root, {
+        verbose: true,
+        base: paths.base.root + paths.base.vendor,
+        updateAndDelete: false
+      }
+    )
+    .then(() => {
+      done();
+    })
+    .catch(err => {
+      done(err);
+    });
 }
 
 
