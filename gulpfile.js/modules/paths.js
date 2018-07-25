@@ -295,6 +295,7 @@ const patterns = {
   composer: {
     all: '**/composer.json',
     clean: [
+      base.www + 'vendor/vendor/',
       base.www + 'inc/theme/vendor/',
       base.www + 'inc/admin/vendor/',
       base.www + '**/composer.lock'
@@ -319,6 +320,8 @@ const patterns = {
       base.www + 'admin',
       base.www + 'deployment',
       base.www + '_readme.md',
+      base.www + '_.htaccess',
+      base.www + 'index.php',
       base.www + '.htaccess',
       base.www + 'favicon.ico',
       base.www + 'humans.txt',
@@ -344,6 +347,8 @@ const patterns = {
   wordpress: {
     all: modules.wordpress.theme + '**/*',
     clean: [
+      base.www + '*.*',
+      base.www + 'composer',
       base.www + 'includes',
       base.www + 'partials',
       base.www + 'inc/theme/*.*',
