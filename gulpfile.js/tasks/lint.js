@@ -94,8 +94,13 @@ function lintPHP() {
   return gulp.src([paths.base.root + paths.patterns.php.all, exclude], {base: '.', since: gulp.lastRun(lintPHP)})
     // Fix pipe on error
     .pipe(plugins.plumber({errorHandler: error.notice}))
-    .pipe(plugins.phplint('', {skipPassedFiles: true, useCache: true}))
-    .pipe(plugins.phplint.reporter('fail'));
+    .pipe(plugins.phpcs({
+      standard: 'PSR2',
+      showSniffCode: true,
+      warningSeverity: 0,
+      ignore: '*/www/*'
+    }))
+    .pipe(plugins.phpcs.reporter('log'));
 }
 
 
