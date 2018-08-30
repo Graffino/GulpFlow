@@ -220,7 +220,7 @@ const modules = {
   // Babel
   babel: {
     presets: [
-      'env'
+      '@babel/env'
     ]
   },
 
