@@ -144,7 +144,6 @@
     "gulp-imagemin": "~4.1.0",
     "gulp-inject": "^4.3.2",
     "gulp-load-plugins": "~1.5.0",
-    "gulp-modernizr": "~3.0.0",
     "gulp-notify": "^3.2.0",
     "gulp-nunjucks-render": "^2.2.2",
     "gulp-optimize-js": "^1.1.0",

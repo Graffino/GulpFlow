@@ -28,7 +28,6 @@ const fonts = require('../tasks/fonts');
 const js = require('../tasks/js');
 const lint = require('../tasks/lint');
 const minify = require('../tasks/minify');
-const modernizr = require('../tasks/modernizr');
 const nunjucks = require('../tasks/nunjucks');
 const optimize = require('../tasks/optimize');
 const sprite = require('../tasks/sprite');
@@ -46,7 +45,6 @@ const patternlab = require('../tasks/patternlab');
 const buildDevelopment = gulp.series(
   gulp.parallel(
     bower.process,
-    modernizr.process,
     js.process,
     fonts.process,
     nunjucks.process,
@@ -75,7 +73,6 @@ const buildStaging = gulp.series(
   clean.app,
   gulp.parallel(
     bower.process,
-    modernizr.process,
     js.process,
     fonts.process,
     nunjucks.process,
@@ -101,7 +98,6 @@ const buildProduction = gulp.series(
   clean.app,
   gulp.parallel(
     bower.process,
-    modernizr.process,
     js.process,
     fonts.process,
     nunjucks.process,
