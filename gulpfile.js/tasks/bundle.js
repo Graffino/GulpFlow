@@ -33,33 +33,33 @@ function bundleJS() {
   const excludeJS = paths.patterns.js.exclude.map(
     item => '!' + path.normalize(paths.base.www + '**/' + item)
   );
-  const filesJS = [ path.normalize(paths.base.www + paths.modules.js.root + '**/*.js') ];
+  const filesJS = [path.normalize(paths.base.www + paths.modules.js.root + '**/*.js')];
   const src = filesJS.concat(excludeJS);
 
   return gulp.src(src)
-  // Fix pipe on error
-  .pipe(plugins.plumber({errorHandler: error.handle}))
-  .pipe(
-    plugins.if(
-      env.isDevelopment(),
-      plugins.sourcemaps.init({loadMaps: true})
+    // Fix pipe on error
+    .pipe(plugins.plumber({errorHandler: error.handle}))
+    .pipe(
+      plugins.if(
+        env.isDevelopment(),
+        plugins.sourcemaps.init({loadMaps: true})
+      )
     )
-  )
-  .pipe(plugins.order([
-    '**/bower.js',
-    '**/app.js',
-    '**/*.js'
-  ]))
-  .pipe(plugins.groupConcat({
-    'main.js': src
-  }))
-  .pipe(
-    plugins.if(
-      env.isDevelopment(),
-      plugins.sourcemaps.write('.')
+    .pipe(plugins.order([
+      '**/bower.js',
+      '**/app.js',
+      '**/*.js'
+    ]))
+    .pipe(plugins.groupConcat({
+      'main.js': src
+    }))
+    .pipe(
+      plugins.if(
+        env.isDevelopment(),
+        plugins.sourcemaps.write('.')
+      )
     )
-  )
-  .pipe(gulp.dest(paths.base.www + paths.modules.js.root));
+    .pipe(gulp.dest(paths.base.www + paths.modules.js.root));
 }
 
 
@@ -72,34 +72,34 @@ function bundleCSS() {
   const excludeCSS = paths.patterns.css.exclude.map(
     item => '!' + path.normalize(paths.base.www + '**/' + item)
   );
-  const filesCSS = [ path.normalize(paths.base.www + paths.modules.css.root + '**/*.css') ];
+  const filesCSS = [path.normalize(paths.base.www + paths.modules.css.root + '**/*.css')];
   const src = filesCSS.concat(excludeCSS);
 
   return gulp.src(src)
-  // Fix pipe on error
-  .pipe(plugins.plumber({errorHandler: error.handle}))
-  .pipe(
-    plugins.if(
-      env.isDevelopment(),
-      plugins.sourcemaps.init({loadMaps: true})
+    // Fix pipe on error
+    .pipe(plugins.plumber({errorHandler: error.handle}))
+    .pipe(
+      plugins.if(
+        env.isDevelopment(),
+        plugins.sourcemaps.init({loadMaps: true})
+      )
     )
-  )
-  .pipe(plugins.order([
-    '**/bower.css',
-    '**/app.css',
-    '**/*.css'
-  ]))
-  .pipe(plugins.groupConcat({
-    'main.css': src
-  }))
-  .pipe(
-    plugins.if(
-      env.isDevelopment(),
-      plugins.sourcemaps.write('.')
+    .pipe(plugins.order([
+      '**/bower.css',
+      '**/app.css',
+      '**/*.css'
+    ]))
+    .pipe(plugins.groupConcat({
+      'main.css': src
+    }))
+    .pipe(
+      plugins.if(
+        env.isDevelopment(),
+        plugins.sourcemaps.write('.')
+      )
     )
-  )
-  .pipe(gulp.dest(paths.base.www + paths.modules.css.root))
-  .pipe(browserSync.stream());
+    .pipe(gulp.dest(paths.base.www + paths.modules.css.root))
+    .pipe(browserSync.stream());
 }
 
 

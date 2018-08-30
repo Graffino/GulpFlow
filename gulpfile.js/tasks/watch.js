@@ -46,6 +46,7 @@ const sprite = require('../tasks/sprite');
 const stylus = require('../tasks/stylus');
 const utils = require('../modules/utils');
 const wordpress = require('../tasks/wordpress');
+const externals = require('../tasks/externals');
 const composer = require('../tasks/composer');
 const patternlab = require('../tasks/patternlab');
 
@@ -72,7 +73,7 @@ function watchChanges() {
           pid = fs.readFileSync('gulpfile.js/gulp.pid');
           try {
             process.kill(pid, 0);
-          } catch (err) {}
+          } catch (error) {}
           // Delete PID file
           fs.unlinkSync('gulpfile.js/gulp.pid');
         }
@@ -124,6 +125,7 @@ function watchChanges() {
         ),
         js.process,
         bundle.js,
+        externals.js,
         lint.js,
         patternlab.process,
         utils.reload,
@@ -143,6 +145,7 @@ function watchChanges() {
       gulp.series(
         stylus.process,
         bundle.css,
+        externals.css,
         lint.stylus,
         patternlab.process,
         notice.rebuilt

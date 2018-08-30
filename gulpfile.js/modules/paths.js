@@ -52,6 +52,15 @@ const languages = [
 
 
 /**
+ * Copy CSS and JS to external folder
+ */
+
+const externals = {
+  public: '../external/code/public/'
+};
+
+
+/**
  * Module paths
  */
 
@@ -394,6 +403,7 @@ const patterns = {
 module.exports = {
   base,
   languages,
+  externals,
   node,
   modules,
   patterns

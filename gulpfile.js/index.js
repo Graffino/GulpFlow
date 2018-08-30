@@ -45,7 +45,7 @@ process.on('SIGINT', () => {
   // Remove PID file
   try {
     fs.unlinkSync('gulpfile.js/gulp.pid');
-  } catch (err) { }
+  } catch (error) { }
 
   // Kill process
   process.kill(process.pid, 'SIGKILL');

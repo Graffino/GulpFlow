@@ -211,9 +211,9 @@ const $graffino = {
       try {
         // Initialize component
         this.initializeComponent(component, index, componentsArray.length);
-      } catch (err) {
+      } catch (error) {
         // Store error for this hook
-        this.storeInitErrorFor(hook, component.name, err);
+        this.storeInitErrorFor(hook, component.name, error);
       }
 
       // If it's the last component in the array log out the hook components init status
@@ -301,9 +301,9 @@ $(document).ready(() => {
   try {
     // Apply a trimeout of 0 to shift the functiont o the next stack of execution
     setTimeout(() => $graffino.init(), 0);
-  } catch (err) {
+  } catch (error) {
     // Catch the error and console log it
     $graffino.log('ERROR in god-object init().');
-    console.error('\t', err);
+    console.error('\t', error);
   }
 });

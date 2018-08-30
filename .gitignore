@@ -11,3 +11,4 @@ patternlab.json
 /wordpress/wp-config.php
 /wordpress/uploads/gwp_cache
 /wordpress/uploads/gwp_upload
+/.vscode/settings.json

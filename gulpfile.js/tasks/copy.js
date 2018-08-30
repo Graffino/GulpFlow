@@ -42,7 +42,11 @@ function copyJS() {
 
 /**
  * Copy icons
+ *
+ * @param   {string}  done  Callback
+ *
  */
+
 function copyIcons(done) {
   const excludeSync = paths.patterns.icons.excludeSync.map(item => '!' + paths.base.src + item);
   const pathsToCopy = [paths.base.src + paths.patterns.icons.noSprite].concat(excludeSync);
@@ -58,8 +62,8 @@ function copyIcons(done) {
     .then(() => {
       done();
     })
-    .catch(err => {
-      done(err);
+    .catch(error => {
+      done(error);
     });
 }
 
@@ -155,8 +159,8 @@ function copyVendor(done) {
     .then(() => {
       done();
     })
-    .catch(err => {
-      done(err);
+    .catch(error => {
+      done(error);
     });
 }
 

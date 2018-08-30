@@ -30,8 +30,6 @@ const enabled = {
   gulpReload: false,
   // Enable bower
   bower: true,
-  // Enable modernizr
-  modernizr: false,
   // Stylus compile
   stylus: true,
   // Sprite generation,
@@ -59,6 +57,12 @@ const enabled = {
   wordpress: {
     theme: false,
     admin: false
+  },
+
+  // Externals
+  externals: {
+    css: false,
+    js: false
   },
 
   // Sourcemaps
@@ -160,19 +164,6 @@ const modules = {
     notify: true
   },
 
-  // Modernizr
-  modernizr: [
-    'canvas', 'fullscreen', 'hiddenscroll', 'history', 'htmlimports',
-    'input', 'inputtypes', 'requestanimationframe', 'svg', 'touchevents',
-    'geolocation', 'appearance', 'backgroundblendmode',
-    'backgroundcliptext', 'csscalc', 'csscolumns', 'cssfilters', 'flexbox',
-    'flexboxlegacy', 'flexwrap', 'cssinvalid', 'cssmask',
-    'csspointerevents', 'csspositionsticky', 'cssreflections',
-    'csstransitions', 'cssvhunit', 'cssvmaxunit', 'cssvminunit',
-    'cssvwunit', 'willchange', 'placeholder', 'sizes',
-    'srcset', 'svgasimg', 'svgfilters', 'svgclippaths', 'videoautoplay'
-  ],
-
   // SVG Sprite
   sprite: {
     shape: {
@@ -214,7 +205,7 @@ const modules = {
   // Babel
   babel: {
     presets: [
-      'env'
+      '@babel/env'
     ]
   },
 
