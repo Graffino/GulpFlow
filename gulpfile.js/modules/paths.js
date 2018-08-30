@@ -403,6 +403,7 @@ const patterns = {
 module.exports = {
   base,
   languages,
+  externals,
   node,
   modules,
   patterns
