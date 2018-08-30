@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Gulp lightouse file
+ * Gulp lighthouse file
  * Author: Graffino (http://www.graffino.com)
  */
 
@@ -14,7 +14,6 @@
 const gulp = require('gulp');
 const plugins = require('gulp-load-plugins')();
 
-
 // Gulp requires
 const paths = require('../modules/paths');
 
@@ -25,8 +24,8 @@ const paths = require('../modules/paths');
 
 function lighthouseRun() {
   return gulp.src(paths.base.root, {read: false})
-    .pipe(plugins.exec('mkdir ./tests/lighthouse/report'))
-    .pipe(plugins.exec('lighthouse ' + paths.base.url + ' --output-path=./tests/lighthouse/report/index.html --save-assets'))
+    .pipe(plugins.exec('mkdir -p ./tests/lighthouse/report'))
+    .pipe(plugins.exec('lighthouse ' + paths.base.url + ' --output-path=./tests/lighthouse/report/index.html --save-assets --view'))
     .pipe(plugins.exec.reporter());
 }
 
