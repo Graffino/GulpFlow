@@ -205,7 +205,7 @@ const buildPatternlab = function (done) {
 
   try {
     return paternlabInstance.build(done, {});
-  } catch (err) {
+  } catch (error) {
     return done();
   }
 };

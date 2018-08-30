@@ -42,7 +42,7 @@ function copyWordpress(done) {
       done();
     })
     .catch(err => {
-      done(err);
+      done(error);
     });
 }
 

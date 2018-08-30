@@ -67,7 +67,7 @@ Object.assign($graffino, {
                 let parsedJSON = false;
                 try {
                   parsedJSON = JSON.parse(data);
-                } catch (err) {
+                } catch (error) {
                   _this.log('There was an error trying to get JSON data from element attribute.');
                 }
 

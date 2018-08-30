@@ -59,7 +59,7 @@ function copyIcons(done) {
       done();
     })
     .catch(err => {
-      done(err);
+      done(error);
     });
 }
 
@@ -156,7 +156,7 @@ function copyVendor(done) {
       done();
     })
     .catch(err => {
-      done(err);
+      done(error);
     });
 }
 

@@ -73,7 +73,7 @@ function watchChanges() {
           pid = fs.readFileSync('gulpfile.js/gulp.pid');
           try {
             process.kill(pid, 0);
-          } catch (err) {}
+          } catch (error) {}
           // Delete PID file
           fs.unlinkSync('gulpfile.js/gulp.pid');
         }

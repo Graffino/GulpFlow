@@ -10,9 +10,6 @@
  * Module imports
  */
 
-// Node requires
-const path = require('path');
-
 // Gulp & plugins
 const gulp = require('gulp');
 

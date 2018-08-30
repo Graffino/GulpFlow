@@ -144,7 +144,7 @@ Object.assign($graffino, {
                     // Serializing form's data
                     try {
                       data = $form.serialize();
-                    } catch (err) {
+                    } catch (error) {
                       _this.log('Form id ' + index + ' data could not be serialized. ' + err);
                       return;
                     }

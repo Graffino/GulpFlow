@@ -75,8 +75,8 @@ $graffino.doAction('GLOBAL_FUNCTIONS', 'global-functions', () => {
         localStorage.setItem('testKey', 'testValue');
         localStorage.removeItem('testKey');
         result = true;
-      } catch (err) {
-        _this.log(err);
+      } catch (error) {
+        _this.log(error);
         result = false;
       }
       return result;
