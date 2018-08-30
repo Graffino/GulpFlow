@@ -25,11 +25,11 @@ const utils = require('../modules/utils');
 
 function copyJS() {
   return gulp.src([
-      paths.base.www + paths.modules.js.main,
-    ], {
-      base: paths.base.www
-    })
-    .pipe(gulp.dest(paths.externals.public));
+    paths.base.www + paths.modules.js.main
+  ], {
+    base: paths.base.www
+  })
+  .pipe(gulp.dest(paths.externals.public));
 }
 
 /**
@@ -38,11 +38,11 @@ function copyJS() {
 
 function copyCSS() {
   return gulp.src([
-      paths.base.www + paths.modules.css.main,
-    ], {
-      base: paths.base.www
-    })
-    .pipe(gulp.dest(paths.externals.public));
+    paths.base.www + paths.modules.css.main
+  ], {
+    base: paths.base.www
+  })
+  .pipe(gulp.dest(paths.externals.public));
 }
 
 
