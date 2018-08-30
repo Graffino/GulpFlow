@@ -52,6 +52,15 @@ const languages = [
 
 
 /**
+ * Copy CSS and JS to external folder
+ */
+
+const externals = {
+  public: '../external/code/public/',
+};
+
+
+/**
  * Module paths
  */
 
