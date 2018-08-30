@@ -145,13 +145,13 @@ function copyVendor(done) {
   const excludeSync = paths.patterns.vendor.excludeSync.map(item => '!' + paths.base.root + item);
   const pathsToCopy = [paths.base.root + paths.patterns.vendor.all].concat(excludeSync);
   syncy(
-      pathsToCopy,
-      paths.base.www + paths.modules.vendor.root, {
-        verbose: true,
-        base: paths.base.root + paths.base.vendor,
-        updateAndDelete: false
-      }
-    )
+    pathsToCopy,
+    paths.base.www + paths.modules.vendor.root, {
+      verbose: true,
+      base: paths.base.root + paths.base.vendor,
+      updateAndDelete: false
+    }
+  )
     .then(() => {
       done();
     })

@@ -338,7 +338,7 @@ const patterns = {
   // Vendor
   vendor: {
     all: modules.vendor.root + '**/*',
-    exclude: [
+    excludeSync: [
       '_readme.md'
     ]
   },
