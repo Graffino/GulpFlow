@@ -35,6 +35,7 @@ const sprite = require('../tasks/sprite');
 const stylus = require('../tasks/stylus');
 const watch = require('../tasks/watch');
 const wordpress = require('../tasks/wordpress');
+const externals = require('../tasks/externals');
 const composer = require('../tasks/composer');
 const patternlab = require('../tasks/patternlab');
 
@@ -58,6 +59,7 @@ const buildDevelopment = gulp.series(
   bundle.app,
   patternlab.process,
   wordpress.process,
+  externals.copy,
   composer.install,
   lint.app,
   watch.app,
@@ -86,6 +88,7 @@ const buildStaging = gulp.series(
   bundle.app,
   patternlab.process,
   wordpress.process,
+  externals.copy,
   composer.install
 );
 
@@ -118,6 +121,7 @@ const buildProduction = gulp.series(
       clean.postproduction,
       patternlab.process,
       wordpress.process,
+      externals.copy,
       composer.install
     )
   )

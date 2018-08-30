@@ -61,6 +61,12 @@ const enabled = {
     admin: false
   },
 
+  // Externals
+  externals: {
+    css: true,
+    js: true
+  },
+
   // Sourcemaps
   sourcemaps: {
     css: true,
