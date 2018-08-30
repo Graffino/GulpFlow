@@ -29,7 +29,7 @@ function copyJS() {
   ], {
     base: paths.base.www
   })
-  .pipe(gulp.dest(paths.externals.public));
+    .pipe(gulp.dest(paths.externals.public));
 }
 
 /**
@@ -42,7 +42,7 @@ function copyCSS() {
   ], {
     base: paths.base.www
   })
-  .pipe(gulp.dest(paths.externals.public));
+    .pipe(gulp.dest(paths.externals.public));
 }
 
 

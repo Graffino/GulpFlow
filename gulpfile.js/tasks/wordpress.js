@@ -41,7 +41,7 @@ function copyWordpress(done) {
     .then(() => {
       done();
     })
-    .catch(err => {
+    .catch(error => {
       done(error);
     });
 }

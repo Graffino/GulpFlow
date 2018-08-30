@@ -145,7 +145,7 @@ Object.assign($graffino, {
                     try {
                       data = $form.serialize();
                     } catch (error) {
-                      _this.log('Form id ' + index + ' data could not be serialized. ' + err);
+                      _this.log('Form id ' + index + ' data could not be serialized. ' + error);
                       return;
                     }
                     // Sending an AJAX request
