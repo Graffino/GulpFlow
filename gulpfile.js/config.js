@@ -61,8 +61,8 @@ const enabled = {
 
   // Externals
   externals: {
-    css: true,
-    js: true
+    css: false,
+    js: false
   },
 
   // Sourcemaps
