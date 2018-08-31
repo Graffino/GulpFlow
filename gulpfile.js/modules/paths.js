@@ -40,6 +40,11 @@ const base = {
   url: 'http://gulpflow.dev'
 };
 
+/**
+ * Website routes
+ */
+
+const routes = [];
 
 /**
  * Language paths
@@ -402,6 +407,7 @@ const patterns = {
 
 module.exports = {
   base,
+  routes,
   languages,
   externals,
   node,
