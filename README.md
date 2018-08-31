@@ -155,8 +155,8 @@ Run:
 
 ## Google Lighthouse report ##
 
-1. Configure `url` in `gulpfile.js/common/paths.js`.
-2. Run `gulp lighthouse`
+1. Configure `url` and `routes` in `gulpfile.js/common/paths.js`.
+2. Run `gulp lighthouse` or `gulp lighthouse:crawl` for a full website report
 
 ## Bump Project Version ##
 

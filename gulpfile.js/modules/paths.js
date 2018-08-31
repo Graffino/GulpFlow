@@ -45,6 +45,8 @@ const base = {
  * Language paths
  */
 
+const routes = [];
+
 const languages = [
   base.www + 'de/',
   base.www + 'en/'
@@ -402,6 +404,7 @@ const patterns = {
 
 module.exports = {
   base,
+  routes,
   languages,
   externals,
   node,
