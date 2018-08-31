@@ -40,12 +40,15 @@ const base = {
   url: 'http://gulpflow.dev'
 };
 
+/**
+ * Website routes
+ */
+
+const routes = [];
 
 /**
  * Language paths
  */
-
-const routes = [];
 
 const languages = [
   base.www + 'de/',
