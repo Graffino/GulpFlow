@@ -136,7 +136,7 @@ module.exports = {
   js: config.enabled.lint.js ? lintJS : utils.noop,
 
   // Lint CSS according to config
-  stylus: config.enabled.lint.js ? lintStylus : utils.noop,
+  stylus: config.enabled.lint.css ? lintStylus : utils.noop,
 
   // Lint HTML according to config
   html: config.enabled.lint.html ? lintHTML : utils.noop,
