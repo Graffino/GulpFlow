@@ -101,6 +101,7 @@ const copyIconsSpriteFile = function () {
  * Generate a mustache file and a markdown template for each icon
  */
 
+/* eslint-disable require-await */
 async function generateIconTemplates() {
   const files = fs.readdirSync(path.normalize(paths.modules.patternlab.source.icons))
     .filter(file => {
@@ -121,6 +122,7 @@ async function generateIconTemplates() {
     }
   });
 }
+/* eslint-enable */
 
 /**
  * Generate .md files for each atom
@@ -151,12 +153,14 @@ function findMustacheFile(startPath) {
   });
 }
 
+/* eslint-disable require-await */
 async function generateDescriptions() {
   const files = fs.readdirSync(path.normalize(paths.modules.patternlab.source.patterns + '00-atoms/'));
   files.forEach(folder => {
     findMustacheFile(paths.modules.patternlab.source.patterns + '00-atoms/' + folder);
   });
 }
+/* eslint-enable */
 
 function injectSvgInHtml() {
   const excludeIcons = paths.patterns.icons.exclude.map(
