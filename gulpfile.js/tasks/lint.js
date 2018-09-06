@@ -149,9 +149,25 @@ module.exports = {
 
 
 /**
- * Gulp lint task
+ * Gulp lint tasks
  */
 
 lintApp.displayName = 'lint';
 lintApp.description = 'Lints Stylus, Gulp, JS, Nunjucks, PHP files for errors.';
 gulp.task(lintApp);
+
+lintJS.displayName = 'lint:js';
+lintJS.description = 'Lints JS files for errors.';
+gulp.task(lintJS);
+
+lintStylus.displayName = 'lint:stylus';
+lintStylus.description = 'Lints Stylus files for errors.';
+gulp.task(lintStylus);
+
+lintHTML.displayName = 'lint:html';
+lintHTML.description = 'Lints HTML files for errors.';
+gulp.task(lintHTML);
+
+lintPHP.displayName = 'lint:php';
+lintPHP.description = 'Lints PHP files for errors.';
+gulp.task(lintPHP);
