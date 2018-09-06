@@ -48,6 +48,9 @@
     "plugins": [
       "compat"
     ],
+    "settings": {
+      "polyfills": ["promises"]
+    },
     "rules": {
       "compat/compat": 2,
       "no-multiple-empty-lines": [
