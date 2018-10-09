@@ -47,7 +47,7 @@ $ npm config set python %USERPROFILE%\.windows-build-tools\python27\python.exe
 #### It may help to have these packages globally installed (because Windows :/)
 
 ```bash
-npm install -g babel-cli backstopjs bower browser-sync critical eslint gulp-cli htmlhint lighthouse npm-check-updates nunjucks phantomjs phplint slimerjs stylint stylint-json-reporter ttf2woff xo
+npm install -g babel-cli backstopjs bower browser-sync critical eslint gulp-cli htmlhint lighthouse npm-check-updates nunjucks phantomjs phplint slimerjs stylint stylint-json-reporter stylus ttf2woff xo
 ```
 
 ### 3. Install Yarn for node packet management
@@ -97,17 +97,17 @@ tests/regression    -> Regression testing files
 
 ## What's included
 
-* Sass -> compilation to CSS
+* Stylus -> compilation to CSS
 * Javascript with jQuery
 * Handlebars (helpers, partials and templates) -> compilation to JS
-* SVG Sprites -> automatic sass icon and sass files generation
+* SVG Sprites -> automatic Stylus icon and Stylus files generation
 * Image optimization -> automatic optimization without significant loss of quality
 * Font generation from TTF -> WOFF, WOFF2
 * Dependencies management via bower -> automatic injection of CSS and JS dependencies into the project
 * Concatenation & minification (CSS, JS, HTML)
 * Critical CSS -> generation and injection into HTML
 * Composer install -> automatic install of composer dependencies
-* Development mode -> Complete with JS, HTML, PHP, Sass linters, Watch and BrowserSync integration
+* Development mode -> Complete with JS, HTML, PHP, Stylus linters, Watch and BrowserSync integration
 * Production mode -> Includes optimizations, minifications and critical CSS
 * Regression testing with BackstopJS
 * Git version bumping
@@ -187,4 +187,4 @@ Run:
 
 ## DISCLAIMER
 
-We know it's not complete, not well documented. We're working on it :). You'll need knowledge of node, gulp, bower and sass to master this.
+We know it's not complete, not well documented. We're working on it :). You'll need knowledge of node, gulp, bower and Stylus to master this.
