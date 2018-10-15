@@ -28,11 +28,13 @@ function installComposer(done) {
 
   // Loop trough all defined paths
   composerPaths.map(
-    composerPath => plugins.composer({'working-dir': paths.base.www + composerPath})
+    composerPath => plugins.composer({
+      'working-dir': paths.base.www + composerPath,
+      'async': false
+    })
   );
   done();
 }
-
 
 /**
  * Process Composer
