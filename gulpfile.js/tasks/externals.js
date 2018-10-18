@@ -14,9 +14,12 @@
 const gulp = require('gulp');
 
 // Gulp requires
+const plugins = require('gulp-load-plugins');
 const config = require('../config');
 const paths = require('../modules/paths');
 const utils = require('../modules/utils');
+
+const packageFile = require('../../package.json');
 
 
 /**
@@ -29,6 +32,7 @@ function copyJS() {
   ], {
     base: paths.base.www
   })
+    .pipe(plugins.rename(paths.externals.js + packageFile.name + '.js'))
     .pipe(gulp.dest(paths.externals.public));
 }
 
@@ -42,6 +46,7 @@ function copyCSS() {
   ], {
     base: paths.base.www
   })
+    .pipe(plugins.rename(paths.externals.css + packageFile.name + '.css'))
     .pipe(gulp.dest(paths.externals.public));
 }
 
