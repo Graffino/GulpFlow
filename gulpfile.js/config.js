@@ -229,6 +229,26 @@ const modules = {
     ]
   },
 
+  // Bundle
+  bundle: {
+    order: {
+      css: [
+        // Insert external project names here
+        '**/project-name.css',
+        '**/bower.css',
+        '**/app.css',
+        '**/*.css'
+      ],
+      js: [
+        // Insert external project names here
+        '**/project-names.js',
+        '**/bower.js',
+        '**/app.js',
+        '**/*.js'
+      ]
+    }
+  },
+
   // Critical
   critical: {
     inline: false,

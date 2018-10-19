@@ -227,6 +227,46 @@ function watchChanges() {
     )
   );
 
+  // Externals JS
+  gulp.watch(
+    [
+      paths.base.www + paths.externals.js
+    ],
+    debounce(
+      gulp.series(
+        clean.js.common,
+        clean.js.modules,
+        js.process,
+        bundle.js,
+        externals.js,
+        lint.js,
+        utils.reload,
+        notice.rebuilt
+      ),
+      500
+    )
+  );
+
+  // Externals CSS
+  gulp.watch(
+    [
+      paths.base.www + paths.externals.css
+    ],
+    debounce(
+      gulp.series(
+        clean.css.common,
+        clean.css.modules,
+        stylus.process,
+        bundle.css,
+        externals.css,
+        lint.stylus,
+        utils.reload,
+        notice.rebuilt
+      ),
+      500
+    )
+  );
+
   // Images
   gulp.watch(
     [paths.base.src + paths.patterns.images.all],
