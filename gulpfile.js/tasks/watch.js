@@ -256,10 +256,10 @@ function watchChanges() {
       gulp.series(
         clean.css.common,
         clean.css.modules,
-        sass.process,
+        stylus.process,
         bundle.css,
         externals.css,
-        lint.sass,
+        lint.stylus,
         utils.reload,
         notice.rebuilt
       ),
