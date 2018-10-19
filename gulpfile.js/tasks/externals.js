@@ -19,6 +19,7 @@ const config = require('../config');
 const paths = require('../modules/paths');
 const utils = require('../modules/utils');
 
+// Local variables
 const packageFile = require('../../package.json');
 
 
