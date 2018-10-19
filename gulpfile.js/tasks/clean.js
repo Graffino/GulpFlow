@@ -44,8 +44,23 @@ function clean(toClean) {
  */
 
 // CSS
-function cleanCSS() {
+function cleanCSSAll() {
   return clean(paths.base.www + paths.modules.css.root);
+}
+
+// CSS common files
+function cleanCSSCommon() {
+  return clean(paths.base.www + paths.modules.css.common);
+}
+
+// CSS modules files
+function cleanCSSModules() {
+  return clean(paths.base.www + paths.modules.css.modules);
+}
+
+// CSS vendor files
+function cleanCSSVendor() {
+  return clean(paths.base.www + paths.modules.css.common);
 }
 
 
@@ -249,7 +264,7 @@ function cleanPostProduction() {
 
 const cleanApp = gulp.series(
   gulp.parallel(
-    cleanCSS,
+    cleanCSSAll,
     cleanSprite,
     cleanJSAll,
     cleanIcons,
@@ -276,7 +291,12 @@ const cleanApp = gulp.series(
  */
 
 module.exports = {
-  css: cleanCSS,
+  css: {
+    all: cleanCSSAll,
+    common: cleanCSSCommon,
+    modules: cleanCSSModules,
+    vendor: cleanCSSVendor
+  },
   sprite: cleanSprite,
   js: {
     all: cleanJSAll,

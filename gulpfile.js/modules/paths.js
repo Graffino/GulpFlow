@@ -61,7 +61,9 @@ const languages = [
  */
 
 const externals = {
-  public: '../external/code/public/'
+  public: '../external/www/',
+  css: 'css/vendor/',
+  js: 'js/vendor/'
 };
 
 
