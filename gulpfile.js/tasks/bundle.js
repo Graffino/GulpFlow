@@ -46,7 +46,7 @@ function bundleJS() {
         plugins.sourcemaps.init({loadMaps: true})
       )
     )
-    .pipe(plugins.order(config.modules.order.js))
+    .pipe(plugins.order(config.modules.bundle.order.js))
     .pipe(plugins.groupConcat({
       'main.js': src
     }))
@@ -81,7 +81,7 @@ function bundleCSS() {
         plugins.sourcemaps.init({loadMaps: true})
       )
     )
-    .pipe(plugins.order(config.modules.order.css))
+    .pipe(plugins.order(config.modules.bundle.order.css))
     .pipe(plugins.groupConcat({
       'main.css': src
     }))
