@@ -1,6 +1,6 @@
 {
   "name": "gulp-flow",
-  "version": "4.4.8",
+  "version": "4.4.9",
   "description": "Gulp Flow we use at Graffino.",
   "main": [
     "www/assets/css/main.css",
@@ -26,7 +26,7 @@
     "tests"
   ],
   "devDependencies": {
-    "normalize-css": "^8.0.0",
+    "normalize-css": "^8.0.1",
     "browser-update": "~2.0.2",
     "fontfaceobserver": "~2.0.13",
     "jquery": "~3.3.1",
@@ -34,13 +34,13 @@
     "svg4everybody": "^2.1.9",
     "ramda": "^0.25.0",
     "Babel-Polyfill-Standalone": "babel-polyfill-standalone#^6.26.0",
-    "lodash": "^4.17.10"
+    "lodash": "^4.17.11"
   },
   "overrides": {
     "browser-update": {
       "dependencies": {
         "jquery": "~3.3.1",
-        "normalize-css": "^8.0.0"
+        "normalize-css": "^8.0.1"
       }
     },
     "Babel-Polyfill-Standalone": {

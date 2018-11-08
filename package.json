@@ -1,6 +1,6 @@
 {
   "name": "gulp-flow",
-  "version": "4.4.8",
+  "version": "4.4.9",
   "title": "Gulp Flow",
   "description": "Gulp Flow we use at Graffino.",
   "homepage": "http://gulp-flow.dev",
@@ -111,8 +111,8 @@
     "last 2 versions"
   ],
   "devDependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/preset-env": "^7.1.0",
+    "@babel/core": "^7.1.5",
+    "@babel/preset-env": "^7.1.5",
     "autoprefixer": "^9.3.1",
     "backstopjs": "^3.7.0",
     "bower": "^1.8.4",
@@ -128,7 +128,7 @@
     "eslint-plugin-ava": "^5.1.1",
     "eslint-plugin-compat": "^2.6.3",
     "eslint-plugin-unicorn": "^6.0.1",
-    "gulp": "gulpjs/gulp#4.0",
+    "gulp": "^4.0.0",
     "gulp-babel": "^8.0.0",
     "gulp-bump": "~3.1.1",
     "gulp-combine-mq": "~0.4.0",
@@ -142,9 +142,9 @@
     "gulp-group-concat": "^1.1.6",
     "gulp-htmlhint": "^2.2.1",
     "gulp-htmlmin": "^5.0.1",
-    "gulp-hub": "frankwallis/gulp-hub#4.1.1",
+    "gulp-hub": "^4.2.0",
     "gulp-if": "^2.0.2",
-    "gulp-imagemin": "~4.1.0",
+    "gulp-imagemin": "~5.0.3",
     "gulp-inject": "^4.3.2",
     "gulp-load-plugins": "~1.5.0",
     "gulp-notify": "^3.2.0",
@@ -183,7 +183,7 @@
     "stylint-json-reporter": "^0.3.1",
     "stylint-stylish": "^2.0.0",
     "syncy": "^2.2.2",
-    "tree-kill": "^1.2.0",
+    "tree-kill": "^1.2.1",
     "xo": "^0.23.0"
   },
   "scripts": {
