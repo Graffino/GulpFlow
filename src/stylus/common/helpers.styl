@@ -3,6 +3,18 @@
  * Author: Graffino (http://www.graffino.com)
  */
 
+// Breakpoint names and sizes
+$responsive-breakpoints = { "size": $xlarge, "name": xlarge },
+    { "size": $desktop, "name": desktop },
+    { "size": $large, "name": large },
+    { "size": $medium, "name": medium },
+    { "size": $tablet, "name": tablet },
+    { "size": $small, "name": small },
+    { "size": $xsmall, "name": xsmall },
+    { "size": $iphone6p, "name": iphone6p },
+    { "size": $iphone6, "name": iphone6 },
+    { "size": $mobile, "name": mobile };
+
 
 /**
  * Global helpers
@@ -10,81 +22,52 @@
 
 .h {
   // Show only on specific viewport size
-  &-show-for {
-    &-large-up {
-      +below($large) {
-        display: none !important;
-      }
-    }
+  for $breakpoint in $responsive-breakpoints {
+        // Show/hide classes for responsive breakpoints
+      &-hide-{$breakpoint.name}-up {
+          animation: fade-in 400ms forwards;
 
-    &-large-down {
-      +above($large + 1) {
-        display: none !important;
+          +above($breakpoint.size + 1) {
+              display: none !important;
+          }
       }
-    }
 
-    &-tablet-up {
-      +below($tablet) {
-        display: none !important;
-      }
-    }
+      &-hide-{$breakpoint.name}-down {
+          animation: fade-in 400ms forwards;
 
-    &-tablet-down {
-      +above($tablet + 1) {
-        display: none !important;
+          +below($breakpoint.size) {
+              display: none !important;
+          }
       }
-    }
 
-    &-mobile-up {
-      +below($mobile) {
-        display: none !important;
-      }
-    }
+      &-show-{$breakpoint.name}-up {
+          display: none !important;
+          animation: fade-in 400ms forwards;
 
-    &-mobile-down {
-      +above($mobile + 1) {
-        display: none !important;
+          +above($breakpoint.size + 1) {
+              display: block !important;
+          }
       }
-    }
-  }
 
-  // Hide for specific viewport size
-  &-hide-for {
-    &-large-up {
-      +above($large + 1) {
-        display: none !important;
-      }
-    }
+      &-show-{$breakpoint.name}-down {
+          display: none !important;
+          animation: fade-in 400ms forwards;
 
-    &-large-down {
-      +below($large) {
-        display: none !important;
+          +below($breakpoint.size) {
+              display: block !important;
+          }
       }
-    }
 
-    &-tablet-up {
-      +above($tablet + 1) {
-        display: none !important;
+      // Display types for responsive breakpoints
+      for $type in inline inline-block block flex none {
+          &-display-{$type} {
+              &-{$breakpoint.name} {
+                  +below($breakpoint.size) {
+                      display: $type !important;
+                  }
+              }
+          }
       }
-    }
-
-    &-tablet-down {
-      +below($tablet) {
-        display: none !important;
-      }
-    }
-
-    &-mobile-up {
-      +above($mobile + 1) {
-        display: none !important;
-      }
-    }
-
-    &-mobile-down {
-      +below($mobile) {
-        display: none !important;
-      }
-    }
   }
 
   // Center for specific viewport size
@@ -133,124 +116,18 @@
     }
   }
 
-  // Alignment
+  // Text alignment for breakpoints
   &-align {
-    &-left {
-      text-align: left !important;
+    for position in left center right {
+      &-{position} {
+        text-align: position !important;
 
-      &-from-large-down {
-        +below($large) {
-          text-align: left !important;
-        }
-      }
-
-      &-from-large-up {
-        +above($large + 1) {
-          text-align: left !important;
-        }
-      }
-
-      &-from-tablet-down {
-        +below($tablet) {
-          text-align: left !important;
-        }
-      }
-
-      &-from-tablet-up {
-        +above($tablet + 1) {
-          text-align: left !important;
-        }
-      }
-
-      &-from-small-down {
-        +below($small) {
-          text-align: left !important;
-        }
-      }
-
-      &-from-small-up {
-        +above($small + 1) {
-          text-align: left !important;
-        }
-      }
-    }
-
-    &-center {
-      text-align: center !important;
-
-      &-from-large-down {
-        +below($large) {
-          text-align: center !important;
-        }
-      }
-
-      &-from-large-up {
-        +above($large + 1) {
-          text-align: center !important;
-        }
-      }
-
-      &-from-tablet-down {
-        +below($tablet) {
-          text-align: center !important;
-        }
-      }
-
-      &-from-tablet-up {
-        +above($tablet + 1) {
-          text-align: center !important;
-        }
-      }
-
-      &-from-small-down {
-        +below($small) {
-          text-align: center !important;
-        }
-      }
-
-      &-from-small-up {
-        +above($small + 1) {
-          text-align: center !important;
-        }
-      }
-    }
-
-    &-right {
-      text-align: right !important;
-
-      &-from-large-down {
-        +below($large) {
-          text-align: right !important;
-        }
-      }
-
-      &-from-large-up {
-        +above($large + 1) {
-          text-align: right !important;
-        }
-      }
-
-      &-from-tablet-down {
-        +below($tablet) {
-          text-align: right !important;
-        }
-      }
-
-      &-from-tablet-up {
-        +above($tablet + 1) {
-          text-align: right !important;
-        }
-      }
-
-      &-from-small-down {
-        +below($small) {
-          text-align: right !important;
-        }
-      }
-
-      &-from-small-up {
-        +above($small + 1) {
-          text-align: right !important;
+        for $breakpoint in $responsive-breakpoints {
+          &-{$breakpoint.name} {
+            +below($breakpoint.size) {
+              text-align: position !important;
+            }
+          }
         }
       }
     }
@@ -258,72 +135,55 @@
 
   // Floats
   &-float {
-    &-none {
-      float: none !important;
+    for $float in none left right {
+      &-{$float} {
+        float: $float !important;
 
-      &-from-large-down {
-        +below($large) {
-          float: none !important;
-        }
-      }
-
-      &-from-tablet-down {
-        +below($tablet) {
-          float: none !important;
-        }
-      }
-
-      &-from-small-down {
-        +below($small) {
-          float: none !important;
-        }
-      }
-    }
-
-    &-left {
-      float: left !important;
-
-      &-from-large-down {
-        +below($large) {
-          float: left !important;
-        }
-      }
-
-      &-from-tablet-down {
-        +below($tablet) {
-          float: left !important;
-        }
-      }
-
-      &-from-small-down {
-        +below($small) {
-          float: left !important;
-        }
-      }
-    }
-
-    &-right {
-      float: right !important;
-
-      &-from-large-down {
-        +below($large) {
-          float: right !important;
-        }
-      }
-
-      &-from-tablet-down {
-        +below($tablet) {
-          float: right !important;
-        }
-      }
-
-      &-from-small-down {
-        +below($small) {
-          float: right !important;
+        for $breakpoint in $responsive-breakpoints {
+          &-{$breakpoint.name} {
+            +below($breakpoint.size) {
+              float: $float !important;
+            }
+          }
         }
       }
     }
   }
+
+  // Margins
+  &-margin {
+    for $side in none top right bottom left {
+      for i in 0 1 2 3 4 5 6 7 8 9 10 {
+        &-{$side}-{i} {
+          margin-{$side}: rem(i * 10);
+        }
+      }
+    }
+  }
+
+    // No margin classes
+  &-no-margin {
+      margin: 0 !important;
+
+      for direction in top right bottom left {
+          &-{direction} {
+              margin-{direction}: 0 !important; // @stylint ignore
+          }
+      }
+  }
+
+  // No padding classes
+  &-no-padding {
+      padding: 0 !important;
+
+      for direction in top right bottom left {
+          &-{direction} {
+              padding-{direction}: 0 !important; // @stylint ignore
+          }
+      }
+  }
+
+
 
   &-clear {
     clearfix();
@@ -402,20 +262,18 @@
     }
   }
 
-  // Display table
-  &-display {
-    &-table {
-      display: table;
+  // Display
+    for $type in inline inline-block block flex inline-flex none {
+      &-display-{$type} {
+        display: $type !important;
+      }
     }
 
-    &-inline-block {
-      display: inline-block;
+    for $type in static relative fixed absolute {
+      &-position-{$type} {
+        position: $type !important;
+      }
     }
-
-    &-block {
-      display: block;
-    }
-  }
 
   // Align vertically via table method
   &-vertical-align {
@@ -463,46 +321,57 @@
     }
   }
 
-  // Z Indexes
-  &-z-index {
-    &-negative {
-      z-index: -1 !important;
+    // Z-index scale helper classes
+    for i in 0 1 2 3 4 5 6 7 8 9 10 {
+      &-z-index {
+        &-{i} {
+          z-index: i * 100;
+        }
+
+        &-max {
+          z-index: 2147483647;
+        }
+
+        &-negative {
+          z-index: -1;
+
+          &-{i} {
+            z-index: i * -100;
+          }
+        }
+      }
     }
-    &-0 {
-      z-index: 0 !important;
+
+      // Flex-grow scale helper classes
+    for i in 0 1 2 3 4 5 6 7 8 9 10 {
+        &-flex-grow-{i} {
+            flex-grow: i;
+        }
     }
-    &-10 {
-      z-index: 10 !important;
+
+    // Flex align-items helper classes
+    for pos in baseline center end flex-end flex-start left normal right {
+        &-flex-align-items-{pos} {
+            align-items: pos !important;
+        }
     }
-    &-20 {
-      z-index: 20 !important;
+
+    // Flex justify-content helper classes
+    for pos in center flex-end flex-start space-between space-around {
+        &-flex-justify-content-{pos} {
+            justify-content: pos !important;
+        }
     }
-    &-30 {
-      z-index: 30 !important;
+
+  &-no-before {
+    &::before {
+      content: none !important;
     }
-    &-40 {
-      z-index: 40 !important;
-    }
-    &-50 {
-      z-index: 50 !important;
-    }
-    &-60 {
-      z-index: 60 !important;
-    }
-    &-70 {
-      z-index: 70 !important;
-    }
-    &-80 {
-      z-index: 80 !important;
-    }
-    &-90 {
-      z-index: 90 !important;
-    }
-    &-100 {
-      z-index: 100 !important;
-    }
-    &-max {
-      z-index: 9999 !important;
+  }
+
+  &-no-after {
+    &::after {
+      content: none !important;
     }
   }
 }

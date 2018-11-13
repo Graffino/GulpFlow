@@ -51,6 +51,11 @@ calc-100-minus($value) {
   return "calc(100% - %s)" % rem($value);
 }
 
+// CSS calc() subtract value from 100vh
+calc-100vh-minus($value) {
+    return "calc(100vh - %s)" % rem($value);
+}
+
 // CSS calc() add value to 100%
 calc-100-plus($value) {
   return "calc(100% + %s)" % rem($value);
@@ -85,6 +90,75 @@ webfont($family, $file, $weight = normal, $style = normal, $range = "U+0000-007F
   }
 }
 
+// Font weight scale modifier classes
+font-weight-scale() {
+    for weight in 200 300 400 500 600 700 800 900 {
+        &.-font-weight {
+            &-{weight} {
+                font-weight: weight;
+            }
+        }
+    }
+}
+
+// Margin scale modifier classes
+margin-scale() {
+    for margin, index in one two three four {
+        &.-margin {
+            &-top-{margin} {
+                margin-top: rem($default-font-size) * $default-line-height * (index + 1);
+            }
+
+            &-right-{margin} {
+                margin-right: rem($default-font-size) * $default-line-height * (index + 1);
+            }
+
+            &-bottom-{margin} {
+                margin-bottom: rem($default-font-size) * $default-line-height * (index + 1);
+            }
+
+            &-left-{margin} {
+                margin-left: rem($default-font-size) * $default-line-height * (index + 1);
+            }
+        }
+    }
+}
+
+// Generate color themeing for headings
+$font-colors = {
+    white: white,
+    black: black,
+    primary: $color-primary,
+    accent: $color-accent
+}
+
+font-colors() {
+    for k, v in $font-colors {
+        &.-color-{k} {
+            color: v;
+        }
+    }
+}
+
+text-modifiers() {
+    &.-type {
+        &-uppercase {
+            text-transform: uppercase;
+        }
+    }
+}
+
+link-colors() {
+    for k, v in $font-colors {
+        &.-color-{k} {
+            color: v;
+
+            &:hover {
+              color: darken(v, 20%);
+            }
+        }
+    }
+}
 
 /**
  * Animation mixin
