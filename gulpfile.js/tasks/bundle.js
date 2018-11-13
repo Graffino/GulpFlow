@@ -19,6 +19,7 @@ const gulp = require('gulp');
 const plugins = require('gulp-load-plugins')();
 
 // Gulp requires
+const config = require('../config');
 const env = require('../modules/env');
 const paths = require('../modules/paths');
 const error = require('../modules/error');
