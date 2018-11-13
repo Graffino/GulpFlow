@@ -9,302 +9,175 @@
  * Headings
  */
 
-h1,
-.h1 {
-  font-family: $heading-1-font-family;
-  font-size: $heading-1-font-size;
-  font-weight: $heading-1-font-weight;
-  line-height: $heading-1-line-height;
-
-  // Default font-family until webfonts are loaded
-  .no-fonts & {
-    font-family: $system-sans-fontface-stack;
-  }
+// Moving the $headings hash to another file makes it impossible
+// to use it without another import in this partial (which results in duplicated code)
+$headings = {
+    h1: {stack: $sans-fontface-stack, size: rem(36), weight: 500, line-height: rem(41)},
+    h2: {stack: $sans-fontface-stack, size: rem(24), weight: 500, line-height: rem(36)},
+    h3: {stack: $sans-fontface-stack, size: rem(20), weight: 500, line-height: rem(32)},
+    h4: {stack: $sans-fontface-stack, size: rem(18), weight: 500, line-height: rem(28)},
+    h5: {stack: $sans-fontface-stack, size: rem(16), weight: 500, line-height: rem(24)},
+    h6: {stack: $sans-fontface-stack, size: rem(14), weight: 500, line-height: rem(22)}
 }
 
-h2,
-.h2 {
-  font-family: $heading-2-font-family;
-  font-size: $heading-2-font-size;
-  font-weight: $heading-2-font-weight;
-  line-height: $heading-2-line-height;
+// Creating styling blocks for "h1" to "h6" tags and ".h1" to ".h6" classes
+for key, heading in $headings {
+    {key},
+    .{key} {
+        margin: 0;
+        padding: 0;
+        color: $color-heading;
+        font-family: heading.stack;
+        font-size: heading.size;
+        font-weight: heading.weight;
+        line-height: heading.line-height;
 
-  // Default font-family until webfonts are loaded
-  .no-fonts & {
-    font-family: $system-sans-fontface-stack;
-  }
+        // Default font-family until webfonts are loaded
+        .no-fonts & {
+            font-family: $fonts-stack-system-sans;
+        }
+    }
 }
-
-h3,
-.h3 {
-  font-family: $heading-3-font-family;
-  font-size: $heading-3-font-size;
-  font-weight: $heading-3-font-weight;
-  line-height: $heading-3-line-height;
-
-  // Default font-family until webfonts are loaded
-  .no-fonts & {
-    font-family: $system-sans-fontface-stack;
-  }
-}
-
-h4,
-.h4 {
-  font-family: $heading-4-font-family;
-  font-size: $heading-4-font-size;
-  font-weight: $heading-4-font-weight;
-  line-height: $heading-4-line-height;
-
-  // Default font-family until webfonts are loaded
-  .no-fonts & {
-    font-family: $system-sans-fontface-stack;
-  }
-}
-
-h5,
-.h5 {
-  font-family: $heading-5-font-family;
-  font-size: $heading-5-font-size;
-  font-weight: $heading-5-font-weight;
-  line-height: $heading-5-line-height;
-
-  // Default font-family until webfonts are loaded
-  .no-fonts & {
-    font-family: $system-sans-fontface-stack;
-  }
-}
-
-h6,
-.h6 {
-  font-family: $heading-6-font-family;
-  font-size: $heading-6-font-size;
-  font-weight: $heading-6-font-weight;
-  line-height: $heading-6-line-height;
-
-  // Default font-family until webfonts are loaded
-  .no-fonts & {
-    font-family: $system-sans-fontface-stack;
-  }
-}
-
-
-/**
- * Heading
- */
 
 .heading {
-  position: relative;
-  margin: 0;
-  padding: 0;
-  color: $color-heading;
-  word-break: break-word;
-  hyphens: auto;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    color: $color-heading;
+    word-break: break-word;
+    hyphens: auto;
 
-  // Colors
-  &.-color {
-    &-text {
-      color: $color-text;
+    // Default font-family until webfonts are loaded
+    .no-fonts & {
+        font-family: $fonts-stack-system-sans;
     }
 
-    &-text-light {
-      color: rgba($color-text, 0.7);
+    for key, heading in $headings {
+        &.is-{key} {
+            font-family: heading.stack;
+            font-size: heading.size;
+            font-weight: heading.weight;
+            line-height: heading.line-height;
+        }
     }
 
-    &-text-lighter {
-      color: rgba($color-text, 0.5);
-    }
+    // Adding font-weight modifier classes (e.g. ".-font-weight-200")
+    font-weight-scale();
 
-    &-error {
-      color: $color-form-required-mark;
-    }
+    // Adding margin modifier classes (e.g. ".-margin-bottom-one")
+    margin-scale();
 
-    &-white {
-      color: white;
-    }
-  }
+    // Generate color themeing for headings
+    font-colors();
 
-  // Weights
-  &.-font-weight {
-    &-200 {
-      font-weight: 200;
-    }
-
-    &-300 {
-      font-weight: 300;
-    }
-
-    &-400 {
-      font-weight: 400;
-    }
-
-    &-500 {
-      font-weight: 500;
-    }
-
-    &-700 {
-      font-weight: 700;
-    }
-  }
-
-  // Margins
-  &.-margin {
-    &-top {
-      &-one {
-        margin-top: $default-line-height;
-      }
-
-      &-two {
-        margin-top: $default-line-height * 2;
-      }
-
-      &-three {
-        margin-top: $default-line-height * 3;
-      }
-    }
-
-    &-bottom {
-      &-one {
-        margin-bottom: $default-line-height;
-      }
-
-      &-two {
-        margin-bottom: $default-line-height * 2;
-      }
-
-      &-three {
-        margin-bottom: $default-line-height * 3;
-      }
-    }
-  }
-
-  &.-size {
-    &-h1 {
-      $heading-1-font-size   = rem(36);
-      $heading-1-line-height = rem(41);
-    }
-
-    &-h2 {
-      $heading-2-font-size   = rem(32);
-      $heading-2-line-height = rem(36);
-    }
-
-    &-h3 {
-      $heading-3-font-size   = rem(28);
-      $heading-3-line-height = rem(32);
-    }
-
-    &-h4 {
-      $heading-4-font-size   = rem(24);
-      $heading-4-line-height = rem(28);
-    }
-
-    &-h5 {
-      $heading-5-font-size   = rem(22);
-      $heading-5-line-height = rem(24);
-    }
-
-    &-h6 {
-      $heading-6-font-size   = rem(20);
-      $heading-6-line-height = rem(22);
-    }
-
-    &-small {
-      font-size: rem(14);
-      line-height: rem(16);
-    }
-
-    &-xsmall {
-      font-size: rem(12);
-      line-height: rem(14);
-    }
-  }
-
-  // Other
-  &.-display-block {
-    display: block;
-  }
-
-  &.-align-center {
-    text-align: center;
-  }
-
-  &.-case-upper {
-    text-transform: uppercase;
-  }
-
-  &.-no-break {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+    // Generate available text-modifiers
+    text-modifiers();
 }
 
 
-/**
- * Text
- */
+$copy = {
+    huge: {stack: $sans-fontface-stack, size: rem(24), weight: 500, line-height: 1.2},
+    xlarge: {stack: $sans-fontface-stack, size: rem(20), weight: 500, line-height: 1.2},
+    large: {stack: $sans-fontface-stack, size: rem(16), weight: 500, line-height: 1.2},
+    medium: {stack: $sans-fontface-stack, size: rem(14), weight: 500, line-height: 1.2},
+    small: {stack: $sans-fontface-stack, size: rem(12), weight: 500, line-height: 1.2},
+    legal: {stack: $sans-fontface-stack, size: rem(11), weight: 500, line-height: 1.2},
+    fine: {stack: $sans-fontface-stack, size: rem(10), weight: 500, line-height: 1.2},
+    xsmall: {stack: $sans-fontface-stack, size: rem(8), weight: 500, line-height: 1.2}
+}
 
-p,
 .text {
-  color: $color-text;
-  font-size: $default-font-size;
+    color: $color-default;
+    font-weight: 500;
 
-  // Weights
-  &.-font-weight {
-    &-200 {
-      font-weight: 200;
+    // Default font-family until webfonts are loaded
+    .no-fonts & {
+        font-family: $fonts-stack-system-sans;
     }
 
-    &-300 {
-      font-weight: 300;
+    &.-no-wrap {
+      white-space: nowrap;
     }
 
-    &-400 {
-      font-weight: 400;
+    &.-overflow-ellipsis {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
-    &-500 {
-      font-weight: 500;
+    for key, style in $copy {
+        &.-size-{key} {
+            font-family: style.stack;
+            font-size: style.size;
+            font-weight: style.weight;
+            line-height: style.line-height;
+        }
     }
 
-    &-700 {
-      font-weight: 700;
-    }
-  }
+    // Adding font-weight modifier classes (e.g. ".-font-weight-200")
+    font-weight-scale();
 
-  // Others
-  &.-align {
-    &-center {
-      display: block;
-      text-align: center;
-    }
+    // Adding margin modifier classes (e.g. ".-margin-bottom-one")
+    margin-scale();
 
-    &-right {
-      display: block;
-      text-align: right;
+    // Generate color theming for headings
+    font-colors();
+
+    // Generate available text-modifiers
+    text-modifiers();
+
+    &.-type {
+      &-transparent {
+        opacity: 0.6;
+      }
     }
-  }
 }
-
 
 /**
  * Links
  */
 
 .link {
-  position: relative;
-  display: inline-block;
-  color: $default-link-color;
-  font-weight: 200;
-  text-decoration: none;
-  transition: transition-custom();
-  transition-property: color;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    color: $color-link;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transition-custom();
+    transition-property: color;
 
-  &:hover {
-    color: $default-link-hover;
-  }
+    font-weight-scale();
+
+    &:hover {
+        color: $color-link-hover;
+    }
+
+    &.-color {
+        &-primary {
+          color: $color-primary;
+        }
+
+        &-blue {
+          color: $palette-blue;
+        }
+
+        &-yellow {
+          color: $palette-yellow;
+        }
+
+        &-text {
+          color: $color-text;
+        }
+    }
+
+    &.-size {
+        &-small {
+            font-size: rem(12);
+        }
+    }
 }
-
 
 /**
  * Lists
