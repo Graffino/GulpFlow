@@ -23,7 +23,6 @@ const config = require('../config');
 const env = require('../modules/env');
 const paths = require('../modules/paths');
 const error = require('../modules/error');
-const config = require('../config');
 
 
 /**
