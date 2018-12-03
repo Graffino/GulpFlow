@@ -1,7 +1,0 @@
-{
-  "name": "comment",
-  "placeholder": "Write your comment here...",
-  "cols": 8,
-  "required": true,
-  "disabled": false
-}

@@ -48,7 +48,6 @@ const utils = require('../modules/utils');
 const wordpress = require('../tasks/wordpress');
 const externals = require('../tasks/externals');
 const composer = require('../tasks/composer');
-const patternlab = require('../tasks/patternlab');
 
 let gulpProcess;
 
@@ -127,7 +126,6 @@ function watchChanges() {
         bundle.js,
         externals.js,
         lint.js,
-        patternlab.process,
         utils.reload,
         notice.rebuilt
       ),
@@ -147,7 +145,6 @@ function watchChanges() {
         bundle.css,
         externals.css,
         lint.stylus,
-        patternlab.process,
         notice.rebuilt
       ),
       500
@@ -177,7 +174,6 @@ function watchChanges() {
         config.clean.watch.fonts ? clean.fonts : utils.noop,
         copy.fonts,
         fonts.process,
-        patternlab.process,
         utils.reload,
         notice.rebuilt
       ),
@@ -274,7 +270,6 @@ function watchChanges() {
       gulp.series(
         config.clean.watch.images ? clean.images : utils.noop,
         copy.images,
-        patternlab.process,
         utils.reload,
         notice.rebuilt
       ),
@@ -294,7 +289,6 @@ function watchChanges() {
         sprite.process,
         stylus.process,
         bundle.css,
-        patternlab.process,
         utils.reload,
         notice.rebuilt
       ),
@@ -346,25 +340,6 @@ function watchChanges() {
       gulp.series(
         clean.composer,
         composer.install,
-        utils.reload,
-        notice.rebuilt
-      ),
-      2000
-    )
-  );
-
-  // Patternlab
-  // JS SRC
-  const excludePatternlab = paths.patterns.patternlab.exclude.map(
-    item => '!' + path.normalize(paths.modules.patternlab.source.root + '**/' + item)
-  );
-  const filesPatternlab = [path.normalize(paths.patterns.patternlab.all)];
-  const srcPatternlab = filesPatternlab.concat(excludePatternlab);
-  gulp.watch(
-    [srcPatternlab],
-    debounce(
-      gulp.series(
-        patternlab.process,
         utils.reload,
         notice.rebuilt
       ),

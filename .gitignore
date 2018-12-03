@@ -5,7 +5,6 @@ src/js/vendor/
 www
 tests/backstop/bitmaps_test/compare.json
 .DS_Store
-patternlab.json
 /tests/lighthouse/report
 /wordpress/theme/inc/admin/theme/src/stylus/vendor/sprite.styl
 /wordpress/wp-config.php

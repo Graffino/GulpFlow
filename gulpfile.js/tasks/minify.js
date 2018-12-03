@@ -19,8 +19,10 @@ const gulp = require('gulp');
 const plugins = require('gulp-load-plugins')();
 
 // Gulp requires
+const config = require('../config');
 const env = require('../modules/env');
 const paths = require('../modules/paths');
+const utils = require('../modules/utils');
 const error = require('../modules/error');
 
 
@@ -68,7 +70,7 @@ function minifyJS() {
         plugins.sourcemaps.init()
       )
     )
-    .pipe(plugins.uglify())
+    .pipe(plugins.terser())
     .pipe(plugins.rename({suffix: '.min'}))
     // Create sourcemaps only if environment is development
     .pipe(
@@ -106,9 +108,9 @@ function minifyHTML() {
  */
 
 const minifyApp = gulp.parallel(
-  minifyCSS,
-  minifyJS,
-  minifyHTML
+  config.enabled.minify.css ? minifyCSS : utils.noop,
+  config.enabled.minify.js ? minifyJS : utils.noop,
+  config.enabled.minify.html ? minifyHTML : utils.noop,
 );
 
 

@@ -1,8 +1,0 @@
-{
-  "name": "my-radio",
-  "value": "my-radio-value",
-  "label": "Selection this option for nothing at all",
-  "checked": false,
-  "required": true,
-  "disabled": false
-}
