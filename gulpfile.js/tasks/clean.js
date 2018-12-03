@@ -189,11 +189,6 @@ function cleanJunk() {
   return clean(toClean);
 }
 
-// Patternlab
-function cleanPatternlab() {
-  return clean(paths.base.www + paths.base.patternlab);
-}
-
 // Wordpress
 function cleanWordpress() {
   const exclude = paths.patterns.wordpress.exclude.map(
@@ -275,7 +270,6 @@ const cleanApp = gulp.series(
     cleanData,
     cleanVendor,
     cleanStatic,
-    cleanPatternlab,
     cleanWordpress,
     cleanComposer,
     cleanBower,
@@ -312,7 +306,6 @@ module.exports = {
   data: cleanData,
   vendor: cleanVendor,
   static: cleanStatic,
-  patternlab: cleanPatternlab,
   wordpress: cleanWordpress,
   composer: cleanComposer,
   bower: cleanBower,

@@ -1,7 +1,0 @@
-{
-  "name": "full-name",
-  "label": "Full name",
-  "placeholder": "e.g. Michael Smith",
-  "hint": "Enter your full name here",
-  "required": true
-}
