@@ -36,6 +36,7 @@ const paths = require('../modules/paths');
 // Gulp tasks
 const bower = require('../tasks/bower');
 const bundle = require('../tasks/bundle');
+const bump = require('../tasks/bump');
 const clean = require('../tasks/clean');
 const copy = require('../tasks/copy');
 const fonts = require('../tasks/fonts');
@@ -322,6 +323,7 @@ function watchChanges() {
         gulp.series(
           config.clean.watch.wordpress ? clean.wordpress : utils.noop,
           wordpress.process,
+          bump.write,
           utils.reload,
           notice.rebuilt
         )
