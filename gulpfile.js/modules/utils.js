@@ -7,7 +7,13 @@
 
 
 // Node requires
+const fs = require('fs');
+const path = require('path');
 const browserSync = require('browser-sync');
+
+// Gulp requires
+const paths = require('../modules/paths');
+
 
 /**
  * Notice handling
@@ -42,6 +48,11 @@ function reload(done) {
   done();
 }
 
+// Get package.json
+function getPackageJSON() {
+  return JSON.parse(fs.readFileSync(path.normalize(paths.base.root + 'package.json'), 'utf8'));
+}
+
 
 /**
  * Export handler
@@ -50,5 +61,6 @@ function reload(done) {
 module.exports = {
   noop: ಠ_ಠ,
   pumped,
-  reload
+  reload,
+  getPackageJSON
 };

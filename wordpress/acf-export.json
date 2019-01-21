@@ -1,0 +1,435 @@
+[
+    {
+        "key": "group_5c41c56bb80db",
+        "title": "Contact",
+        "fields": [
+            {
+                "key": "field_5c41c928504e4",
+                "label": "Contact",
+                "name": "contact",
+                "type": "repeater",
+                "instructions": "Add Contact Information",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "collapsed": "",
+                "min": 0,
+                "max": 1,
+                "layout": "block",
+                "button_label": "",
+                "sub_fields": [
+                    {
+                        "key": "field_5c41c5841c21a",
+                        "label": "E-Mail",
+                        "name": "email",
+                        "type": "text",
+                        "instructions": "Email address for contact.",
+                        "required": 1,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "example@example.com",
+                        "placeholder": "example@example.com",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    }
+                ]
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "acf-options-contact"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": 1,
+        "description": ""
+    },
+    {
+        "key": "group_57f663dd32eb4",
+        "title": "Options: Page Links",
+        "fields": [
+            {
+                "key": "field_57f66441e33e1",
+                "label": "Cookies Page",
+                "name": "page_cookies",
+                "type": "post_object",
+                "instructions": "Select the cookies footer page.",
+                "required": 1,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "post_type": [
+                    "page"
+                ],
+                "taxonomy": "",
+                "allow_null": 0,
+                "multiple": 0,
+                "return_format": "id",
+                "ui": 1
+            },
+            {
+                "key": "field_5c41f25aba448",
+                "label": "Privacy Page",
+                "name": "page_privacy",
+                "type": "post_object",
+                "instructions": "Select the privacy footer page.",
+                "required": 1,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "post_type": [
+                    "page"
+                ],
+                "taxonomy": "",
+                "allow_null": 0,
+                "multiple": 0,
+                "return_format": "id",
+                "ui": 1
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "acf-options-page-links"
+                }
+            ]
+        ],
+        "menu_order": 8,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": 1,
+        "description": ""
+    },
+    {
+        "key": "group_55a3c9e38801f",
+        "title": "Options: API Settings",
+        "fields": [
+            {
+                "key": "field_55a3c9f1eecdb",
+                "label": "Google Analytics",
+                "name": "google_analytics",
+                "type": "textarea",
+                "instructions": "Enter the GA snipped here.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "",
+                "maxlength": "",
+                "rows": 5,
+                "new_lines": "",
+                "readonly": 0,
+                "disabled": 0
+            },
+            {
+                "key": "field_55a3ca38eecdc",
+                "label": "Mailchimp",
+                "name": "mailchimp",
+                "type": "repeater",
+                "instructions": "Mailchimp API.",
+                "required": 1,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "min": 1,
+                "max": 1,
+                "layout": "block",
+                "button_label": "Add API Settings",
+                "collapsed": "",
+                "sub_fields": [
+                    {
+                        "key": "field_55a3ca65eecdd",
+                        "label": "Account URL",
+                        "name": "account_url",
+                        "type": "text",
+                        "instructions": "The complete domain name, part of the account url that appears when you create a mailchimp signup public form and access the short url. \r\nE.g: http:\/\/xxxx.usx.list-manage.com\/subscribe?u=f9bcf33cd0e1cd367f9a08af0&id=6e86c6c46d",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "xxxx.us6.list-manage.com",
+                        "placeholder": "xxxx.us6.list-manage.com",
+                        "prepend": "http:\/\/",
+                        "append": "\/subscribe?u=f9bcf33cd0e1cd367f9a08af0&id=6e86c6c46d",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_55a409909c8eb",
+                        "label": "User ID",
+                        "name": "user_id",
+                        "type": "text",
+                        "instructions": "The code that follows after \"u=\" part of the account url that appears when you create a mailchimp signup public form and access the short url. \r\nE.g: http:\/\/xxxxx.usx.list-manage.com\/subscribe?u=f9bcf33cd0e1cd367f9a08af0&id=6e86c6c46d",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "f9bcf33cd0e1cd367f9a08af0",
+                        "prepend": "http:\/\/xxxxx.us6.list-manage.com\/subscribe?u=",
+                        "append": "&id=6e86c6c46d",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_55a4099c9c8ec",
+                        "label": "List ID",
+                        "name": "list_id",
+                        "type": "text",
+                        "instructions": "The code that follows after the \"id=\" part of the account url that appears when you create a mailchimp signup public form and access the short url. \r\nE.g: http:\/\/xxxxx.usx.list-manage.com\/subscribe?u=f9bcf33cd0e1cd367f9a08af0&id=6e86c6c46d",
+                        "required": 1,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "6e86c6c46d",
+                        "prepend": "http:\/\/xxxxx.usx.list-manage.com\/subscribe?u=f9bcf33cd0e1cd367f9a08af0&id=",
+                        "append": "",
+                        "maxlength": ""
+                    }
+                ]
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "acf-options-api-settings"
+                }
+            ]
+        ],
+        "menu_order": 9,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": 1,
+        "description": ""
+    },
+    {
+        "key": "group_55a3c89e46591",
+        "title": "Options: Admin Settings",
+        "fields": [
+            {
+                "key": "field_55a3c8a4b9438",
+                "label": "Simple Admin",
+                "name": "simple_admin",
+                "type": "true_false",
+                "instructions": "The interface will be stripped down to a minimum when this option is enabled.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "",
+                "default_value": 1,
+                "ui": 0,
+                "ui_on_text": "",
+                "ui_off_text": ""
+            },
+            {
+                "key": "field_55a3c8d2b9439",
+                "label": "Simple Plugins",
+                "name": "simple_plugins",
+                "type": "true_false",
+                "instructions": "Plugins section will be hidden if this option is enabled regardless of the Simple Admin setting.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "",
+                "default_value": 1,
+                "ui": 0,
+                "ui_on_text": "",
+                "ui_off_text": ""
+            },
+            {
+                "key": "field_55a3c95ab943b",
+                "label": "Simple Settings",
+                "name": "simple_settings",
+                "type": "true_false",
+                "instructions": "Settings section will be hidden if this option is enabled regardless of the Simple Admin setting.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "",
+                "default_value": 1,
+                "ui": 0,
+                "ui_on_text": "",
+                "ui_off_text": ""
+            },
+            {
+                "key": "field_55a3c96eb943c",
+                "label": "Simple ACF",
+                "name": "simple_acf",
+                "type": "true_false",
+                "instructions": "ACF settings section will be hidden if this option is enabled regardless of the Simple Admin setting.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "",
+                "default_value": 1,
+                "ui": 0,
+                "ui_on_text": "",
+                "ui_off_text": ""
+            },
+            {
+                "key": "field_55a3c98bb943d",
+                "label": "Simple Lockdown",
+                "name": "simple_lockdown",
+                "type": "true_false",
+                "instructions": "The site will be visible only to admins when this option is enabled.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "",
+                "default_value": 1,
+                "ui": 0,
+                "ui_on_text": "",
+                "ui_off_text": ""
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "acf-options-admin-settings"
+                }
+            ]
+        ],
+        "menu_order": 10,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": 1,
+        "description": ""
+    },
+    {
+        "key": "group_55a3cd4ba77b1",
+        "title": "Admin: Widget - Support",
+        "fields": [
+            {
+                "key": "field_55a3cd87aa206",
+                "label": "Dashboard Title",
+                "name": "dashboard_title",
+                "type": "text",
+                "instructions": "Support dashboard title.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": "",
+                "readonly": 0,
+                "disabled": 0
+            },
+            {
+                "key": "field_55a3cdadaa207",
+                "label": "Dashboard Content",
+                "name": "dashboard_content",
+                "type": "wysiwyg",
+                "instructions": "Support dashboard content.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "tabs": "visual",
+                "toolbar": "basic",
+                "media_upload": 1,
+                "delay": 0
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "acf-options-global-widgets"
+                }
+            ]
+        ],
+        "menu_order": 11,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": 0,
+        "description": ""
+    }
+]

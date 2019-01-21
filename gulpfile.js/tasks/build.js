@@ -20,6 +20,7 @@ const notice = require('../modules/notice');
 // Gulp tasks
 const bower = require('../tasks/bower');
 const bundle = require('../tasks/bundle');
+const bump = require('../tasks/bump');
 const clean = require('../tasks/clean');
 const critical = require('../tasks/critical');
 const compress = require('../tasks/compress');
@@ -58,6 +59,7 @@ const buildDevelopment = gulp.series(
   externals.copy,
   composer.install,
   lint.app,
+  bump.write,
   watch.app,
   notice.finished
 );
@@ -83,7 +85,8 @@ const buildStaging = gulp.series(
   bundle.app,
   wordpress.process,
   externals.copy,
-  composer.install
+  composer.install,
+  bump.write
 );
 
 
@@ -114,7 +117,8 @@ const buildProduction = gulp.series(
       clean.postproduction,
       wordpress.process,
       externals.copy,
-      composer.install
+      composer.install,
+      bump.write
     )
   )
 );
