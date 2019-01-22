@@ -273,6 +273,7 @@ const $graffino = {
     if (!this.options.debug || !$graffino.options.debug) {
       return false;
     }
+
     // Here we get the arguments and build a string of their values
     const newMsg = Array.prototype.slice.call(arguments).reduce((accum, item) => accum + ' ' + item, '');
     // Output the arguments string to the console

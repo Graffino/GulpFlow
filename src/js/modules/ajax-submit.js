@@ -62,6 +62,7 @@ Object.assign($graffino, {
               if (_this.options.debug && _that.options.debug) {
                 console.log('\t', form);
               }
+
               // Setting default method
               $form.attr('method', vars.defaultMethod);
               _this.log('Setting default method ' + vars.defaultMethod + ' to form id ' + index + '.');
@@ -148,6 +149,7 @@ Object.assign($graffino, {
                       _this.log('Form id ' + index + ' data could not be serialized. ' + error);
                       return;
                     }
+
                     // Sending an AJAX request
                     $.ajax({
                       url: action,

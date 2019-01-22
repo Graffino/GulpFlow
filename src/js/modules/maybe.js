@@ -18,6 +18,7 @@ $graffino.doAction('GLOBAL_FUNCTIONS', 'maybe', () => {
     if (this.isNothing()) {
       return Maybe.of(null);
     }
+
     return Maybe.of(fn(this.__value));
   };
 

@@ -79,6 +79,7 @@ $graffino.doAction('GLOBAL_FUNCTIONS', 'global-functions', () => {
         _this.log(error);
         result = false;
       }
+
       return result;
     },
 
@@ -108,6 +109,7 @@ $graffino.doAction('GLOBAL_FUNCTIONS', 'global-functions', () => {
       while (s.length < size) {
         s = '0' + s;
       }
+
       return s;
     },
 
@@ -121,6 +123,7 @@ $graffino.doAction('GLOBAL_FUNCTIONS', 'global-functions', () => {
       if (string === undefined || string === null) {
         return string;
       }
+
       return string.toString().replace(/\|/g, '');
     }
   });

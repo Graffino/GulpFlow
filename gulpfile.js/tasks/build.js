@@ -135,6 +135,7 @@ const buildApp = function (done) {
   } else {
     buildStaging();
   }
+
   done();
 };
 
