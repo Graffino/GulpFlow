@@ -56,6 +56,7 @@ function criticalCSS() {
   } else {
     criticalCSSSingle(paths.base.www);
   }
+
   return returnStream;
 }
 

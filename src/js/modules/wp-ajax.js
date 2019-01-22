@@ -122,6 +122,7 @@ Object.assign($graffino, {
               if (_this.vars.debug) {
                 console.log(response);
               }
+
               _this.log('Error callback function: ');
               _this.fireCallback(errorCallback);
             }
@@ -137,6 +138,7 @@ Object.assign($graffino, {
       if (_this.options.debug) {
         console.log(options);
       }
+
       $.ajax(options);
     },
 

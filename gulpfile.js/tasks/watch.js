@@ -74,6 +74,7 @@ function watchChanges() {
           try {
             process.kill(pid, 0);
           } catch (error) {}
+
           // Delete PID file
           fs.unlinkSync('gulpfile.js/gulp.pid');
         }

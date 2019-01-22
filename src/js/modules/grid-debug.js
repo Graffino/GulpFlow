@@ -64,6 +64,7 @@ Object.assign($graffino, {
               localStorage.isGridActive = false;
             }
           }
+
           return false;
         } // End if
 
@@ -79,6 +80,7 @@ Object.assign($graffino, {
               localStorage.isConsoleActive = false;
             }
           }
+
           return false;
         } // End if
       }); // End of keydown();
