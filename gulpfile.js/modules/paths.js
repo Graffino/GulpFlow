@@ -357,7 +357,14 @@ const patterns = {
     ],
     excludeSync: [
       '_readme.md',
-      './wordpress/theme/inc/admin/theme/**'
+      './wordpress/theme/inc/admin/theme/**',
+      'pin-icon.svg',
+      'favicon.ico',
+      'touch-icon.png',
+      'social.png',
+      'touch-icon-transparent.png',
+      'humans.txt',
+      'robots.txt'
     ]
   }
 };
