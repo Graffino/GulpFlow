@@ -104,6 +104,9 @@ const $graffino = {
       console.clear();
     }
 
+    // Replace no-js
+    _this.vars.$html.removeClass('no-js').addClass('js');
+
     // Output to console init message
     _this.log('God object initialized. Loading plugins...');
 
