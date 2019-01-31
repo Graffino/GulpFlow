@@ -14,11 +14,10 @@ Author: Graffino (http://www.graffino.com)
 #wp-admin-bar-wp-logo { display: none !important; }
 
 .login h1 a {
-	background: url("../assets/images/svg/logo.svg") no-repeat center center;
+	background: url("../assets/images/svgs/logo-dark.svg") no-repeat center center;
 	background-size: 280px 65px;
 	width: 280px;
-	height: 65px;i
-
+	height: 65px;
 }
 
 /* Fix ACF Uploader */
