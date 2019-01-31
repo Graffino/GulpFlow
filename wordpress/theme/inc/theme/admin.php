@@ -12,7 +12,7 @@
 // Load custom admin styles & scripts
 add_action( 'admin_init', 'admin_load' );
 function admin_load() {
-    wp_enqueue_style( 'customAdminStyle', get_bloginfo('template_url') . '/admin/style.css?' );
+    wp_enqueue_style( 'customAdminStyle', get_bloginfo('template_url') . '/admin/style.css' );
     wp_enqueue_script( 'customAdminScript', get_bloginfo('template_url') . '/admin/script.js' );
 }
 
