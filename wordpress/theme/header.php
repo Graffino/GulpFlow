@@ -44,8 +44,13 @@
     <link rel="apple-touch-icon" href="<?php bloginfo( 'template_directory' ); ?>/touch-icon.png">
     <!-- /Touch Icons -->
 
-    <!-- Preconnect -->
-    <link rel="preconnect" href="<?php echo site_url(); ?>">
+    <!-- Prefetch DNS for external resources -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <!-- /Prefetch DNS -->
+
+    <!-- Preconnect for external resources -->
+    <link rel="preconnect" href="//fonts.googleapis.com">
+    <!-- /Preconnect -->
 
     <!-- Load CSS -->
     <link rel="stylesheet" href="<?php bloginfo( 'template_directory' ); ?>/css/<?php asset_output( 'main', 'css' );?>">
@@ -53,7 +58,7 @@
 
     <!-- Template URL variable -->
     <script type="text/javascript">
-      const templateUrl = '<?= get_bloginfo("template_url"); ?>';
+      const templateUrl = '<?php echo get_bloginfo("template_url"); ?>';
     </script>
     <!-- /Template URL variable -->
 
