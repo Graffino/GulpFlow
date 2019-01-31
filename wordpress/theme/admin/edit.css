@@ -33,15 +33,19 @@ Author: Graffino (http://www.graffino.com)
   font-style: normal;
   font-weight: normal;
   speak: none;
+  cursor: pointer;
 
   position: absolute;
   top: 4px;
   left: 4px;
   pointer-events:none;
 
+  background-color: white;
+  border-radius: 40px;
+  padding: 10px;
+
   text-decoration: inherit;
   text-align: center;
-  /* opacity: .8; */
 
   /* For safety - reset parent styles, that can break glyph codes*/
   font-variant: normal;
@@ -49,8 +53,10 @@ Author: Graffino (http://www.graffino.com)
 
   /* fix buttons height, for twitter bootstrap */
   line-height: 1em;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
 
-  text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.5);
+  transition: 0.2s ease-in-out;
 }
 
 .icon-adm-panel:before { content: '\61'; } /* 'a' */
@@ -67,40 +73,55 @@ Author: Graffino (http://www.graffino.com)
 }
 
 .adm-edit {
-	position: absolute;
-	bottom: 10%;
-	right: 25px;
-	z-index: 99999;
-    display: inline-block;
-	cursor: pointer;
-
+  position: absolute;
+  bottom: 10%;
+  right: 45px;
+  z-index: 99999;
+  display: inline-block;
+  cursor: pointer;
 }
     .adm-edit.-menu {
         bottom: 0;
     }
 
     .adm-edit.-admin {
-        top: 10%;
-        left: 0;
+        top: 65px;
+        left: 45px;
         right: auto;
+        font-size: 20px;
     }
 
-	.icon-adm-edit, .icon-adm-edit-menu, .icon-adm-panel {
-		position: relative;
-		display: inline-block;
-		color: #000;
-		font-size: 12px;
-		cursor: pointer;
-	}
-	.icon-adm-panel { font-size: 20px; }
-	.icon-adm-edit a, .icon-adm-panel a, .icon-adm-edit-menu a {
-		position: absolute;
-		top: 3px;
-		left: 5px;
-		display: block;
-		width: 20px;
-		height: 20px;
-	}
-	.icon-adm-edit:hover, .icon-adm-edit-menu:hover, .icon-adm-panel:hover {
-		color: #bbb;
-	}
+  .icon-adm-edit,
+  .icon-adm-edit-menu,
+  .icon-adm-panel {
+    position: relative;
+    display: inline-block;
+    color: #000;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .icon-adm-edit a,
+  .icon-adm-panel a,
+  .icon-adm-edit-menu a {
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    display: block;
+    width: 30px;
+    height: 35px;
+  }
+  .icon-adm-edit:hover,
+  .icon-adm-edit-menu:hover,
+  .icon-adm-panel:hover {
+    color:white;
+  }
+  .icon-adm-panel {
+    font-size: 20px;
+  }
+  [class^="icon-adm"]:hover:before,
+  [class*=" icon-adm"]:hover:before {
+    background: black;
+    transition: 0.2s ease-in-out;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.2);
+  }

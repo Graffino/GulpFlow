@@ -332,6 +332,7 @@ const patterns = {
     all: modules.wordpress.theme + '**/*',
     clean: [
       base.www + '*.*',
+      base.www + 'admin',
       base.www + 'composer',
       base.www + 'includes',
       base.www + 'partials',
