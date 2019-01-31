@@ -58,8 +58,8 @@ const buildDevelopment = gulp.series(
   wordpress.process,
   externals.copy,
   composer.install,
-  lint.app,
   bump.write,
+  lint.app,
   watch.app,
   notice.finished
 );
