@@ -130,8 +130,8 @@ module.exports = {
 minifyApp.displayName = 'minify';
 minifyApp.description = 'Minifies and uglyfies CSS, JS and HTML files.';
 minifyApp.flags = {
-  '--development': 'Builds CSS and JS sourcemaps.',
-  '--staging': 'Doesn\'t build CSS and JS sourcemaps.',
-  '--production': 'Doesn\'t build CSS and JS sourcemaps.'
+  '--env development': 'Builds CSS and JS sourcemaps.',
+  '--env staging': 'Doesn\'t build CSS and JS sourcemaps.',
+  '--env production': 'Doesn\'t build CSS and JS sourcemaps.'
 };
 gulp.task(minifyApp);

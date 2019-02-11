@@ -72,8 +72,8 @@ module.exports = {
 processJS.displayName = 'js';
 processJS.description = 'Convert application JS files to ES6.';
 processJS.flags = {
-  '--development': 'Builds CSS and JS sourcemaps.',
-  '--staging': 'Doesn\'t build CSS and JS sourcemaps.',
-  '--production': 'Doesn\'t build CSS and JS sourcemaps.'
+  '--env development': 'Builds CSS and JS sourcemaps.',
+  '--env staging': 'Doesn\'t build CSS and JS sourcemaps.',
+  '--env production': 'Doesn\'t build CSS and JS sourcemaps.'
 };
 gulp.task(processJS);

@@ -159,9 +159,9 @@ module.exports = {
 buildApp.displayName = 'build';
 buildApp.description = 'Builds the project.';
 buildApp.flags = {
-  '--development': 'Compliles project and enters watch mode. No optimisations or minifications takes place.',
-  '--staging': 'Compliles project, in the same way as development, without entering watch mode.',
-  '--production': 'Builds in production mode (minification, image optimisation, cleanup).'
+  '--env development': 'Compliles project and enters watch mode. No optimisations or minifications takes place.',
+  '--env staging': 'Compliles project, in the same way as development, without entering watch mode.',
+  '--env production': 'Builds in production mode (minification, image optimisation, cleanup).'
 };
 gulp.task(buildApp);
 
