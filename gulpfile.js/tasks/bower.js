@@ -132,8 +132,8 @@ module.exports = {
 processBower.displayName = 'bower';
 processBower.description = 'Fetches and concatenates bower dependencies into `/css/vendor/bower.css` and `/js/vendor/bower.js` .';
 processBower.flags = {
-  '--development': 'Builds CSS and JS sourcemaps.',
-  '--staging': 'Doesn\'t build CSS and JS sourcemaps.',
-  '--production': 'Doesn\'t build CSS and JS sourcemaps.'
+  '--env development': 'Builds CSS and JS sourcemaps.',
+  '--env staging': 'Doesn\'t build CSS and JS sourcemaps.',
+  '--env production': 'Doesn\'t build CSS and JS sourcemaps.'
 };
 gulp.task(processBower);
