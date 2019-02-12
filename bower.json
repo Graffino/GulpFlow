@@ -51,6 +51,9 @@
     },
     "fontfaceobserver": {
       "main": "fontfaceobserver.js"
+    },
+    "vue": {
+      "main": "dist/vue.js"
     }
   },
   "dependencies": {

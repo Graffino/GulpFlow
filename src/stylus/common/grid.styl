@@ -130,6 +130,18 @@ $responsive-breakpoints = { "size": $xlarge, "name": xlarge },
     &.is-offset-{$column.size} {
       move($column.size / $max-columns);
     }
+
+    // Side Offsets (e.g. ".is-offset-left-six" or ".is-offset-right-6")
+    for $side in left right {
+      &.is-offset-{$side}-{$column.name},
+      &.is-offset-{$side}-{$column.size} {
+        if $side == right {
+          move($column.size / $max-columns);
+        } else if $side == left {
+          move(- $column.size / $max-columns);
+        }
+      }
+    }
   }
 
   // For breakpoint classes, we require a new loop to override previous classes
