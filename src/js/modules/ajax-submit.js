@@ -211,6 +211,9 @@ Object.assign($graffino, {
         // Adding visible class to the success notice element
         // Adding the text message from the AJAX response
 
+        // Making sure response is an AJAX object
+        response = typeof response === 'object' ? response : JSON.parse(response);
+
         // Save notice text
         noticeText = $notice.html();
 
@@ -223,17 +226,13 @@ Object.assign($graffino, {
         // Show notice
         setTimeout(() => $notice.addClass(_that.vars.stateClass.visible), 500);
 
-        // Parse JSON
-        response = JSON.parse(response);
-
         if (response.result === 'error') {
           $notice
             .addClass(_that.vars.stateClass.error)
-            .html('<p class="text">' + response.msg + '</p>');
+            .html(response.msg);
         } else {
           $notice
-            .addClass(_that.vars.stateClass.success)
-            .html('<p class="text">' + response.msg + '</p>');
+            .addClass(_that.vars.stateClass.success);
         }
 
         setTimeout(() => {
@@ -257,19 +256,19 @@ Object.assign($graffino, {
         // Save notice text
         noticeText = $notice.html();
 
+      // Making sure response is an AJAX object
+      response = typeof response === 'object' ? response : JSON.parse(response);
+
       // Hide content
       $content.addClass(_that.vars.stateClass.hidden);
 
       // Show notice
       setTimeout(() => $notice.addClass(_that.vars.stateClass.visible), 500);
 
-      // Parse JSON
-      response = JSON.parse(response);
-
       // Adding visible class to the success notice element
       $notice
         .addClass(_that.vars.stateClass.error)
-        .html('<p class="text">' + response.msg + '</p>');
+        .html(response.msg);
 
       setTimeout(() => {
         $notice

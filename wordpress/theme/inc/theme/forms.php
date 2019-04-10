@@ -54,7 +54,13 @@ function check_for_post() {
 				$contact_message = get_post_var( 'contact_message' );
 
 				if ( $contact_name && $contact_email && $contact_message ) {
-					echo contact_form( $contact_email, $contact_name, $contact_message );
+					$result = contact_form( compact( $contact_email, $contact_name, $contact_message ) );
+
+					if ( 1 == $result ) {
+						echo '{"result":"success","msg":"Mesajul dvs. a fost trimis."}';
+					} else {
+						echo '{"result":"error","msg":"A aparut o eroare. Ne cerem scuze."}';
+					}
 					die();
 				} else {
 					//This should never fire for JS enabled browers.
@@ -83,7 +89,8 @@ function check_for_post() {
 }
 
 // Contact form
-function contact_form( $contact_email, $contact_name, $contact_message ) {
+function contact_form( ...$params ) {
+	extract( $params[0] );
 
 	// Set subject
 	$mail_subject = 'New contact request from ' . $contact_name;
@@ -99,10 +106,7 @@ function contact_form( $contact_email, $contact_name, $contact_message ) {
 	$mail_body = <<<EOT
 Hello,
 
-This is an automated message generated via {$mail_to_name} website.
-
-Message content:
-===================================================
+$contact_name sent a message via {$mail_to_name} website.
 
 Name: {$contact_name}
 E-mail: {$contact_email}
@@ -111,9 +115,7 @@ Message:
 {$contact_message}
 
 Have a nice day!
-
-===================================================
-IP address used to send this message: {$mail_ip}
+$mail_to_name.
 
 EOT;
 	// Send it via WP Mailer
