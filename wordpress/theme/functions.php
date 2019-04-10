@@ -9,11 +9,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Include files
- */
+// Require class autoloader
+require_once get_template_directory() . '/inc/theme/classes/class-autoloader.php';
 
-// Modules
+// Autoload Classes
+$class_autoload_path = __DIR__ . '/inc/theme/classes/';
+GWP_ClassAutoLoader::set_path( $class_autoload_path );
+spl_autoload_register( 'Class_Autoloader::loader' );
+
+// Autoload Modules
 $modules = new \FilesystemIterator( __DIR__ . '/inc/theme', \FilesystemIterator::SKIP_DOTS );
 try {
 	foreach ( $modules as $module ) {
@@ -22,3 +26,4 @@ try {
 } catch ( Exception $error ) {
 	return $error;
 }
+

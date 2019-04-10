@@ -91,7 +91,7 @@
 					'theme_location' => 'primary-right',
 					'container'      => false,
 					'items_wrap'     => '%3$s',
-					'walker'         => new Menu_Main,
+					'walker'         => new Main_Menu_Walker,
 					'block'          => 'nav',
 				) );
 				?>
