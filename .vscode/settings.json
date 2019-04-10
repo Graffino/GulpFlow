@@ -1,5 +1,4 @@
 {
   "phpcs.enable": true,
-  "php-cs-fixer.rules": "Wordpres-Core",
   "phpcs.standard": "Wordpress-Core"
 }
