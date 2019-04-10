@@ -95,7 +95,7 @@ function lintPHP() {
     // Fix pipe on error
     .pipe(plugins.plumber({errorHandler: error.notice}))
     .pipe(plugins.phpcs({
-      standard: 'PSR2',
+      standard: 'Wordpress-Core',
       showSniffCode: true,
       warningSeverity: 0,
       ignore: '*/www/*'

@@ -223,13 +223,17 @@ Object.assign($graffino, {
         // Show notice
         setTimeout(() => $notice.addClass(_that.vars.stateClass.visible), 500);
 
+        // Parse JSON
+        response = JSON.parse(response);
+
         if (response.result === 'error') {
           $notice
             .addClass(_that.vars.stateClass.error)
             .html('<p class="text">' + response.msg + '</p>');
         } else {
           $notice
-            .addClass(_that.vars.stateClass.success);
+            .addClass(_that.vars.stateClass.success)
+            .html('<p class="text">' + response.msg + '</p>');
         }
 
         setTimeout(() => {
@@ -258,6 +262,9 @@ Object.assign($graffino, {
 
       // Show notice
       setTimeout(() => $notice.addClass(_that.vars.stateClass.visible), 500);
+
+      // Parse JSON
+      response = JSON.parse(response);
 
       // Adding visible class to the success notice element
       $notice

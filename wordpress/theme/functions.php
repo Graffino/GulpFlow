@@ -5,18 +5,25 @@
 //
 
 // If file is accessed directly, exit
-if ( ! defined( 'ABSPATH' ) ) { exit; }
-
-/**
- * Include files
- */
-
-// Modules
-$modules = new \FilesystemIterator( __DIR__.'/inc/theme', \FilesystemIterator::SKIP_DOTS );
-try {
-    foreach ( $modules as $module ) {
-        ! $modules->isDir() and include $module->getRealPath();
-    }
-} catch( Exception $error ) {
-    return $error;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
+
+// Require class autoloader
+require_once get_template_directory() . '/inc/theme/classes/class-autoloader.php';
+
+// Autoload Classes
+$class_autoload_path = __DIR__ . '/inc/theme/classes/';
+GWP_ClassAutoLoader::set_path( $class_autoload_path );
+spl_autoload_register( 'Class_Autoloader::loader' );
+
+// Autoload Modules
+$modules = new \FilesystemIterator( __DIR__ . '/inc/theme', \FilesystemIterator::SKIP_DOTS );
+try {
+	foreach ( $modules as $module ) {
+		! $modules->isDir() and include $module->getRealPath();
+	}
+} catch ( Exception $error ) {
+	return $error;
+}
+

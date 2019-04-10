@@ -76,7 +76,7 @@ const enabled = {
     css: true,
     js: true,
     html: true,
-    php: false
+    php: true
   },
 
   // Watch (Only for PHP linting)

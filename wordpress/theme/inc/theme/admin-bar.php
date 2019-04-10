@@ -4,8 +4,8 @@
 // Author: Graffino (http://www.graffino.com)
 //
 
-function remove_admin_bar () {
-    return false;
+function remove_admin_bar() {
+	return false;
 }
 
-add_filter( 'show_admin_bar' , 'remove_admin_bar');
+add_filter( 'show_admin_bar', 'remove_admin_bar' );
