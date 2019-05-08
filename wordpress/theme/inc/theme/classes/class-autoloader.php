@@ -5,11 +5,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class Class Autoloader
+ * Class Autoloader
  *
  * @since annotext 2.0.0
  */
-class Class_Autoloader {
+class Autoloader {
 	/** @var bool DEBUG Enable debug */
 	const DEBUG = false;
 	/** @var string $autoload_extension File extension */
