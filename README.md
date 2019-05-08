@@ -10,32 +10,39 @@ Gulp basic flow we use at Graffino. This site uses *Stylus* and it's deployed wi
 
 ## Install Node
 
-### 1 (macOS). Make sure you have the latest node version
+### 1 (macOS)
+
+#### Make sure you have *NodeJS 9.11.2*
 
 ```bash
 # Use Homebrew to install node
-$ brew install nodejs
+brew install n
+n 9.11.2
 ```
 
-### 1 (Linux). Make sure you have the latest node version
+### 1 (Linux)
+
+#### Make sure you have *NodeJS 9.11.2*
 
 ```bash
-# Clear NPM's cache
-$ npm cache clean -f
 # Install a little helper called 'n'
-$ npm install -g n
-# Install latest node stable version
-$ sudo n stable
+npm install -g n
+# Install latest supported node version
+sudo n 9.11.2
 ```
 
-### 1 (Windows). Make sure you have the latest node version
+### 1 (Windows). Works only with Windows Linux Subsystem
+
+- This might not work on Windows. We highly suggest you install these on a linux virtual machine / docker instance.
+
+#### Make sure you have *NodeJS 9.11.2*
 
 ```bash
-# Get & Install NodeJS 8.x.x
-https://nodejs.org/download/release/v8.x.x/
+# Get & Install NodeJS 9.11.2
+https://nodejs.org/download/release/v9.11.2/
 ```
 
-### 2. Install Node Build Tools (Windows)
+#### Install Node Build Tools (Windows - May be outdated / may not work)
 
 ```bash
 # Start Console with Administrator privileges
@@ -44,9 +51,10 @@ $ npm config set msvs_version 2015
 $ npm config set python %USERPROFILE%\.windows-build-tools\python27\python.exe
 ```
 
-#### It may help to have these packages globally installed (because Windows :/)
+### 2. Suggested global npm packages
 
 ```bash
+# Install global npm modules
 npm install -g babel-cli backstopjs bower browser-sync critical eslint gulp-cli htmlhint lighthouse npm-check-updates nunjucks phantomjs phplint slimerjs stylint stylint-json-reporter stylus ttf2woff xo
 ```
 
@@ -54,33 +62,30 @@ npm install -g babel-cli backstopjs bower browser-sync critical eslint gulp-cli 
 
 See the install option for your OS: [here](https://yarnpkg.com/en/docs/install)
 
-### 4. Make sure you have Gulp 4 beta
+### 4. Make sure you have Gulp 4
 
 ```bash
-# Uninstall previous Gulp installation, if any
-$ yarn global remove gulp
-$ cd [your_project_root]
-$ yarn remove gulp
-
 # Install the latest Gulp 4 CLI tools globally
-$ yarn global add gulpjs/gulp-cli
-
-# Install Gulp 4 into your project
-$ yarn add gulpjs/gulp.git#4.0 --dev
+npm -g install gulp-cli
 
 # Check the versions installed
-$ gulp -v
+gulp -v
 ---
-[10:48:35] CLI version 1.2.2
-[10:48:35] Local version 4.0.0-alpha.2
+CLI version 2.2.0
+Local version 4.0.2
 ```
 
-## How to start
-
-Run in this order:
+### 5. Install node modules (in project root folder)
 
 ```bash
 yarn
+```
+
+## How to start in development watch mode
+
+```bash
+gulp --env development
+# or just
 gulp
 ```
 
@@ -91,28 +96,29 @@ to generate all assets for a development deployment and enter watch mode.
 ```bash
 bower_components    -> Needed for development
 node_modules        -> Needed for development
-www                 -> This is where your project gets deployed
+www                 -> This is where your project gets deployed (also final Wordpress theme)
 tests/regression    -> Regression testing files
 ```
 
 ## What's included
 
-* Stylus -> compilation to CSS
-* Javascript with jQuery
-* Handlebars (helpers, partials and templates) -> compilation to JS
-* SVG Sprites -> automatic Stylus icon and Stylus files generation
-* Image optimization -> automatic optimization without significant loss of quality
-* Font generation from TTF -> WOFF, WOFF2
-* Dependencies management via bower -> automatic injection of CSS and JS dependencies into the project
-* Concatenation & minification (CSS, JS, HTML)
-* Critical CSS -> generation and injection into HTML
-* Composer install -> automatic install of composer dependencies
-* Development mode -> Complete with JS, HTML, PHP, Stylus linters, Watch and BrowserSync integration
-* Production mode -> Includes optimizations, minifications and critical CSS
-* Regression testing with BackstopJS
-* Git version bumping
-* Notifications -> via native OS notification system
-* Separate build folder -> 1 command creates a ready for deployment build
+- Stylus -> compilation to CSS
+- Javascript with jQuery
+- Nunjucks (helpers, partials and templates) -> compilation to JS
+- SVG Sprites -> automatic Stylus icon and Stylus files generation
+- Image optimization -> automatic optimization without significant loss of quality
+- Font generation from TTF -> WOFF, WOFF2
+- Dependencies management via bower -> automatic injection of CSS and JS dependencies into the project
+- Concatenation & minification (CSS, JS, HTML)
+- Critical CSS -> generation and injection into HTML
+- Composer install -> automatic install of composer dependencies
+- Development mode -> Complete with JS, HTML, PHP, Stylus linters, Watch and BrowserSync integration
+- Production mode -> Includes optimizations, minifications and critical CSS
+- Regression testing with BackstopJS
+- Git version bumping
+- Notifications -> via native OS notification system
+- Separate build folder -> 1 command creates a `www` folder ready for deployment build
+- Wordpress theme build system
 
 ## What can it do
 
@@ -135,33 +141,41 @@ Run `gulp --debug true` to enable certain debug flags. Note that just some plugi
 
 ## Inject Critical CSS
 
-*Note: injecting happens in the `--env production` task automatically*
+Run `gulp critical`.
 
-Run:
+## PHP composer support for automatic dependencies management in Gulp
 
-1. `gulp --env production`
+- Gulp will search for any composer files and execute them when Wordpress build is enabled.
+
+```bash
+# Install composer
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('sha384', 'composer-setup.php') === '48e3236262b34d30969dca3c37281b3b4bbe3221bda826ac6a9a62d6444cdb0dcd0615698a5cbe587c3f0fe57a54d8f5') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+```
 
 ## Regression testing
 
 ### To get regression testing up and running
 
-1. Install smimerjs: `yarn global add slimerjs`
-2. Install casper: `yarn global add casperjs`
-3. Install backstopjs: `yarn global add backstopjs`
+1. Install smimerjs: `npm -g install slimerjs`
+2. Install casper: `npm -g install casperjs`
+3. Install backstopjs: `npm -g install backstopjs`
 4. Regression initial config:
-    * `gulp backstop:config`
-    * Edit/Insert required scenarios in `backstop.json`.
+    - `gulp backstop:config`
+    - Edit/Insert required scenarios in `backstop.json`.
 
 ### To test for regressions
 
 1. Create Regression reference:
-    * `gulp backstop:reference`
+    - `gulp backstop:reference`
 2. Run a regression test:
-    * `gulp backstop`
+    - `gulp backstop`
 3. Bless files (if we have older reference files):
-    * `gulp backstop:bless`
+    - `gulp backstop:bless`
 4. Open regression report:
-    * `gulp backstop:report`
+    - `gulp backstop:report`
 
 ## Google Lighthouse report
 
@@ -180,11 +194,11 @@ Run:
 
 Run:
 
-1. `yarn run check-npm-updates` to check for node modules updates
-2. `yarn run check-npm-updates` to check for node modules updates
-3. `yarn run update-npm-modules` to update package.json with the new node module versions and install all non-breaking module updates.
-4. `yarn run update-bower-modules` to update bower.json with the new bower module versions and install all non-breaking module updates.
+1. `npm run check-npm-updates` to check for node modules updates
+2. `npm run check-npm-updates` to check for node modules updates
+3. `npm run update-npm-modules` to update package.json with the new node module versions and install all non-breaking module updates.
+4. `npm run update-bower-modules` to update bower.json with the new bower module versions and install all non-breaking module updates.
 
 ## DISCLAIMER
 
-We know it's not complete, not well documented. We're working on it :). You'll need knowledge of node, gulp, bower and Stylus to master this.
+We know it's not complete, not well documented. You'll need knowledge of node, gulp, bower and Stylus to master this.
