@@ -50,7 +50,9 @@
     ],
     "settings": {
       "polyfills": [
-        "promises"
+        "Promise",
+        "Object.assign",
+        "Number.isInteger"
       ]
     },
     "rules": {
@@ -61,6 +63,9 @@
           "max": 2
         }
       ],
+      "unicorn/prefer-includes": 0,
+      "unicorn/no-zero-fractions": 0,
+      "unicorn/prevent-abbreviations": 0,
       "prefer-rest-params": 0,
       "prefer-destructuring": 0,
       "no-extend-native": 0,
