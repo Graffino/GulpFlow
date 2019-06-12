@@ -33,7 +33,10 @@ const enabled = {
   // Stylus compile
   stylus: true,
   // Sprite generation,
-  sprite: true,
+  sprite: {
+    compile: true,
+    inject: true
+  },
   // JS
   js: true,
   // Fonts conversion

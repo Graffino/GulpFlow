@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  gulpflow:
+    container_name: gulpflow
+    build: ./
+    image: gulpflow:1.0
+    volumes:
+      - ../:/home/gulpflow:delegated
+    working_dir: /home/gulpflow
+    ports:
+      - 3000:3000

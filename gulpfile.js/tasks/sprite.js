@@ -42,11 +42,33 @@ function compileSprite() {
 
 
 /**
+ * Inject Sprite
+ */
+
+function injectSprite() {
+  const src = [path.normalize(paths.base.src + paths.patterns.icons.injectTemplate)];
+  return gulp.src(src)
+    .pipe(
+      plugins.inject(
+        gulp.src([
+          paths.base.www + paths.modules.icons.root + 'sprite-symbols.svg'
+        ]), {
+          transform: (filePath, file) => {
+            return file.contents.toString('utf8');
+          }
+        },
+      ),
+    )
+    .pipe(gulp.dest(paths.base.src + paths.modules.nunjucks.root + 'layouts'));
+}
+
+/**
  * Process Sprite
  */
 
-const processSprite = gulp.parallel(
-  config.enabled.sprite ? compileSprite : utils.noop
+const processSprite = gulp.series(
+  config.enabled.sprite.compile ? compileSprite : utils.noop,
+  config.enabled.sprite.inject ? injectSprite : utils.noop
 );
 
 
@@ -55,7 +77,9 @@ const processSprite = gulp.parallel(
  */
 
 module.exports = {
-  process: config.enabled.sprite ? processSprite : utils.noop
+  process: processSprite,
+  compile: config.enabled.sprite.compile ? compileSprite : utils.noop,
+  inject: config.enabled.sprite.inject ? injectSprite : utils.noop
 };
 
 
