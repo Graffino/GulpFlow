@@ -32,7 +32,7 @@
     "jquery": "~3.4.1",
     "jquery-migrate": "^3.0.0",
     "svg4everybody": "^2.1.9",
-    "ramda": "^0.26.1",
+    "ramda": "^0.27.0",
     "Babel-Polyfill-Standalone": "babel-polyfill-standalone#^6.26.0",
     "lodash": "^4.17.11",
     "velocity": "1.5.1",
