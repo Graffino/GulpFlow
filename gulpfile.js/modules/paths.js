@@ -122,8 +122,7 @@ const modules = {
   // Sprite icons
   icons: {
     root: 'icons/',
-    noSprite: 'icons/no-sprite/',
-    injectTemplate: 'html/layouts/'
+    noSprite: 'icons/no-sprite/'
   },
 
   // Images
@@ -221,7 +220,6 @@ const patterns = {
   icons: {
     all: modules.icons.root + '**/*.svg',
     noSprite: modules.icons.noSprite + '**/*.svg',
-    injectTemplate: modules.icons.injectTemplate + 'app.njk',
     exclude: [
       'no-sprite',
       'no-sprite/**'

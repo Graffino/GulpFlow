@@ -46,7 +46,7 @@ function compileSprite() {
  */
 
 function injectSprite() {
-  const src = [path.normalize(paths.base.src + paths.patterns.icons.injectTemplate)];
+  const src = [path.normalize(paths.base.www + paths.patterns.html.all)];
   return gulp.src(src)
     .pipe(
       plugins.inject(
@@ -59,7 +59,7 @@ function injectSprite() {
         },
       ),
     )
-    .pipe(gulp.dest(paths.base.src + paths.modules.nunjucks.root + 'layouts'));
+    .pipe(gulp.dest(paths.base.www));
 }
 
 /**
