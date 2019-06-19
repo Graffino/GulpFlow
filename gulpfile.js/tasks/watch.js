@@ -160,6 +160,7 @@ function watchChanges() {
       gulp.series(
         config.clean.watch.html ? clean.html : utils.noop,
         nunjucks.process,
+        config.enabled.sprite.inject ? sprite.inject : utils.noop,
         lint.html,
         utils.reload,
         notice.rebuilt
