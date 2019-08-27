@@ -1,4 +1,7 @@
+# Archived - You have served us well for the past 4 years, checkout [Ninja](https://github.com/Graffino/ninja).
+
 # GulpFlow 4
+
 
 Gulp basic flow we use at Graffino. This site uses *Stylus* and it's deployed with *Gulp*.
 
