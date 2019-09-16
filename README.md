@@ -1,4 +1,4 @@
-# Archived - You have served us well for the past 4 years, checkout [Ninja](https://github.com/Graffino/ninja).
+# Archived - You have served us well for the past 4 years, checkout [Ninja](https://graffino.ninja).
 
 # GulpFlow 4
 
